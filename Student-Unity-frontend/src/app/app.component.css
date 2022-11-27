@@ -1,0 +1,17 @@
+
+.dropdown-toggle {
+    outline: 0;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-item a.active {
+    background-color: #0d6efd;
+}
+
+.nav-item a:hover:not(.active) {
+    background-color: #0d6efd;
+}
