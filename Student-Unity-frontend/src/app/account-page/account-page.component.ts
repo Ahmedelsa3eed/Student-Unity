@@ -13,6 +13,8 @@ export class AccountPageComponent implements OnInit {
   public isLoading: boolean = false;
   users ?: Observable<User[]>;
   users$ = new BehaviorSubject<User[]>([]);
+  public searchString: string = "";
+
 
   constructor(/*private accountsService: AccountsService*/) { }
 
@@ -93,6 +95,15 @@ export class AccountPageComponent implements OnInit {
         "role": "user",
         "sessionID": "1234567890"
       }]);
+
+  }
+  public deleteAccount(id: number) {
+
+  }
+  public changeRole(id: number) {
+
+  }
+  public search() {
 
   }
 

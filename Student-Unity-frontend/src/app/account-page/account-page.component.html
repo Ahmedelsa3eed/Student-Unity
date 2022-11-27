@@ -1,3 +1,15 @@
-<div style="display: inline-block" >
+<!-- Search Bar -->
+
+
+<div class="main-content" style="margin-left:2%;padding:1px 16px;height:1000px; margin-top: 10px">
+  <div class="input-group  m-1">
+    <input name="search" type="text" class="form-control" placeholder="Search" aria-label="Search"
+           aria-describedby="button-addon2" [(ngModel)]="searchString">
+    <button class="btn btn-outline-secondary" style="background: #212529; color: white;" type="button"
+            id="button-addon2" (click)="search()">
+      OK
+    </button>
+  </div>
+
     <app-account class="col-md-20" *ngFor="let user of users | async" [user]="user" style="display: inline-block"  ></app-account>
 </div>
