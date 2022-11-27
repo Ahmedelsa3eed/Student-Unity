@@ -1,0 +1,13 @@
+<div class="card m-3" style="width: 18rem;">
+  <div class="container" >
+    <p class="m-3">Name: {{user.name}}</p>
+    <p class="m-3">ID: {{user.studentId}}</p>
+    <p class="m-3">Email: {{user.email}}</p>
+    <p class="m-3">Role: {{user.role}}</p>
+
+    <div class="m-2">
+      <button *ngIf="user.role != 'admin'  "  class="btn btn-success m-1">make {{user.name}} admin </button>
+      <button class="btn btn-danger m-1">remove user </button>
+    </div>
+  </div>
+</div>
