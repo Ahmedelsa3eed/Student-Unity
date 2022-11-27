@@ -1,6 +1,5 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,17 @@ public class AccountService {
 
     List<Object> getAllAccounts(String sessionId) {
         // call activeUser service
-        return accountRepo.findByEmail("es-amgaballah24@alexu.edu.eg");
+        return accountRepo.getAllAccounts();
+    }
+
+    List<Object> searchAccounts(String sessionId, String search) {
+        // call activeUser service
+        return accountRepo.searchAccounts(search);
+    }
+
+    Boolean changeRole(String sessionId, String id, String role) {
+        // call activeUser service
+         accountRepo.changeRole(id, role);
+         return true;   // return true if successful
     }
 }
