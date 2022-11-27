@@ -1,0 +1,5 @@
+<main class="inbox" >
+  <div class="section" >
+    <app-account *ngFor="let user of users | async" [user]="user" style="display: inline-block"  ></app-account>
+  </div>
+</main>
