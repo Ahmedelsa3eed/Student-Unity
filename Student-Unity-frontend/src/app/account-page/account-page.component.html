@@ -1,15 +1,22 @@
-<!-- Search Bar -->
-
-
-<div class="main-content" style="margin-left:2%;padding:1px 16px;height:1000px; margin-top: 10px">
-  <div class="input-group  m-1">
-    <input name="search" type="text" class="form-control" placeholder="Search" aria-label="Search"
-          aria-describedby="button-addon2" [(ngModel)]="searchString" (input)="search()">
-    <p class="bi-search m-2" >
-    </p>
+<div class="main-content accounts">
+  <!-- Search Bar -->
+  <div class="input-group m-1">
+    <input 
+      class="form-control" 
+      name="search"
+      type="text" 
+      placeholder="Search" 
+      aria-label="Search"
+      aria-describedby="button-addon2" 
+      [(ngModel)]="searchString" 
+      (input)="search()">
+    <p class="bi-search m-2" ></p>
   </div>
 
-  <app-account class="col-md-20" *ngFor="let user of users | async" [user]="user"
-    style="display: inline-block">
+  <!-- Accounts -->
+  <app-account 
+    class="col-md-20" 
+    style="display: inline-block" 
+    *ngFor="let user of users | async" [user]="user">
   </app-account>
 </div>

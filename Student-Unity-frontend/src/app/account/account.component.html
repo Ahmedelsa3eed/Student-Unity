@@ -1,16 +1,35 @@
-<div class="card m-2 shadow" style="width: 18rem;">
-  <div class="container" >
-    <p class="m-1">Name: {{user.name}}</p>
-    <p class="m-1">ID: {{user.id}}</p>
-    <p class="m-1">Email: {{user.email}}</p>
-    <p class="m-1">Role: {{user.role}}</p>
+<div class="card m-2 shadow account-card">
+  <div class="container">
+    <!-- Info -->
+    <p id="name">{{user.name}}</p>
+    <p>ID: {{user.id}}</p>
+    <p>{{user.email}}</p>
 
-    <div class="m-1">
-      <button *ngIf="user.role != 'admin'" (click)="makeAdmin()"  class="btn btn-success  m-1">Make Admin </button>
-      <button *ngIf=" user.role!='editor'" (click)="makeEditor()"  class="btn btn-secondary m-1">Make Editor </button>
+    <!-- Edit roles -->
+    <form #myform="ngForm" (change)="changeRole(myform.value)">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="role" id="admin" value="admin" [(ngModel)]="user.role">
+        <label class="form-check-label" for="admin">
+          Admin
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="role" id="editor" value="editor" [(ngModel)]="user.role">
+        <label class="form-check-label" for="editor">
+          Editor
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="role" id="student" value="student" [(ngModel)]="user.role">
+        <label class="form-check-label" for="student">
+          Student
+        </label>
+      </div>
+    </form>
 
+    <div>
+      <button class="btn btn-danger m-1" (click)="removeUser()">Remove</button>
     </div>
-    <button (click)="removeUser()" class="btn btn-danger m-1">remove user </button>
 
   </div>
 </div>
