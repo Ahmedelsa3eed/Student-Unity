@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { User} from "../models/User";
+import {AccountsService} from "../accounts-service.service";
 
 @Component({
   selector: 'app-account',
@@ -8,7 +9,8 @@ import { User} from "../models/User";
 })
 export class AccountComponent implements OnInit {
   @Input() user = new User();
-  constructor() { }
+
+  constructor(/*private accountService: AccountsService*/ ) { }
 
   ngOnInit(): void {
   }
@@ -16,6 +18,14 @@ export class AccountComponent implements OnInit {
   // This is a method that is called when the user clicks the "remove" button.
   // It will remove the user from the list of users.
   removeUser() {
+
+    // @ts-ignore
+    this.accountService.deleteAccount(this.user, this.user).subscribe(
+      (response: any) => {
+        console.log(response);
+      });
+
+
 
   }
 

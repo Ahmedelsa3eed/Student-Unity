@@ -9,33 +9,26 @@ import {AccountsService} from "../accounts-service.service";
   styleUrls: ['./account-page.component.css']
 })
 export class AccountPageComponent implements OnInit {
-
+  public user = new User();
   public isLoading: boolean = false;
   users ?: Observable<User[]>;
   users$ = new BehaviorSubject<User[]>([]);
   public searchString: string = "";
 
 
-  constructor(/*private accountsService: AccountsService*/) { }
+  constructor( /*private accountsService: AccountsService*/) { }
 
   ngOnInit(): void {
     this.getAccounts();
     this.users = this.users$.asObservable();
+
   }
 
   getAccounts() {
     // this.isLoading = true;
-    // // @ts-ignore
-    // this.accountsService.getAccounts().subscribe((data: User[]) => {
-    //   this.users$.next(data);
+    // this.accountsService.getAccounts(this.user).subscribe(res => {
+    //   this.users$.next(res.body);
     //   this.isLoading = false;
-    // }, (error: any) => {
-    //   console.log(error);
-    //   this.isLoading = false;
-    //
-    // }, () => {
-    //   this.isLoading = false;
-    //
     // });
     // @ts-ignore
     this.users$.next([
