@@ -1,0 +1,37 @@
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.parent {
+  margin: 20px auto;
+  background-color: #ddd;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.parent div {
+  background-color: #212529;
+  color: white;
+  padding: 29px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.parent div i {
+  display: block;
+  font-size: 2rem;
+}
+
+.parent div.active {
+  background-color: #0d6efd;
+}
+
+.parent div:hover:not(.active) {
+  background-color: #0d6efd;
+}
+
+/* * {
+    box-sizing: border-box;
+} */
