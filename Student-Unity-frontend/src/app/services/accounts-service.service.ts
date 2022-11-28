@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class AccountsService {
-  private url = "http://localhost:8080/accounts";
+  private url = "http://localhost:8090/accounts";
 
   constructor(private http: HttpClient) { }
 
@@ -33,27 +33,32 @@ export class AccountsService {
     }
   }
 
-  public changeRole(user: User, targetUser: User, role: string) {
-    return this.http.put(this.url + '/changeRole',{}), {
+  public changeRole(user: User, targetUser: User, role: string) : Observable<HttpResponse<any>> {
+    return this.http.put<boolean>(this.url + '/changeRole',{}, {
       observe: 'response',
       responseType: 'json',
       params: {
         sessionId: user.sessionID,
-        targetUserId: targetUser.studentId,
+        targetUserId: targetUser.id,
         role: role
       }
-    }
+    });
+
   }
 
-  public deleteAccount(user: User, targetUser: User) {
-    return this.http.delete(this.url + '/delete'), {
+  public deleteAccount(user: User, targetUser: User) : Observable<HttpResponse<any>> {
+      console.log("deleteAccount");
+      console.log(user);
+      console.log(targetUser);
+    return this.http.delete(this.url + '/delete', {
       observe: 'response',
-      responseType: 'json',
       params: {
-        sessionId: user.sessionID,
-        targetUserId: targetUser.studentId
-      }
-    }
+        sessionId: "454545" /*user.sessionID*/,
+        targetUserId: targetUser.id
+      },
+      responseType: 'json'
+
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 package csed.swe.studentunity.account;
 
+import csed.swe.studentunity.model.Account;
 import csed.swe.studentunity.model.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class AccountAPI {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Object>> getAllAccounts(@Param("sessionId")String sessionId) {
-        List<Object> response = accountService.getAllAccounts(sessionId);
+    public ResponseEntity<List<User>> getAllAccounts(@Param("sessionId")String sessionId) {
+        List<User> response = accountService.getAllAccounts(sessionId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -31,9 +32,15 @@ public class AccountAPI {
     }
 
     @PutMapping("/changeRole")
-    public ResponseEntity<Boolean> changeRole(@Param("sessionId")String sessionId,
-                                              @Param("targetUserId")Long targetUserId,
-                                              @Param("role")String role) {
+    @ResponseBody
+    public ResponseEntity<Boolean> changeRole(@RequestParam("sessionId")String sessionId,
+                                              @RequestParam("targetUserId")Long targetUserId,
+                                              @RequestParam("role")String role) {
+        System.out.println("changeRole");
+        System.out.println(sessionId);
+        System.out.println(targetUserId);
+        System.out.println(role);
+
         return new ResponseEntity<>(accountService.changeRole(sessionId, targetUserId, role), HttpStatus.OK);
     }
 

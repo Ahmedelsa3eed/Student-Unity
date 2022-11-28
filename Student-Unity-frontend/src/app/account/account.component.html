@@ -1,13 +1,16 @@
 <div class="card m-2 shadow" style="width: 18rem;">
   <div class="container" >
     <p class="m-1">Name: {{user.name}}</p>
-    <p class="m-1">ID: {{user.studentId}}</p>
+    <p class="m-1">ID: {{user.id}}</p>
     <p class="m-1">Email: {{user.email}}</p>
     <p class="m-1">Role: {{user.role}}</p>
 
     <div class="m-1">
-      <button *ngIf="user.role != 'admin'  "  class="btn btn-success m-1">Make Admin </button>
-      <button class="btn btn-danger m-1">remove user </button>
+      <button *ngIf="user.role != 'admin'" (click)="makeAdmin()"  class="btn btn-success  m-1">Make Admin </button>
+      <button *ngIf=" user.role!='editor'" (click)="makeEditor()"  class="btn btn-secondary m-1">Make Editor </button>
+
     </div>
+    <button (click)="removeUser()" class="btn btn-danger m-1">remove user </button>
+
   </div>
 </div>

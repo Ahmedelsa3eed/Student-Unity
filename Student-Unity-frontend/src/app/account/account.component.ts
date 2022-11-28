@@ -18,7 +18,6 @@ export class AccountComponent implements OnInit {
   // This is a method that is called when the user clicks the "remove" button.
   // It will remove the user from the list of users.
   removeUser() {
-    // @ts-ignore
     this.accountService.deleteAccount(this.user, this.user).subscribe(
       (response: any) => {
         console.log(response);
@@ -28,7 +27,18 @@ export class AccountComponent implements OnInit {
   // This is a method that is called when the user clicks the "make admin" button.
   // It will make the user an admin.
   makeAdmin() {
-
+    this.accountService.changeRole(this.user, this.user, "admin").subscribe(
+      (response: any) => {
+        console.log(response);
+      }
+    );
   }
 
+  makeEditor() {
+    this.accountService.changeRole(this.user, this.user, "editor").subscribe(
+      (response: any) => {
+        console.log(response);
+      }
+    );
+  }
 }

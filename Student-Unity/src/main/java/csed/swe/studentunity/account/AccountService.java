@@ -1,5 +1,7 @@
 package csed.swe.studentunity.account;
 
+import csed.swe.studentunity.model.Account;
+import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ public class AccountService {
         this.accountRepo = accountRepo;
     }
 
-    List<Object> getAllAccounts(String sessionId) {
+    List<User> getAllAccounts(String sessionId) {
         // call activeUser service
         return accountRepo.getAllAccounts();
     }
