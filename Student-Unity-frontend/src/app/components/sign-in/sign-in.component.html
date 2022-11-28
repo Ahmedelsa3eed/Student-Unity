@@ -1,0 +1,30 @@
+<div class="text-center main-container">
+    <div class="form-signin w-100 m-auto">
+        <form #signInForm="ngForm" (ngSubmit)="onSignIn(signInForm)">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <p class="text-secondary">Keep track of your college journey</p>
+        
+            <div class="form-floating">
+                <input type="email" ngModel name="email" class="form-control" id="emailInput" placeholder="&#8203;">
+                <label for="emailInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" ngModel name="password" class="form-control" id="passwordInput" placeholder="&#8203;">
+                <label for="passwordInput">Password</label>
+            </div>
+
+            <div class="text-start checkbox m-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+
+            <a href="forget-password">Forgot your password?</a>
+
+            <button class="w-100 btn btn-lg btn-primary mt-3 mb-4" type="submit">Sign in</button>
+            
+            <p class="mb-1">Don't have an account yet?</p>
+            <a href="#">Register now</a>
+        </form>
+    </div>
+</div>

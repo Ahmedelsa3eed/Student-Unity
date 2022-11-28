@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { SignInOutService } from './sign-in-out.service';
 
-describe('SignInOutService', () => {
+describe('SignInService', () => {
   let service: SignInOutService;
 
   beforeEach(() => {
