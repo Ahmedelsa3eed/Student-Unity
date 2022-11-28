@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {FormsModule} from "@angular/forms";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
