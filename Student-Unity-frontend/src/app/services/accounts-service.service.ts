@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {environment} from "../environments/environment";
-import {User} from "./models/User";
-import {Observable} from "rxjs";
+import { HttpClient, HttpResponse } from "@angular/common/http";
+import { environment } from './../../environments/environment';
+import { User } from './../models/User';
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountsService {
-  private url = "http://localhost:8090/accounts";
+  private url = "http://localhost:8080/accounts";
 
   constructor(private http: HttpClient) { }
 
-  public getAccounts(user: User) : Observable<HttpResponse<User[]>>{
+  public getAccounts(user: User) : Observable<HttpResponse<User[]>> {
     return this.http.get<User[]>(this.url + '/all', {
       observe: 'response',
       params: {
@@ -55,6 +55,5 @@ export class AccountsService {
       }
     }
   }
-
 
 }
