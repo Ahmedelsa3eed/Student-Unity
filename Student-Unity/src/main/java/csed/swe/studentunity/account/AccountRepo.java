@@ -14,11 +14,12 @@ public interface AccountRepo extends JpaRepository<User, String> {
 
     @Query(value = "SELECT name, id, email, role FROM USER " +
                     "WHERE name LIKE %?1% OR id LIKE %?1% OR email LIKE %?1%", nativeQuery = true)
-    List<Object> searchAccounts(String search);
+    List<Object> searchAccounts(String searchString);
 
     @Modifying
     @Query(value = "UPDATE USER SET role = ?2 WHERE id = ?1", nativeQuery = true)
-    void changeRole(String id, String role);
+    void changeRole(Long targetUserId, String role);
 
+    void deleteAccountById(Long id);
 
 }

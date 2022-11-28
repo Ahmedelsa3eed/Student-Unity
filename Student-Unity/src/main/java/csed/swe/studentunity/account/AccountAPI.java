@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/accounts")
 public class AccountAPI {
     private final AccountService accountService;
 
@@ -25,14 +25,19 @@ public class AccountAPI {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Object>> searchAccounts(@Param("sessionId")String sessionId, @Param("search")String search) {
-        List<Object> response = accountService.searchAccounts(sessionId, search);
+    public ResponseEntity<List<Object>> searchAccounts(@Param("sessionId")String sessionId, @Param("searchString")String searchString) {
+        List<Object> response = accountService.searchAccounts(sessionId, searchString);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/changeRole")
-    public ResponseEntity<Boolean> changeRole(@Param("sessionId")String sessionId, @Param("id")String id, @Param("role")String role) {
-        return new ResponseEntity<>(accountService.changeRole(sessionId, id, role), HttpStatus.OK);
+    public ResponseEntity<Boolean> changeRole(@Param("sessionId")String sessionId, @Param("targetUserId")Long targetUserId, @Param("role")String role) {
+        return new ResponseEntity<>(accountService.changeRole(sessionId, targetUserId, role), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteAccount(@Param("sessionId")String sessionId, @Param("targetUserId")Long targetUserId) {
+        return new ResponseEntity<>(accountService.deleteAccount(sessionId, targetUserId), HttpStatus.OK);
     }
 
 }

@@ -21,14 +21,20 @@ public class AccountService {
         return accountRepo.getAllAccounts();
     }
 
-    List<Object> searchAccounts(String sessionId, String search) {
+    List<Object> searchAccounts(String sessionId, String searchString) {
         // call activeUser service
-        return accountRepo.searchAccounts(search);
+        return accountRepo.searchAccounts(searchString);
     }
 
-    Boolean changeRole(String sessionId, String id, String role) {
+    Boolean changeRole(String sessionId, Long targetUserId, String role) {
         // call activeUser service
-         accountRepo.changeRole(id, role);
+         accountRepo.changeRole(targetUserId, role);
          return true;   // return true if successful
+    }
+
+    Boolean deleteAccount(String sessionId, Long targetUserId) {
+        // call activeUser service
+        accountRepo.deleteAccountById(targetUserId);
+        return true;   // return true if successful
     }
 }
