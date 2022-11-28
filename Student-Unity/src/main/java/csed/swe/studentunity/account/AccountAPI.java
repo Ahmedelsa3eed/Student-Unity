@@ -25,9 +25,9 @@ public class AccountAPI {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Object>> searchAccounts(@Param("sessionId")String sessionId,
+    public ResponseEntity<List<User>> searchAccounts(@Param("sessionId")String sessionId,
                                                        @Param("searchString")String searchString) {
-        List<Object> response = accountService.searchAccounts(sessionId, searchString);
+        List<User> response = accountService.searchAccounts(sessionId, searchString);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -23,7 +23,7 @@ public class AccountService {
         return accountRepo.getAllAccounts();
     }
 
-    List<Object> searchAccounts(String sessionId, String searchString) {
+    List<User> searchAccounts(String sessionId, String searchString) {
         // call activeUser service
         return accountRepo.searchAccounts(searchString);
     }

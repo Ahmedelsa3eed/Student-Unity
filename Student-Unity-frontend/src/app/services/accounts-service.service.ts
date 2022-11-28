@@ -22,15 +22,15 @@ export class AccountsService {
     });
   }
 
-  public searchAccounts(user: User, searchString: string) {
-    return this.http.get<User[]>(this.url + '/search'), {
+  public searchAccounts(user: User, searchString: string): Observable<HttpResponse<User[]>> {
+    return this.http.get<User[]>(this.url + '/search', {
       observe: 'response',
       responseType: 'json',
       params: {
         sessionId: user.sessionID,
         searchString: searchString
       }
-    }
+    });
   }
 
   public changeRole(user: User, targetUser: User, role: string) : Observable<HttpResponse<any>> {

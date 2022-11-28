@@ -9,8 +9,9 @@ import { AccountsService } from '../services/accounts-service.service';
   styleUrls: ['./account-page.component.css']
 })
 export class AccountPageComponent implements OnInit {
-  
-  public user = new User();
+
+  public user = new User();// just till we made the currentUser service
+  public searchLoading = false;
   public isLoading: boolean = false;
   users ?: Observable<User[]>;
   users$ = new BehaviorSubject<User[]>([]);
@@ -92,13 +93,17 @@ export class AccountPageComponent implements OnInit {
     //   }]);
 
   }
-  public deleteAccount(id: number) {
-
-  }
-  public changeRole(id: number) {
-
-  }
   public search() {
+    this.searchLoading = true;
+    this.accountsService.searchAccounts(this.user, this.searchString).subscribe(res => {
+      if(res.body) {
+        this.users$.next(res.body);
+        console.log(res.body)
+        this.isLoading = false;
+
+      }
+      this.searchLoading = false;
+    });
 
   }
 
