@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-
 @RequestMapping(path = "registration")
-public class RegistrationController {
-    private RegistrationLogic registrationLogic;
+public class RegistrationAPI {
 
+    private RegistrationService registrationService;
 
     @RequestMapping(path = "register")
     public String addUser(@RequestBody RegistrationRequest request) {
-         return registrationLogic.addUser(request);
+         return registrationService.addUser(request);
     }
 
     public String verifyUser() {

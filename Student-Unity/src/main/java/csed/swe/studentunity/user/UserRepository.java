@@ -1,4 +1,4 @@
-package csed.swe.studentunity.SigningDatabaseManagement;
+package csed.swe.studentunity.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

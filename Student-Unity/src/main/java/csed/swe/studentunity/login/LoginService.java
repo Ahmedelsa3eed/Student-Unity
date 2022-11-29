@@ -1,29 +1,28 @@
-package csed.swe.studentunity.logic;
+package csed.swe.studentunity.login;
 
-import csed.swe.studentunity.SigningDatabaseManagement.User;
-import csed.swe.studentunity.SigningDatabaseManagement.UserQueries;
+import csed.swe.studentunity.user.User;
+import csed.swe.studentunity.user.UserService;
+import csed.swe.studentunity.sharedServices.EmailService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class LoginLogic {
+public class LoginService {
     @Autowired
-    private UserQueries queries;
+    private UserService queries;
 
     @Autowired
     private EmailService senderService;
 
     @Autowired
-    public LoginLogic(UserQueries queries, EmailService senderService) {
+    public LoginService(UserService queries, EmailService senderService) {
         this.queries = queries;
         this.senderService = senderService;
     }
 
-
     public String checkCredentials(String email, String password) {
-
         try {
             User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
             if (user.getPassword().equals(password)) {
@@ -32,7 +31,6 @@ public class LoginLogic {
             } else {
                 return "Wrong password";
             }
-
         }
         catch (RuntimeException e){
             return "Email not found";
@@ -40,7 +38,6 @@ public class LoginLogic {
     }
 
     public String forgetPassword(String email){
-
         try {
             User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
             senderService.send(user.getPassword(), "Your Password", email);
@@ -49,7 +46,6 @@ public class LoginLogic {
         catch (RuntimeException e){
             return "Email not found";
         }
-
     }
 
     public void addCookie(String email){
