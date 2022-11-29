@@ -14,9 +14,20 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // send the request, redirect the user if valid login info
+  signInResponse: string = "";
+
+  // redirect the user if valid login info
   public onSignIn(signInForm: NgForm): void {
-    console.log(signInForm.value);
+    this.signInOutService.signIn(signInForm.value.email, signInForm.value.password).subscribe(
+      (response: string) => {
+        if(response == "OK"){
+
+        }else {
+          this.signInResponse = response;
+          document.getElementById('openSignInErrorBtn')?.click();
+        }
+      }
+    );
   }
 
 }

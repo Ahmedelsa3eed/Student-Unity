@@ -28,3 +28,23 @@
         </form>
     </div>
 </div>
+
+<button id="openSignInErrorBtn" type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#signInErrorModal"></button>
+<div class="modal" id="signInErrorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Can't sign in</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+            <div class="modal-body">
+                {{ signInResponse }}
+            </div>
+    
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>  
