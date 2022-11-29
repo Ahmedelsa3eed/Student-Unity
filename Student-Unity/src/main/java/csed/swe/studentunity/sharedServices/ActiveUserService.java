@@ -1,21 +1,22 @@
-package csed.swe.studentunity.Sessions;
+package csed.swe.studentunity.sharedServices;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 // Singleton design pattern
 public class ActiveUserService {
-    private static ActiveUserService obj = null;
+
+    private static ActiveUserService instance = null;
 
     private final static HashMap<UUID, String[]> sessions = new HashMap<>();
 
-    private ActiveUserService(){}
+    private ActiveUserService() {}
 
     public static ActiveUserService getInstance() {
-        if(obj == null) {
-            obj = new ActiveUserService();
+        if(instance == null) {
+            instance = new ActiveUserService();
         }
-        return obj;
+        return instance;
     }
 
     public String[] checkLogin(UUID sessionId) {
@@ -27,13 +28,12 @@ public class ActiveUserService {
 
     public UUID login(String email, String role) {
         UUID newSessionId = UUID.randomUUID();
-        sessions.put(newSessionId, new String[]{"s","s"});
+        sessions.put(newSessionId, new String[]{"s", "s"});
         return newSessionId;
     }
 
     public void logout(UUID sessionId) {
         sessions.remove(sessionId);
     }
-
 
 }

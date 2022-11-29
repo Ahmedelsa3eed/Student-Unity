@@ -18,7 +18,7 @@ export class SignInOutService {
     let httpParams = new HttpParams();
     httpParams = httpParams.append("email", email);
     httpParams = httpParams.append("password", password);
-    return this.httpClient.get(`${environment.backendURL}/logIn/logIn`, {params: httpParams, responseType: 'text'});
+    return this.httpClient.get(`${environment.baseUrl}/logIn/logIn`, {params: httpParams, responseType: 'text'});
   }
 
   public getSignedInUser(): User{
