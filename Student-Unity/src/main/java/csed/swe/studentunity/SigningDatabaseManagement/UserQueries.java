@@ -9,8 +9,8 @@ import java.util.Optional;
 @Service
 public class UserQueries {
     private final UserRepository userRepository;
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public void addUser(User user) {
+         userRepository.save(user);
     }
 
     public Optional<User> getUser(String email) {

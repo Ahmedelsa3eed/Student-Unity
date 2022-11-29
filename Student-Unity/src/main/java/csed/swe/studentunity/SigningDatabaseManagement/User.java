@@ -1,11 +1,13 @@
 package csed.swe.studentunity.SigningDatabaseManagement;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import java.io.Serializable;
+
 
 @AllArgsConstructor
 @Getter
@@ -19,24 +21,22 @@ import javax.persistence.*;
                 @UniqueConstraint(name = "student_id_unique", columnNames = "student_id")
         }
 )
-public class User {
-    @Id
-    @Column(
-            name = "student_id",
-            nullable = false,
-            updatable = false,
-            columnDefinition = "TEXT"
-    )
-    private String studentId;
+public class User implements Serializable {
 
     @Id
     @Column(
             name = "email",
             nullable = false,
-            updatable = false,
-            columnDefinition = "TEXT"
+            updatable = false
     )
     private String email;
+
+    @Column(
+            name = "student_id",
+            nullable = false,
+            updatable = false
+    )
+    private Integer studentId;
 
     @Column(
             name = "first_name",
@@ -70,5 +70,7 @@ public class User {
             name = "revision_notification_token"
     )
     private String revisionNotificationToke;
+
+    public User(){}
 
 }

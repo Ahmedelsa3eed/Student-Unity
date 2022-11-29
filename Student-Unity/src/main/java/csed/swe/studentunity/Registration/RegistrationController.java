@@ -1,4 +1,4 @@
-package csed.swe.studentunity.registration;
+package csed.swe.studentunity.Registration;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +15,7 @@ public class RegistrationController {
 
     @RequestMapping(path = "register")
     public String addUser(@RequestBody RegistrationRequest request) {
-        return registrationLogic.addUser(request);
+         return registrationLogic.addUser(request);
     }
 
     public String verifyUser() {
