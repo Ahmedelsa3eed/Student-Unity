@@ -1,4 +1,4 @@
 .main {
     display: grid;
-    grid-template-columns: 280px auto;
+    grid-template-columns: 300px auto;
 }

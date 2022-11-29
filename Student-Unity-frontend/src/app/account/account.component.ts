@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User} from "../models/User";
+import { User } from "../models/User";
 import { AccountsService } from '../services/accounts-service.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { AccountsService } from '../services/accounts-service.service';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+
   @Input() user = new User();
 
   constructor(private accountService: AccountsService) { }
@@ -15,8 +16,6 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // This is a method that is called when the user clicks the "remove" button.
-  // It will remove the user from the list of users.
   removeUser() {
     this.accountService.deleteAccount(this.user, this.user).subscribe(
       (response: any) => {
@@ -24,21 +23,15 @@ export class AccountComponent implements OnInit {
       });
   }
 
-  // This is a method that is called when the user clicks the "make admin" button.
-  // It will make the user an admin.
-  makeAdmin() {
-    this.accountService.changeRole(this.user, this.user, "admin").subscribe(
-      (response: any) => {
-        console.log(response);
-      }
-    );
+  // TODO: replace first parameter with registered user
+  changeRole(newRole: string) {
+    console.log(this.user.role)
+    if(newRole.valueOf() != this.user.role) {
+      console.log(newRole)
+      this.accountService.changeRole(this.user, this.user, newRole).subscribe(res => {
+        console.log(res);
+      });
+    }
   }
 
-  makeEditor() {
-    this.accountService.changeRole(this.user, this.user, "editor").subscribe(
-      (response: any) => {
-        console.log(response);
-      }
-    );
-  }
 }

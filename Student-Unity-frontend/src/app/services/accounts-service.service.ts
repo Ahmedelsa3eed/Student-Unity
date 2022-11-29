@@ -8,11 +8,11 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class AccountsService {
-  private url = "http://localhost:8090/accounts";
+  private url = environment.baseUrl + "/accounts";
 
   constructor(private http: HttpClient) { }
 
-  public getAccounts(user: User) : Observable<HttpResponse<User[]>> {
+  public getAccounts(user: User): Observable<HttpResponse<User[]>> {
     return this.http.get<User[]>(this.url + '/all', {
       observe: 'response',
       params: {
@@ -33,7 +33,7 @@ export class AccountsService {
     });
   }
 
-  public changeRole(user: User, targetUser: User, role: string) : Observable<HttpResponse<any>> {
+  public changeRole(user: User, targetUser: User, role: string): Observable<HttpResponse<any>> {
     return this.http.put<boolean>(this.url + '/changeRole',{}, {
       observe: 'response',
       responseType: 'json',
@@ -43,13 +43,12 @@ export class AccountsService {
         role: role
       }
     });
-
   }
 
-  public deleteAccount(user: User, targetUser: User) : Observable<HttpResponse<any>> {
-      console.log("deleteAccount");
-      console.log(user);
-      console.log(targetUser);
+  public deleteAccount(user: User, targetUser: User): Observable<HttpResponse<any>> {
+    console.log("deleteAccount");
+    console.log(user);
+    console.log(targetUser);
     return this.http.delete(this.url + '/delete', {
       observe: 'response',
       params: {
@@ -57,7 +56,6 @@ export class AccountsService {
         targetUserId: targetUser.id
       },
       responseType: 'json'
-
     });
   }
 
