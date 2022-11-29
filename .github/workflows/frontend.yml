@@ -6,28 +6,28 @@ on:
       - 'Student-Unity-frontend/**'
       - '.github/workflows/**'
     branches:
-      - master
+      - main
+      - milestone*
 
   pull_request:
     paths:
       - 'Student-Unity-frontend/**'
       - '.github/workflows/**'
-    types:
-      - opened
-      - synchronize
-      - reopened
+    types: [opened, synchronize, reopened]
   
 jobs:
-  sonarcloud: 
+  sonarcloud:
+    name: SonarCloud
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+        
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       with:
         projectBaseDir: Student-Unity-frontend
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_UI }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONTEND }}
