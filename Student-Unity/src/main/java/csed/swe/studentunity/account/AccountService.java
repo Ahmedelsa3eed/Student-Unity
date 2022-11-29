@@ -1,7 +1,6 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.model.Account;
-import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.SigningDatabaseManagement.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,15 +27,15 @@ public class AccountService {
         return accountRepo.searchAccounts(searchString);
     }
 
-    Boolean changeRole(String sessionId, Long targetUserId, String role) {
+    Boolean changeRole(String sessionId, Integer targetUserId, String role) {
         // call activeUser service
          accountRepo.changeRole(targetUserId, role);
          return true;   // return true if successful
     }
 
-    Boolean deleteAccount(String sessionId, Long targetUserId) {
+    Boolean deleteAccount(String sessionId, Integer targetUserId) {
         // call activeUser service
-        accountRepo.deleteAccountById(targetUserId);
+        accountRepo.deleteAccountByStudentId(targetUserId);
         return true;   // return true if successful
     }
 
