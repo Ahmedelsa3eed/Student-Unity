@@ -1,0 +1,34 @@
+name: Student Unity Backend
+
+on:
+  push:
+    paths:
+      - 'Student-Unity/**'
+      - '.github/workflows/**'
+    branches:
+      - main
+      - milestone*
+
+  pull_request:
+    paths:
+      - 'Student-Unity/**'
+      - '.github/workflows/**'
+    types:
+      - opened
+      - synchronize
+      - reopened
+  
+jobs:
+  sonarcloud: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        projectBaseDir: Student-Unity
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}
