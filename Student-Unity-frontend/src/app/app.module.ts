@@ -8,13 +8,16 @@ import { AccountPageComponent } from './account-page/account-page.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignInOutService } from './services/sign-in-out.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
     AccountPageComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [SignInOutService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
