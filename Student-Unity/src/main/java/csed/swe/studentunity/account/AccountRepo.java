@@ -1,7 +1,6 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.model.Account;
-import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.SigningDatabaseManagement.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,8 +18,8 @@ public interface AccountRepo extends JpaRepository<User, String> {
 
     @Modifying
     @Query(value = "UPDATE USER SET role = ?2 WHERE id = ?1", nativeQuery = true)
-    void changeRole(Long targetUserId, String role);
+    void changeRole(Integer targetUserId, String role);
 
-    void deleteAccountById(Long id);
+    void deleteAccountByStudentId(Integer studentId);
 
 }

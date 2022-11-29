@@ -1,7 +1,7 @@
 package csed.swe.studentunity.logic;
 
-import csed.swe.studentunity.models.User;
-import csed.swe.studentunity.queries.UserQueries;
+import csed.swe.studentunity.SigningDatabaseManagement.User;
+import csed.swe.studentunity.SigningDatabaseManagement.UserQueries;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class LoginLogic {
     public String checkCredentials(String email, String password) {
 
         try {
-            User user = queries.findUserById(email).orElseThrow(() -> new RuntimeException());
+            User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
             if (user.getPassword().equals(password)) {
                 /* put in active user */
                 return "OK";
@@ -42,7 +42,7 @@ public class LoginLogic {
     public String forgetPassword(String email){
 
         try {
-            User user = queries.findUserById(email).orElseThrow(() -> new RuntimeException());
+            User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
             senderService.send(user.getPassword(), "Your Password", email);
             return "Please check your mailbox";
         }

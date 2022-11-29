@@ -1,7 +1,6 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.model.Account;
-import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.SigningDatabaseManagement.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,7 @@ public class AccountAPI {
     @PutMapping("/changeRole")
     @ResponseBody
     public ResponseEntity<Boolean> changeRole(@RequestParam("sessionId")String sessionId,
-                                              @RequestParam("targetUserId")Long targetUserId,
+                                              @RequestParam("targetUserId")Integer targetUserId,
                                               @RequestParam("role")String role) {
         System.out.println("changeRole");
         System.out.println(sessionId);
@@ -46,7 +45,7 @@ public class AccountAPI {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteAccount(@Param("sessionId")String sessionId,
-                                                 @Param("targetUserId")Long targetUserId) {
+                                                 @Param("targetUserId")Integer targetUserId) {
         return new ResponseEntity<>(accountService.deleteAccount(sessionId, targetUserId), HttpStatus.OK);
     }
 
