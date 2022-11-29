@@ -3,21 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
+import { AccountComponent } from './account/account.component';
+import { AccountPageComponent } from './account-page/account-page.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignInOutService } from './services/sign-in-out.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AccountComponent,
+    AccountPageComponent,
+    NavigationBarComponent,
     SignInComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [SignInOutService],
   bootstrap: [AppComponent]
