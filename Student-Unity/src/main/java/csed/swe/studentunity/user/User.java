@@ -21,7 +21,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @Column(name = "email", nullable = false, updatable = false)
+    @Column(name = "email", nullable = false, updatable = false, columnDefinition = "varchar(100)")
     private String email;
 
     @Column(name = "student_id", nullable = false, updatable = false)
