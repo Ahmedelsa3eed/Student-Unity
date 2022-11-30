@@ -25,6 +25,18 @@ public class UserService {
         return userRepository.findUserByEmail(email);
     }
 
+
+
+    public String deleteUser(Long id){
+        try {
+            userRepository.deleteById(id);
+            return "deleted successfully";
+        }
+        catch (Exception e){
+            return "ID doesn't exist";
+        }
+    }
+
     public String getUnverifiedUser() {
         // milestone 2
         return "works";
