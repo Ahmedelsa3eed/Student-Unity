@@ -1,11 +1,13 @@
 package csed.swe.studentunity.account;
 
+import csed.swe.studentunity.sharedServices.ActiveUserService;
 import csed.swe.studentunity.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -18,28 +20,44 @@ public class AccountService {
         this.accountRepo = accountRepo;
     }
 
-    List<User> getAllAccounts(String sessionId) {
-        // call activeUser service
-        return accountRepo.getAllAccounts();
+    List<User> getAllAccounts(UUID sessionId) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
+            return accountRepo.getAllAccounts();
+        }else{
+            return null;
+        }
+
     }
 
-    List<User> searchAccounts(String sessionId, String searchString) {
-        // call activeUser service
-        return accountRepo.searchAccounts(searchString);
+    List<User> searchAccounts(UUID sessionId, String searchString) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
+            return accountRepo.searchAccounts(searchString);
+        }else{
+            return null;
+        }
     }
 
-    // return true if role is changed successfully
-    Boolean changeRole(String sessionId, Integer targetUserId, String role) {
-        // call activeUser service
-         accountRepo.changeRole(targetUserId, role);
-         return true;
+    Boolean changeRole(UUID sessionId, Integer targetUserId, String role) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
+            accountRepo.changeRole(targetUserId, role);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
-    // return true if account is deleted successfully
-    Boolean deleteAccount(String sessionId, Integer targetUserId) {
-        // call activeUser service
-        accountRepo.deleteAccountByStudentId(targetUserId);
-        return true;
+    Boolean deleteAccount(UUID sessionId, Integer targetUserId) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
+            accountRepo.deleteAccountByStudentId(targetUserId);
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
