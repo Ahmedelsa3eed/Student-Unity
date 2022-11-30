@@ -1,4 +1,4 @@
-package csed.swe.studentunity.SigningDatabaseManagement;
+package csed.swe.studentunity.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,8 +7,10 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class UserQueries {
+public class UserService {
+
     private final UserRepository userRepository;
+
     public void addUser(User user) {
          userRepository.save(user);
     }
@@ -32,4 +34,5 @@ public class UserQueries {
         // milestone 2
         return "works";
     }
+
 }

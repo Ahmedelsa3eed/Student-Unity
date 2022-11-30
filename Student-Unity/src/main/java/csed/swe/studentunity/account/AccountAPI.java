@@ -1,6 +1,6 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.SigningDatabaseManagement.User;
+import csed.swe.studentunity.user.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/accounts")
 public class AccountAPI {
+
     private final AccountService accountService;
 
     public AccountAPI(AccountService accountService) {
@@ -39,7 +40,6 @@ public class AccountAPI {
         System.out.println(sessionId);
         System.out.println(targetUserId);
         System.out.println(role);
-
         return new ResponseEntity<>(accountService.changeRole(sessionId, targetUserId, role), HttpStatus.OK);
     }
 
