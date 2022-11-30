@@ -1,5 +1,6 @@
 package csed.swe.studentunity.login;
 
+import csed.swe.studentunity.sharedServices.ActiveUserService;
 import csed.swe.studentunity.user.User;
 import csed.swe.studentunity.user.UserService;
 import csed.swe.studentunity.sharedServices.EmailService;
@@ -7,14 +8,16 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class LoginService {
     @Autowired
-    private UserService queries;
+    private final UserService queries;
 
     @Autowired
-    private EmailService senderService;
+    private final EmailService senderService;
 
     @Autowired
     public LoginService(UserService queries, EmailService senderService) {
@@ -26,8 +29,9 @@ public class LoginService {
         try {
             User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
             if (user.getPassword().equals(password)) {
-                /* put in active user */
-                return "OK";
+                ActiveUserService activeUserService = ActiveUserService.getInstance();
+                UUID sessionId = activeUserService.login(email, user.getRole());
+                return sessionId.toString();
             } else {
                 return "Wrong password";
             }
