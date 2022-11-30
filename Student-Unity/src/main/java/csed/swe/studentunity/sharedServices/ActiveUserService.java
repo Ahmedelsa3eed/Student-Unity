@@ -28,7 +28,7 @@ public class ActiveUserService {
 
     public UUID login(String email, String role) {
         UUID newSessionId = UUID.randomUUID();
-        sessions.put(newSessionId, new String[]{"s", "s"});
+        sessions.put(newSessionId, new String[]{email, role});
         return newSessionId;
     }
 
