@@ -42,10 +42,8 @@ public class LoginService {
     }
 
     public String forgetPassword(String email){
-        System.out.println(email);
         try {
             User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
-            System.out.println(user);
             senderService.send(user.getPassword(), "Your Password", email);
             return "Please check your mailbox";
         }
