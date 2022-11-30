@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,19 +10,18 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private signInOutService: SignInOutService) { }
+  constructor(private signInOutService: SignInOutService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   signInResponse: string = "";
 
-  // redirect the user if valid login info
   public onSignIn(signInForm: NgForm): void {
     this.signInOutService.signIn(signInForm.value.email, signInForm.value.password).subscribe(
       (response: string) => {
         if(response == "OK"){
-
+          this.router.navigate(['home']);
         }else {
           this.signInResponse = response;
           document.getElementById('openSignInErrorBtn')?.click();

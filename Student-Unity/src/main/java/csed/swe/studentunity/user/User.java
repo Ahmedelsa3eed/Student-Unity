@@ -23,7 +23,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "email", nullable = false, updatable = false)
+    @Column(name = "email", nullable = false, updatable = false, columnDefinition = "varchar(100)")
     private String email;
 
     @Column(name = "student_id", nullable = false, updatable = false)

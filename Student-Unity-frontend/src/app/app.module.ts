@@ -10,6 +10,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignInOutService } from './services/sign-in-out.service';
+import { ViewPortComponent } from './components/view-port/view-port.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SignInOutService } from './services/sign-in-out.service';
     AccountComponent,
     AccountPageComponent,
     NavigationBarComponent,
-    SignInComponent
+    SignInComponent,
+    ViewPortComponent
   ],
   imports: [
     BrowserModule,
