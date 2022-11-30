@@ -8,7 +8,7 @@ import { AccountPageComponent } from './components/account-page/account-page.com
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
-import { SignInComponent } from './sign-in/sign-in.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignInOutService } from './services/sign-in-out.service';
 
 @NgModule({
