@@ -20,44 +20,24 @@ public class AccountService {
         this.accountRepo = accountRepo;
     }
 
-    List<User> getAllAccounts(UUID sessionId) {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
-            return accountRepo.getAllAccounts();
-        }else{
-            return null;
-        }
-
+    List<User> getAllAccounts() {
+        return accountRepo.getAllAccounts();
     }
 
-    List<User> searchAccounts(UUID sessionId, String searchString) {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
+    List<User> searchAccounts(String searchString) {
             return accountRepo.searchAccounts(searchString);
-        }else{
-            return null;
-        }
-    }
-
-    Boolean changeRole(UUID sessionId, Integer targetUserId, String role) {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
-            accountRepo.changeRole(targetUserId, role);
-            return true;
-        }else{
-            return false;
-        }
 
     }
 
-    Boolean deleteAccount(UUID sessionId, Integer targetUserId) {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        if (activeUserService.checkLogin(sessionId)[1].equals("admin")) {
-            accountRepo.deleteAccountByStudentId(targetUserId);
-            return true;
-        }else{
-            return false;
-        }
+    Boolean changeRole(Integer targetUserId, String role) {
+        accountRepo.changeRole(targetUserId, role);
+        return true;
+    }
+
+    Boolean deleteAccount(Integer targetUserId) {
+        accountRepo.deleteAccountByStudentId(targetUserId);
+        return true;
+
     }
 
 }

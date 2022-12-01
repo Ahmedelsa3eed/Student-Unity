@@ -32,6 +32,13 @@ public class ActiveUserService {
         return newSessionId;
     }
 
+    public boolean checkAdmin(UUID sessionId) {
+        if(sessions.containsKey(sessionId)) {
+            return sessions.get(sessionId)[1].equals("admin");
+        }
+        return false;
+    }
+
     public void logout(UUID sessionId) {
         sessions.remove(sessionId);
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { User } from './../../models/User';
 import { AccountService } from '../../services/account.service';
+import {SignInOutService} from "../../services/sign-in-out.service";
 
 @Component({
   selector: 'app-account-page',
@@ -17,7 +18,7 @@ export class AccountPageComponent implements OnInit {
   users$ = new BehaviorSubject<User[]>([]);
   public searchString: string = "";
 
-  constructor(private accountsService: AccountService) { }
+  constructor(private accountsService: AccountService, private signInOutService:SignInOutService) { }
 
   ngOnInit(): void {
     this.getAccounts();
@@ -26,20 +27,18 @@ export class AccountPageComponent implements OnInit {
 
   getAccounts() {
     this.isLoading = true;
-    this.accountsService.getAccounts(this.user).subscribe(res => {
+    this.accountsService.getAccounts(this.signInOutService.getSignedInUser()).subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
         console.log(res.body)
         this.isLoading = false;
       }
     });
-    // @ts-ignore
-    // this.users$.next(environment.dummyUsers);
   }
 
   public search() {
     this.searchLoading = true;
-    this.accountsService.searchAccounts(this.user, this.searchString).subscribe(res => {
+    this.accountsService.searchAccounts(this.signInOutService.getSignedInUser(), this.searchString).subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
         console.log(res.body)

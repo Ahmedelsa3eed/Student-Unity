@@ -20,18 +20,20 @@ public class AccountAPI {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllAccounts(@Param("sessionId") UUID sessionId) {
-        List<User> response = accountService.getAllAccounts(sessionId);
+    public ResponseEntity<List<User>> getAllAccounts(@Param("sessionId") String sessionId) {
+        System.out.println("Session ID: " + sessionId);
+        List<User> response = accountService.getAllAccounts();
         if(response == null){
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<User>> searchAccounts(@Param("sessionId")UUID sessionId,
+    public ResponseEntity<List<User>> searchAccounts(@Param("sessionId")String sessionId,
                                                        @Param("searchString")String searchString) {
-        List<User> response = accountService.searchAccounts(sessionId, searchString);
+
+        List<User> response = accountService.searchAccounts(searchString);
         if(response == null){
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
@@ -40,10 +42,10 @@ public class AccountAPI {
 
     @PutMapping("/changeRole")
     @ResponseBody
-    public ResponseEntity<Boolean> changeRole(@RequestParam("sessionId")UUID sessionId,
+    public ResponseEntity<Boolean> changeRole(@RequestParam("sessionId")String sessionId,
                                               @RequestParam("targetUserId")Integer targetUserId,
                                               @RequestParam("role")String role) {
-        Boolean response = accountService.changeRole(sessionId, targetUserId, role);
+        Boolean response = accountService.changeRole(targetUserId, role);
         if(!response){
             return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
         }
@@ -51,9 +53,9 @@ public class AccountAPI {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount(@Param("sessionId")UUID sessionId,
+    public ResponseEntity<Boolean> deleteAccount(@Param("sessionId")String sessionId,
                                                  @Param("targetUserId")Integer targetUserId) {
-        Boolean response = accountService.deleteAccount(sessionId, targetUserId);
+        Boolean response = accountService.deleteAccount(targetUserId);
         if(!response){
             return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
         }

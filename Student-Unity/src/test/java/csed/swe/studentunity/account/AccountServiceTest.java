@@ -28,17 +28,9 @@ class AccountServiceTest {
     @Test
     void getAllAccountsByAnAdmin() {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
-        assertNotNull(accountService.getAllAccounts(sessionId));
-        accountService.deleteAccount(sessionId,1111);
-    }
-
-    @Test
-    void getAllAccountsByAUser() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "user");
-        assertNull(accountService.getAllAccounts(sessionId));
+        assertNotNull(accountService.getAllAccounts());
+        accountService.deleteAccount(1111);
     }
 
     @Test
@@ -46,25 +38,24 @@ class AccountServiceTest {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
-        assertNotNull(accountService.searchAccounts(sessionId, "firstname"));
-        accountService.deleteAccount(sessionId,1111);
+        assertNotNull(accountService.searchAccounts("firstname"));
+        accountService.deleteAccount(1111);
     }
 
     @Test
     void searchAccountsByLastname() {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
-        assertNotNull(accountService.searchAccounts(activeUserService.login("ahmed", "admin"), "lastname"));
-        accountService.deleteAccount(sessionId,1111);
+        assertNotNull(accountService.searchAccounts( "lastname"));
+        accountService.deleteAccount(1111);
     }
+
     @Test
     void searchAccountsByStudentId() {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
-        assertNotNull(accountService.searchAccounts(sessionId, "1111"));
-        accountService.deleteAccount(sessionId, 1111);
+        assertNotNull(accountService.searchAccounts( "1111"));
+        accountService.deleteAccount(1111);
     }
 
     @Test
@@ -72,63 +63,30 @@ class AccountServiceTest {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
-        assertNotNull(accountService.searchAccounts(sessionId, "user1"));
-        accountService.deleteAccount(sessionId, 1111);
+        assertNotNull(accountService.searchAccounts("user1"));
+        accountService.deleteAccount(1111);
     }
-
-    @Test
-    void searchAccountsNonAuthorized() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "user");
-        userService.addUser(user);
-        assertNull(accountService.searchAccounts(sessionId, "user1"));
-        accountService.deleteAccount(activeUserService.login("ahmed", "admin"), 1111);
-    }
-
 
     @Test
     void changeRole() {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
         userService.addUser(targetUser);
 
-        accountService.changeRole(sessionId, 7777, "admin");
-        assertTrue(accountService.changeRole(sessionId, 7777, "admin"));
-        accountService.deleteAccount(sessionId, 1111);
-        accountService.deleteAccount(sessionId, 7777);
+        accountService.changeRole( 7777, "admin");
+        assertTrue(accountService.changeRole(7777, "admin"));
+        accountService.deleteAccount(1111);
+        accountService.deleteAccount(7777);
 
-    }
-
-    @Test
-    void changeRoleNonAuthorized() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "user");
-        userService.addUser(user);
-        userService.addUser(targetUser);
-
-        assertFalse(accountService.changeRole(sessionId, 7777, "admin"));
-        accountService.deleteAccount(activeUserService.login("ahmed", "admin"), 1111);
-        accountService.deleteAccount(activeUserService.login("ahmed", "admin"), 7777);
     }
 
 
     @Test
     void deleteAccount() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
-        assertTrue(accountService.deleteAccount(sessionId, 1111));
+        assertTrue(accountService.deleteAccount(1111));
 
     }
 
-    @Test
-    void deleteAccountNonAuthorized(){
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "user");
-        userService.addUser(user);
-        assertFalse(accountService.deleteAccount(sessionId, 1111));
-        accountService.deleteAccount(activeUserService.login("ahmed", "admin"), 1111);
-    }
 
 }
