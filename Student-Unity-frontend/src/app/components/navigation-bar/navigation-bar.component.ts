@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewPortService } from 'src/app/services/view-port.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -8,13 +8,13 @@ import { ViewPortService } from 'src/app/services/view-port.service';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor(private viewPortService: ViewPortService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  public showAccountPage(): void{
-    this.viewPortService.updateView("app-account-page")
+  navigateToAccounts(){
+    this.router.navigateByUrl("home/accountsPage");
   }
 
 }

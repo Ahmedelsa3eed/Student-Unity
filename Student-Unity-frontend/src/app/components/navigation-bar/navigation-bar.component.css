@@ -24,7 +24,7 @@
   outline: 1px solid #DDD;
 }
 
-.parent div i {
+.parent div em {
   display: block;
   font-size: 2rem;
 }

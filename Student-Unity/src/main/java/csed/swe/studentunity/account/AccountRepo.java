@@ -25,6 +25,4 @@ public interface AccountRepo extends JpaRepository<User, String> {
     @Query(value = "DELETE FROM user WHERE student_id = ?1", nativeQuery = true)
     void deleteAccountByStudentId(Integer studentId);
 
-
-
 }
