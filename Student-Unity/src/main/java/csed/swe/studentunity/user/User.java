@@ -41,6 +41,8 @@ public class User implements Serializable {
     @Column(name = "role", nullable = false, columnDefinition = "TEXT")
     private String role;
 
+
+
     @Column(name = "revision_notification_token")
     private String revisionNotificationToke;
 
@@ -55,4 +57,5 @@ public class User implements Serializable {
         this.role = role;
         this.revisionNotificationToke = revisionNotificationToke;
     }
+
 }
