@@ -1,0 +1,62 @@
+<form [formGroup]="registerForm" (ngSubmit)="registerSubmitted" class = "border p-2 border-dark rounded-3">
+  <div class = "row g-3">
+    <div class = "col text-center p-2 mb-3 bg-light">
+      <span class = "fs-3"> Register</span>
+    </div>
+  </div>
+  <!--Input first and last Name-->
+  <div class = "row">
+    <div class="col mb-3">
+
+      <label for="firstName" class="form-label">First Name</label>
+      <input type = "text" class = "form-control" placeholder = "First Name"
+        id="firstName" formControlName = "firstName">
+      <div *ngIf="registerForm.get('firstName') && registerForm.get('firstName').touched" class="alert alert-danger">
+          First Name is required
+        </div>
+
+    </div>
+
+    <div class="col mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type = "text" class = "form-control" placeholder = "Last Name" id="lastName" formControlName = "lastName">
+    </div>
+  </div>
+  <!--Input email-->
+  <div class = "row">
+    <div class="col mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type = "email" class = "form-control" placeholder = "email@alexu.edu.eg" id="email" formControlName="email">
+      <div class = "form-text"></div>
+    </div>
+  </div>
+  <!--Input password-->
+  <div class = "row">
+    <div class="col mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type = "password" class = "form-control" placeholder = "Password" id = "password" formControlName = "password">
+    </div>
+  </div>
+  <!--Input confirm password-->
+  <div class = "row">
+    <div class="col mb-3">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input type = "password" class = "form-control" placeholder = "Confirm Password" id = "rPassword" formControlName = "rPassword">
+    </div>
+  </div>
+  <!--student id-->
+  <div class = "row">
+    <div class="col mb-3">
+      <label for="studentId" class="form-label">Student ID</label>
+      <input type = "number" class = "form-control" placeholder = "19010000" id = "studentId" formControlName = "studentId">
+    </div>
+  </div>
+  <!--submit-->
+  <div class = "row">
+    <div class="col-6 offset-3">
+      <div class = "d-grid">
+        <button type = "submit" class = "btn btn-primary" (click) = "registerSubmitted()">Register</button>
+      </div>
+    </div>
+  </div>
+</form>

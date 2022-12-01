@@ -4,9 +4,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SingUpComponent } from './components/sing-up/sing-up.component';
+import { flush } from '@angular/core/testing';
 
 const routes: Routes = [
-  {path: 'sign-in', component: SignInComponent},
+  { path: 'sign-in', component: SignInComponent },
   {
     path: 'home',
     component: HomeComponent,
@@ -17,7 +19,9 @@ const routes: Routes = [
       }
     ]
   },
-  {path: '**', component: SignInComponent},
+  { path: 'sign-up', component: SingUpComponent },
+  { path: '', redirectTo: 'sign-in', pathMatch: 'full'},
+  { path: '**', component: SignInComponent }
 ];
 
 @NgModule({
