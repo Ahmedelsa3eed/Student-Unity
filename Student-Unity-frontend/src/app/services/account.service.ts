@@ -52,7 +52,7 @@ export class AccountService {
     return this.http.delete(this.url + '/delete', {
       observe: 'response',
       params: {
-        sessionId: "454545" /*user.sessionID*/,
+        sessionId: user.sessionID,
         targetUserId: targetUser.studentId
       },
       responseType: 'json'
