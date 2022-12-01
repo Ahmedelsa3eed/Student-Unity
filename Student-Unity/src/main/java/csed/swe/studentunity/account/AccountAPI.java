@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/accounts")
@@ -19,34 +20,44 @@ public class AccountAPI {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllAccounts(@Param("sessionId")String sessionId) {
+    public ResponseEntity<List<User>> getAllAccounts(@Param("sessionId") UUID sessionId) {
         List<User> response = accountService.getAllAccounts(sessionId);
+        if(response == null){
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<User>> searchAccounts(@Param("sessionId")String sessionId,
+    public ResponseEntity<List<User>> searchAccounts(@Param("sessionId")UUID sessionId,
                                                        @Param("searchString")String searchString) {
         List<User> response = accountService.searchAccounts(sessionId, searchString);
+        if(response == null){
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/changeRole")
     @ResponseBody
-    public ResponseEntity<Boolean> changeRole(@RequestParam("sessionId")String sessionId,
+    public ResponseEntity<Boolean> changeRole(@RequestParam("sessionId")UUID sessionId,
                                               @RequestParam("targetUserId")Integer targetUserId,
                                               @RequestParam("role")String role) {
-        System.out.println("changeRole");
-        System.out.println(sessionId);
-        System.out.println(targetUserId);
-        System.out.println(role);
-        return new ResponseEntity<>(accountService.changeRole(sessionId, targetUserId, role), HttpStatus.OK);
+        Boolean response = accountService.changeRole(sessionId, targetUserId, role);
+        if(!response){
+            return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount(@Param("sessionId")String sessionId,
+    public ResponseEntity<Boolean> deleteAccount(@Param("sessionId")UUID sessionId,
                                                  @Param("targetUserId")Integer targetUserId) {
-        return new ResponseEntity<>(accountService.deleteAccount(sessionId, targetUserId), HttpStatus.OK);
+        Boolean response = accountService.deleteAccount(sessionId, targetUserId);
+        if(!response){
+            return new ResponseEntity<>(false, HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 }
