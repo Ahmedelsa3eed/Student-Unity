@@ -13,7 +13,7 @@ import java.util.UUID;
 public class AccountInterceptor implements HandlerInterceptor {
     
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         String path = request.getRequestURI();
         System.out.println("Here we are in pre checking of accounts the received path is "+ path);
         String sessionId = request.getParameter("sessionId");
