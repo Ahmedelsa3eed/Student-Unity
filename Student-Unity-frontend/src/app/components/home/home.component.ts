@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { SignInOutService } from 'src/app/services/sign-in-out.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private signInOutService: SignInOutService, private router: Router) { }
 
   ngOnInit(): void {
+    if(!this.signInOutService.isSignedIn()){
+      this.router.navigate(["sign-in"]);
+    }
   }
 
 }
