@@ -27,7 +27,6 @@ class AccountServiceTest {
 
     @Test
     void getAllAccountsByAnAdmin() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
         userService.addUser(user);
         assertNotNull(accountService.getAllAccounts());
         accountService.deleteAccount(1111);
@@ -36,7 +35,6 @@ class AccountServiceTest {
     @Test
     void searchAccountsByFirstname() {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts("firstname"));
         accountService.deleteAccount(1111);
@@ -44,7 +42,6 @@ class AccountServiceTest {
 
     @Test
     void searchAccountsByLastname() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "lastname"));
         accountService.deleteAccount(1111);
@@ -52,7 +49,6 @@ class AccountServiceTest {
 
     @Test
     void searchAccountsByStudentId() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "1111"));
         accountService.deleteAccount(1111);
@@ -60,8 +56,6 @@ class AccountServiceTest {
 
     @Test
     void searchAccountsByEmail() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
-        UUID sessionId = activeUserService.login("ahmed", "admin");
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts("user1"));
         accountService.deleteAccount(1111);
@@ -69,7 +63,6 @@ class AccountServiceTest {
 
     @Test
     void changeRole() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
         userService.addUser(user);
         userService.addUser(targetUser);
 
