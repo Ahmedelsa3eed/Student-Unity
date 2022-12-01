@@ -6,13 +6,16 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent implements OnInit {
 
   constructor(private signInOutService: SignInOutService, private router: Router) { }
 
   ngOnInit(): void {
+    if(this.signInOutService.isSignedIn()){
+      this.router.navigate(["home"]);
+    }
   }
 
   signInResponse: string = "";
@@ -20,11 +23,12 @@ export class SignInComponent implements OnInit {
   public onSignIn(signInForm: NgForm): void {
     this.signInOutService.signIn(signInForm.value.email, signInForm.value.password).subscribe(
       (response: string) => {
-        if(response == "OK"){
-          this.router.navigate(['home']);
-        }else {
+        if(response == "forgetPassword" || response == "Email not found"){
           this.signInResponse = response;
           document.getElementById('openSignInErrorBtn')?.click();
+        }else {
+          this.signInOutService.fillSignedInUserInfo(signInForm.value.rememberMe, response);
+          this.router.navigate(['home']);
         }
       }
     );

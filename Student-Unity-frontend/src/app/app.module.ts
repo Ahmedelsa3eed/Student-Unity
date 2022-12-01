@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from "@angular/forms";
+import {CookieService} from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { AccountComponent } from './components/account/account.component';
@@ -27,7 +28,7 @@ import { HomeComponent } from './components/home/home.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SignInOutService],
+  providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
