@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
-import { Router } from '@angular/router';
+import { ChildActivationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
+  signInResponse: string = "";
+  forgotPasswordResponse: string = "";
+
   constructor(private signInOutService: SignInOutService, private router: Router) { }
 
   ngOnInit(): void {
@@ -17,8 +20,6 @@ export class SignInComponent implements OnInit {
       this.router.navigate(["home"]);
     }
   }
-
-  signInResponse: string = "";
 
   public onSignIn(signInForm: NgForm): void {
     this.signInOutService.signIn(signInForm.value.email, signInForm.value.password).subscribe(
@@ -30,6 +31,14 @@ export class SignInComponent implements OnInit {
           this.signInOutService.fillSignedInUserInfo(signInForm.value.rememberMe, response);
           this.router.navigate(['home']);
         }
+      }
+    );
+  }
+
+  public onForgotPassword(email: string){
+    this.signInOutService.forgotPassword(email).subscribe(
+      (response) => {
+        this.forgotPasswordResponse = response;
       }
     );
   }
