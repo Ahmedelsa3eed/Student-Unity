@@ -5,8 +5,8 @@
             <p class="text-secondary">Keep track of your college journey</p>
         
             <div class="form-floating">
-                <input type="email" ngModel name="email" class="form-control" id="emailInput" placeholder="&#8203;">
-                <label for="emailInput">Email address</label>
+                <input type="email" ngModel name="email" class="form-control" id="signInEmailInput" placeholder="&#8203;">
+                <label for="signInEmailInput">Email address</label>
             </div>
             <div class="form-floating">
                 <input type="password" ngModel name="password" class="form-control" id="passwordInput" placeholder="&#8203;">
@@ -19,7 +19,7 @@
                 </label>
             </div>
 
-            <a href="forget-password">Forgot your password?</a>
+            <a href="forget-password" id="openForgotPasswordBtn" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot your password?</a>
 
             <button class="w-100 btn btn-lg btn-primary mt-3 mb-4" type="submit">Sign in</button>
             
@@ -44,6 +44,27 @@
     
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="forgotPasswordModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Forgot password</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+            <div class="modal-body">
+                <input #forgotPasswordEmailInput type="email" class="form-control" placeholder="Email address" (click)="forgotPasswordResponse = ''">
+                <div style="margin-left: 5px; margin-top: 10px;">{{ forgotPasswordResponse }}</div>
+            </div>
+    
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="onForgotPassword(forgotPasswordEmailInput.value)">Send Password</button>
             </div>
         </div>
     </div>
