@@ -11,7 +11,7 @@ export class SingUpComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-  
+
   ngOnInit(): void {
     this.registerForm = this.fb.group ({
       firstName: this.fb.control(null, [Validators.required, Validators.maxLength(16), Validators.pattern("[a-zA-Z]*")]),
