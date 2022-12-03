@@ -41,7 +41,8 @@ export class SingUpComponent implements OnInit {
   httpError(httpError: any) {
     console.log('error: ', httpError);
     this.postError = true;
-    this.postErrorMessage = httpError.error.errorMessage;
+    this.postErrorMessage = httpError.error;
+    console.log(this.postErrorMessage);
   }
 
   // creacte a custom validtor to check if the password and the re-entered password are the same

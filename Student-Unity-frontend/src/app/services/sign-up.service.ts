@@ -11,7 +11,7 @@ export class SignUpService {
 
   // post sign up data to the backend
   postSignUpData(signUpData: any) : Observable<any> {
-    return this.http.post('https://putsreq.com/afrlyoTyESdpuT0E20Zk', signUpData);
+    return this.http.post('https://putsreq.com/mxBFwx1zfV4DuBpa27DG', signUpData);
   }
 
 }
