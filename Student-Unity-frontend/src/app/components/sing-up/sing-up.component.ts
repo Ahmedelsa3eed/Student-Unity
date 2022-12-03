@@ -42,15 +42,22 @@ export class SingUpComponent implements OnInit, OnDestroy {
     this.signUpdata.password = this.registerForm.get('password')?.value;
     this.signUpdata.id = this.registerForm.get('studentId')?.value;
 
-    this.signUpService.postSignUpData(this.signUpdata).subscribe(
-      Response => { console.log(Response), this.router.navigate(['success-sign-up']); },
-      error => this.httpError(error)
-    );
+    
+    this.signUpService.postSignUpData(this.signUpdata)
+    .subscribe({
+      next: (res) => {
+        // If user already exists or registred successfully, he will be directed to signIn
+        console.log(res);
+        this.router.navigate(['sign-in']);
+      },
+      error: (e) => this.httpError(e),
+      complete: () => console.info('Registeration Done!')
+    })
   }
 
   // method to print the error message from the backend
   httpError(httpError: any) {
-    console.log('error: ', httpError);
+    console.error(httpError);
     this.postError = true;
     this.postErrorMessage = httpError.error;
     console.log(this.postErrorMessage);
