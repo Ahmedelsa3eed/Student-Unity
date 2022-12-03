@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 //@Transactional
 public class RegistrationService {
+
     private final UserService userService;
+
     public String addUser(RegistrationRequest request) {
-        // check if email is already in use
-        // if not, add user to database
-        // send verification email
+        // check if email is already in use, if not: add user to database and send verification email
         if(userService.getUser(request.getEmail()).isEmpty()) {
             User newUser = new User(request.getEmail(), request.getId(), request.getFirstName(),
                     request.getLastName(), request.getPassword(), "normal", "");

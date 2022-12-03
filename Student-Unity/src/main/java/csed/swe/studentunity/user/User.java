@@ -1,7 +1,6 @@
 package csed.swe.studentunity.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,18 +41,18 @@ public class User implements Serializable {
     private String role;
 
     @Column(name = "revision_notification_token")
-    private String revisionNotificationToke;
+    private String revisionNotificationToken;
 
     public User() {}
 
-    public User(String email, Integer studentId, String firstName, String lastName, String password, String role, String revisionNotificationToke) {
+    public User(String email, Integer studentId, String firstName, String lastName, String password, String role, String revisionNotificationToken) {
         this.email = email;
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.role = role;
-        this.revisionNotificationToke = revisionNotificationToke;
+        this.revisionNotificationToken = revisionNotificationToken;
     }
 
 }
