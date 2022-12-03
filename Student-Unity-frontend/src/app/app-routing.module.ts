@@ -1,5 +1,4 @@
 import { AccountPageComponent } from './components/account-page/account-page.component';
-import { AccountComponent } from './components/account/account.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
