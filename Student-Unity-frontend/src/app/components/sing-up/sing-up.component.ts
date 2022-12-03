@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignUpService } from 'src/app/services/sign-up.service';
-
+import { ConfirmedValidator } from 'src/app/components/shared/match.validator';
+import { SignUpData } from 'src/app/models/sign-up-data.model';
 @Component({
   templateUrl: './sing-up.component.html',
   styleUrls: ['./sing-up.component.css']
 })
-export class SingUpComponent implements OnInit {
+export class SingUpComponent implements OnInit, OnDestroy {
+
+  registerForm!: FormGroup;
   postError: boolean = false;
   postErrorMessage: string = "";
-
-  registerForm! : FormGroup;
-
+  signUpdata: SignUpData  = {} as SignUpData;
   constructor(private fb: FormBuilder, private signUpService: SignUpService, private router: Router) { }
-
 
   ngOnInit(): void {
     this.registerForm = this.fb.group ({
@@ -22,17 +22,28 @@ export class SingUpComponent implements OnInit {
       lastName: this.fb.control(null, [Validators.required, Validators.maxLength(16), Validators.pattern("[a-zA-Z]*")]),
       email: this.fb.control(null, [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@alexu\.edu\.eg")]),
       password: this.fb.control(null, [Validators.required, Validators.maxLength(16), Validators.minLength(8)]),
-      rPassword: this.fb.control(null, [Validators.required, this.ConfirmedValidator('password', 'rPassword')]),
+      rPassword: this.fb.control(null, [Validators.required, ConfirmedValidator('password', 'rPassword')]),
       studentId: this.fb.control(null, [Validators.required])
     }, {
-      validators: this.ConfirmedValidator('password', 'rPassword')
+      validators: ConfirmedValidator('password', 'rPassword')
     });
+  }
+
+  // on destroy of component
+  ngOnDestroy() {
+    this.registerForm.reset();
   }
 
   // Method to register a new user
   registerSubmitted() {
-    this.signUpService.postSignUpData(this.registerForm.value).subscribe(
-      Response => console.log(Response),
+    this.signUpdata.firstName = this.registerForm.get('firstName')?.value;
+    this.signUpdata.lastName = this.registerForm.get('lastName')?.value;
+    this.signUpdata.email = this.registerForm.get('email')?.value;
+    this.signUpdata.password = this.registerForm.get('password')?.value;
+    this.signUpdata.id = this.registerForm.get('studentId')?.value;
+
+    this.signUpService.postSignUpData(this.signUpdata).subscribe(
+      Response => { console.log(Response), this.router.navigate(['success-sign-up']); },
       error => this.httpError(error)
     );
   }
@@ -45,23 +56,7 @@ export class SingUpComponent implements OnInit {
     console.log(this.postErrorMessage);
   }
 
-  // creacte a custom validtor to check if the password and the re-entered password are the same
-  private ConfirmedValidator(controlName: string, matchingControlName: string) : ValidatorFn {
-    return (control: AbstractControl) : ValidationErrors | null => {
-      const FormGroup = control as FormGroup;
-      const controlValue  = FormGroup.get(controlName)?.value;
-      const matchingControlValue  = FormGroup.get(matchingControlName)?.value;
-
-      if (control.get('password')?.value === control.get('rPassword')?.value) {
-        return null;
-      } else {
-        return { ValudesNotMatch: true };
-      }
-    }
-  }
-
-
-  // getters for the form controls
+  // getters for the form controls for every field to get the error messages
   get FirstName(): FormControl{
     return this.registerForm.get('firstName') as FormControl;
   }

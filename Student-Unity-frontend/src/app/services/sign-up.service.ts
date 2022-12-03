@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
+import { SignUpData } from '../models/sign-up-data.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,8 +11,8 @@ export class SignUpService {
   constructor(private http: HttpClient) { }
 
   // post sign up data to the backend
-  postSignUpData(signUpData: any) : Observable<any> {
-    return this.http.post('https://putsreq.com/mxBFwx1zfV4DuBpa27DG', signUpData);
+  postSignUpData(signUpData: SignUpData) : Observable<any> {
+    return this.http.post(`${environment.baseUrl}`, signUpData);
   }
 
 }
