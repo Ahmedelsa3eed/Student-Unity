@@ -25,8 +25,6 @@ public class UserService {
         return userRepository.findUserByEmail(email);
     }
 
-
-
     public String deleteUser(Long id){
         try {
             userRepository.deleteById(id);

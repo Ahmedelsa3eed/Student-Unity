@@ -3,30 +3,51 @@ import { User } from '../models/User';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class SignInOutService {
 
-  constructor(private httpClient: HttpClient) { }
-
-  private signedInUser: User = {} as User;
+  constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
 
   public signIn(email: string, password: string): Observable<string>{
     let httpParams = new HttpParams();
     httpParams = httpParams.append("email", email);
     httpParams = httpParams.append("password", password);
-    return this.httpClient.get(`${environment.baseUrl}/logIn/logIn`, {params: httpParams, responseType: 'text'});
-  }
-
-  public getSignedInUser(): User{
-    return this.signedInUser;
+    return this.httpClient.get((environment.baseUrl) + "/logIn/logIn", {params: httpParams, responseType: 'text'});
   }
 
   public signOut(): void{
-    this.signedInUser = {} as User;
+    /* send the signOut request to the backend */
+    this.cookieService.deleteAll();
   }
-  
+
+  public forgotPassword(email: string): Observable<string>{
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("email", email);
+    return this.httpClient.get((environment.baseUrl) + "/logIn/forgetPassword", {params: httpParams, responseType: 'text'});
+  }
+
+  // This function should be called in appropriate components' onInit
+  public isSignedIn(): boolean{
+    return this.cookieService.check("sessionId");
+  }
+
+  // This function should be called when the user sign In for the first time, or when he edits his information.
+  public fillSignedInUserInfo(rememberMe: boolean, sessionId: string): void{
+    /* call the backend to get the rest of the signedInUser info using his sessionId */
+    let expirationDate = 0;
+    if(rememberMe)
+      expirationDate = 400;
+    this.cookieService.set("sessionId", sessionId, expirationDate, '/', '', true, 'Strict');
+  }
+
+  public getSignedInUser(): User{
+    let signedInUser: User = new User;
+    signedInUser.sessionID = this.cookieService.get("sessionId");
+    return signedInUser;
+  }
+
 }

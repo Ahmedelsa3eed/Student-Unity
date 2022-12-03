@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { AccountComponent } from './components/account/account.component';
@@ -32,7 +33,7 @@ import { SuccessSignUpComponent } from './components/success-sign-up/success-sig
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [SignInOutService],
+  providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

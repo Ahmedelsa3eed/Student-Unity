@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {SignInOutService} from "../../services/sign-in-out.service";
 
 @Component({
   selector: 'app-navigation-bar',
@@ -8,13 +9,19 @@ import { Router } from '@angular/router';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private signInOutService:SignInOutService) { }
 
   ngOnInit(): void {
   }
 
   navigateToAccounts(){
     this.router.navigateByUrl("home/accountsPage");
+  }
+
+  logout(){
+    this.signInOutService.signOut();
+    this.router.navigateByUrl("sign-in");
+
   }
 
 }

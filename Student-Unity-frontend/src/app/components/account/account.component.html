@@ -6,7 +6,7 @@
     <p>{{user.email}}</p>
 
     <!-- Edit roles -->
-    <form #myform="ngForm" (change)="changeRole(myform.value)">
+    <form #myform="ngForm" (change)="changeRole()">
       <div class="form-check">
         <input class="form-check-input" type="radio" name="role" id="admin" value="admin" [(ngModel)]="user.role">
         <label class="form-check-label" for="admin">

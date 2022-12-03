@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from './../../models/User';
+import { User } from '../../models/User';
 import { AccountService } from '../../services/account.service';
+import {SignInOutService} from "../../services/sign-in-out.service";
 
 @Component({
   selector: 'app-account',
@@ -11,27 +12,24 @@ export class AccountComponent implements OnInit {
 
   @Input() user = new User();
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, public signInOutService: SignInOutService) { }
 
   ngOnInit(): void {
   }
 
   removeUser() {
-    this.accountService.deleteAccount(this.user, this.user).subscribe(
+    this.accountService.deleteAccount(this.signInOutService.getSignedInUser(), this.user).subscribe(
       (response: any) => {
         console.log(response);
       });
   }
 
-  // TODO: replace first parameter with registered user
-  changeRole(newRole: string) {
-    console.log(this.user.role)
-    if(newRole.valueOf() != this.user.role) {
-      console.log(newRole)
-      this.accountService.changeRole(this.user, this.user, newRole).subscribe(res => {
+  changeRole() {
+    console.log("The new role is "+this.user.role)
+    this.accountService.changeRole(this.signInOutService.getSignedInUser(), this.user, this.user.role).
+    subscribe(res => {
         console.log(res);
       });
-    }
   }
 
 }
