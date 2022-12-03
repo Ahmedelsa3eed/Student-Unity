@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from "@angular/forms";
-import {CookieService} from 'ngx-cookie-service';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { AccountComponent } from './components/account/account.component';
@@ -12,6 +12,8 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignInOutService } from './services/sign-in-out.service';
 import { HomeComponent } from './components/home/home.component';
+import { SingUpComponent } from './components/sing-up/sing-up.component';
+import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,16 @@ import { HomeComponent } from './components/home/home.component';
     AccountPageComponent,
     NavigationBarComponent,
     SignInComponent,
-    HomeComponent
+    HomeComponent,
+    SingUpComponent,
+    SuccessSignUpComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
