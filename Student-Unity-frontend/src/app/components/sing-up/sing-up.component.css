@@ -1,19 +1,19 @@
 .sign-up-page {
   height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
 }
 
 form {
-  width: 35%;
+  width: 50%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .side-img {
-  width: 60%;
-  height: 100%;
+  width: 70%;
+  height: 70%;
 }
 
 .side-img > img {
