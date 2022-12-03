@@ -96,6 +96,9 @@
   <div class = "row">
     <div class="col-6 offset-3">
       <div class = "d-grid">
+        <div [hidden]="!postError" class="alert alert-danger" role="alert">
+          {{ postErrorMessage }}
+        </div>
         <button type = "submit" [disabled]="registerForm.invalid" class = "btn btn-primary" (click) = "registerSubmitted()">Register</button>
       </div>
     </div>

@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SignUpService } from 'src/app/services/sign-up.service';
 
 @Component({
   templateUrl: './sing-up.component.html',
   styleUrls: ['./sing-up.component.css']
 })
 export class SingUpComponent implements OnInit {
+  postError: boolean = false;
+  postErrorMessage: string = "";
+
   registerForm! : FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private signUpService: SignUpService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -27,7 +31,17 @@ export class SingUpComponent implements OnInit {
 
   // Method to register a new user
   registerSubmitted() {
-    console.log(this.registerForm.value);
+    this.signUpService.postSignUpData(this.registerForm.value).subscribe(
+      Response => console.log(Response),
+      error => this.httpError(error)
+    );
+  }
+
+  // method to print the error message from the backend
+  httpError(httpError: any) {
+    console.log('error: ', httpError);
+    this.postError = true;
+    this.postErrorMessage = httpError.error.errorMessage;
   }
 
   // creacte a custom validtor to check if the password and the re-entered password are the same
