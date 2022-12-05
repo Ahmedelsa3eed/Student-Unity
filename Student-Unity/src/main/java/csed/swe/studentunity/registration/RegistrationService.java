@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Registration;
+package csed.swe.studentunity.registration;
 
 import csed.swe.studentunity.user.User;
 import csed.swe.studentunity.user.UserService;
@@ -15,8 +15,8 @@ public class RegistrationService {
     public String addUser(RegistrationRequest request) {
         // check if email is already in use, if not: add user to database and send verification email
         if(userService.getUser(request.getEmail()).isEmpty()) {
-            User newUser = new User(request.getEmail(), request.getId(), request.getFirstName(),
-                    request.getLastName(), request.getPassword(), "normal", "");
+            User newUser = new User(request.getEmail(), request.getStudentId(), request.getFirstName(),
+                    request.getLastName(), request.getPassword(), "student", "");
             userService.addUser(newUser);
             return "User registered successfully";
         } else {

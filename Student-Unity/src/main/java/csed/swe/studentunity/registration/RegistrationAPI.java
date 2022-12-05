@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Registration;
+package csed.swe.studentunity.registration;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
