@@ -27,7 +27,7 @@ public class LoginService {
 
     public String checkCredentials(String email, String password) {
         try {
-            User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
+            User user = queries.getUser(email).orElseThrow(RuntimeException::new);
             if (user.getPassword().equals(password)) {
                 ActiveUserService activeUserService = ActiveUserService.getInstance();
                 UUID sessionId = activeUserService.login(email, user.getRole());
@@ -43,7 +43,7 @@ public class LoginService {
 
     public String forgetPassword(String email){
         try {
-            User user = queries.getUser(email).orElseThrow(() -> new RuntimeException());
+            User user = queries.getUser(email).orElseThrow(RuntimeException::new);
             senderService.send(user.getPassword(), "Your Password", email);
             return "Please check your mailbox";
         }
@@ -52,8 +52,8 @@ public class LoginService {
         }
     }
 
-    public void addCookie(String email){
-
+    public void addCookie(){
+        // milestone 2
     }
 
 }

@@ -8,7 +8,7 @@ public class ActiveUserService {
 
     private static ActiveUserService instance = null;
 
-    private final static HashMap<UUID, String[]> sessions = new HashMap<>();
+    private static final HashMap<UUID, String[]> sessions = new HashMap<>();
 
     private ActiveUserService() {}
 

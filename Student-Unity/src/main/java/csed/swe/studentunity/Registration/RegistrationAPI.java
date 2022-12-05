@@ -21,7 +21,7 @@ public class RegistrationAPI {
     }
 
     public String verifyUser() {
-        return "works";
+        return null;
     }
 
 }
