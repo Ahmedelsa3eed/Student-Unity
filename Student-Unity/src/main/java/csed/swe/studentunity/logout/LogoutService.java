@@ -9,9 +9,8 @@ import java.util.UUID;
 @Transactional
 public class LogoutService {
 
-    public boolean logout(UUID sessionId) {
+    public void logout(UUID sessionId) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         activeUserService.logout(sessionId);
-        return true;
     }
 }
