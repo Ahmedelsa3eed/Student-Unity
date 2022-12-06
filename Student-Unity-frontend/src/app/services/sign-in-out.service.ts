@@ -20,7 +20,7 @@ export class SignInOutService {
   }
 
   public signOut(): void{
-    /* send the signOut request to the backend */
+    this.httpClient.put((environment.baseUrl) + "/logout/logout", {}, {params: {sessionID: this.cookieService.get("sessionId")}}).subscribe();
     this.cookieService.deleteAll();
   }
 
