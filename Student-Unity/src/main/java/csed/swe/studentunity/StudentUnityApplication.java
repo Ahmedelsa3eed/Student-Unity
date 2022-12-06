@@ -1,5 +1,9 @@
 package csed.swe.studentunity;
 
+import csed.swe.studentunity.user.User;
+import csed.swe.studentunity.user.UserRepository;
+import csed.swe.studentunity.user.UserService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -31,4 +35,7 @@ public class StudentUnityApplication {
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }
+
+
+
 }
