@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Registration;
+package csed.swe.studentunity.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,5 +12,5 @@ public class RegistrationRequest {
     private String lastName;
     private String email;
     private String password;
-    private Integer id;
+    private Integer StudentId;
 }
