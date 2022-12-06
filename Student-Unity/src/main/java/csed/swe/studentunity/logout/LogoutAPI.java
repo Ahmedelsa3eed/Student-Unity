@@ -1,8 +1,6 @@
 package csed.swe.studentunity.logout;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +20,8 @@ public class LogoutAPI {
         }
 
         @PutMapping("/logout")
-        public ResponseEntity<Boolean> logout(@RequestParam("sessionID") String sessionID) {
-            return  new ResponseEntity<>(logoutService.logout(UUID.fromString(sessionID)), HttpStatus.OK);
+        public void logout(@RequestParam("sessionID") String sessionID) {
+            logoutService.logout(UUID.fromString(sessionID));
+
         }
 }
