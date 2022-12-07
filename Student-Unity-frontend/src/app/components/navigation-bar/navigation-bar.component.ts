@@ -21,7 +21,6 @@ export class NavigationBarComponent implements OnInit {
   logout(){
     this.signInOutService.signOut();
     this.router.navigateByUrl("sign-in");
-
   }
 
 }

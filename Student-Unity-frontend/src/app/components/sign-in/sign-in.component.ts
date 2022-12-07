@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
   public onSignIn(signInForm: NgForm): void {
     this.signInOutService.signIn(signInForm.value.email, signInForm.value.password).subscribe(
       (response: string) => {
-        if(response == "forgetPassword" || response == "Email not found"){
+        if(response == "Wrong password" || response == "Email not found"){
           this.signInResponse = response;
           document.getElementById('openSignInErrorBtn')?.click();
         }else {

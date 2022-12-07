@@ -28,9 +28,7 @@ public class AccountInterceptor implements HandlerInterceptor {
             response.setStatus(401);
             return false;
         }
-        user = new String[]{"ahmed@mail.com", "admin"};
-        request.setAttribute("email", user[0]);
-        request.setAttribute("role", user[1]);
+
         return true;
     }
     
