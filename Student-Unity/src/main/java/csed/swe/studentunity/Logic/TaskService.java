@@ -9,16 +9,19 @@ import org.springframework.stereotype.Service;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final StudentTaskService studentTaskService;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, StudentTaskService studentTaskService) {
         this.taskRepository = taskRepository;
+        this.studentTaskService = studentTaskService;
     }
 
     /**
      * @return the saved entity, including the updated id field
      * */
     public Task addTask(Task task) {
+        studentTaskService.addTaskIdToAllSubscribedUsers(task);
         return this.taskRepository.save(task);
     }
 
@@ -32,4 +35,5 @@ public class TaskService {
     public void deleteTask(Long taskId) {
         this.taskRepository.deleteById(taskId);
     }
+
 }
