@@ -3,13 +3,13 @@ export class SignUpData {
   lastName: string;
   email: string;
   password: string;
-  id: number;
+  studentId: number;
 
   constructor() {
     this.firstName = '';
     this.lastName = '';
     this.email = '';
     this.password = '';
-    this.id = 0;
+    this.studentId = 0;
   }
 }
