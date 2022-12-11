@@ -66,8 +66,8 @@ export class SignInComponent implements OnInit {
     if (err.status == 403) {
       this.signInResponse = "Wrong password";
 
-    }else if (err.status == 400) {
-      this.signInResponse = "Wrong email";
+    }else if (err.status == 404) {
+      this.signInResponse = "Email Not Found";
     }else {
       this.signInResponse = "Something went wrong the server may be down";
     }

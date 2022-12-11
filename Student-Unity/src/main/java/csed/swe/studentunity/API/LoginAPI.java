@@ -29,7 +29,7 @@ public class LoginAPI {
         } else if (successfulLogin == LoginResponses.WRONG_PASSWORD) {
             return new ResponseEntity<>("Wrong Password", HttpStatus.FORBIDDEN);
         } else {
-            return new ResponseEntity<>("Email Not Found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Email Not Found", HttpStatus.NOT_FOUND);
         }
     }
 

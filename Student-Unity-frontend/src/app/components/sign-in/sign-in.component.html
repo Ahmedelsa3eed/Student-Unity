@@ -22,7 +22,7 @@
             <a href="forget-password" id="openForgotPasswordBtn" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot your password?</a>
 
             <button class="w-100 btn btn-lg btn-primary mt-3 mb-4" type="submit">Sign in</button>
-
+          <div *ngIf="loadings" class="spinner-border text-primary" role="status"></div>
             <p class="mb-1">Don't have an account yet?</p>
             <a [routerLink] = "['/sign-up']">Register now</a>
         </form>
@@ -45,6 +45,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -60,6 +61,7 @@
             <div class="modal-body">
                 <input #forgotPasswordEmailInput type="email" class="form-control" placeholder="Email address" (click)="forgotPasswordResponse = ''">
                 <div style="margin-left: 5px; margin-top: 10px;">{{ forgotPasswordResponse }}</div>
+              <div *ngIf="forgetPasswordLoading" class="spinner-border text-primary" role="status"></div>
             </div>
 
             <div class="modal-footer">
