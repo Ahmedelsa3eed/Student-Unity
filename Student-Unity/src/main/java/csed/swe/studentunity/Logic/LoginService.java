@@ -1,9 +1,6 @@
-package csed.swe.studentunity.login;
+package csed.swe.studentunity.Logic;
 
-import csed.swe.studentunity.sharedServices.ActiveUserService;
-import csed.swe.studentunity.user.User;
-import csed.swe.studentunity.user.UserService;
-import csed.swe.studentunity.sharedServices.EmailService;
+import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

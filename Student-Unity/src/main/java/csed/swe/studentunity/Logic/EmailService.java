@@ -1,4 +1,4 @@
-package csed.swe.studentunity.sharedServices;
+package csed.swe.studentunity.Logic;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

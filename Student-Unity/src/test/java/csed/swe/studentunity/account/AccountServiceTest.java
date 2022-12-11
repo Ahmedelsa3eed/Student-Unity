@@ -1,13 +1,12 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.sharedServices.ActiveUserService;
-import csed.swe.studentunity.user.User;
-import csed.swe.studentunity.user.UserService;
+import csed.swe.studentunity.Logic.AccountService;
+import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.Logic.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest

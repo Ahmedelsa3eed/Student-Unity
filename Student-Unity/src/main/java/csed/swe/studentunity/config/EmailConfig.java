@@ -1,4 +1,4 @@
-package csed.swe.studentunity;
+package csed.swe.studentunity.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
-package csed.swe.studentunity.logout;
+package csed.swe.studentunity.Logic;
 
-import csed.swe.studentunity.sharedServices.ActiveUserService;
+import csed.swe.studentunity.Logic.ActiveUserService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -13,4 +13,5 @@ public class LogoutService {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         activeUserService.logout(sessionId);
     }
+
 }

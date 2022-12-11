@@ -1,7 +1,7 @@
-package csed.swe.studentunity.registration;
+package csed.swe.studentunity.Logic;
 
-import csed.swe.studentunity.user.User;
-import csed.swe.studentunity.user.UserService;
+import csed.swe.studentunity.model.RegistrationRequest;
+import csed.swe.studentunity.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

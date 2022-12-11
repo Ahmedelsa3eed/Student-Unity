@@ -1,5 +1,7 @@
-package csed.swe.studentunity.registration;
+package csed.swe.studentunity.API;
 
+import csed.swe.studentunity.model.RegistrationRequest;
+import csed.swe.studentunity.Logic.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
