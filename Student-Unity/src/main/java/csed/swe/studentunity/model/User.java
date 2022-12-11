@@ -1,4 +1,4 @@
-package csed.swe.studentunity.user;
+package csed.swe.studentunity.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

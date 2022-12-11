@@ -1,7 +1,6 @@
-package csed.swe.studentunity.account;
+package csed.swe.studentunity.Logic;
 
 
-import csed.swe.studentunity.sharedServices.ActiveUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;

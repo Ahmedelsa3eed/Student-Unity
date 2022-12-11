@@ -1,5 +1,7 @@
-package csed.swe.studentunity.user;
+package csed.swe.studentunity.Logic;
 
+import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.DAO.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
-package csed.swe.studentunity.logout;
+package csed.swe.studentunity.API;
 
+import csed.swe.studentunity.Logic.LogoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,6 @@ public class LogoutAPI {
         @PutMapping("/logout")
         public void logout(@RequestParam("sessionID") String sessionID) {
             logoutService.logout(UUID.fromString(sessionID));
-
         }
+
 }

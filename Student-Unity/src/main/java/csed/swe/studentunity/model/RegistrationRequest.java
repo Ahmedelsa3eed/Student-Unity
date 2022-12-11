@@ -1,4 +1,4 @@
-package csed.swe.studentunity.registration;
+package csed.swe.studentunity.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

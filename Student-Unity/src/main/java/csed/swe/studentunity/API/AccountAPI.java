@@ -1,6 +1,7 @@
-package csed.swe.studentunity.account;
+package csed.swe.studentunity.API;
 
-import csed.swe.studentunity.user.User;
+import csed.swe.studentunity.Logic.AccountService;
+import csed.swe.studentunity.model.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
