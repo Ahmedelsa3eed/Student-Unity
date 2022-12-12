@@ -1,6 +1,6 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.Logic.AccountService;
+import csed.swe.studentunity.Logic.AccountsPage.AccountService;
 import csed.swe.studentunity.Logic.ActiveUserService;
 import csed.swe.studentunity.model.User;
 import csed.swe.studentunity.Logic.UserService;

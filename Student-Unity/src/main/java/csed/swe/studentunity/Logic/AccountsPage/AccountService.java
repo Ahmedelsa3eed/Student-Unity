@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.AccountsPage;
 
 import csed.swe.studentunity.DAO.AccountRepo;
 import csed.swe.studentunity.model.User;
