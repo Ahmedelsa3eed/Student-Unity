@@ -26,9 +26,18 @@
         </label>
       </div>
     </form>
+    <div *ngIf="isChangingRole">
+      <span>Changing role to {{user.role}}</span>
+      <span class="spinner-border spinner-border-sm"  style="margin-left: 5px" > </span>
+    </div>
+
 
     <div>
-      <button class="btn btn-danger m-1" (click)="removeUser()">Remove</button>
+      <button *ngIf="!isRemoving" class="btn btn-danger m-1" (click)="removeUser()">Remove</button>
+      <button *ngIf="isRemoving" class="btn btn-danger m-1" type="button" disabled>
+        <span  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Removing...
+      </button>
     </div>
 
   </div>
