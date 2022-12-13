@@ -53,10 +53,16 @@ export class SignInOutService {
     this.cookieService.set("sessionId", sessionId, expirationDate, '/', '', true, 'Strict');
   }
 
-  public getSignedInUser(): User{
-    let signedInUser: User = new User;
-    signedInUser.sessionID = this.cookieService.get("sessionId");
-    return signedInUser;
+  public getSignedInUserSessionID(): string{
+    return this.cookieService.get("sessionId");
+  }
+
+  public getSignedInUser():Observable<HttpResponse<User>>{
+    return this.httpClient.get<User>((environment.baseUrl) + "/logIn/getUser", {
+      params: {sessionID: this.cookieService.get("sessionId")},
+      observe: 'response',
+      responseType: 'json'
+    });
   }
 
 }

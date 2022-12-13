@@ -33,7 +33,7 @@ export class AccountPageComponent implements OnInit {
 
   getAccounts() {
     this.isLoading = true;
-    this.accountsService.getAccounts(this.signInOutService.getSignedInUser()).subscribe(res => {
+    this.accountsService.getAccounts(this.signInOutService.getSignedInUserSessionID()).subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
         console.log(res.body)
@@ -47,7 +47,7 @@ export class AccountPageComponent implements OnInit {
 
   public search() {
     this.isLoading = true;
-    this.accountsService.searchAccounts(this.signInOutService.getSignedInUser(), this.searchString).subscribe(res => {
+    this.accountsService.searchAccounts(this.signInOutService.getSignedInUserSessionID(), this.searchString).subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
         console.log(res.body)
