@@ -5,8 +5,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 @Transactional
 public class LoginService {
@@ -21,31 +19,30 @@ public class LoginService {
         this.queries = queries;
         this.senderService = senderService;
     }
-
-    public String checkCredentials(String email, String password) {
+    public LoginResponses checkCredentials(String email, String password) {
         try {
             User user = queries.getUser(email).orElseThrow(RuntimeException::new);
             if (user.getPassword().equals(password)) {
                 ActiveUserService activeUserService = ActiveUserService.getInstance();
-                UUID sessionId = activeUserService.login(email, user.getRole());
-                return sessionId.toString();
+                activeUserService.login(email, user.getRole());
+                return LoginResponses.SUCCESSFUL_LOGIN;
             } else {
-                return "Wrong password";
+                return LoginResponses.WRONG_PASSWORD;
             }
         }
         catch (RuntimeException e){
-            return "Email not found";
+            return LoginResponses.EMAIL_NOT_FOUND;
         }
     }
 
-    public String forgetPassword(String email){
+    public boolean forgetPassword(String email){
         try {
             User user = queries.getUser(email).orElseThrow(RuntimeException::new);
             senderService.send(user.getPassword(), "Your Password", email);
-            return "Please check your mailbox";
+            return true;
         }
         catch (RuntimeException e){
-            return "Email not found";
+            return false;
         }
     }
 

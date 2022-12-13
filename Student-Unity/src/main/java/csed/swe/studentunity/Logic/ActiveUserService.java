@@ -9,6 +9,7 @@ public class ActiveUserService {
     private static ActiveUserService instance = null;
 
     private static final HashMap<UUID, String[]> sessions = new HashMap<>();
+    private static final HashMap<String, UUID> emails = new HashMap<>();
 
     private ActiveUserService() {}
 
@@ -26,18 +27,16 @@ public class ActiveUserService {
         return new String[] {null, null};
     }
 
-    public UUID login(String email, String role) {
+    public void login(String email, String role) {
         UUID newSessionId = UUID.randomUUID();
         sessions.put(newSessionId, new String[]{email, role});
-        return newSessionId;
+        emails.put(email, newSessionId);
     }
 
-    public boolean checkAdmin(UUID sessionId) {
-        if(sessions.containsKey(sessionId)) {
-            return sessions.get(sessionId)[1].equals("admin");
-        }
-        return false;
+    public String getSessionIdAsString(String email){
+        return emails.get(email).toString();
     }
+
 
     public void logout(UUID sessionId) {
         sessions.remove(sessionId);

@@ -1,5 +1,7 @@
 package csed.swe.studentunity.API;
 
+import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.Logic.LoginResponses;
 import csed.swe.studentunity.Logic.LoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +22,25 @@ public class LoginAPI {
 
     @GetMapping("/logIn")
     public ResponseEntity<String> logIn(@RequestParam String email, @RequestParam String password) {
-        String successfulLogin = loginService.checkCredentials(email, password);
-        return new ResponseEntity<>(successfulLogin, HttpStatus.OK);
+       LoginResponses successfulLogin = loginService.checkCredentials(email, password);
+        if (successfulLogin == LoginResponses.SUCCESSFUL_LOGIN) {
+            String sessionid = ActiveUserService.getInstance().getSessionIdAsString(email);
+            return new ResponseEntity<>(sessionid , HttpStatus.OK);
+        } else if (successfulLogin == LoginResponses.WRONG_PASSWORD) {
+            return new ResponseEntity<>("Wrong Password", HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>("Email Not Found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/forgetPassword")
-    public ResponseEntity<String> forgetPassword(@RequestParam String email) {
-        String doesEmailExists = loginService.forgetPassword(email);
-        return new ResponseEntity<>(doesEmailExists, HttpStatus.OK);
+    public ResponseEntity<Boolean> forgetPassword(@RequestParam String email) {
+        boolean doesEmailExists = loginService.forgetPassword(email);
+        if (doesEmailExists) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
     }
 
 }
