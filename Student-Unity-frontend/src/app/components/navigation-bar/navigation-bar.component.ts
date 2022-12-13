@@ -14,8 +14,8 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigateToAccounts(){
-    this.router.navigateByUrl("home/accountsPage");
+  navigateTo(child: string){
+    this.router.navigateByUrl("home/" + child);
   }
 
   logout(){
