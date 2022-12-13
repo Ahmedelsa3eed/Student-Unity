@@ -15,7 +15,6 @@ public class RegistrationService {
     public String addUser(RegistrationRequest request) {
         // check if email is already in use, if not: add user to database and send verification email
         if(userService.getUser(request.getEmail()).isEmpty()) {
-            System.out.println(request);
             User newUser = new User(request.getEmail(), request.getStudentId(), request.getFirstName(),
                     request.getLastName(), request.getPassword(), "student", "");
             userService.addUser(newUser);
