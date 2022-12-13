@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class LoginService {
@@ -46,6 +48,16 @@ public class LoginService {
         }
     }
 
+    public  User getUser(String sessionID){
+        try {
+            String email = ActiveUserService.getInstance().getEmailFromSessionId(UUID.fromString(sessionID));
+            return queries.getUser(email).orElseThrow(RuntimeException::new);
+
+        }
+        catch (RuntimeException e){
+            return null;
+        }
+    }
     public void addCookie(){
         // milestone 2
     }

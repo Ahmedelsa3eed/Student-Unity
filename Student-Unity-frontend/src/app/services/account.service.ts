@@ -12,47 +12,47 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  public getAccounts(user: User): Observable<HttpResponse<User[]>> {
+  public getAccounts(sessionID: string): Observable<HttpResponse<User[]>> {
     return this.http.get<User[]>(this.url + '/all', {
       observe: 'response',
       params: {
-        sessionId: user.sessionID,
+        sessionId: sessionID,
       },
       responseType: 'json',
     });
   }
 
-  public searchAccounts(user: User, searchString: string): Observable<HttpResponse<User[]>> {
+  public searchAccounts(sessionId: string, searchString: string): Observable<HttpResponse<User[]>> {
     return this.http.get<User[]>(this.url + '/search', {
       observe: 'response',
       responseType: 'json',
       params: {
-        sessionId: user.sessionID,
+        sessionId: sessionId,
         searchString: searchString
       }
     });
   }
 
-  public changeRole(user: User, targetUser: User, role: string): Observable<HttpResponse<any>> {
+  public changeRole( sessionId: string, targetUser: User, role: string): Observable<HttpResponse<any>> {
     return this.http.put<boolean>(this.url + '/changeRole',{}, {
       observe: 'response',
       responseType: 'json',
       params: {
-        sessionId: user.sessionID,
+        sessionId: sessionId,
         targetUserId: targetUser.studentId,
         role: role
       }
     });
   }
 
-  public deleteAccount(user: User, targetUser: User): Observable<HttpResponse<any>> {
+  public deleteAccount(sessionID: string, targetUser: User): Observable<HttpResponse<any>> {
     console.log("deleteAccount");
-    console.log(user);
+    console.log(sessionID);
     console.log(targetUser);
     return this.http.delete(this.url + '/delete', {
       observe: 'response',
       params: {
-        sessionId: user.sessionID,
+        sessionId: sessionID,
         targetUserId: targetUser.studentId
       },
       responseType: 'json'
