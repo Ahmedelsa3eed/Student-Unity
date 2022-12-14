@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,6 +44,9 @@ public class User implements Serializable {
 
     @Column(name = "revision_notification_token")
     private String revisionNotificationToken;
+
+    @OneToMany(mappedBy = "code", cascade = CascadeType.ALL)
+    private List<Course> registeredCourses = new ArrayList<>();
 
     public User() {}
 

@@ -11,8 +11,8 @@ export class CoursesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUserRegisteredCourse(): Observable<Course[]>{
-    return this.httpClient.get<Course[]>(environment.baseUrl + "/course/getRegisteredCourses");
+  getUserRegisteredCourse(sessionId: string): Observable<Course[]>{
+    return this.httpClient.get<Course[]>(environment.baseUrl + "/course/getUserRegisteredCourses/" + sessionId);
   }
 
 }

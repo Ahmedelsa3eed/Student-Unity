@@ -13,6 +13,7 @@ import lombok.ToString;
         @UniqueConstraint(name = "code", columnNames = "code"),
     })
 public class Course {
+
     @Column(name = "name", nullable = false, columnDefinition = "TEXT")
     String name;
 
@@ -31,4 +32,5 @@ public class Course {
 
     @Column(name = "notificationsToken", nullable = false, columnDefinition = "TEXT")
     String notificationsToken;
+
 }
