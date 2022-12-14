@@ -9,6 +9,7 @@ public class ActiveUserService {
     private static ActiveUserService instance = null;
 
     private static final HashMap<UUID, String[]> sessions = new HashMap<>();
+    private static final HashMap<UUID, Long> users_Ids = new HashMap<>();
     private static final HashMap<String, UUID> emails = new HashMap<>();
 
     private ActiveUserService() {}
@@ -40,10 +41,12 @@ public class ActiveUserService {
         sessions.replace(sessionId, new String[] {email, role});
     }
 
-    public void login(String email, String role) {
+    public void login(String email, String role, Long id) {
         UUID newSessionId = UUID.randomUUID();
         sessions.put(newSessionId, new String[]{email, role});
         emails.put(email, newSessionId);
+        users_Ids.put(newSessionId, id);
+
     }
 
     public String getSessionIdAsString(String email){
@@ -52,6 +55,10 @@ public class ActiveUserService {
 
     public String getEmailFromSessionId(UUID sessionId){
         return sessions.get(sessionId)[0];
+    }
+
+    public Long getUserIdFromSessionId(UUID sessionId){
+        return users_Ids.get(sessionId);
     }
 
     public void deleteSession(String email){

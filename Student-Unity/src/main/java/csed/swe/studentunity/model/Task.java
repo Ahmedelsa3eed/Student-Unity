@@ -21,8 +21,9 @@ public class Task implements Serializable {
     @Column(columnDefinition = "varchar(20)")
     private String title;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-    private String courseCode;
+    @ManyToOne
+    @JoinColumn(name = "course_code")
+    private Course courseCode;
 
     @Column(columnDefinition = "Date")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
@@ -32,4 +33,7 @@ public class Task implements Serializable {
     private URL telegramLink;
 
     public Task() {}
+    public Task(Long taskId) {
+        this.taskId = taskId;
+    }
 }

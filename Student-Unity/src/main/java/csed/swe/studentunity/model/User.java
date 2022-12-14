@@ -20,6 +20,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false, columnDefinition = "INTEGER")
     private Long id;
 
     @Column(name = "email", nullable = false, updatable = false, columnDefinition = "varchar(100)")
@@ -44,6 +45,11 @@ public class User implements Serializable {
     private String revisionNotificationToken;
 
     public User() {}
+
+    public User(Long id){
+        this.id = id;
+    }
+
 
     public User(String email, Integer studentId, String firstName, String lastName, String password, String role, String revisionNotificationToken) {
         this.email = email;

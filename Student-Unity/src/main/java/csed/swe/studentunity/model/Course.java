@@ -10,15 +10,15 @@ import lombok.ToString;
 @ToString
 @Entity(name = "Course")
 @Table(name = "course", uniqueConstraints = {
-        @UniqueConstraint(name = "code", columnNames = "code"),
+        @UniqueConstraint(name = "course_code", columnNames = "course_code"),
     })
 public class Course {
-    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
-    String name;
+    @Column(name = "course_name", nullable = false, columnDefinition = "TEXT")
+    String courseName;
 
     @Id
-    @Column(name = "code", nullable = false, columnDefinition = "TEXT")
-    String code;
+    @Column(name = "course_code", nullable = false, columnDefinition = "TEXT")
+    String courseCode;
 
     @Column(name = "timeTable", nullable = false, columnDefinition = "TEXT")
     String timeTable;
@@ -31,4 +31,8 @@ public class Course {
 
     @Column(name = "notificationsToken", nullable = false, columnDefinition = "TEXT")
     String notificationsToken;
+
+    public Course(String courseCode) {
+        this.courseCode = courseCode;
+    }
 }

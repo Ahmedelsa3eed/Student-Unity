@@ -56,8 +56,8 @@ class AccountServiceTest {
         userService.addUser(targetUser);
 
         accountService.changeRole( "user1@mail.com", "admin");
-        assertTrue(accountService.changeRole("user1@mail.com", "admin"));
-        accountService.deleteAccount("user1@mail.com");
+        assertTrue(accountService.changeRole("targetUser@mail.com", "admin"));
+        accountService.deleteAccount("targetUser@mail.com");
         accountService.deleteAccount("user1@mail.com");
 
     }
