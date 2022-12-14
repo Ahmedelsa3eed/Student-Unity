@@ -3,25 +3,27 @@ package csed.swe.studentunity.Logic;
 
 import csed.swe.studentunity.DAO.CourseRepo;
 import csed.swe.studentunity.model.Course;
+import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
 public class AllCourseService {
 
-    @Autowired
     private final CourseRepo courseRepo;
+    private final UserService userService;
 
-    public AllCourseService(CourseRepo courseRepo) {
+    public AllCourseService(CourseRepo courseRepo, UserService userService) {
         this.courseRepo = courseRepo;
+        this.userService = userService;
     }
-
 
     public String addCourse(String role, Course course){
         if (!role.equals("admin")){
@@ -29,8 +31,6 @@ public class AllCourseService {
         }
         courseRepo.save(course);
         return "ok";
-
-
     }
 
     public String removeCourse(String role, String code){
@@ -63,8 +63,13 @@ public class AllCourseService {
         return courseRepo.findCourseByStatus(true);
     }
 
-    public void getSubscribedCourses(){
-
+    public List<Course> getSubscribedCourses(String sessionId){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user != null)
+            return user.getRegisteredCourses();
+        return new ArrayList<>();
     }
 
     public void subscribe(){

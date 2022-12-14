@@ -1,6 +1,5 @@
 package csed.swe.studentunity.API;
 
-
 import csed.swe.studentunity.Logic.AllCourseService;
 import csed.swe.studentunity.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -85,7 +82,8 @@ public class AllCoursesAPI {
         return new ResponseEntity<>(allCourseService.getAllActiveCourses(), HttpStatus.OK);
     }
     @GetMapping("getSubscribedCourses")
-    public ResponseEntity<Course> getSubscribedCourse(){
-        return null;
+    public ResponseEntity<List<Course>> getSubscribedCourse(@RequestParam String sessionId){
+        return new ResponseEntity<>(allCourseService.getSubscribedCourses(sessionId), HttpStatus.OK);
     }
+
 }

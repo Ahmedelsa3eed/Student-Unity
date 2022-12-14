@@ -14,15 +14,17 @@ import java.io.Serializable;
 @Table(name = "course",
         uniqueConstraints = {
             @UniqueConstraint(name = "code_unique", columnNames = "course_code"),
-            @UniqueConstraint(name = "name_unique", columnNames = "course_name")
         })
 
 public class Course implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    long id;
+
     @Column(name = "course_name", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
     private String name;
 
-    @Id
     @Column(name = "course_code", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
     private String code;
 
@@ -34,5 +36,8 @@ public class Course implements Serializable {
 
     @Column(name = "telegram_link")
     private String telegramLink;
+
+    @Column(name = "notifications_token")
+    private String notificationsToken;
     
 }
