@@ -39,7 +39,9 @@ public class ActiveUserService {
 
     public String getEmailFromSessionId(UUID sessionId){
         return sessions.get(sessionId)[0];
+
     }
+
 
     public void logout(UUID sessionId) {
         sessions.remove(sessionId);

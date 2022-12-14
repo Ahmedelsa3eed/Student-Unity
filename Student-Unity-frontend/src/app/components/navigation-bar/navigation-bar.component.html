@@ -18,11 +18,11 @@
   <!-- Buttons -->
   <div class="parent">
     <div><em class="bi bi-stack"></em>All Courses</div>
-    <div><em class="bi bi-book"></em>My Courses</div>
+    <div (click)="navigateTo('myCourses')"><em class="bi bi-book"></em>My Courses</div>
     <div><em class="bi bi-list-task"></em>Tasks</div>
     <div><em class="bi bi-megaphone pe-none me-2"></em>Announcements</div>
     <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
-    <div (click)="navigateToAccounts()">
+    <div (click)="navigateTo('accountsPage')">
       <em class="bi bi-person-circle pe-none me-2"></em>
       Accounts
     </div>
