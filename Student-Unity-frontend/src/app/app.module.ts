@@ -14,6 +14,7 @@ import { SignInOutService } from './services/sign-in-out.service';
 import { HomeComponent } from './components/home/home.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
+import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SuccessSignUpComponent } from './components/success-sign-up/success-sig
     SignInComponent,
     HomeComponent,
     SingUpComponent,
-    SuccessSignUpComponent
+    SuccessSignUpComponent,
+    MyCoursesComponent
   ],
   imports: [
     BrowserModule,

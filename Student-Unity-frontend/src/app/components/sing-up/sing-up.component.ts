@@ -42,7 +42,7 @@ export class SingUpComponent implements OnInit, OnDestroy {
     this.signUpdata.password = this.registerForm.get('password')?.value;
     this.signUpdata.studentId = this.registerForm.get('studentId')?.value;
 
-    
+
     this.signUpService.postSignUpData(this.signUpdata)
     .subscribe({
       next: (res) => {
