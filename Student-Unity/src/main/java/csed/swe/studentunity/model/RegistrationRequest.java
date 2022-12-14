@@ -13,4 +13,9 @@ public class RegistrationRequest {
     private String email;
     private String password;
     private Integer studentId;
+
+    public String toString() {
+        return "LName: " + lastName + " email: " + email + " id: " + studentId;
+    }
+
 }

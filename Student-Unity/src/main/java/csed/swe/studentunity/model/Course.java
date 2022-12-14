@@ -19,7 +19,6 @@ import java.io.Serializable;
 
 public class Course implements Serializable {
 
-
     @Column(name = "course_name", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
     private String name;
 
@@ -35,5 +34,5 @@ public class Course implements Serializable {
 
     @Column(name = "telegram_link")
     private String telegramLink;
-
+    
 }

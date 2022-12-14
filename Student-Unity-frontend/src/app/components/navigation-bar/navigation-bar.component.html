@@ -12,7 +12,7 @@
 
   <!-- Profile -->
   <div class="profile">
-    <p>A M</p>
+    <h4 *ngIf="loggedInUser !=null" style="margin-left: 25px ">{{loggedInUser.firstName}}  {{loggedInUser.lastName}}</h4>
   </div>
 
   <!-- Buttons -->
@@ -22,7 +22,7 @@
     <div><em class="bi bi-list-task"></em>Tasks</div>
     <div><em class="bi bi-megaphone pe-none me-2"></em>Announcements</div>
     <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
-    <div (click)="navigateToAccounts()">
+    <div *ngIf="loggedInUser.role =='admin'" (click)="navigateTo('accountsPage')">
       <em class="bi bi-person-circle pe-none me-2"></em>
       Accounts
     </div>
