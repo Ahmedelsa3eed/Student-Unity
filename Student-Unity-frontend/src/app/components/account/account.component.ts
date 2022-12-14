@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { User } from '../../models/User';
 import { AccountService } from '../../services/account.service';
 import {SignInOutService} from "../../services/sign-in-out.service";
@@ -11,6 +11,9 @@ import {SignInOutService} from "../../services/sign-in-out.service";
 export class AccountComponent implements OnInit {
 
   @Input() user = new User();
+  @Output() public onDelete: EventEmitter<any> = new EventEmitter();
+  public isRemoving: boolean = false;
+  public isChangingRole: boolean = false;
 
   constructor(private accountService: AccountService, public signInOutService: SignInOutService) { }
 
@@ -18,18 +21,34 @@ export class AccountComponent implements OnInit {
   }
 
   removeUser() {
-    this.accountService.deleteAccount(this.signInOutService.getSignedInUser(), this.user).subscribe(
+    this.isRemoving = true;
+    this.accountService.deleteAccount(this.signInOutService.getSignedInUserSessionID(), this.user).subscribe(
       (response: any) => {
+        this.isRemoving = false;
+        this.onDelete.emit(this.user);
         console.log(response);
-      });
+      },(error: any) => {
+        this.isRemoving = false;
+        console.log(error);
+      }
+      );
   }
 
   changeRole() {
     console.log("The new role is "+this.user.role)
-    this.accountService.changeRole(this.signInOutService.getSignedInUser(), this.user, this.user.role).
-    subscribe(res => {
+    this.isChangingRole = true;
+    this.accountService.changeRole(this.signInOutService.getSignedInUserSessionID(), this.user, this.user.role).
+    subscribe(
+      res => {
+        this.isChangingRole = false;
         console.log(res);
-      });
+
+        },
+        err => {
+          this.isChangingRole = false;
+          console.log(err);
+        }
+      );
   }
 
 }

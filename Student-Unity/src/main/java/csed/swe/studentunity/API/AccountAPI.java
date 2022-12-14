@@ -1,6 +1,6 @@
 package csed.swe.studentunity.API;
 
-import csed.swe.studentunity.Logic.AccountService;
+import csed.swe.studentunity.Logic.AccountsPage.AccountService;
 import csed.swe.studentunity.model.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -33,14 +33,14 @@ public class AccountAPI {
 
     @PutMapping("/changeRole")
     @ResponseBody
-    public ResponseEntity<Boolean> changeRole(@RequestParam("targetUserId")Integer targetUserId,
+    public ResponseEntity<Boolean> changeRole(@RequestParam("targetUserEmail")String targetUserEmail,
                                               @RequestParam("role")String role) {
-        return new ResponseEntity<>(accountService.changeRole(targetUserId, role), HttpStatus.OK);
+        return new ResponseEntity<>(accountService.changeRole(targetUserEmail, role), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount(@Param("targetUserId")Integer targetUserId) {
-        return new ResponseEntity<>(accountService.deleteAccount(targetUserId), HttpStatus.OK);
+    public ResponseEntity<Boolean> deleteAccount(@Param("targetUserId")String targetUserEmail) {
+        return new ResponseEntity<>(accountService.deleteAccount(targetUserEmail), HttpStatus.OK);
     }
 
 }

@@ -1,36 +1,38 @@
 package csed.swe.studentunity.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Course")
-@Table(name = "course", uniqueConstraints = {
-        @UniqueConstraint(name = "code", columnNames = "code"),
-    })
-public class Course {
+@Table(name = "course",
+        uniqueConstraints = {
+            @UniqueConstraint(name = "code_unique", columnNames = "course_code"),
+            @UniqueConstraint(name = "name_unique", columnNames = "course_name")
+        })
 
-    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
-    String name;
+public class Course implements Serializable {
+
+    @Column(name = "course_name", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
+    private String name;
 
     @Id
-    @Column(name = "code", nullable = false, columnDefinition = "TEXT")
-    String code;
+    @Column(name = "course_code", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
+    private String code;
 
-    @Column(name = "timeTable", nullable = false, columnDefinition = "TEXT")
-    String timeTable;
+    @Column(name = "time_table", nullable = false, columnDefinition = "TEXT")
+    private String timeTable;
 
-    @Column(name = "telegramLink", nullable = false, columnDefinition = "TEXT")
-    String telegramLink;
+    @Column(name = "course_status", nullable = false)
+    private boolean status;
 
-    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN")
-    boolean status;
-
-    @Column(name = "notificationsToken", nullable = false, columnDefinition = "TEXT")
-    String notificationsToken;
-
+    @Column(name = "telegram_link")
+    private String telegramLink;
+    
 }
