@@ -46,6 +46,16 @@ public class LoginService {
         }
     }
 
+    public  User getUser(String sessionID){
+        try {
+            String email = ActiveUserService.getInstance().getEmailFromSessionId(UUID.fromString(sessionID));
+            return queries.getUser(email).orElseThrow(RuntimeException::new);
+
+        }
+        catch (RuntimeException e){
+            return null;
+        }
+    }
     public void addCookie(){
         // milestone 2
     }

@@ -3,12 +3,14 @@ package csed.swe.studentunity.API;
 import csed.swe.studentunity.Logic.ActiveUserService;
 import csed.swe.studentunity.Logic.LoginResponses;
 import csed.swe.studentunity.Logic.LoginService;
+import csed.swe.studentunity.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/logIn")
@@ -41,6 +43,18 @@ public class LoginAPI {
         } else {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<User> getUser(@RequestParam String sessionID) {
+        User user = loginService.getUser(sessionID);
+
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        }
+
     }
 
 }
