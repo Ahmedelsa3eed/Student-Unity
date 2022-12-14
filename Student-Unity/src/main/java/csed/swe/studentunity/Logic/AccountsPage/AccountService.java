@@ -1,6 +1,7 @@
 package csed.swe.studentunity.Logic.AccountsPage;
 
 import csed.swe.studentunity.DAO.AccountRepo;
+import csed.swe.studentunity.Logic.ActiveUserService;
 import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,10 @@ public class AccountService {
         return accountRepo.searchAccounts(searchString);
     }
 
-    public Boolean changeRole(Integer targetUserId, String role) {
-        accountRepo.changeRole(targetUserId, role);
+    public Boolean changeRole(String targetUserEmail, String role) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.changeLoggedInUserRole(targetUserEmail, role);
+        accountRepo.changeRole(targetUserEmail, role);
         return true;
     }
 

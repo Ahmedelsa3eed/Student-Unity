@@ -39,7 +39,7 @@ export class AccountService {
       responseType: 'json',
       params: {
         sessionId: sessionId,
-        targetUserId: targetUser.studentId,
+        targetUserEmail: targetUser.email,
         role: role
       }
     });

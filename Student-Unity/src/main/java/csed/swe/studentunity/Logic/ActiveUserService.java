@@ -27,6 +27,19 @@ public class ActiveUserService {
         return new String[] {null, null};
     }
 
+    public boolean checkIfEmailLoggedIn(String email) {
+        return emails.containsKey(email);
+    }
+
+    public UUID getSessionID(String email) {
+        return emails.get(email);
+    }
+
+    public void changeLoggedInUserRole(String email, String role) {
+        UUID sessionId = emails.get(email);
+        sessions.replace(sessionId, new String[] {email, role});
+    }
+
     public void login(String email, String role) {
         UUID newSessionId = UUID.randomUUID();
         sessions.put(newSessionId, new String[]{email, role});

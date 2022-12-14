@@ -33,9 +33,9 @@ public class AccountAPI {
 
     @PutMapping("/changeRole")
     @ResponseBody
-    public ResponseEntity<Boolean> changeRole(@RequestParam("targetUserId")Integer targetUserId,
+    public ResponseEntity<Boolean> changeRole(@RequestParam("targetUserEmail")String targetUserEmail,
                                               @RequestParam("role")String role) {
-        return new ResponseEntity<>(accountService.changeRole(targetUserId, role), HttpStatus.OK);
+        return new ResponseEntity<>(accountService.changeRole(targetUserEmail, role), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")

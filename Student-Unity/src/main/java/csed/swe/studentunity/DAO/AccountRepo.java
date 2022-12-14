@@ -17,8 +17,8 @@ public interface AccountRepo extends JpaRepository<User, String> {
     List<User> searchAccounts(String searchString);
 
     @Modifying
-    @Query(value = "UPDATE user SET role = ?2 WHERE student_id = ?1", nativeQuery = true)
-    void changeRole(Integer targetUserId, String role);
+    @Query(value = "UPDATE user SET role = ?2 WHERE email= ?1", nativeQuery = true)
+    void changeRole(String targetUserEmail, String role);
 
     @Modifying
     @Query(value = "DELETE FROM user WHERE student_id = ?1", nativeQuery = true)
