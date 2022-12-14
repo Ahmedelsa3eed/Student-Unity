@@ -35,7 +35,7 @@ public class ActiveUserService {
         return emails.get(email);
     }
 
-    public void changeLoggedInUserRole(String email, String role) {
+    public void changeRole(String email, String role) {
         UUID sessionId = emails.get(email);
         sessions.replace(sessionId, new String[] {email, role});
     }
@@ -54,12 +54,13 @@ public class ActiveUserService {
         return sessions.get(sessionId)[0];
     }
 
-    public void deleteLoggedInUser(String email){
+    public void deleteSession(String email){
         sessions.remove(emails.get(email));
         emails.remove(email);
     }
     public void logout(UUID sessionId) {
         sessions.remove(sessionId);
+        emails.remove(getEmailFromSessionId(sessionId));
     }
 
 }

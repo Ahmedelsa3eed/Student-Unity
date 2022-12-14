@@ -22,6 +22,6 @@ public interface AccountRepo extends JpaRepository<User, String> {
 
     @Modifying
     @Query(value = "DELETE FROM user WHERE email = ?1", nativeQuery = true)
-    void deleteAccountByStudentId(String targetUserEmail);
+    void deleteAccountByEmail(String targetUserEmail);
 
 }

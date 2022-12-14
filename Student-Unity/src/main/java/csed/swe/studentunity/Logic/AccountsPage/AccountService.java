@@ -30,15 +30,15 @@ public class AccountService {
 
     public Boolean changeRole(String targetUserEmail, String role) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        activeUserService.changeLoggedInUserRole(targetUserEmail, role);
+        activeUserService.changeRole(targetUserEmail, role);
         accountRepo.changeRole(targetUserEmail, role);
         return true;
     }
 
     public Boolean deleteAccount(String targetUserEmail) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        activeUserService.deleteLoggedInUser(targetUserEmail);
-        accountRepo.deleteAccountByStudentId(targetUserEmail);
+        activeUserService.deleteSession(targetUserEmail);
+        accountRepo.deleteAccountByEmail(targetUserEmail);
         return true;
     }
 
