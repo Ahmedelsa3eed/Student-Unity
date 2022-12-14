@@ -39,8 +39,8 @@ public class AccountAPI {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount(@Param("targetUserId")Integer targetUserId) {
-        return new ResponseEntity<>(accountService.deleteAccount(targetUserId), HttpStatus.OK);
+    public ResponseEntity<Boolean> deleteAccount(@Param("targetUserId")String targetUserEmail) {
+        return new ResponseEntity<>(accountService.deleteAccount(targetUserEmail), HttpStatus.OK);
     }
 
 }

@@ -53,7 +53,7 @@ export class AccountService {
       observe: 'response',
       params: {
         sessionId: sessionID,
-        targetUserId: targetUser.studentId
+        targetUserEmail: targetUser.email
       },
       responseType: 'json'
     });

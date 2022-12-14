@@ -35,8 +35,10 @@ public class AccountService {
         return true;
     }
 
-    public Boolean deleteAccount(Integer targetUserId) {
-        accountRepo.deleteAccountByStudentId(targetUserId);
+    public Boolean deleteAccount(String targetUserEmail) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.deleteLoggedInUser(targetUserEmail);
+        accountRepo.deleteAccountByStudentId(targetUserEmail);
         return true;
     }
 

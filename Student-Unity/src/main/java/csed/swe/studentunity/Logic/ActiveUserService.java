@@ -54,6 +54,10 @@ public class ActiveUserService {
         return sessions.get(sessionId)[0];
     }
 
+    public void deleteLoggedInUser(String email){
+        sessions.remove(emails.get(email));
+        emails.remove(email);
+    }
     public void logout(UUID sessionId) {
         sessions.remove(sessionId);
     }
