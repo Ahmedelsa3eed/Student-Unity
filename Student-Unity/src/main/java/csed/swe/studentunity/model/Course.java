@@ -1,43 +1,43 @@
 package csed.swe.studentunity.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
-
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "Course")
-@Table(name = "course",
-        uniqueConstraints = {
-            @UniqueConstraint(name = "code_unique", columnNames = "course_code"),
-        })
-
-public class Course implements Serializable {
+@Table(name = "course", uniqueConstraints = {
+        @UniqueConstraint(name = "code", columnNames = "code"),
+})
+public class Course {
+    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+    String name;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    long id;
+    @Column(name = "code", nullable = false, columnDefinition = "TEXT")
+    String code;
 
-    @Column(name = "course_name", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
-    private String name;
+    @Column(name = "timeTable", nullable = false, columnDefinition = "TEXT")
+    String timeTable;
 
-    @Column(name = "course_code", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
-    private String code;
+    @Column(name = "telegramLink", nullable = false, columnDefinition = "TEXT")
+    String telegramLink;
 
-    @Column(name = "time_table", nullable = false, columnDefinition = "TEXT")
-    private String timeTable;
+    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN")
+    boolean status;
 
-    @Column(name = "course_status", nullable = false, columnDefinition = "BOOLEAN")
-    private Boolean status;
+    @Column(name = "notificationsToken", nullable = false, columnDefinition = "TEXT")
+    String notificationsToken;
 
-    @Column(name = "telegram_link")
-    private String telegramLink;
+    public Course(String courseCode) {
+        this.code = courseCode;
+    }
 
-    @Column(name = "notifications_token")
-    private String notificationsToken;
-    
+    public Course() {
+
+    }
 }
