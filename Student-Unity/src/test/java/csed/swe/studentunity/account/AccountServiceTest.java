@@ -28,7 +28,7 @@ class AccountServiceTest {
     void getAllAccountsByAnAdmin() {
         userService.addUser(user);
         assertNotNull(accountService.getAllAccounts());
-        accountService.deleteAccount(1111);
+        accountService.deleteAccount("user1@mail.com");
     }
 
     @Test
@@ -36,28 +36,18 @@ class AccountServiceTest {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts("firstname"));
-        accountService.deleteAccount(1111);
+        accountService.deleteAccount("user1@mail.com");
     }
 
     @Test
     void searchAccountsByLastname() {
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "lastname"));
-        accountService.deleteAccount(1111);
-    }
-
-    @Test
-    void searchAccountsByStudentId() {
+        accountService.deleteAccount("user1@mail.com");
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "1111"));
-        accountService.deleteAccount(1111);
-    }
-
-    @Test
-    void searchAccountsByEmail() {
-        userService.addUser(user);
         assertNotNull(accountService.searchAccounts("user1"));
-        accountService.deleteAccount(1111);
+        accountService.deleteAccount("user1@mail.com");
     }
 
     @Test
@@ -65,10 +55,10 @@ class AccountServiceTest {
         userService.addUser(user);
         userService.addUser(targetUser);
 
-        accountService.changeRole( 7777, "admin");
-        assertTrue(accountService.changeRole(7777, "admin"));
-        accountService.deleteAccount(1111);
-        accountService.deleteAccount(7777);
+        accountService.changeRole( "user1@mail.com", "admin");
+        assertTrue(accountService.changeRole("user1@mail.com", "admin"));
+        accountService.deleteAccount("user1@mail.com");
+        accountService.deleteAccount("user1@mail.com");
 
     }
 
@@ -76,7 +66,7 @@ class AccountServiceTest {
     @Test
     void deleteAccount() {
         userService.addUser(user);
-        assertTrue(accountService.deleteAccount(1111));
+        assertTrue(accountService.deleteAccount("user1@mail.com"));
 
     }
 

@@ -10,7 +10,8 @@ import { User } from "../../models/User";
 })
 export class NavigationBarComponent implements OnInit {
 
-  loggedInUser ?: User | null ;
+  loggedInUser = new User();
+
   constructor(private router: Router, private signInOutService:SignInOutService) { }
   public isLoading: boolean = false;
   ngOnInit(): void {
@@ -32,7 +33,9 @@ export class NavigationBarComponent implements OnInit {
       res => {
         console.log(res);
         this.isLoading = false;
-        this.loggedInUser = res.body;
+        if (res.body) {
+          this.loggedInUser = res.body;
+        }
     },
       err => {
         this.isLoading = false;

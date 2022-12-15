@@ -39,7 +39,7 @@ export class AccountService {
       responseType: 'json',
       params: {
         sessionId: sessionId,
-        targetUserId: targetUser.studentId,
+        targetUserEmail: targetUser.email,
         role: role
       }
     });
@@ -53,7 +53,7 @@ export class AccountService {
       observe: 'response',
       params: {
         sessionId: sessionID,
-        targetUserId: targetUser.studentId
+        targetUserEmail: targetUser.email
       },
       responseType: 'json'
     });
