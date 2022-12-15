@@ -1,9 +1,12 @@
 package csed.swe.studentunity.Logic;
 
+import csed.swe.studentunity.model.LoginResponses;
 import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @Transactional

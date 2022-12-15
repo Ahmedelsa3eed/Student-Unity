@@ -13,8 +13,7 @@ import java.io.Serializable;
 @Entity(name = "User")
 @Table(name = "user",
         uniqueConstraints = {
-                @UniqueConstraint(name = "email_unique", columnNames = "email"),
-                @UniqueConstraint(name = "student_id_unique", columnNames = "student_id")
+                @UniqueConstraint(name = "email_unique", columnNames = "email")
         })
 public class User implements Serializable {
 

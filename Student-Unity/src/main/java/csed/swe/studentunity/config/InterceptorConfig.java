@@ -1,6 +1,6 @@
 package csed.swe.studentunity.config;
 
-import csed.swe.studentunity.Logic.AccountInterceptor;
+import csed.swe.studentunity.Logic.Accounts.AccountInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
