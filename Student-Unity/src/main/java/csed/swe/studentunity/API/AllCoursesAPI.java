@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/AllCourses")
@@ -80,9 +81,14 @@ public class AllCoursesAPI {
         return new ResponseEntity<>(allCourseService.getAllActiveCourses(), HttpStatus.OK);
     }
 
-    @GetMapping("getSubscribedCourses")
-    public ResponseEntity<List<Course>> getSubscribedCourse(@RequestParam String sessionId){
-        return new ResponseEntity<>(allCourseService.getSubscribedCourses(sessionId), HttpStatus.OK);
+    @GetMapping("/getRegisteredCourses/{sessionId}")
+    public ResponseEntity<Set<Course>> getRegisteredCourses(@PathVariable("sessionId") String sessionId){
+        return allCourseService.getRegisteredCourses(sessionId);
+    }
+
+    @PutMapping("/registerCourse/{sessionId}/{courseCode}")
+    public ResponseEntity<?> registerCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseCode") String courseCode){
+        return new ResponseEntity<>(allCourseService.registerCourse(sessionId, courseCode));
     }
 
 }

@@ -6,12 +6,13 @@ import csed.swe.studentunity.model.Course;
 import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -63,13 +64,23 @@ public class AllCourseService {
         return courseRepo.findCourseByStatus(true);
     }
 
-    public List<Course> getSubscribedCourses(String sessionId){
+    public ResponseEntity<Set<Course>> getRegisteredCourses(String sessionId){
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
         if (user != null)
-            return user.getRegisteredCourses();
-        return new ArrayList<>();
+            return new ResponseEntity<>(new HashSet<>(), HttpStatus.OK);
+        return new ResponseEntity<>(new HashSet<>(), HttpStatus.NOT_FOUND);
+    }
+
+    public HttpStatusCode registerCourse(String sessionId, String courseCode) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        Course course = courseRepo.findCourseByCode(courseCode).orElse(null);
+        // if (user != null && course != null)
+            // Todo:
+        return HttpStatus.NOT_FOUND;
     }
 
     public void subscribe(){

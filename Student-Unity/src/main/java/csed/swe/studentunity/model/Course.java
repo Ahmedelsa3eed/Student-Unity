@@ -31,8 +31,8 @@ public class Course implements Serializable {
     @Column(name = "time_table", nullable = false, columnDefinition = "TEXT")
     private String timeTable;
 
-    @Column(name = "course_status", nullable = false)
-    private boolean status;
+    @Column(name = "course_status", nullable = false, columnDefinition = "BOOLEAN")
+    private Boolean status;
 
     @Column(name = "telegram_link")
     private String telegramLink;
