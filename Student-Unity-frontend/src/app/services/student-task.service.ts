@@ -6,13 +6,15 @@ import { environment } from 'src/environments/environment';
 import { Task } from '../models/Task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StudentTaskService {
+  private url = environment.baseUrl + '/myTasks';
 
-  private url = environment.baseUrl + "/myTasks";
-
-  constructor(private http: HttpClient, private userService: SignInOutService) { }
+  constructor(
+    private http: HttpClient,
+    private userService: SignInOutService
+  ) {}
 
   public getStudentTasks(): Observable<HttpResponse<Task[]>> {
     return this.http.get<Task[]>(this.url + '/all', {
@@ -30,51 +32,50 @@ export class StudentTaskService {
       params: {
         sessionId: this.userService.getSignedInUserSessionID(),
       },
-      responseType: 'json'
-    })
+      responseType: 'json',
+    });
   }
 
   public filterToDoTasks(courseCode: string): Observable<HttpResponse<Task[]>> {
-    return this.http.get<Task[]>(this.url + '/filterToDoTasks', {
+    return this.http.get<Task[]>(this.url + '/filterTasksByCourseCode', {
       observe: 'response',
       params: {
         sessionId: this.userService.getSignedInUserSessionID(),
-        courseCode: courseCode
+        courseCode: courseCode,
       },
       responseType: 'json',
     });
   }
-  
+
   public filterDoneTasks(courseCode: string): Observable<HttpResponse<Task[]>> {
-    return this.http.get<Task[]>(this.url + '/filterDoneTasks', {
+    return this.http.get<Task[]>(this.url + '/filterTasksByCourseCode', {
       observe: 'response',
       params: {
         sessionId: this.userService.getSignedInUserSessionID(),
-        courseCode: courseCode
+        courseCode: courseCode,
       },
       responseType: 'json',
     });
   }
 
   public removeTask(taskId: string): Observable<HttpResponse<any>> {
-    return this.http.delete(this.url + '/deleteTask', {
+    return this.http.delete(this.url + '/removeTask', {
       observe: 'response',
       params: {
         sessionId: this.userService.getSignedInUserSessionID(),
-        taskId: taskId
+        taskId: taskId,
       },
       responseType: 'json',
     });
   }
 
-  public trigerStatus(taskId: string): Observable<HttpResponse<any>> {
-    return this.http.put(this.url + '/trigerStatus', taskId, {
+  public triggerTaskStatus(taskId: string): Observable<HttpResponse<any>> {
+    return this.http.put(this.url + '/triggerTaskStatus', taskId, {
       observe: 'response',
       params: {
-        sessionId: this.userService.getSignedInUserSessionID()
+        sessionId: this.userService.getSignedInUserSessionID(),
       },
       responseType: 'json',
     });
   }
-
 }

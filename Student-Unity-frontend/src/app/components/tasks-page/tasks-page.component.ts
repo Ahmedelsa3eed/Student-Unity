@@ -102,7 +102,7 @@ export class TasksPageComponent implements OnInit {
   }
 
   public trigerDoneStatus($taskId: any) {
-    this.studentTaskService.trigerStatus($taskId).subscribe({
+    this.studentTaskService.triggerTaskStatus($taskId).subscribe({
       next: (res) => {
         if (res.ok && res.body) {
           let task = this.doneTasks.find((task) => $taskId == task.taskId);
@@ -116,7 +116,7 @@ export class TasksPageComponent implements OnInit {
   }
 
   public trigerToDoStatus($taskId: any) {
-    this.studentTaskService.trigerStatus($taskId).subscribe({
+    this.studentTaskService.triggerTaskStatus($taskId).subscribe({
       next: (res) => {
         if (res.ok && res.body) {
           let task = this.toDoTasks.find((task) => $taskId == task.taskId);
@@ -128,5 +128,4 @@ export class TasksPageComponent implements OnInit {
       },
     });
   }
-
 }
