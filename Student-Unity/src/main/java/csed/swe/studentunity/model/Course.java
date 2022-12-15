@@ -6,21 +6,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-
 @Getter
 @Setter
 @ToString
 @Entity(name = "Course")
 @Table(name = "course", uniqueConstraints = {
-        @UniqueConstraint(name = "course_code", columnNames = "course_code"),
-    })
-public class Course implements Serializable {
-    @Column(name = "course_name", nullable = false, columnDefinition = "TEXT")
-    String courseName;
+        @UniqueConstraint(name = "code", columnNames = "code"),
+})
+public class Course {
+    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
+    String name;
 
     @Id
-    @Column(name = "course_code", nullable = false, columnDefinition = "TEXT")
-    String courseCode;
+    @Column(name = "code", nullable = false, columnDefinition = "TEXT")
+    String code;
 
     @Column(name = "timeTable", nullable = false, columnDefinition = "TEXT")
     String timeTable;
@@ -35,7 +34,7 @@ public class Course implements Serializable {
     String notificationsToken;
 
     public Course(String courseCode) {
-        this.courseCode = courseCode;
+        this.code = courseCode;
     }
 
     public Course() {

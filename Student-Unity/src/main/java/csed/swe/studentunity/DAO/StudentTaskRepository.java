@@ -20,7 +20,7 @@ public interface StudentTaskRepository extends JpaRepository<StudentTask, Studen
     @Query("SELECT new Task (t.title, t.dueDate,t.telegramLink), new StudentTask(st.status)  " +
             "FROM Task AS t, StudentTask AS st, User AS u " +
             " WHERE t = st.studentTaskId.taskId  AND u.id = :userId " +
-            "AND st.studentTaskId.studentId.id = :userId AND t.courseCode.courseCode = :courseCode")
+            "AND st.studentTaskId.studentId.id = :userId AND t.courseCode.code = :courseCode")
     Optional<Iterable<Object>> filterStudentTasksByCourse(@Param("userId") Long userId, @Param("courseCode") String courseCode);
 
     @Query("SELECT new Task (t.title, t.dueDate,t.telegramLink), new StudentTask(st.status)  " +

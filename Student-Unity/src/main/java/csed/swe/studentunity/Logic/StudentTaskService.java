@@ -28,7 +28,10 @@ public class StudentTaskService {
     /**
      * blocked by subscribedCoursesService
      * */
-
+    public void addTaskIdToAllSubscribedUsers(Task task) {
+        //TODO add task id to all subscribed users
+        System.out.println("task is added to subscribed users");
+    }
 
     public Iterable<Object> getTasks(String sessionId) {
         try{
