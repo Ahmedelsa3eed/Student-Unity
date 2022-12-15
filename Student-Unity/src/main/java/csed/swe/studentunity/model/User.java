@@ -61,4 +61,12 @@ public class User implements Serializable {
         this.revisionNotificationToken = revisionNotificationToken;
     }
 
+    public User(String email, Integer studentId, String firstName, String lastName,  String role) {
+        this.email = email;
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+    }
+
 }
