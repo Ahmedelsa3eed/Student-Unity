@@ -9,7 +9,6 @@ import { Task } from 'src/app/models/Task';
 export class TaskComponent implements OnInit {
 
   @Input() task: Task = new Task;
-
   @Output() taskRemovedEvent = new EventEmitter<String>();
   @Output() taskMarkedEvent = new EventEmitter<String>();
 

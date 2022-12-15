@@ -1,4 +1,4 @@
 export enum STATUS {
-    Completed = 0,
-    NotCompleted = 1
+    DONE = 0,
+    TODO = 1,
 }

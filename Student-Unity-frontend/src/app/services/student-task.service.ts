@@ -68,7 +68,7 @@ export class StudentTaskService {
   }
 
   public trigerStatus(taskId: string): Observable<HttpResponse<any>> {
-    return this.http.put<Task[]>(this.url + '/trigerStatus', taskId, {
+    return this.http.put(this.url + '/trigerStatus', taskId, {
       observe: 'response',
       params: {
         sessionId: this.userService.getSignedInUserSessionID()
