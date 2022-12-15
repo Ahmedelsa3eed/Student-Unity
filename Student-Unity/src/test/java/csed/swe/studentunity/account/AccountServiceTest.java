@@ -1,7 +1,6 @@
 package csed.swe.studentunity.account;
 
 import csed.swe.studentunity.Logic.AccountsPage.AccountService;
-import csed.swe.studentunity.Logic.ActiveUserService;
 import csed.swe.studentunity.model.User;
 import csed.swe.studentunity.Logic.UserService;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,6 @@ class AccountServiceTest {
 
     @Test
     void searchAccountsByFirstname() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts("firstname"));
         accountService.deleteAccount("user1@mail.com");
@@ -43,8 +41,6 @@ class AccountServiceTest {
     void searchAccountsByLastname() {
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "lastname"));
-        accountService.deleteAccount("user1@mail.com");
-        userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "1111"));
         assertNotNull(accountService.searchAccounts("user1"));
         accountService.deleteAccount("user1@mail.com");
