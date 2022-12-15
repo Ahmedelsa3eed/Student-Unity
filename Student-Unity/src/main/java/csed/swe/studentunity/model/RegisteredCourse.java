@@ -16,12 +16,22 @@ import java.io.Serializable;
 public class RegisteredCourse implements Serializable {
 
     @Id
+    @Column(name = "course_id", nullable = false)
     private Long courseId;
 
     @Id
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @Column(name = "revision_subscription")
     private Boolean revisionSubscription;
+
+    public RegisteredCourse() {}
+
+    public RegisteredCourse(Long courseId, Long userId, Boolean revisionSubscription) {
+        this.courseId = courseId;
+        this.userId = userId;
+        this.revisionSubscription = revisionSubscription;
+    }
 
 }

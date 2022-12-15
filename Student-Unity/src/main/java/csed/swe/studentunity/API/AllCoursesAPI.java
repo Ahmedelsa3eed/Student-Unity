@@ -3,11 +3,12 @@ package csed.swe.studentunity.API;
 import csed.swe.studentunity.Logic.AllCourseService;
 import csed.swe.studentunity.model.Course;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
+
 
 @RestController
 @RequestMapping("/AllCourses")
@@ -82,13 +83,18 @@ public class AllCoursesAPI {
     }
 
     @GetMapping("/getRegisteredCourses/{sessionId}")
-    public ResponseEntity<Set<Course>> getRegisteredCourses(@PathVariable("sessionId") String sessionId){
+    public ResponseEntity<List<?>> getRegisteredCourses(@PathVariable("sessionId") String sessionId){
         return allCourseService.getRegisteredCourses(sessionId);
     }
 
-    @PutMapping("/registerCourse/{sessionId}/{courseCode}")
-    public ResponseEntity<?> registerCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseCode") String courseCode){
-        return new ResponseEntity<>(allCourseService.registerCourse(sessionId, courseCode));
+    @PutMapping("/registerCourse/{sessionId}/{courseId}")
+    public ResponseEntity<?> registerCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseId") long courseId){
+        return new ResponseEntity<>(allCourseService.registerCourse(sessionId, courseId));
+    }
+
+    @DeleteMapping("/unRegisterCourse/{sessionId}/{courseId}")
+    public ResponseEntity<?> unRegisterCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseId") long courseId){
+        return new ResponseEntity<>(allCourseService.unRegisterCourse(sessionId, courseId));
     }
 
 }

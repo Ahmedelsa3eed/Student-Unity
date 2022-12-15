@@ -39,5 +39,10 @@ public class Course implements Serializable {
 
     @Column(name = "notifications_token")
     private String notificationsToken;
+
+    public Course(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
     
 }
