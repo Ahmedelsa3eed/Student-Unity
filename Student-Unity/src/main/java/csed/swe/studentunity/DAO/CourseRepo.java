@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface CourseRepo extends JpaRepository<Course, String> {
 
     void deleteCourseByCode(String code);
+
     Optional<Course> findCourseByCode(String code);
 
     List<Course> findCourseByStatus(boolean status);

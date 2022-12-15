@@ -1,22 +1,18 @@
 package csed.swe.studentunity.API;
 
-
 import csed.swe.studentunity.Logic.AllCourseService;
 import csed.swe.studentunity.model.Course;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/AllCourses")
 public class AllCoursesAPI {
 
-    @Autowired
     private final AllCourseService allCourseService;
 
     public AllCoursesAPI(AllCourseService allCourseService) {
@@ -84,8 +80,15 @@ public class AllCoursesAPI {
     public ResponseEntity<List<Course>> getAllActiveCourses() {
         return new ResponseEntity<>(allCourseService.getAllActiveCourses(), HttpStatus.OK);
     }
-    @GetMapping("getSubscribedCourses")
-    public ResponseEntity<Course> getSubscribedCourse(){
-        return null;
+
+    @GetMapping("/getRegisteredCourses/{sessionId}")
+    public ResponseEntity<Set<Course>> getRegisteredCourses(@PathVariable("sessionId") String sessionId){
+        return allCourseService.getRegisteredCourses(sessionId);
     }
+
+    @PutMapping("/registerCourse/{sessionId}/{courseCode}")
+    public ResponseEntity<?> registerCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseCode") String courseCode){
+        return new ResponseEntity<>(allCourseService.registerCourse(sessionId, courseCode));
+    }
+
 }
