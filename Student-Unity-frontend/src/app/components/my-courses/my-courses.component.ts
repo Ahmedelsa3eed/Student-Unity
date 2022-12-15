@@ -12,14 +12,12 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
 })
 export class MyCoursesComponent implements OnInit {
 
-  signedInUser: User = new User;
   registeredCourses: Course[] = [];
 
-  constructor(private signInOutService: SignInOutService, private coursesService: CoursesService) { }
+  constructor(private signInOutService: SignInOutService, private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.signedInUser = this.signInOutService.getSignedInUser();
-    this.coursesService.getUserRegisteredCourse(this.signedInUser.sessionID).subscribe(
+    this.coursesService.getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID()).subscribe(
       (response: Course[]) => {
         this.registeredCourses = response;
       },

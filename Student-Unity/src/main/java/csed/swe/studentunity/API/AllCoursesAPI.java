@@ -2,7 +2,6 @@ package csed.swe.studentunity.API;
 
 import csed.swe.studentunity.Logic.AllCourseService;
 import csed.swe.studentunity.model.Course;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import java.util.List;
 @RequestMapping("/AllCourses")
 public class AllCoursesAPI {
 
-    @Autowired
     private final AllCourseService allCourseService;
 
     public AllCoursesAPI(AllCourseService allCourseService) {
@@ -81,6 +79,7 @@ public class AllCoursesAPI {
     public ResponseEntity<List<Course>> getAllActiveCourses() {
         return new ResponseEntity<>(allCourseService.getAllActiveCourses(), HttpStatus.OK);
     }
+
     @GetMapping("getSubscribedCourses")
     public ResponseEntity<List<Course>> getSubscribedCourse(@RequestParam String sessionId){
         return new ResponseEntity<>(allCourseService.getSubscribedCourses(sessionId), HttpStatus.OK);
