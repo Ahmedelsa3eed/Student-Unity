@@ -27,7 +27,7 @@ public class LoginService {
             User user = queries.getUser(email).orElseThrow(RuntimeException::new);
             if (user.getPassword().equals(password)) {
                 ActiveUserService activeUserService = ActiveUserService.getInstance();
-                activeUserService.login(email, user.getRole());
+                activeUserService.login(email, user.getRole(), user.getId());
                 return LoginResponses.SUCCESSFUL_LOGIN;
             } else {
                 return LoginResponses.WRONG_PASSWORD;

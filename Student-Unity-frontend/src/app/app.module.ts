@@ -29,10 +29,10 @@ import { TasksPageComponent } from './components/tasks-page/tasks-page.component
     HomeComponent,
     SingUpComponent,
     SuccessSignUpComponent,
+    CourseComponent,
     MyCoursesComponent,
     TaskComponent,
-    TasksPageComponent,
-    CourseComponent
+    TasksPageComponent
   ],
   imports: [
     BrowserModule,

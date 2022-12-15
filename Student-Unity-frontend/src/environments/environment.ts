@@ -6,7 +6,7 @@ import { STATUS } from 'src/app/models/Status';
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080',
+  baseUrl: 'http://localhost:8090',
   completedtasks: [
     {
       taskId: '1',

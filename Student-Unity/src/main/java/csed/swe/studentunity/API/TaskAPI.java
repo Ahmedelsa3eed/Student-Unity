@@ -31,4 +31,5 @@ public class TaskAPI {
         taskService.deleteTask(taskId);
         return new ResponseEntity<>("Task was deleted successfully!", HttpStatus.OK);
     }
+
 }
