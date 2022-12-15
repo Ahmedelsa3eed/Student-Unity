@@ -20,6 +20,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false, columnDefinition = "INTEGER")
     private Long id;
 
     @Column(name = "email", nullable = false, updatable = false, columnDefinition = "varchar(100)")
@@ -45,6 +46,11 @@ public class User implements Serializable {
 
     public User() {}
 
+    public User(Long id){
+        this.id = id;
+    }
+
+
     public User(String email, Integer studentId, String firstName, String lastName, String password, String role, String revisionNotificationToken) {
         this.email = email;
         this.studentId = studentId;
@@ -53,6 +59,14 @@ public class User implements Serializable {
         this.password = password;
         this.role = role;
         this.revisionNotificationToken = revisionNotificationToken;
+    }
+
+    public User(String email, Integer studentId, String firstName, String lastName,  String role) {
+        this.email = email;
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
     }
 
 }

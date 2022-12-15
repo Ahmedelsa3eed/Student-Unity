@@ -22,12 +22,19 @@ public class AllCourseService {
 
     private final CourseRepo courseRepo;
     private final UserService userService;
+<<<<<<< HEAD
     private final RegisteredCourseRepository registeredCourseRepository;
 
     public AllCourseService(CourseRepo courseRepo, UserService userService, RegisteredCourseRepository registeredCourseRepository) {
         this.courseRepo = courseRepo;
         this.userService = userService;
         this.registeredCourseRepository = registeredCourseRepository;
+=======
+
+    public AllCourseService(CourseRepo courseRepo, UserService userService) {
+        this.courseRepo = courseRepo;
+        this.userService = userService;
+>>>>>>> 8bea0af4a43977246d11f8b13733b989cbf80cb8
     }
 
     public String addCourse(String role, Course course){
@@ -68,11 +75,16 @@ public class AllCourseService {
         return courseRepo.findCourseByStatus(true);
     }
 
+<<<<<<< HEAD
     public ResponseEntity<List<?>> getRegisteredCourses(String sessionId){
+=======
+    public ResponseEntity<Set<Course>> getRegisteredCourses(String sessionId){
+>>>>>>> 8bea0af4a43977246d11f8b13733b989cbf80cb8
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
         if (user != null)
+<<<<<<< HEAD
             return new ResponseEntity<>(registeredCourseRepository.getRegisteredCourseByUserId(user.getId()), HttpStatus.OK);
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
     }
@@ -98,6 +110,19 @@ public class AllCourseService {
             registeredCourseRepository.deleteRegisteredCourseById(user.getId(), courseId);
             return HttpStatus.OK;
         }
+=======
+            return new ResponseEntity<>(new HashSet<>(), HttpStatus.OK);
+        return new ResponseEntity<>(new HashSet<>(), HttpStatus.NOT_FOUND);
+    }
+
+    public HttpStatusCode registerCourse(String sessionId, String courseCode) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        Course course = courseRepo.findCourseByCode(courseCode).orElse(null);
+        // if (user != null && course != null)
+            // Todo:
+>>>>>>> 8bea0af4a43977246d11f8b13733b989cbf80cb8
         return HttpStatus.NOT_FOUND;
     }
 
