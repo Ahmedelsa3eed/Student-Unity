@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
@@ -12,7 +14,7 @@ import lombok.ToString;
 @Table(name = "course", uniqueConstraints = {
         @UniqueConstraint(name = "code", columnNames = "code"),
     })
-public class Course {
+public class Course implements Serializable {
     @Column(name = "course_name", nullable = false, columnDefinition = "TEXT")
     String courseName;
 
