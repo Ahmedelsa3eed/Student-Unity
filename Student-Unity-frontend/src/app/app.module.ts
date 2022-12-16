@@ -30,6 +30,7 @@ import { CourseCardComponent } from './components/shared/course-card/course-card
     SuccessSignUpComponent,
     MyCoursesComponent,
     AllCoursesComponent,
+    CourseCardComponent,
     CourseCardComponent
   ],
   imports: [
