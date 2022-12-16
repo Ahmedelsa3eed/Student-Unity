@@ -1,0 +1,51 @@
+.bi {
+    vertical-align: -.2em;
+    fill: currentColor;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.parent div {
+    color: #6B7A99;
+    padding: 29px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.parent div em {
+    font-size: 2rem;
+    fill: currentColor;
+}
+
+.parent div p {
+    height: 50px;
+    line-height: 50px;
+}
+
+#mark :hover:not(.active) {
+    color: green;
+    cursor: pointer;
+}
+
+#link :hover {
+    cursor: pointer;
+    color: #0d83fc;
+}
+
+.card-header {
+    position: relative;
+    background-color: #FFFF;
+}
+
+.header-item {
+    display: inline-block;
+}
+
+.card-header em {
+    position: absolute;
+    right: 0;
+}

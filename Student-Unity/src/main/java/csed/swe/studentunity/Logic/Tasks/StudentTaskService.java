@@ -1,6 +1,7 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.Tasks;
 
 import csed.swe.studentunity.DAO.StudentTaskRepository;
+import csed.swe.studentunity.Logic.ActiveUserService;
 import csed.swe.studentunity.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

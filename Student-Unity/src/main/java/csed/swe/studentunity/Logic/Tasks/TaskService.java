@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.Tasks;
 
 import csed.swe.studentunity.DAO.TaskRepository;
 import csed.swe.studentunity.model.Task;
