@@ -22,7 +22,7 @@ public class Task implements Serializable {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "course_code")
+    @JoinColumn(name = "course_code", referencedColumnName = "course_code")
     private Course courseCode;
 
     @Column(columnDefinition = "Date")
