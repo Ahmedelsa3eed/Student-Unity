@@ -1,7 +1,6 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.Logic.AccountService;
-import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.Logic.Accounts.AccountService;
 import csed.swe.studentunity.model.User;
 import csed.swe.studentunity.Logic.UserService;
 import org.junit.jupiter.api.Test;
@@ -28,36 +27,23 @@ class AccountServiceTest {
     void getAllAccountsByAnAdmin() {
         userService.addUser(user);
         assertNotNull(accountService.getAllAccounts());
-        accountService.deleteAccount(1111);
+        accountService.deleteAccount("user1@mail.com");
     }
 
     @Test
     void searchAccountsByFirstname() {
-        ActiveUserService activeUserService = ActiveUserService.getInstance();
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts("firstname"));
-        accountService.deleteAccount(1111);
+        accountService.deleteAccount("user1@mail.com");
     }
 
     @Test
     void searchAccountsByLastname() {
         userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "lastname"));
-        accountService.deleteAccount(1111);
-    }
-
-    @Test
-    void searchAccountsByStudentId() {
-        userService.addUser(user);
         assertNotNull(accountService.searchAccounts( "1111"));
-        accountService.deleteAccount(1111);
-    }
-
-    @Test
-    void searchAccountsByEmail() {
-        userService.addUser(user);
         assertNotNull(accountService.searchAccounts("user1"));
-        accountService.deleteAccount(1111);
+        accountService.deleteAccount("user1@mail.com");
     }
 
     @Test
@@ -65,20 +51,17 @@ class AccountServiceTest {
         userService.addUser(user);
         userService.addUser(targetUser);
 
-        accountService.changeRole( 7777, "admin");
-        assertTrue(accountService.changeRole(7777, "admin"));
-        accountService.deleteAccount(1111);
-        accountService.deleteAccount(7777);
+        accountService.changeRole( "user1@mail.com", "admin");
+        assertTrue(accountService.changeRole("targetUser@mail.com", "admin"));
+        accountService.deleteAccount("targetUser@mail.com");
+        accountService.deleteAccount("user1@mail.com");
 
     }
-
 
     @Test
     void deleteAccount() {
         userService.addUser(user);
-        assertTrue(accountService.deleteAccount(1111));
-
+        assertTrue(accountService.deleteAccount("user1@mail.com"));
     }
-
 
 }

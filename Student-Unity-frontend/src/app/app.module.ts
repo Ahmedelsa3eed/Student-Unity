@@ -14,6 +14,10 @@ import { SignInOutService } from './services/sign-in-out.service';
 import { HomeComponent } from './components/home/home.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
+import { CourseComponent } from './components/course/course.component';
+import { MyCoursesComponent } from './components/my-courses/my-courses.component';
+import { TaskComponent } from './components/task/task.component';
+import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { SuccessSignUpComponent } from './components/success-sign-up/success-sig
     SignInComponent,
     HomeComponent,
     SingUpComponent,
-    SuccessSignUpComponent
+    SuccessSignUpComponent,
+    CourseComponent,
+    MyCoursesComponent,
+    TaskComponent,
+    TasksPageComponent
   ],
   imports: [
     BrowserModule,

@@ -12,5 +12,10 @@ public class RegistrationRequest {
     private String lastName;
     private String email;
     private String password;
-    private Integer StudentId;
+    private Integer studentId;
+
+    public String toString() {
+        return "LName: " + lastName + " email: " + email + " id: " + studentId;
+    }
+
 }
