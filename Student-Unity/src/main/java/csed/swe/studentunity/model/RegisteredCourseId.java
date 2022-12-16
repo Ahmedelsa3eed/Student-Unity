@@ -9,7 +9,6 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@Embeddable
 public class RegisteredCourseId implements Serializable {
 
     private Long courseId;
