@@ -20,9 +20,9 @@
 
   <!-- Buttons -->
   <div class="parent">
-    <div *ngIf="loggedInUser.role =='admin'"><em class="bi bi-stack"></em>All Courses</div>
-    <div (click)="navigateTo('myCourses')"><em class="bi bi-book"></em>My Courses</div>
-    <div (click)="navigateTo('tasksPage')"><em class="bi bi-list-task"></em>Tasks</div>
+    <div><em class="bi bi-stack"></em>All Courses</div>
+    <div><em class="bi bi-book"></em>My Courses</div>
+    <div><em class="bi bi-list-task"></em>Tasks</div>
     <div><em class="bi bi-megaphone pe-none me-2"></em>Announcements</div>
     <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
     <div *ngIf="loggedInUser.role =='admin' " (click)="navigateTo('accountsPage')">

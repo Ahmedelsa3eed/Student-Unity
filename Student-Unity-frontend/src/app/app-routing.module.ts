@@ -8,6 +8,7 @@ import { SuccessSignUpComponent } from './components/success-sign-up/success-sig
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
 import { CoursePageComponent } from './components/course-page/course-page.component';
+import { AllCoursesComponent } from './components/all-courses/all-courses.component';
 
 import { AddTaskComponent } from './components/addtask/add-task.component';
 const routes: Routes = [
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'addTask',
         component: AddTaskComponent
+      },
+      {
+        path: 'allCourses',
+        component: AllCoursesComponent
       }
 
     ]

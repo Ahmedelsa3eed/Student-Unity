@@ -28,6 +28,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { AllCoursesComponent } from './components/all-courses/all-courses.component';
 
 const material=[
   MatDatepickerModule,
@@ -47,7 +48,9 @@ const material=[
     MyCoursesComponent,
     TaskComponent,
     TasksPageComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    MyCoursesComponent,
+    AllCoursesComponent
   ],
   imports: [
     BrowserModule,
