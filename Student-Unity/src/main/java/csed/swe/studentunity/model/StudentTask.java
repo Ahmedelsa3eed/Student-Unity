@@ -3,17 +3,22 @@ package csed.swe.studentunity.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 @Getter
+@Setter
 @Entity
+@Table(name = "student_task")
 public class StudentTask implements Serializable {
 
     @EmbeddedId
     private StudentTaskId studentTaskId;
-    @Column( name = "status")
+
+    @Column(name = "status")
     private boolean status;
 
     public StudentTask() {}

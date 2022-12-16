@@ -19,6 +19,7 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "course_id")
     long id;
 
     @Column(name = "course_name", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
@@ -48,8 +49,6 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public Course() {
-
-    }
+    public Course() { }
 
 }

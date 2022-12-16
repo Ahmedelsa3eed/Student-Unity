@@ -1,7 +1,7 @@
 package csed.swe.studentunity.Logic.Tasks;
 
 import csed.swe.studentunity.DAO.StudentTaskRepository;
-import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class StudentTaskService {
     }
 
     public void addTaskIdToAllSubscribedUsers(Task task) {
-        this.studentTaskRepository.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourseCode().getCode());
+        this.studentTaskRepository.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourse().getCode());
     }
 
     public Iterable<Object> getTasks(String sessionId) {

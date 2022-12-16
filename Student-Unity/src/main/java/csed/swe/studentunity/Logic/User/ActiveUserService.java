@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.User;
 
 import java.util.HashMap;
 import java.util.UUID;
