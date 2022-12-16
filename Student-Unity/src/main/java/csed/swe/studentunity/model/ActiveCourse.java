@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.io.Serializable;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,7 +15,9 @@ import java.io.Serializable;
 public class ActiveCourse implements Serializable {
 
     @Id
+    @Column(name = "active_id")
     private Long id;
+
     @JsonBackReference
     @OneToOne
     @MapsId

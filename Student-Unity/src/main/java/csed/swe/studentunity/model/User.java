@@ -49,7 +49,6 @@ public class User implements Serializable {
         this.id = id;
     }
 
-
     public User(String email, Integer studentId, String firstName, String lastName, String password, String role, String revisionNotificationToken) {
         this.email = email;
         this.studentId = studentId;

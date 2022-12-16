@@ -16,16 +16,17 @@ public class StudentTaskId implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id")
-    private User studentId;
+    private User user;
+
     @ManyToOne
     @JoinColumn(name = "task_id")
-    private Task taskId;
+    private Task task;
 
     public StudentTaskId() {}
 
-    public StudentTaskId(User studentId, Task taskId) {
-        this.studentId = studentId;
-        this.taskId = taskId;
+    public StudentTaskId(User user, Task task) {
+        this.user = user;
+        this.task = task;
     }
 
     @Override
@@ -33,13 +34,12 @@ public class StudentTaskId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentTaskId that = (StudentTaskId) o;
-        return Objects.equals(studentId, that.studentId) && Objects.equals(taskId, that.taskId);
+        return Objects.equals(user, that.user) && Objects.equals(task, that.task);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(studentId, taskId);
+        return Objects.hash(user, task);
     }
-
 
 }

@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.Courses;
 
 
 import csed.swe.studentunity.DAO.ActiveCourseRepo;

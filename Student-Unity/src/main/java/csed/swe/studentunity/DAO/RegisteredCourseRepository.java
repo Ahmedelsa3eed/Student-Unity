@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RegisteredCourseRepository extends JpaRepository<RegisteredCourse, RegisteredCourseId> {
 
-    @Query(value = "Select new Course(c.id, c.name) from Course c where c.id in (select r.courseId from RegisteredCourse r where r.userId = ?1)")
+    @Query(value = "Select new Course(c.id, c.name) from Course c where c.id in (select r.course.id from RegisteredCourse r where r.user.id = ?1)")
     List<?> getRegisteredCourseByUserId(Long userId);
 
     @Modifying
