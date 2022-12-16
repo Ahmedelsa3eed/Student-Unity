@@ -1,6 +1,6 @@
 package csed.swe.studentunity.API;
 
-import csed.swe.studentunity.Logic.TaskService;
+import csed.swe.studentunity.Logic.Tasks.TaskService;
 import csed.swe.studentunity.model.Task;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

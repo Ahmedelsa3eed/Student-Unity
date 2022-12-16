@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {SignInOutService} from "../../services/sign-in-out.service";
-import {User} from "../../models/User";
+import { SignInOutService } from "../../services/sign-in-out.service";
+import { User } from "../../models/User";
 
 @Component({
   selector: 'app-navigation-bar',
