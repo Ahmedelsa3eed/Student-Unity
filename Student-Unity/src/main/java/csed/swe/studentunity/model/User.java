@@ -54,4 +54,7 @@ public class User implements Serializable {
     }
 
 
+    public User(Long userId) {
+        this.id = userId;
+    }
 }
