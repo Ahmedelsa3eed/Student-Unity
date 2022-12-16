@@ -16,6 +16,7 @@ public class RegistrationService {
 
     private final UserService userService;
     private final UnverifiedUserService unverifiedUserService;
+    private final EmailService emailService;
 
     public String addUser(RegistrationRequest request) {
         // check if email is already in use, if not: add user to database and send verification email
@@ -23,7 +24,9 @@ public class RegistrationService {
         && userService.getUser(request.getEmail()).isEmpty()) {
             UnverifiedUser newUser = new UnverifiedUser(request.getEmail(), request.getStudentId(), request.getFirstName(),
                     request.getLastName(), request.getPassword(), "student");
-            unverifiedUserService.addUnverifiedUser(newUser);
+            String code = unverifiedUserService.addUnverifiedUser(newUser);
+            emailService.send("You have registered in Student Unity \n" +
+                    "verification code is: " + code, "verification code", request.getEmail());
             return "User registered successfully";
         } else {
             return "User is already exist";
@@ -40,7 +43,7 @@ public class RegistrationService {
             }
             User newUser = convertUnverifiedUserToUser(unverifiedUser.get());
             userService.addUser(newUser);
-            unverifiedUserService.deleteUser(unverifiedUser.get().getId());
+            unverifiedUserService.deleteUnverifiedUser(unverifiedUser.get().getId());
             return "User verified successfully";
         } else {
             return "User verification failed";

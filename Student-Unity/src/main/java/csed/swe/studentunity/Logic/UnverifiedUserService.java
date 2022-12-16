@@ -19,11 +19,13 @@ public class UnverifiedUserService {
         return unverifiedUserRepo.findUnverifiedUserByEmail(email);
     }
 
-    public void addUnverifiedUser(UnverifiedUser unverifiedUser) {
+    public String addUnverifiedUser(UnverifiedUser unverifiedUser) {
         // milestone 2
         unverifiedUserRepo.save(unverifiedUser);
-        VerificationCode verificationCode = new VerificationCode(unverifiedUser.getEmail(), generateCode());
+        String code = generateCode();
+        VerificationCode verificationCode = new VerificationCode(unverifiedUser.getEmail(), code);
         verificationCodeRepo.save(verificationCode);
+        return code;
     }
 
     public boolean verifyUser(String email, String code) {
@@ -43,7 +45,7 @@ public class UnverifiedUserService {
         return false;
     }
 
-    public String deleteUser(Long id){
+    public String deleteUnverifiedUser(Long id){
         try {
             unverifiedUserRepo.deleteById(id);
             return "deleted successfully";
