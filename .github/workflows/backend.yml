@@ -49,9 +49,8 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
           
       - name: JaCoCo report generation step
-        run: |
-          cd $BACKEND_PATH
-          mvn sonar:sonar -Pcoverage
+        working-directory: Student-Unity/
+        run: mvn sonar:sonar -Pcoverage
 
       - name: Build and analyze
         env:
