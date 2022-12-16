@@ -41,6 +41,13 @@
 }
 
 
+/* Search result */
+/* .search-result {
+display: flex;
+justify-content: center;
+align-items: center;
+} */
+
 
 /* Terms section */
 .terms .term .collapse-btn > button {
@@ -64,4 +71,6 @@
 .terms .term .collapse .courses-holder {
   border-color: #0d6efd;
 }
+
+
 

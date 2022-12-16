@@ -4,7 +4,7 @@
   <!-- Search bar -->
   <div class="search-bar">
       <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" [(ngModel)]="courseFilter" placeholder="Course name or code" aria-label="Username" aria-describedby="basic-addon1">
           <button class="input-group-text btn btn-primary" (click)="dropDownFilters()" type="button" >
               <i class="bi bi-filter"></i>
           </button>
@@ -15,7 +15,6 @@
               <li><button class="btn btn-light" type="button" (click)="itemCheck($event)">Check me 4</button></li>
             </ul>
       </div>
-
       <div class="search-result">
           <p class="alert alert-primary" *ngFor="let item of checkedItems">
               {{item}}
@@ -23,8 +22,16 @@
       </div>
   </div>
 
+  <!-- Search result -->
+  <div class="search-result row" *ngIf="courseFilter != ''">
+      <div class="card card-body col-md course" *ngFor="let course of filteredCourses">
+        <app-course-card [course]="course">
+        </app-course-card>
+      </div>
+  </div>
+
   <!-- Terms -->
-  <div class="terms">
+  <div class="terms" *ngIf="courseFilter == ''">
       <!-- Term -->
       <div class="term my-3" *ngFor="let term of terms; let i = index">
           <div class="collapse-btn" *ngIf="term.length != 0">

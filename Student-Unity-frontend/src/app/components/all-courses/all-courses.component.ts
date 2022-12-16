@@ -12,12 +12,14 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrls: ['./all-courses.component.css']
 })
 export class AllCoursesComponent implements OnInit {
+  private _courseFilter: string = '';
   private numberOfTerms: number = 10;
   showFilters: boolean = false;
   checkedItems: string[] = [];
   sub!: Subscription;
   courses: CourseCard[] = [];
   terms: CourseCard[][] = [] as CourseCard[][];
+  filteredCourses: CourseCard[] = [];
 
   constructor(private signInOutService: SignInOutService, private allCoursesService: AllCoursesService) { }
 
@@ -82,8 +84,22 @@ export class AllCoursesComponent implements OnInit {
     }
   }
 
-  filterCourses(): void {
-    
+  searchCourses(): void {
+    let key: string = this._courseFilter.toLocaleLowerCase();
+    this.filteredCourses = this.courses.filter((course: CourseCard) =>
+      course.code.toLocaleLowerCase().includes(key) || 
+      course.name.toLocaleLowerCase().includes(key)
+      );
+    console.log(this.filteredCourses);
+  }
+
+  get courseFilter(): string {
+    return this._courseFilter;
+  }
+
+  set courseFilter(value: string) {
+    this._courseFilter = value;
+    this.searchCourses();
   }
 
 
