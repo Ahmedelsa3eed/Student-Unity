@@ -1,6 +1,7 @@
 package csed.swe.studentunity.config;
 
-import csed.swe.studentunity.Logic.Accounts.AccountInterceptor;
+
+import csed.swe.studentunity.Logic.AdminCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,7 +12,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AccountInterceptor())
+        registry.addInterceptor(new AdminCheckInterceptor())
                 .addPathPatterns("/accounts/**")
                 .addPathPatterns("/tasks/**");
     }
