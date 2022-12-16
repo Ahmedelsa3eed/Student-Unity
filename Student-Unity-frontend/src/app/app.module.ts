@@ -30,6 +30,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
 import { CourseCardComponent } from './components/shared/course-card/course-card.component';
+import { CommonModule } from '@angular/common';
 
 const material=[
   MatDatepickerModule,
@@ -70,7 +71,8 @@ const material=[
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    CommonModule
   ],
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]

@@ -9,7 +9,7 @@
     "name": "Programming-1",
     "code": "CSE 111",
     "status": true,
-    "term": 1
+    "term": 0
   },
   {
     "name": "Data Structure",
@@ -33,7 +33,7 @@
     "name": "Computer Architecture",
     "code": "CSE 218",
     "status": false,
-    "term": 6
+    "term": 9
   },
   {
     "name": "Operating System",
@@ -57,12 +57,12 @@
     "name": "Artificial Intelligence",
     "code": "CSE 222",
     "status": true,
-    "term": 10
+    "term": 9
   },
   {
     "name": "Computer Network",
     "code": "CSE 223",
     "status": false,
-    "term": 6
+    "term": 9
   }
 ]

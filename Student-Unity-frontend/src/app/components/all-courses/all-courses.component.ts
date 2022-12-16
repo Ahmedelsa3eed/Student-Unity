@@ -3,6 +3,8 @@ import { Observable, Subscription } from 'rxjs';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { CourseCard } from 'src/app/models/course-card';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-all-courses',
@@ -10,13 +12,12 @@ import { CourseCard } from 'src/app/models/course-card';
   styleUrls: ['./all-courses.component.css']
 })
 export class AllCoursesComponent implements OnInit {
-
+  private numberOfTerms: number = 10;
   showFilters: boolean = false;
   checkedItems: string[] = [];
   sub!: Subscription;
   courses: CourseCard[] = [];
-
-  terms: CourseCard[][] = [];
+  terms: CourseCard[][] = [] as CourseCard[][];
 
   constructor(private signInOutService: SignInOutService, private allCoursesService: AllCoursesService) { }
 
@@ -26,9 +27,11 @@ export class AllCoursesComponent implements OnInit {
     this.sub = this.allCoursesService.getAllCourses().subscribe({
       next: courses => {
         this.courses = courses;
+        this.filterTerms();
       },
       error: err => console.log(err)
     });
+
   }
 
   ngOnDestroy(): void {
@@ -37,7 +40,16 @@ export class AllCoursesComponent implements OnInit {
 
 
   filterTerms(): void {
-    
+    for (let i = 0; i < this.numberOfTerms; i++) {
+      this.terms.push( [] );
+    }
+    for (const course of this.courses) {
+      this.terms[course.term].push( course );
+    }
+    for (let i = 0; i < this.numberOfTerms; i++) {
+      console.log(this.terms[i]);
+    }
+    console.log(this.terms);
   }
 
   dropDownFilters(): void {
@@ -68,9 +80,11 @@ export class AllCoursesComponent implements OnInit {
       el.classList.remove('up');
       el.classList.add('down');
     }
-
   }
 
+  filterCourses(): void {
+    
+  }
 
 
 }

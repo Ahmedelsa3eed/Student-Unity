@@ -1,2 +1,21 @@
-<p class="course-name">{{course.name}}</p>
-<p class="course-code">{{course.code}}</p>
+<div *ngIf="course.status;then content else other_content">here is ignored</div>
+  <ng-template #content>
+    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+      <div class="card-header">{{course.code}}</div>
+      <div class="card-body">
+        <h5 class="card-title">{{course.name}}</h5>
+        <button type="button" class="btn btn-light">Subscribe</button>
+        <button type="button" class="btn btn-light btn-lg">
+          <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #other_content>
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+      <div class="card-header">{{course.code}}</div>
+      <div class="card-body">
+        <h5 class="card-title">{{course.name}}</h5>
+      </div>
+    </div>
+  </ng-template>

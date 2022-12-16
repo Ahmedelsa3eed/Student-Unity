@@ -26,16 +26,16 @@
   <!-- Terms -->
   <div class="terms">
       <!-- Term -->
-      <div class="term my-3" *ngFor="let term of terms">
-          <div class="collapse-btn">
-              <button class="btn btn-outline-primary" (click)="reverse($event)" type="button" data-bs-toggle="collapse" data-bs-target="#term1" aria-expanded="false" aria-controls="collapseExample">
-                  <span>Term 1</span>
+      <div class="term my-3" *ngFor="let term of terms; let i = index">
+          <div class="collapse-btn" *ngIf="term.length != 0">
+              <button class="btn btn-outline-primary" (click)="reverse($event)" type="button" data-bs-toggle="collapse" [attr.data-bs-target] = "'#Term' + i" aria-expanded="false" aria-controls="collapseExample">
+                  <span>Term {{term[0].term}}</span>
                   <i class="bi bi-caret-down-fill"></i>
               </button>
           </div>
 
           <!-- Courses -->
-          <div class="collapse" id="term1">
+          <div class="collapse" [attr.id]="'Term' + i">
               <div class="card card-body courses-holder container">
                   <div class="row">
                       <div class="col-md" *ngFor="let course of term">
@@ -44,10 +44,9 @@
                           </div>
                       </div>
                   </div>
-
               </div>
           </div>
+
       </div>
-
-
+    </div>
 </div>
