@@ -1,6 +1,7 @@
 package csed.swe.studentunity.Logic;
 
 import csed.swe.studentunity.DAO.StudentTaskRepository;
+import csed.swe.studentunity.Logic.Tasks.StudentTaskService;
 import csed.swe.studentunity.model.StudentTask;
 import csed.swe.studentunity.model.StudentTaskId;
 import csed.swe.studentunity.model.Task;

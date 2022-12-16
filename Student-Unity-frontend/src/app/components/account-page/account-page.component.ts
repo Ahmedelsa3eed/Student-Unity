@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
 import { User } from './../../models/User';
 import { AccountService } from '../../services/account.service';
-import {SignInOutService} from "../../services/sign-in-out.service";
+import { SignInOutService } from "../../services/sign-in-out.service";
 
 @Component({
   selector: 'app-account-page',
@@ -33,7 +33,8 @@ export class AccountPageComponent implements OnInit {
 
   getAccounts() {
     this.isLoading = true;
-    this.accountsService.getAccounts(this.signInOutService.getSignedInUserSessionID()).subscribe(res => {
+    this.accountsService.getAccounts(this.signInOutService.getSignedInUserSessionID())
+    .subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
         console.log(res.body)
@@ -47,7 +48,9 @@ export class AccountPageComponent implements OnInit {
 
   public search() {
     this.isLoading = true;
-    this.accountsService.searchAccounts(this.signInOutService.getSignedInUserSessionID(), this.searchString).subscribe(res => {
+    this.accountsService.searchAccounts(this.signInOutService.getSignedInUserSessionID(),
+      this.searchString)
+    .subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
         console.log(res.body)
