@@ -12,8 +12,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.UUID;
 
 @Component
-public class AccountInterceptor implements HandlerInterceptor {
-    Logger logger = LoggerFactory.getLogger(AccountInterceptor.class);
+public class AdminCheckInterceptor implements HandlerInterceptor {
+    Logger logger = LoggerFactory.getLogger(AdminCheckInterceptor.class);
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         String sessionId = request.getParameter("sessionId");
