@@ -51,8 +51,8 @@ jobs:
       - name: JaCoCo report generation step
         run: |
           cd $BACKEND_PATH
-          echo pwd
-          mvn mvn -Dsonar.coverage.jacoco.xmlReportPaths=./Student-Unity/target/site/jacoco-aggregate/jacoco.xml sonar:sonar -Pcoverage
+          pwd
+          mvn mvn -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco-aggregate/jacoco.xml sonar:sonar -Pcoverage
 
       - name: Build and analyze
         env:
