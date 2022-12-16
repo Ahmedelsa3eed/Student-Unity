@@ -1,0 +1,15 @@
+.icon {
+    height: max-content;
+    width: max-content;
+    border-radius: 100%;
+}
+
+.icon:hover {
+    cursor: pointer;
+    background-color: gainsboro;
+}
+
+.course_title:hover {
+    cursor: pointer;
+    color: #0d6efd;
+}
