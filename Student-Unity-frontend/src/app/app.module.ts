@@ -29,6 +29,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
+import { CourseCardComponent } from './components/shared/course-card/course-card.component';
 
 const material=[
   MatDatepickerModule,
@@ -50,7 +51,8 @@ const material=[
     TasksPageComponent,
     AddTaskComponent,
     MyCoursesComponent,
-    AllCoursesComponent
+    AllCoursesComponent,
+    CourseCardComponent
   ],
   imports: [
     BrowserModule,
