@@ -1,6 +1,6 @@
 package csed.swe.studentunity.account;
 
-import csed.swe.studentunity.Logic.AccountsPage.AccountService;
+import csed.swe.studentunity.Logic.Accounts.AccountService;
 import csed.swe.studentunity.model.User;
 import csed.swe.studentunity.Logic.UserService;
 import org.junit.jupiter.api.Test;
@@ -58,13 +58,10 @@ class AccountServiceTest {
 
     }
 
-
     @Test
     void deleteAccount() {
         userService.addUser(user);
         assertTrue(accountService.deleteAccount("user1@mail.com"));
-
     }
-
 
 }
