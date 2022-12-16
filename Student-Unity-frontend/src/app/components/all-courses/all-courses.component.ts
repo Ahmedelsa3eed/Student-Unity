@@ -16,6 +16,8 @@ export class AllCoursesComponent implements OnInit {
   sub!: Subscription;
   courses: CourseCard[] = [];
 
+  terms: CourseCard[][] = [];
+
   constructor(private signInOutService: SignInOutService, private allCoursesService: AllCoursesService) { }
 
 
@@ -23,7 +25,6 @@ export class AllCoursesComponent implements OnInit {
     this.signInOutService.getSignedInUser();
     this.sub = this.allCoursesService.getAllCourses().subscribe({
       next: courses => {
-        console.log(courses);
         this.courses = courses;
       },
       error: err => console.log(err)
@@ -33,6 +34,12 @@ export class AllCoursesComponent implements OnInit {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
+
+
+  filterTerms(): void {
+    
+  }
+
   dropDownFilters(): void {
       this.showFilters = !this.showFilters;
   }
@@ -48,8 +55,6 @@ export class AllCoursesComponent implements OnInit {
       item.classList.add('btn-light');
       this.checkedItems.splice(this.checkedItems.indexOf(item.innerText), 1);
     }
-
-    console.log(this.checkedItems);
   }
 
   reverse(event: any): void {

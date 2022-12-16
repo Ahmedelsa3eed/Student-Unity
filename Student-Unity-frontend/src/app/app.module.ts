@@ -52,6 +52,7 @@ const material=[
     AddTaskComponent,
     MyCoursesComponent,
     AllCoursesComponent,
+    CourseCardComponent,
     CourseCardComponent
   ],
   imports: [

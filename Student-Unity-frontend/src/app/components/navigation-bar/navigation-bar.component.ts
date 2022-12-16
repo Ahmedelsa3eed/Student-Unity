@@ -26,7 +26,6 @@ export class NavigationBarComponent implements OnInit {
     }
     for (let i = 0; i < el.parentElement.children.length; i++) {
       el.parentElement.children[i].classList.remove('active');
-      console.log(`removed class ${i}`);
     }
     el.classList.add('active');
   }

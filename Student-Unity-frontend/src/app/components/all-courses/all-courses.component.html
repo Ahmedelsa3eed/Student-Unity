@@ -25,7 +25,8 @@
 
   <!-- Terms -->
   <div class="terms">
-      <div class="term my-3">
+      <!-- Term -->
+      <div class="term my-3" *ngFor="let term of terms">
           <div class="collapse-btn">
               <button class="btn btn-outline-primary" (click)="reverse($event)" type="button" data-bs-toggle="collapse" data-bs-target="#term1" aria-expanded="false" aria-controls="collapseExample">
                   <span>Term 1</span>
@@ -33,42 +34,14 @@
               </button>
           </div>
 
+          <!-- Courses -->
           <div class="collapse" id="term1">
               <div class="card card-body courses-holder container">
                   <div class="row">
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-      </div>
-      <div class="term my-3">
-          <div class="collapse-btn">
-              <button class="btn btn-outline-primary" (click)="reverse($event)" type="button" data-bs-toggle="collapse" data-bs-target="#term2" aria-expanded="false" aria-controls="collapseExample">
-                  <span>Term 1</span>
-                  <i class="bi bi-caret-down-fill"></i>
-              </button>
-          </div>
-
-          <div class="collapse" id="term2">
-              <div class="card card-body courses-holder container">
-                  <div class="row">
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
+                      <div class="col-md" *ngFor="let course of term">
+                          <div class="card card-body course">
+                            <app-course-card [course]="course"></app-course-card>
+                          </div>
                       </div>
                   </div>
 
@@ -76,30 +49,5 @@
           </div>
       </div>
 
-      <div class="term my-3">
-          <div class="collapse-btn">
-              <button class="btn btn-outline-primary" (click)="reverse($event)" type="button" data-bs-toggle="collapse" data-bs-target="#term3" aria-expanded="false" aria-controls="collapseExample">
-                  <span>Term 1</span>
-                  <i class="bi bi-caret-down-fill"></i>
-              </button>
-          </div>
-
-          <div class="collapse" id="term3">
-              <div class="card card-body courses-holder container">
-                  <div class="row">
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                      <div class="col-md">
-                          <div class="card card-body course">A course will be here</div>
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-      </div>
 
 </div>
