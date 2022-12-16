@@ -14,6 +14,11 @@ on:
       - 'Student-Unity/**'
       - '.github/workflows/**'
     types: [opened, synchronize, reopened]
+  
+  workflow_dispatch:
+  
+env:
+  BACKEND_PATH: /home/runner/work/Student-Unity/Student-Unity/
     
 jobs:
   build:
@@ -44,7 +49,10 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
           
       - name: JaCoCo report generation step
-        run: mvn sonar:sonar -Pcoverage
+        run: |
+          cd $BACKEND_PATH
+          pwd
+          mvn mvn -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco-aggregate/jacoco.xml sonar:sonar -Pcoverage
 
       - name: Build and analyze
         env:
