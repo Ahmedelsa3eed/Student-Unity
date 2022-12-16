@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-
 @Service
 @Transactional
 public class StudentTaskService {
@@ -25,12 +24,8 @@ public class StudentTaskService {
         return studentTaskRepository.save(studentTask);
     }
 
-    /**
-     * blocked by subscribedCoursesService
-     * */
     public void addTaskIdToAllSubscribedUsers(Task task) {
-        //TODO add task id to all subscribed users
-        System.out.println("task is added to subscribed users");
+        this.studentTaskRepository.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourseCode().getCode());
     }
 
     public Iterable<Object> getTasks(String sessionId) {
