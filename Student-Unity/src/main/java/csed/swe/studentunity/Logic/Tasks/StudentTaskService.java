@@ -1,7 +1,7 @@
 package csed.swe.studentunity.Logic.Tasks;
 
 import csed.swe.studentunity.DAO.StudentTaskRepository;
-import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
-
 
 @Service
 @Transactional
@@ -26,12 +25,8 @@ public class StudentTaskService {
         return studentTaskRepository.save(studentTask);
     }
 
-    /**
-     * blocked by subscribedCoursesService
-     * */
     public void addTaskIdToAllSubscribedUsers(Task task) {
-        //TODO add task id to all subscribed users
-        System.out.println("task is added to subscribed users");
+        this.studentTaskRepository.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourse().getCode());
     }
 
     public Iterable<Object> getTasks(String sessionId) {

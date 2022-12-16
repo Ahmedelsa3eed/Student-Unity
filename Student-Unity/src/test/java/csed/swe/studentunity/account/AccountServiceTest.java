@@ -2,7 +2,7 @@ package csed.swe.studentunity.account;
 
 import csed.swe.studentunity.Logic.Accounts.AccountService;
 import csed.swe.studentunity.model.User;
-import csed.swe.studentunity.Logic.UserService;
+import csed.swe.studentunity.Logic.User.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

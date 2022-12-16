@@ -1,6 +1,5 @@
 package csed.swe.studentunity.model;
 
-import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,14 +10,14 @@ import java.util.Objects;
 @Setter
 public class RegisteredCourseId implements Serializable {
 
-    private Long courseId;
-    private Long userId;
+    private Course course;
+    private User user;
 
     public RegisteredCourseId() {}
 
-    public RegisteredCourseId(Long courseId, Long userId) {
-        this.courseId = courseId;
-        this.userId = userId;
+    public RegisteredCourseId(Course course, User user) {
+        this.course = course;
+        this.user = user;
     }
 
     @Override
@@ -26,12 +25,12 @@ public class RegisteredCourseId implements Serializable {
         if (o == this) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RegisteredCourseId other = (RegisteredCourseId) o;
-        return courseId.equals(other.courseId) && userId.equals(other.userId);
+        return course.equals(other.course) && user.equals(other.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(courseId, userId);
+        return Objects.hash(course, user);
     }
 
 }

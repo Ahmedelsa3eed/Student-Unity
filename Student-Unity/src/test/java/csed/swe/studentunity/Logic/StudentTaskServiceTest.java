@@ -2,6 +2,7 @@ package csed.swe.studentunity.Logic;
 
 import csed.swe.studentunity.DAO.StudentTaskRepository;
 import csed.swe.studentunity.Logic.Tasks.StudentTaskService;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.StudentTask;
 import csed.swe.studentunity.model.StudentTaskId;
 import csed.swe.studentunity.model.Task;
@@ -22,6 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 class StudentTaskServiceTest {
