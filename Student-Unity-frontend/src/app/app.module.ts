@@ -17,6 +17,7 @@ import { SuccessSignUpComponent } from './components/success-sign-up/success-sig
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
 import { CourseCardComponent } from './components/shared/course-card/course-card.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CourseCardComponent } from './components/shared/course-card/course-card
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
