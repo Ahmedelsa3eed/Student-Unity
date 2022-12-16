@@ -7,6 +7,6 @@ import java.util.Optional;
 
 
 public interface UnverifiedUserRepo extends JpaRepository<UnverifiedUser, Long> {
-    Optional<UnverifiedUser> findUserByEmail(String email);
+    Optional<UnverifiedUser> findUnverifiedUserByEmail(String email);
 }
 

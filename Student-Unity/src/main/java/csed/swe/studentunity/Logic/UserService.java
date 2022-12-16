@@ -37,14 +37,5 @@ public class UserService {
         }
     }
 
-    public String getUnverifiedUser() {
-        // milestone 2
-        return null;
-    }
-
-    public String addUnverifiedUser() {
-        // milestone 2
-        return null;
-    }
 
 }

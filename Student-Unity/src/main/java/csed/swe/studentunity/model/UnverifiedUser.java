@@ -44,13 +44,7 @@ public class UnverifiedUser implements Serializable {
 
     public UnverifiedUser() {}
 
-    public UnverifiedUser(String email, Integer studentId, String firstName, String lastName, String password, String role, String revisionNotificationToken) {
-        this.email = email;
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.role = role;
-    }
 
+    public UnverifiedUser(String email, Integer studentId, String firstName, String lastName, String password, String student) {
+    }
 }
