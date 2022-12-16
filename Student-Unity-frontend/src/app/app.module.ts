@@ -16,6 +16,7 @@ import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
+import { CourseCardComponent } from './components/shared/course-card/course-card.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AllCoursesComponent } from './components/all-courses/all-courses.compon
     SingUpComponent,
     SuccessSignUpComponent,
     MyCoursesComponent,
-    AllCoursesComponent
+    AllCoursesComponent,
+    CourseCardComponent
   ],
   imports: [
     BrowserModule,

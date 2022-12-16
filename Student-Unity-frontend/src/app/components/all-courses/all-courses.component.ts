@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { AllCoursesService } from 'src/app/services/all-courses.service';
+import { SignInOutService } from 'src/app/services/sign-in-out.service';
+import { CourseCard } from 'src/app/models/course-card';
 
 @Component({
   selector: 'app-all-courses',
@@ -9,13 +13,26 @@ export class AllCoursesComponent implements OnInit {
 
   showFilters: boolean = false;
   checkedItems: string[] = [];
+  sub!: Subscription;
+  courses: CourseCard[] = [];
 
-  constructor() { }
+  constructor(private signInOutService: SignInOutService, private allCoursesService: AllCoursesService) { }
 
 
   ngOnInit(): void {
+    this.signInOutService.getSignedInUser();
+    this.sub = this.allCoursesService.getAllCourses().subscribe({
+      next: courses => {
+        console.log(courses);
+        this.courses = courses;
+      },
+      error: err => console.log(err)
+    });
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
   dropDownFilters(): void {
       this.showFilters = !this.showFilters;
   }
