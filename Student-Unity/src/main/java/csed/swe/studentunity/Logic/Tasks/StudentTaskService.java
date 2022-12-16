@@ -55,7 +55,7 @@ public class StudentTaskService {
         try{
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            Optional<Iterable<Object>> studentTasks =  studentTaskRepository.sortTasksByDate(new User(userId));
+            Optional<Iterable<Object>> studentTasks =  studentTaskRepository.sortTasksByDate(userId);
             return studentTasks.orElse(Collections.emptyList());
         } catch (Exception e) {
             return Collections.emptyList();
