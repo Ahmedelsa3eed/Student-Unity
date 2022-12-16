@@ -1,6 +1,6 @@
 package csed.swe.studentunity.API;
 
-import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.LoginResponses;
 import csed.swe.studentunity.Logic.LoginService;
 import csed.swe.studentunity.model.User;

@@ -1,7 +1,7 @@
 package csed.swe.studentunity.registration;
 
 import csed.swe.studentunity.Logic.RegistrationService;
-import csed.swe.studentunity.Logic.UserService;
+import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.RegistrationRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

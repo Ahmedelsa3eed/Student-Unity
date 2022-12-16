@@ -2,10 +2,12 @@ package csed.swe.studentunity.Logic.Tasks;
 
 import csed.swe.studentunity.DAO.TaskRepository;
 import csed.swe.studentunity.model.Task;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class TaskService {
 
     private final TaskRepository taskRepository;
