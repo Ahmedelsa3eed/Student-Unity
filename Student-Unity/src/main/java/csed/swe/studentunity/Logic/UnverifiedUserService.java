@@ -4,10 +4,13 @@ import csed.swe.studentunity.DAO.UnverifiedUserRepo;
 import csed.swe.studentunity.DAO.VerificationCodeRepo;
 import csed.swe.studentunity.model.UnverifiedUser;
 import csed.swe.studentunity.model.VerificationCode;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
-
+@AllArgsConstructor
+@Service
 public class UnverifiedUserService {
 
     private UnverifiedUserRepo unverifiedUserRepo;

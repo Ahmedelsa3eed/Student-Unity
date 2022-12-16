@@ -18,10 +18,10 @@ class AccountServiceTest {
     private UserService userService;
     private User user = new User("user1@mail.com", 1111,
             "firstname", "lastname",
-            "password", "admin", "token");
+            "password", "admin");
     private User targetUser = new User("targetUser@mail.com", 7777,
             "firstname", "lastname",
-            "password", "user", "token");
+            "password", "user");
 
 
     @Test
