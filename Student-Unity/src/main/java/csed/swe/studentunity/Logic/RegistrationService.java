@@ -3,7 +3,7 @@ package csed.swe.studentunity.Logic;
 import csed.swe.studentunity.model.RegistrationRequest;
 import csed.swe.studentunity.model.UnverifiedUser;
 import csed.swe.studentunity.model.User;
-import csed.swe.studentunity.model.VerficationRequest;
+import csed.swe.studentunity.model.VerificationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class RegistrationService {
         }
     }
 
-    public String verifyUser(VerficationRequest request) {
+    public String verifyUser(VerificationRequest request) {
         // milestone 2
         boolean response = unverifiedUserService.verifyUser(request.getEmail(), request.getCode());
         if(response) {

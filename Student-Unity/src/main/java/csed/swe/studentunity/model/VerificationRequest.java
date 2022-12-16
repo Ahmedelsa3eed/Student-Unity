@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class VerficationRequest {
+public class VerificationRequest {
     private String email;
     private String code;
 
