@@ -3,6 +3,7 @@ package csed.swe.studentunity.API;
 import csed.swe.studentunity.Logic.AllCourseService;
 import csed.swe.studentunity.model.Course;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,17 +84,18 @@ public class AllCoursesAPI {
 
     @GetMapping("/getRegisteredCourses/{sessionId}")
     public ResponseEntity<List<?>> getRegisteredCourses(@PathVariable("sessionId") String sessionId){
-        return allCourseService.getRegisteredCourses(sessionId);
+        Object[] result = allCourseService.getRegisteredCourses(sessionId);
+        return new ResponseEntity<>((List<?>)result[0], HttpStatusCode.valueOf((int)result[1]));
     }
 
     @PutMapping("/registerCourse/{sessionId}/{courseId}")
     public ResponseEntity<?> registerCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseId") long courseId){
-        return new ResponseEntity<>(allCourseService.registerCourse(sessionId, courseId));
+        return new ResponseEntity<>(HttpStatusCode.valueOf(allCourseService.registerCourse(sessionId, courseId)));
     }
 
     @DeleteMapping("/unRegisterCourse/{sessionId}/{courseId}")
     public ResponseEntity<?> unRegisterCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseId") long courseId){
-        return new ResponseEntity<>(allCourseService.unRegisterCourse(sessionId, courseId));
+        return new ResponseEntity<>(HttpStatusCode.valueOf(allCourseService.unRegisterCourse(sessionId, courseId)));
     }
 
 }

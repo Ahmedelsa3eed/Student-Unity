@@ -8,9 +8,6 @@ import csed.swe.studentunity.model.RegisteredCourse;
 import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -68,37 +65,37 @@ public class AllCourseService {
         return courseRepo.findCourseByStatus(true);
     }
 
-    public ResponseEntity<List<?>> getRegisteredCourses(String sessionId){
+    public Object[] getRegisteredCourses(String sessionId){
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
         if (user != null)
-            return new ResponseEntity<>(registeredCourseRepository.getRegisteredCourseByUserId(user.getId()), HttpStatus.OK);
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+            return new Object[]{registeredCourseRepository.getRegisteredCourseByUserId(user.getId()), 200};
+        return new Object[]{new ArrayList<>(), 404};
     }
 
-    public HttpStatusCode registerCourse(String sessionId, long courseId) {
+    public int registerCourse(String sessionId, long courseId) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
             registeredCourseRepository.save(new RegisteredCourse(courseId, user.getId(), false));
-            return HttpStatus.OK;
+            return 200;
         }
-        return HttpStatus.NOT_FOUND;
+        return 404;
     }
 
-    public HttpStatusCode unRegisterCourse(String sessionId, long courseId) {
+    public int unRegisterCourse(String sessionId, long courseId) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
             registeredCourseRepository.deleteRegisteredCourseById(user.getId(), courseId);
-            return HttpStatus.OK;
+            return 200;
         }
-        return HttpStatus.NOT_FOUND;
+        return 404;
     }
 
     public void subscribe(){
