@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,11 +12,16 @@ export class SignInOutService {
 
   constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
 
-  public signIn(email: string, password: string): Observable<string>{
+  public signIn(email: string, password: string):Observable<HttpResponse<string>>{
     let httpParams = new HttpParams();
     httpParams = httpParams.append("email", email);
     httpParams = httpParams.append("password", password);
-    return this.httpClient.get((environment.baseUrl) + "/logIn/logIn", {params: httpParams, responseType: 'text'});
+    return this.httpClient.get((environment.baseUrl) + "/logIn/logIn",{
+        observe: 'response',
+        params: httpParams,
+        responseType: 'text'
+    },
+    );
   }
 
   public signOut(): void{
@@ -24,10 +29,14 @@ export class SignInOutService {
     this.cookieService.deleteAll();
   }
 
-  public forgotPassword(email: string): Observable<string>{
+  public forgotPassword(email: string): Observable<HttpResponse<any>>{
     let httpParams = new HttpParams();
     httpParams = httpParams.append("email", email);
-    return this.httpClient.get((environment.baseUrl) + "/logIn/forgetPassword", {params: httpParams, responseType: 'text'});
+    return this.httpClient.get((environment.baseUrl) + "/logIn/forgetPassword", {
+        params: httpParams,
+        observe: 'response',
+        responseType: 'text'
+    });
   }
 
   // This function should be called in appropriate components' onInit
@@ -44,10 +53,16 @@ export class SignInOutService {
     this.cookieService.set("sessionId", sessionId, expirationDate, '/', '', true, 'Strict');
   }
 
-  public getSignedInUser(): User{
-    let signedInUser: User = new User;
-    signedInUser.sessionID = this.cookieService.get("sessionId");
-    return signedInUser;
+  public getSignedInUserSessionID(): string{
+    return this.cookieService.get("sessionId");
+  }
+
+  public getSignedInUser():Observable<HttpResponse<User>>{
+    return this.httpClient.get<User>((environment.baseUrl) + "/logIn/getUser", {
+      params: {sessionID: this.cookieService.get("sessionId")},
+      observe: 'response',
+      responseType: 'json'
+    });
   }
 
 }

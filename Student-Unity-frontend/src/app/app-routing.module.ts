@@ -5,6 +5,8 @@ import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
+import { MyCoursesComponent } from './components/my-courses/my-courses.component';
+import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
@@ -17,6 +19,14 @@ const routes: Routes = [
       {
         path: 'accountsPage',
         component: AccountPageComponent
+      },
+      {
+        path: 'myCourses',
+        component: MyCoursesComponent
+      },
+      {
+        path: 'tasksPage',
+        component: TasksPageComponent
       }
     ]
   },

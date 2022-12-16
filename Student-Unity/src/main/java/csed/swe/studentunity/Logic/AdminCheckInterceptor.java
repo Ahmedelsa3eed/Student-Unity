@@ -1,6 +1,5 @@
 package csed.swe.studentunity.Logic;
 
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -11,8 +10,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.UUID;
 
 @Component
-public class AccountInterceptor implements HandlerInterceptor {
-    Logger logger = LoggerFactory.getLogger(AccountInterceptor.class);
+public class AdminCheckInterceptor implements HandlerInterceptor {
+    Logger logger = LoggerFactory.getLogger(AdminCheckInterceptor.class);
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         String sessionId = request.getParameter("sessionId");

@@ -1,4 +1,4 @@
-<div class="main-content accounts">
+<div *ngIf="!showAlert" class="main-content accounts" >
   <!-- Search Bar -->
   <div class="input-group m-1">
     <input
@@ -13,10 +13,23 @@
     <p class="bi-search m-2" ></p>
   </div>
 
+
   <!-- Accounts -->
-  <app-account
-    class="col-md-20"
-    style="display: inline-block"
-    *ngFor="let user of users | async " [user]="user">
-  </app-account>
+  <div *ngIf="!isLoading" >
+    <app-account (onDelete)="deleteAccount($event)"
+      class="col-md-20"
+      style="display: inline-block"
+      *ngFor="let user of users | async " [user]="user">
+    </app-account>
+  </div>
+  <div *ngIf="isLoading" class="d-flex justify-content-center" style="margin-top: 100px">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+    </div>
+  </div>
+</div>
+<div *ngIf="showAlert" class="alert alert-danger" role="alert" style="margin-left: 50px; margin-right: 50px; margin-top: 100px ">
+  <h4 class="alert-heading">You got an error!</h4>
+  <p>{{error}}</p>
+  <hr>
+  <p class="mb-0">Please try again later.</p>
 </div>

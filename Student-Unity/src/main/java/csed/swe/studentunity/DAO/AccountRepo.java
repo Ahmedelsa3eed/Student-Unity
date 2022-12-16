@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface AccountRepo extends JpaRepository<User, String> {
 
-    @Query(value = "SELECT * FROM user", nativeQuery = true)
+    @Query(value = "SELECT new User(u.email, u.studentId, u.firstName, u.lastName,  u.role) FROM User as u ")
     List<User> getAllAccounts();
 
-    @Query(value = "SELECT * FROM user " +
-                    "WHERE first_name LIKE %?1% OR student_id LIKE %?1% OR email LIKE %?1% OR last_name LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT new User(u.email, u.studentId, u.firstName, u.lastName,  u.role) FROM User as u " +
+                    "WHERE u.firstName LIKE %?1% OR u.lastName LIKE %?1% OR u.email LIKE %?1% OR u.lastName LIKE %?1%")
     List<User> searchAccounts(String searchString);
 
     @Modifying
-    @Query(value = "UPDATE user SET role = ?2 WHERE student_id = ?1", nativeQuery = true)
-    void changeRole(Integer targetUserId, String role);
+    @Query(value = "UPDATE user SET role = ?2 WHERE email= ?1", nativeQuery = true)
+    void changeRole(String targetUserEmail, String role);
 
     @Modifying
-    @Query(value = "DELETE FROM user WHERE student_id = ?1", nativeQuery = true)
-    void deleteAccountByStudentId(Integer studentId);
+    @Query(value = "DELETE FROM user WHERE email = ?1", nativeQuery = true)
+    void deleteAccountByEmail(String targetUserEmail);
 
 }
