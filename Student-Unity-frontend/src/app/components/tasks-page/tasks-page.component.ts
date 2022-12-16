@@ -78,54 +78,31 @@ export class TasksPageComponent implements OnInit {
   }
 
   public removeDoneTask($taskId: any) {
-    this.studentTaskService.removeTask($taskId).subscribe({
-      next: (res) => {
-        if (res.ok && res.body) {
-          this.doneTasks = this.doneTasks.filter(
-            (task) => task.status === STATUS.DONE && task.taskId !== $taskId
-          );
-        }
-      },
-    });
+    this.doneTasks = this.doneTasks.filter(
+      (task) => task.taskId !== $taskId
+    );
   }
 
   public removeToDoTask($taskId: any) {
-    this.studentTaskService.removeTask($taskId).subscribe({
-      next: (res) => {
-        if (res.ok && res.body) {
-          this.toDoTasks = this.toDoTasks.filter(
-            (task) => task.status === STATUS.TODO && task.taskId !== $taskId
-          );
-        }
-      },
-    });
+    this.toDoTasks = this.toDoTasks.filter(
+      (task) => task.taskId !== $taskId
+    );
   }
 
   public trigerDoneStatus($taskId: any) {
-    this.studentTaskService.triggerTaskStatus($taskId).subscribe({
-      next: (res) => {
-        if (res.ok && res.body) {
-          let task = this.doneTasks.find((task) => $taskId == task.taskId);
-          if (task) this.toDoTasks.push(task);
-          this.doneTasks = this.doneTasks.filter(
-            (task) => $taskId !== task.taskId
-          );
-        }
-      },
-    });
+    let task = this.doneTasks.find((task) => $taskId == task.taskId);
+    if (task) this.toDoTasks.push(task);
+    this.doneTasks = this.doneTasks.filter(
+      (task) => $taskId !== task.taskId
+    );
   }
 
   public trigerToDoStatus($taskId: any) {
-    this.studentTaskService.triggerTaskStatus($taskId).subscribe({
-      next: (res) => {
-        if (res.ok && res.body) {
-          let task = this.toDoTasks.find((task) => $taskId == task.taskId);
-          if (task) this.doneTasks.push(task);
-          this.toDoTasks = this.toDoTasks.filter(
-            (task) => $taskId !== task.taskId
-          );
-        }
-      },
-    });
+    let task = this.toDoTasks.find((task) => $taskId == task.taskId);
+    if (task) this.doneTasks.push(task);
+    this.toDoTasks = this.toDoTasks.filter(
+      (task) => $taskId !== task.taskId
+    );
   }
+
 }

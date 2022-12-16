@@ -12,8 +12,8 @@
         <app-task 
             *ngFor="let task of toDoTasks" 
             [task]="task"
-            (taskRemovedEvent)="removeToDoTask($event)"
-            (taskMarkedEvent)="trigerToDoStatus($event)">
+            (removingToDoTaskEvent)="removeToDoTask($event)"
+            (markAsDoneEvent)="trigerToDoStatus($event)">
         </app-task>
     </div>
     
@@ -30,8 +30,8 @@
         <app-task 
             *ngFor="let task of doneTasks" 
             [task]="task"
-            (taskRemovedEvent)="removeDoneTask($event)"
-            (taskMarkedEvent)="trigerDoneStatus($event)">
+            (removingDoneTaskEvent)="removeDoneTask($event)"
+            (unMarkAsDoneEvent)="trigerDoneStatus($event)">
         </app-task>
     </div>
 </div>
