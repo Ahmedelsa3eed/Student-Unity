@@ -5,4 +5,5 @@ export interface Course {
   telegramLink: string;
   status: boolean;
   notificationsToken: string;
+  term: number;
 }

@@ -12,7 +12,7 @@ export class AddCourseService {
   constructor(private http: HttpClient) { }
 
   postCourseData(course: Course): Observable<HttpResponse<string>> {
-    return this.http.post(`${environment.baseUrl}/registration/register`, course, {
+    return this.http.post(`${environment.baseUrl}/add-course`, course, {
       observe: "response",
       responseType: "text",
     });
