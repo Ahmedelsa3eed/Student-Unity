@@ -109,7 +109,7 @@ public class AllCourseService {
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
-            registeredCourseRepository.save(new RegisteredCourse(courseId, user.getId(), false));
+            registeredCourseRepository.save(new RegisteredCourse(course, user, true));
             return 200;
         }
         return 404;
