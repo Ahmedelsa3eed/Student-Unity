@@ -18,16 +18,8 @@ export class NavigationBarComponent implements OnInit {
     this.getSignedInUser();
   }
 
-  navigateTo(event: any, child: string){
+  navigateTo(child: string){
     this.router.navigateByUrl("home/" + child);
-    let el = event.target;
-    if (el.parentElement.children.length <= 1) {
-      el = el.parentElement
-    }
-    for (let i = 0; i < el.parentElement.children.length; i++) {
-      el.parentElement.children[i].classList.remove('active');
-    }
-    el.classList.add('active');
   }
 
   logout(){
