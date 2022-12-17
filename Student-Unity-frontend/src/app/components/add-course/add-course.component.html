@@ -1,25 +1,69 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
+<div class="container sign-up-page">
+  <form [formGroup]="registerForm" (ngSubmit)="registerSubmitted" class = "border p-2 rounded-3">
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+    <div class = "row g-3">
+      <div class = "col text-center p-2 mb-3 bg-light">
+        <span class = "fs-3"> Register</span>
       </div>
     </div>
-  </div>
+    <!--Input Name-->
+    <div class = "row">
+
+      <div class="col mb-3">
+        <label for="courseName" class="form-label">Course Name</label>
+        <input type = "text" class = "form-control" placeholder = "Course Name"
+          id="courseName" formControlName = "courseName">
+        <div class="formtext text-danger" *ngIf = "courseName.errors?.['required'] && (courseName.touched || courseName.dirty)">
+          course Name is Required.
+        </div>
+        <div class="formtext text-danger" *ngIf = "courseName.errors?.['pattern'] && (courseName.touched || courseName.dirty)">
+          Name should only conatain latin letters and numbers.
+        </div>
+      </div>
+      <!--Input Code-->
+      <div class="col mb-3">
+        <label for="courseCode" class="form-label">Course Code</label>
+        <input type = "text" class = "form-control" placeholder = "Course Code" id="courseCode" formControlName = "courseCode">
+        <div class="formtext text-danger" *ngIf = "courseCode.errors?.['required'] && (courseCode.touched || courseCode.dirty)">
+          course Code is Required.
+        </div>
+        <div class="formtext text-danger" *ngIf = "courseCode.errors?.['pattern'] && (courseCode.touched || courseCode.dirty)">
+          Name should only conatain latin letters and numbers.
+        </div>
+      </div>
+    </div>
+    <!--Input term-->
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" formControlName = "status">
+      <div class="formtext text-danger" *ngIf = "status.errors?.['required'] && (status.touched || status.dirty)">
+        course Code is Required.
+      </div>
+      <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
+    </div>
+    <!--term-->
+    <div class = "row">
+      <div class="col mb-3">
+        <label for="term" class="form-label">Term</label>
+        <input type = "number" class = "form-control" placeholder = "1" id = "term" formControlName = "term">
+        <div class="formtext text-danger" *ngIf = "term.errors?.['required'] && (term.touched || term.dirty)">
+          Term is required.
+        </div>
+      </div>
+    </div>
+    <!--submit-->
+    <div class = "row">
+      <div class="col mb-3">
+        <div [hidden]="!postError" class="alert alert-danger text-center" role="alert">
+          {{ postErrorMessage }}
+        </div>
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-6 offset-3">
+        <div class = "d-grid">
+          <button type = "submit" [disabled]="registerForm.invalid" class = "btn btn-primary" (click) = "registerSubmitted()">Register</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

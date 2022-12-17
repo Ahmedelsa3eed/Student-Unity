@@ -7,6 +7,7 @@ export class Course {
   status: boolean;
   notificationsToken: string;
   revisionSubscription: boolean;
+  term: number;
 
   constructor() {
     this.id = 0;
@@ -17,6 +18,8 @@ export class Course {
     this.status = false;
     this.notificationsToken = "";
     this.revisionSubscription = true;
+    this.term = 0;
   }
+
 
 }
