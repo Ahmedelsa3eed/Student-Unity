@@ -119,9 +119,21 @@ public class AllCourseService {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
-        Course course = courseRepo.findCourseById(courseId).orElse(null);
-        if (user != null && course != null) {
-            registeredCourseRepo.deleteRegisteredCourseById(user.getId(), courseId);
+        RegisteredCourse registeredCourse = registeredCourseRepo.getRegisteredCourseByCourseId(courseId).orElse(null);
+        if (user != null && registeredCourse != null) {
+            registeredCourseRepo.unRegisteredCourse(registeredCourse.getCourse(), user);
+            return 200;
+        }
+        return 404;
+    }
+
+    public int toggleRVSubscription(String sessionId, long courseId, boolean oldRevisionSubscription) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        RegisteredCourse registeredCourse = registeredCourseRepo.getRegisteredCourseByCourseId(courseId).orElse(null);
+        if (user != null && registeredCourse != null) {
+            registeredCourseRepo.updateRegisteredCourseRevisionSubscription(registeredCourse.getCourse(), user, !oldRevisionSubscription);
             return 200;
         }
         return 404;
