@@ -41,6 +41,9 @@ public class User implements Serializable {
     @Column(name = "role", nullable = false, columnDefinition = "TEXT")
     private String role;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private RevisionNotification revisionNotification;
 
     public User() {}
 

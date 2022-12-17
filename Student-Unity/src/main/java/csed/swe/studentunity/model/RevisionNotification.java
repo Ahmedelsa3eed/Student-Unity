@@ -5,13 +5,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
 @Entity(name = "RevisionNotification")
-public class RevisionNotification {
+public class RevisionNotification implements Serializable {
 
     @Id
+    @Column(name = "user_id")
+    private Long id;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
