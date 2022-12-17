@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { CourseCard } from 'src/app/models/course-card';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
@@ -14,7 +14,7 @@ export class CourseCardComponent implements OnInit {
 
   @Input() course: CourseCard = {name:"", code:"", status:true, term: 0};
   @Input() privilege: boolean = false;
-  
+
   constructor(private signInOutService: SignInOutService) { }
 
 
@@ -31,6 +31,10 @@ export class CourseCardComponent implements OnInit {
         console.log(err);
       }
       );
+  }
+
+  deleteCourse(): void {
+    
   }
 
   ngOnInit(): void {

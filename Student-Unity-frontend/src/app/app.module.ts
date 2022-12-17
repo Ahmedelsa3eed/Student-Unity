@@ -32,6 +32,7 @@ import { AllCoursesComponent } from './components/all-courses/all-courses.compon
 import { CourseCardComponent } from './components/shared/course-card/course-card.component';
 import { CommonModule } from '@angular/common';
 import { AddCourseComponent } from './components/add-course/add-course.component';
+import { RemoveSpacesPipe } from './shared/remove-spaces.pipe';
 
 const material=[
   MatDatepickerModule,
@@ -56,7 +57,8 @@ const material=[
     AllCoursesComponent,
     CourseCardComponent,
     CourseCardComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    RemoveSpacesPipe
   ],
   imports: [
     BrowserModule,
