@@ -32,15 +32,12 @@
         </div>
       </div>
     </div>
-    <!--Input term-->
+    <!--Input status-->
     <div class="form-check form-switch">
       <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" formControlName = "status">
-      <div class="formtext text-danger" *ngIf = "status.errors?.['required'] && (status.touched || status.dirty)">
-        course Code is Required.
-      </div>
       <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
     </div>
-    <!--term-->
+    <!--Input term-->
     <div class = "row">
       <div class="col mb-3">
         <label for="term" class="form-label">Term</label>

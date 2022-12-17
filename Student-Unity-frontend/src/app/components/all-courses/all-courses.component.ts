@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AccountService } from 'src/app/services/account.service';
 import { User } from 'src/app/models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-courses',
@@ -23,11 +24,12 @@ export class AllCoursesComponent implements OnInit {
   showFilteredList: boolean = false;
   private _filterByStatus: boolean = false;
   loggedInUser = new User();
+  privilege: boolean = false;
 
-  constructor(private signInOutService: SignInOutService, private allCoursesService: AllCoursesService) { }
+  constructor(private router: Router, private signInOutService: SignInOutService, private allCoursesService: AllCoursesService) { }
 
   addCourse(): void {
-
+    this.router.navigate(['home/addCourse']);
   }
 
   ngOnInit(): void {
@@ -39,8 +41,8 @@ export class AllCoursesComponent implements OnInit {
       },
       error: err => console.log(err)
     });
-
   }
+
   get filterByStatus(): boolean {
     return this._filterByStatus;
   }
@@ -91,6 +93,8 @@ export class AllCoursesComponent implements OnInit {
         console.log(res);
         if (res.body) {
           this.loggedInUser = res.body;
+          if (this.loggedInUser.role === 'admin') this.privilege = true;
+          console.log(this.privilege);
         }
     },
       err => {

@@ -23,8 +23,8 @@ export class AddCourseComponent implements OnInit {
     this.registerForm = this.fb.group ({
       courseName: this.fb.control(null, [Validators.required, Validators.pattern("[a-zA-Z0-9]*")]),
       courseCode: this.fb.control(null, [Validators.required, Validators.pattern("[a-zA-Z0-9]*")]),
-      status: this.fb.control(null, [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@alexu\.edu\.eg")]),
-      term: this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(10)])
+      status: this.fb.control(null),
+      term: this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(9)])
     });
   }
 
@@ -39,7 +39,7 @@ export class AddCourseComponent implements OnInit {
     this.course.code = this.registerForm.get('courseCode')?.value;
     this.course.status = this.registerForm.get('status')?.value;
     this.course.term = this.registerForm.get('term')?.value;
-
+    console.log(this.course);
     this.addCourseService.postCourseData(this.course).subscribe({
       next: (res) => {
         console.log(res);
@@ -48,6 +48,8 @@ export class AddCourseComponent implements OnInit {
       error: (err) => this.httpError(err),
       complete: () => console.info('Course Submited')
     })
+    
+    this.router.navigate(['home/allCourses']);
   }
 
   // method to print the error message from the backend
