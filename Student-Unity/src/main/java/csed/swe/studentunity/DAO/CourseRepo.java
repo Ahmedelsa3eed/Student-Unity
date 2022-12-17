@@ -15,6 +15,6 @@ public interface CourseRepo extends JpaRepository<Course, String> {
     @Query(value = "SELECT * FROM course WHERE id = ?1", nativeQuery = true)
     Optional<Course> findCourseById(long id);
 
-    List<Course> findCourseByStatus(boolean status);
+    List<Course> findCourseByactiveCourseNotNull();
 
 }
