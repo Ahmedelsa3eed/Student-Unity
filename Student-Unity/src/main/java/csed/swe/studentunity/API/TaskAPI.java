@@ -17,19 +17,18 @@ public class TaskAPI {
     }
 
     @PostMapping("/addTask")
-    public ResponseEntity<Task> addTask(@RequestBody Task task) {
+    public ResponseEntity<Boolean> addTask(@RequestBody Task task) {
         return new ResponseEntity<>(taskService.addTask(task), HttpStatus.CREATED);
     }
 
     @PutMapping("/editTask")
-    public ResponseEntity<Task> editTask(@RequestBody Task task) {
+    public ResponseEntity<Boolean> editTask(@RequestBody Task task) {
         return new ResponseEntity<>(taskService.editTask(task), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteTask")
-    public ResponseEntity<String> deleteTask(@RequestParam("taskId") Long taskId) {
-        taskService.deleteTask(taskId);
-        return new ResponseEntity<>("Task was deleted successfully!", HttpStatus.OK);
+    public ResponseEntity<Boolean> deleteTask(@RequestParam("taskId") Long taskId) {
+        return new ResponseEntity<>(taskService.deleteTaskById(taskId), HttpStatus.OK);
     }
 
 }

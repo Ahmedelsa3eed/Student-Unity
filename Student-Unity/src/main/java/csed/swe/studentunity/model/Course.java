@@ -40,6 +40,8 @@ public class Course implements Serializable {
     @Column(name = "notifications_token")
     private String notificationsToken;
 
+    public Course() { }
+
     public Course(String courseCode) {
         this.code = courseCode;
     }
@@ -48,7 +50,5 @@ public class Course implements Serializable {
         this.id = id;
         this.name = name;
     }
-
-    public Course() { }
 
 }

@@ -2,7 +2,7 @@ package csed.swe.studentunity.Logic.Courses;
 
 
 import csed.swe.studentunity.DAO.CourseRepo;
-import csed.swe.studentunity.DAO.RegisteredCourseRepository;
+import csed.swe.studentunity.DAO.RegisteredCourseRepo;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.Course;
@@ -21,12 +21,12 @@ public class AllCourseService {
 
     private final CourseRepo courseRepo;
     private final UserService userService;
-    private final RegisteredCourseRepository registeredCourseRepository;
+    private final RegisteredCourseRepo registeredCourseRepo;
 
-    public AllCourseService(CourseRepo courseRepo, UserService userService, RegisteredCourseRepository registeredCourseRepository) {
+    public AllCourseService(CourseRepo courseRepo, UserService userService, RegisteredCourseRepo registeredCourseRepo) {
         this.courseRepo = courseRepo;
         this.userService = userService;
-        this.registeredCourseRepository = registeredCourseRepository;
+        this.registeredCourseRepo = registeredCourseRepo;
     }
 
     public String addCourse(String role, Course course){
@@ -72,7 +72,7 @@ public class AllCourseService {
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
         if (user != null)
-            return new Object[]{registeredCourseRepository.getRegisteredCourseByUserId(user.getId()), 200};
+            return new Object[]{registeredCourseRepo.getRegisteredCourseByUserId(user.getId()), 200};
         return new Object[]{new ArrayList<>(), 404};
     }
 
@@ -82,7 +82,7 @@ public class AllCourseService {
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
-            registeredCourseRepository.save(new RegisteredCourse(course, user, false));
+            registeredCourseRepo.save(new RegisteredCourse(course, user, false));
             return 200;
         }
         return 404;
@@ -94,7 +94,7 @@ public class AllCourseService {
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
-            registeredCourseRepository.deleteRegisteredCourseById(user.getId(), courseId);
+            registeredCourseRepo.deleteRegisteredCourseById(user.getId(), courseId);
             return 200;
         }
         return 404;

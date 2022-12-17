@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface StudentTaskRepository extends JpaRepository<StudentTask, StudentTaskId> {
+public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskId> {
 
     @Query("SELECT new Task (t.title, t.dueDate, t.telegramLink), new StudentTask(st.status) " +
             "FROM Task AS t, StudentTask AS st, User AS u " +
