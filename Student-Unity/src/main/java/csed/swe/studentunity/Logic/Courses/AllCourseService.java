@@ -2,7 +2,7 @@ package csed.swe.studentunity.Logic.Courses;
 
 
 import csed.swe.studentunity.DAO.CourseRepo;
-import csed.swe.studentunity.DAO.RegisteredCourseRepository;
+import csed.swe.studentunity.DAO.RegisteredCourseRepo;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.ActiveCourse;
@@ -24,13 +24,13 @@ public class AllCourseService {
 
     private final CourseRepo courseRepo;
     private final UserService userService;
-    private final RegisteredCourseRepository registeredCourseRepository;
+    private final RegisteredCourseRepo registeredCourseRepo;
     private final ActiveCourseService activeCourseService;
 
-    public AllCourseService(CourseRepo courseRepo, UserService userService, RegisteredCourseRepository registeredCourseRepository, ActiveCourseService activeCourseService) {
+    public AllCourseService(CourseRepo courseRepo, UserService userService, RegisteredCourseRepo registeredCourseRepo, ActiveCourseService activeCourseService) {
         this.courseRepo = courseRepo;
         this.userService = userService;
-        this.registeredCourseRepository = registeredCourseRepository;
+        this.registeredCourseRepo = registeredCourseRepo;
         this.activeCourseService = activeCourseService;
     }
 
@@ -99,7 +99,7 @@ public class AllCourseService {
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
         if (user != null)
-            return new Object[]{registeredCourseRepository.getRegisteredCourseByUserId(user.getId()), 200};
+            return new Object[]{registeredCourseRepo.getRegisteredCourseByUserId(user.getId()), 200};
         return new Object[]{new ArrayList<>(), 404};
     }
 
@@ -109,7 +109,7 @@ public class AllCourseService {
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
-            registeredCourseRepository.save(new RegisteredCourse(course, user, true));
+            registeredCourseRepo.save(new RegisteredCourse(course, user, true));
             return 200;
         }
         return 404;
@@ -119,9 +119,21 @@ public class AllCourseService {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
         User user = userService.getUser(userEmail).orElse(null);
-        Course course = courseRepo.findCourseById(courseId).orElse(null);
-        if (user != null && course != null) {
-            registeredCourseRepository.deleteRegisteredCourseById(user.getId(), courseId);
+        RegisteredCourse registeredCourse = registeredCourseRepo.getRegisteredCourseByCourseId(courseId).orElse(null);
+        if (user != null && registeredCourse != null) {
+            registeredCourseRepo.unRegisteredCourse(registeredCourse.getCourse(), user);
+            return 200;
+        }
+        return 404;
+    }
+
+    public int toggleRVSubscription(String sessionId, long courseId, boolean oldRevisionSubscription) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        RegisteredCourse registeredCourse = registeredCourseRepo.getRegisteredCourseByCourseId(courseId).orElse(null);
+        if (user != null && registeredCourse != null) {
+            registeredCourseRepo.updateRegisteredCourseRevisionSubscription(registeredCourse.getCourse(), user, !oldRevisionSubscription);
             return 200;
         }
         return 404;
