@@ -46,5 +46,11 @@ public class UnverifiedUser implements Serializable {
 
 
     public UnverifiedUser(String email, Integer studentId, String firstName, String lastName, String password, String student) {
+        this.email = email;
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.role = student;
     }
 }
