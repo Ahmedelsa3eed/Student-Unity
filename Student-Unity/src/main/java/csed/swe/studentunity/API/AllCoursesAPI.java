@@ -1,6 +1,7 @@
 package csed.swe.studentunity.API;
 
 import csed.swe.studentunity.Logic.Courses.AllCourseService;
+import csed.swe.studentunity.model.ActiveCourse;
 import csed.swe.studentunity.model.Course;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -45,10 +46,26 @@ public class AllCoursesAPI {
         return new ResponseEntity<>(removed, HttpStatus.OK);
     }
 
-    @PutMapping("/changeStatus")
-    public ResponseEntity<String> changeStatus(@RequestParam String role, @RequestParam String code, @RequestParam boolean status){
+    @PutMapping("/makeCourseActive")
+    public ResponseEntity<String> makeCourseActive(@RequestParam String role, @RequestParam String code){
         try{
-            String changed = allCourseService.changeCourseStatus(role, code, status);
+            String changed = allCourseService.makeCourseActive(role, code);
+            if (changed.equals("ok")){
+                return new ResponseEntity<>(changed, HttpStatus.ACCEPTED);
+            }
+            else{
+                return new ResponseEntity<>(changed, HttpStatus.FORBIDDEN);
+            }
+        }
+        catch (RuntimeException e){
+            return new ResponseEntity<>("Course doesn't exist", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/makeCourseInActive")
+    public ResponseEntity<String> makeCourseInActive(@RequestParam String role, @RequestParam String code){
+        try{
+            String changed = allCourseService.makeCourseInActive(role, code);
             if (changed.equals("ok")){
                 return new ResponseEntity<>(changed, HttpStatus.ACCEPTED);
             }
@@ -80,6 +97,68 @@ public class AllCoursesAPI {
     @GetMapping("/getAllActiveCourses")
     public ResponseEntity<List<Course>> getAllActiveCourses() {
         return new ResponseEntity<>(allCourseService.getAllActiveCourses(), HttpStatus.OK);
+    }
+
+    @GetMapping("/searchAllCourses")
+    public ResponseEntity<List<Course>> searchAllCourses(@RequestParam String search){
+        System.out.println(search);
+        return new ResponseEntity<>(allCourseService.searchAllCourses(search), HttpStatus.OK);
+    }
+
+    @PutMapping("/editCourseName")
+    public ResponseEntity<String> editCourseName(@RequestParam String role, @RequestParam String name, @RequestParam String code){
+        try {
+            String returnValue = allCourseService.editCourseName(role, name, code);
+            if (returnValue.equals("ok")){
+                return new ResponseEntity<>(returnValue, HttpStatus.OK);
+            }
+            else if (returnValue.equals("Course not found"))
+                return new ResponseEntity<>(returnValue, HttpStatus.NOT_FOUND);
+            else {
+                return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
+            }
+        }
+        catch (RuntimeException e){
+            return new ResponseEntity<>("Name already exists", HttpStatus.CONFLICT);
+        }
+    }
+
+    @PutMapping("/editCourseCode")
+    public ResponseEntity<String> editCourseCode(@RequestParam String role, @RequestParam String new_code, @RequestParam String code){
+        try {
+            String returnValue = allCourseService.editCourseCode(role, new_code, code);
+            if (returnValue.equals("ok")){
+                return new ResponseEntity<>(returnValue, HttpStatus.OK);
+            }
+            else if (returnValue.equals("Course not found"))
+                return new ResponseEntity<>(returnValue, HttpStatus.NOT_FOUND);
+            else {
+                return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
+            }
+        }
+        catch (RuntimeException e){
+            return new ResponseEntity<>("Code already exists", HttpStatus.CONFLICT);
+        }
+    }
+    @PutMapping("/editActiveCourse")
+    public ResponseEntity<String> editActiveCourse(@RequestParam String role, @RequestParam String code, @RequestBody ActiveCourse activeCourse){
+        try {
+            String returnValue = allCourseService.editActiveCourse(role, code, activeCourse);
+            if (returnValue.equals("ok")){
+                return new ResponseEntity<>(returnValue, HttpStatus.OK);
+            }
+            else if (returnValue.equals("Course not found"))
+                return new ResponseEntity<>(returnValue, HttpStatus.NOT_FOUND);
+            else if (returnValue.equals("Only admins can edit courses")) {
+                return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
+            }
+            else{
+                return new ResponseEntity<>("Course is not active", HttpStatus.FAILED_DEPENDENCY);
+            }
+        }
+        catch (RuntimeException e){
+            return new ResponseEntity<>("Error", HttpStatus.SEE_OTHER);
+        }
     }
 
     @GetMapping("/getRegisteredCourses/{sessionId}")

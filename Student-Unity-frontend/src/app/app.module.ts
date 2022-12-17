@@ -18,6 +18,7 @@ import { CourseComponent } from './components/course/course.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
+import { CoursePageComponent } from './components/course-page/course-page.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TasksPageComponent } from './components/tasks-page/tasks-page.component
     CourseComponent,
     MyCoursesComponent,
     TaskComponent,
-    TasksPageComponent
+    TasksPageComponent,
+    CoursePageComponent
   ],
   imports: [
     BrowserModule,
