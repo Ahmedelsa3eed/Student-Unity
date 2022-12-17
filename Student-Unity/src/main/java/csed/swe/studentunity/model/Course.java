@@ -1,5 +1,6 @@
 package csed.swe.studentunity.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "course_id")
     long id;
 
     @Column(name = "course_name", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
@@ -27,17 +29,12 @@ public class Course implements Serializable {
     @Column(name = "course_code", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
     private String code;
 
-    @Column(name = "time_table", nullable = false, columnDefinition = "TEXT")
-    private String timeTable;
 
-    @Column(name = "course_status", nullable = false, columnDefinition = "BOOLEAN")
-    private Boolean status;
+    @JsonManagedReference
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL)
+    private ActiveCourse activeCourse;
 
-    @Column(name = "telegram_link")
-    private String telegramLink;
 
-    @Column(name = "notifications_token")
-    private String notificationsToken;
 
     public Course(String courseCode) {
         this.code = courseCode;
@@ -48,8 +45,6 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public Course() {
-
-    }
+    public Course() { }
 
 }

@@ -1,4 +1,4 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.User;
 
 import csed.swe.studentunity.model.User;
 import csed.swe.studentunity.DAO.UserRepository;

@@ -1,5 +1,6 @@
 package csed.swe.studentunity.Logic;
 
+import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.RegistrationRequest;
 import csed.swe.studentunity.model.UnverifiedUser;
 import csed.swe.studentunity.model.User;

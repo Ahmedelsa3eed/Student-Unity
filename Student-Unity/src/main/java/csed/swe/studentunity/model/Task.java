@@ -22,8 +22,8 @@ public class Task implements Serializable {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "course_code", referencedColumnName = "course_code")
-    private Course courseCode;
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    private Course course;
 
     @Column(columnDefinition = "Date")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
@@ -33,19 +33,23 @@ public class Task implements Serializable {
     private URL telegramLink;
 
     public Task() {}
+
     public Task(Long taskId) {
         this.taskId = taskId;
     }
+
     public Task(String title, Date dueDate, URL telegramLink) {
         this.title = title;
         this.dueDate = dueDate;
         this.telegramLink = telegramLink;
     }
-    public Task(Long taskId, String title, Course courseCode, Date dueDate, URL telegramLink) {
+
+    public Task(Long taskId, String title, Course course, Date dueDate, URL telegramLink) {
         this.taskId = taskId;
         this.title = title;
-        this.courseCode = courseCode;
+        this.course = course;
         this.dueDate = dueDate;
         this.telegramLink = telegramLink;
     }
+
 }

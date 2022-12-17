@@ -1,6 +1,6 @@
 package csed.swe.studentunity.Logic;
 
-import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
