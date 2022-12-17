@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface StudentTaskRepository extends JpaRepository<StudentTask, StudentTaskId> {
+public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskId> {
 
     @Query(value="SELECT t.task_id,t.course_code,t.title,t.due_date,t.telegram_link,st.status\n" +
             "FROM task AS t, student_task AS st, user AS u \n" +
@@ -30,7 +30,7 @@ public interface StudentTaskRepository extends JpaRepository<StudentTask, Studen
             "WHERE t = st.studentTaskId.task  AND u.id = :userId " +
             "AND st.studentTaskId.user.id = :userId ORDER BY t.dueDate"
     )
-    Optional<Iterable<Object>> sortTasksByDate(@Param("user") User userId);
+    Optional<Iterable<Object>> sortTasksByDate(@Param("userId") Long userId);
 
     @Modifying
     @Query("update StudentTask st set st.status = :newStatus " +

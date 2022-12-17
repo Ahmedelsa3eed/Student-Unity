@@ -1,12 +1,9 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.Tasks;
 
-import csed.swe.studentunity.DAO.StudentTaskRepository;
+import csed.swe.studentunity.DAO.StudentTaskRepo;
 import csed.swe.studentunity.Logic.Tasks.StudentTaskService;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
-import csed.swe.studentunity.model.StudentTask;
-import csed.swe.studentunity.model.StudentTaskId;
-import csed.swe.studentunity.model.Task;
-import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -129,8 +126,8 @@ class StudentTaskServiceTest {
     void markAsDoneCaseUserNotLoggedIn() {
         String sessionId = null;
         Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(null);
-        assertFalse(studentTaskService.markAsDone(sessionId,11L));
-        Mockito.when(studentTaskRepository.findAllStudentTasks(12345L)).thenReturn(null);
+        assertFalse(studentTaskService.markAsDone(sessionId,11L, true));
+        Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(null);
         assertFalse(studentTaskService.markAsDone(sessionId,11L, true));
     }
 
@@ -139,9 +136,8 @@ class StudentTaskServiceTest {
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
         studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        assertTrue(studentTaskService.markAsDone(sessionId,11L));
+        assertTrue(studentTaskService.markAsDone(sessionId,11L, true));
     }
-        assertTrue(studentTaskService.markAsDone(sessionId,11L, false));
 
 
     @Test

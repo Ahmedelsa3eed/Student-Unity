@@ -1,6 +1,6 @@
 package csed.swe.studentunity.Logic.Tasks;
 
-import csed.swe.studentunity.DAO.StudentTaskRepository;
+import csed.swe.studentunity.DAO.StudentTaskRepo;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,7 @@ public class StudentTaskService {
         try {
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            studentTaskRepository.markAsDone(userId, taskId, newStatus);
+            studentTaskRepo.markAsDone(userId, taskId, newStatus);
             return true;
         } catch (Exception e) {
             return false;
