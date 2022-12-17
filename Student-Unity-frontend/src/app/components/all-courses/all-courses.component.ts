@@ -5,6 +5,8 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { CourseCard } from 'src/app/models/course-card';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { AccountService } from 'src/app/services/account.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-all-courses',
@@ -12,20 +14,24 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrls: ['./all-courses.component.css']
 })
 export class AllCoursesComponent implements OnInit {
-  private _courseFilter: string = '';
+  private _courseSearch: string = '';
   private numberOfTerms: number = 10;
-  showFilters: boolean = false;
-  checkedItems: string[] = [];
   sub!: Subscription;
   courses: CourseCard[] = [];
   terms: CourseCard[][] = [] as CourseCard[][];
   filteredCourses: CourseCard[] = [];
+  showFilteredList: boolean = false;
+  private _filterByStatus: boolean = false;
+  loggedInUser = new User();
 
   constructor(private signInOutService: SignInOutService, private allCoursesService: AllCoursesService) { }
 
+  addCourse(): void {
+
+  }
 
   ngOnInit(): void {
-    this.signInOutService.getSignedInUser();
+    this.getSignedInUser();
     this.sub = this.allCoursesService.getAllCourses().subscribe({
       next: courses => {
         this.courses = courses;
@@ -35,11 +41,23 @@ export class AllCoursesComponent implements OnInit {
     });
 
   }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+  get filterByStatus(): boolean {
+    return this._filterByStatus;
   }
 
+  set filterByStatus(value: boolean) {
+    this._filterByStatus = value;
+    this.filterCourses();
+  }
+
+  set courseSearch(value: string) {
+    this._courseSearch = value;
+    this.filterCourses();
+  }
+
+  get courseSearch(): string {
+    return this._courseSearch;
+  }
 
   filterTerms(): void {
     for (let i = 0; i < this.numberOfTerms; i++) {
@@ -54,22 +72,6 @@ export class AllCoursesComponent implements OnInit {
     console.log(this.terms);
   }
 
-  dropDownFilters(): void {
-      this.showFilters = !this.showFilters;
-  }
-
-  itemCheck(event: any): void {
-    let item = event.target;
-    if (!this.checkedItems.includes(item.innerText)) {
-      item.classList.remove('btn-light');
-      item.classList.add('btn-primary');
-      this.checkedItems.push(item.innerText);
-    } else {
-      item.classList.remove('btn-primary');
-      item.classList.add('btn-light');
-      this.checkedItems.splice(this.checkedItems.indexOf(item.innerText), 1);
-    }
-  }
 
   reverse(event: any): void {
     let expanded = event.target.ariaExpanded;
@@ -83,24 +85,37 @@ export class AllCoursesComponent implements OnInit {
       el.classList.add('down');
     }
   }
-
-  searchCourses(): void {
-    let key: string = this._courseFilter.toLocaleLowerCase();
-    this.filteredCourses = this.courses.filter((course: CourseCard) =>
-      course.code.toLocaleLowerCase().includes(key) || 
-      course.name.toLocaleLowerCase().includes(key)
+  getSignedInUser(){
+    this.signInOutService.getSignedInUser().subscribe(
+      res => {
+        console.log(res);
+        if (res.body) {
+          this.loggedInUser = res.body;
+        }
+    },
+      err => {
+        console.log(err);
+      }
       );
-    console.log(this.filteredCourses);
   }
 
-  get courseFilter(): string {
-    return this._courseFilter;
+  filterCourses(): void {
+    // filter by course code or course name
+    this.filteredCourses = this.courses.filter((course: CourseCard) =>
+      course.code.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase()) ||
+      course.name.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase())
+      );
+
+    // filter by status
+    if (this._filterByStatus){
+      this.filteredCourses = this.filteredCourses.filter((course: CourseCard) => course.status === true);
+    }
+
+    this.showFilteredList = this._filterByStatus || this._courseSearch.length > 0;
   }
 
-  set courseFilter(value: string) {
-    this._courseFilter = value;
-    this.searchCourses();
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
-
 
 }

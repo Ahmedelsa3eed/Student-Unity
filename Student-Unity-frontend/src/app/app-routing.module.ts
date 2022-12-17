@@ -7,6 +7,7 @@ import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
+import { AddCourseComponent } from './components/add-course/add-course.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'allCourses',
         component: AllCoursesComponent
+      },
+      {
+        path: 'addCourse',
+        component: AddCourseComponent
       }
     ]
   },

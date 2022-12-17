@@ -18,6 +18,7 @@ import { MyCoursesComponent } from './components/my-courses/my-courses.component
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
 import { CourseCardComponent } from './components/shared/course-card/course-card.component';
 import { CommonModule } from '@angular/common';
+import { AddCourseComponent } from './components/add-course/add-course.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CommonModule } from '@angular/common';
     MyCoursesComponent,
     AllCoursesComponent,
     CourseCardComponent,
-    CourseCardComponent
+    CourseCardComponent,
+    AddCourseComponent
   ],
   imports: [
     BrowserModule,
