@@ -7,6 +7,9 @@
   <a href="/" class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none" (click)="logout()">
     <span class="fs-4">logout</span>
   </a>
+  <button *ngIf="loggedInUser.role =='admin'" class="btn btn-primary" type="button" style="margin-top: 50px" (click)="navigateTo('addTask')" >
+    Add Task
+  </button>
 
   <hr>
 
@@ -22,7 +25,7 @@
     <div (click)="navigateTo('tasksPage')"><em class="bi bi-list-task"></em>Tasks</div>
     <div><em class="bi bi-megaphone pe-none me-2"></em>Announcements</div>
     <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
-    <div *ngIf="loggedInUser.role =='admin'" (click)="navigateTo('accountsPage')">
+    <div *ngIf="loggedInUser.role =='admin' " (click)="navigateTo('accountsPage')">
       <em class="bi bi-person-circle pe-none me-2"></em>
       Accounts
     </div>

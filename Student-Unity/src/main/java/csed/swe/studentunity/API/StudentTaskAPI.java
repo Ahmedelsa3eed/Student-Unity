@@ -32,8 +32,9 @@ public class StudentTaskAPI {
 
     @PutMapping("/triggerTaskStatus")
     public ResponseEntity<Boolean> markAsDone(@RequestParam("sessionId") String sessionId,
-                                             @RequestParam("taskId") long taskId) {
-        if(Boolean.TRUE.equals(studentTaskService.markAsDone(sessionId, taskId)))
+                                             @RequestParam("taskId") long taskId,
+                                              @RequestParam("newStatus") boolean newStatus) {
+        if(Boolean.TRUE.equals(studentTaskService.markAsDone(sessionId, taskId, newStatus)))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
