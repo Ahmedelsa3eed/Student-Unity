@@ -10,17 +10,16 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-@Entity(name = "User")
-@Table(name = "user",
+@Entity(name = "UnverifiedUser")
+@Table(name = "unverified_user",
         uniqueConstraints = {
-                @UniqueConstraint(name = "email_unique", columnNames = "email")
+                @UniqueConstraint(name = "email_unique", columnNames = "email"),
+                @UniqueConstraint(name = "student_id_unique", columnNames = "student_id")
         })
-public class User implements Serializable {
+public class UnverifiedUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false)
-
     private Long id;
 
     @Column(name = "email", nullable = false, updatable = false, columnDefinition = "varchar(100)")
@@ -41,23 +40,17 @@ public class User implements Serializable {
     @Column(name = "role", nullable = false, columnDefinition = "TEXT")
     private String role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private RevisionNotification revisionNotification;
 
-    public User() {}
 
-    public User(String email, Integer studentId, String firstName, String lastName, String password, String role) {
+    public UnverifiedUser() {}
+
+
+    public UnverifiedUser(String email, Integer studentId, String firstName, String lastName, String password, String student) {
         this.email = email;
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
-    }
-
-
-    public User(Long userId) {
-        this.id = userId;
+        this.role = student;
     }
 }
