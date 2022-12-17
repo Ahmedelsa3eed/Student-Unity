@@ -9,6 +9,7 @@ import { MyCoursesComponent } from './components/my-courses/my-courses.component
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
 import { CoursePageComponent } from './components/course-page/course-page.component';
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
+import { AddCourseComponent } from './components/add-course/add-course.component';
 
 import { AddTaskComponent } from './components/addtask/add-task.component';
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'allCourses',
         component: AllCoursesComponent
+      },
+      {
+        path: 'addCourse',
+        component: AddCourseComponent
       }
 
     ]

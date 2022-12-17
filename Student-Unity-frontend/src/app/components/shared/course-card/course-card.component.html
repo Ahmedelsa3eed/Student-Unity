@@ -1,13 +1,15 @@
 <div *ngIf="course.status;then content else other_content">here is ignored</div>
   <ng-template #content>
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-      <div class="card-header">{{course.code}}</div>
+
+      <div class="card-header justify-content-space-between">{{course.code}}
+        <button *ngIf="loggedInUser.role === 'admin'" class="btn" type="button">
+          <i class="bi bi-three-dots-vertical" style="font-size: 2rem; color: rgb(255, 255, 255);" ></i>
+        </button>
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{course.name}}</h5>
         <button type="button" class="btn btn-light">Subscribe</button>
-        <button type="button" class="btn btn-light btn-lg">
-          <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-        </button>
       </div>
     </div>
   </ng-template>
