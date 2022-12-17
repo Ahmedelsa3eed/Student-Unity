@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
-import { CourseCard } from 'src/app/models/course-card';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AccountService } from 'src/app/services/account.service';
 import { User } from 'src/app/models/User';
 import { Router } from '@angular/router';
+import { Course } from 'src/app/models/Course';
 
 @Component({
   selector: 'app-all-courses',
@@ -18,9 +18,9 @@ export class AllCoursesComponent implements OnInit {
   private _courseSearch: string = '';
   private numberOfTerms: number = 10;
   sub!: Subscription;
-  courses: CourseCard[] = [];
-  terms: CourseCard[][] = [] as CourseCard[][];
-  filteredCourses: CourseCard[] = [];
+  courses: Course[] = [];
+  terms: Course[][] = [] as Course[][];
+  filteredCourses: Course[] = [];
   showFilteredList: boolean = false;
   private _filterByStatus: boolean = false;
   loggedInUser = new User();
@@ -105,14 +105,14 @@ export class AllCoursesComponent implements OnInit {
 
   filterCourses(): void {
     // filter by course code or course name
-    this.filteredCourses = this.courses.filter((course: CourseCard) =>
+    this.filteredCourses = this.courses.filter((course: Course) =>
       course.code.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase()) ||
       course.name.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase())
       );
 
     // filter by status
     if (this._filterByStatus){
-      this.filteredCourses = this.filteredCourses.filter((course: CourseCard) => course.status === true);
+      this.filteredCourses = this.filteredCourses.filter((course: Course) => course.status === true);
     }
 
     this.showFilteredList = this._filterByStatus || this._courseSearch.length > 0;

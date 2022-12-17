@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { Course } from 'src/app/models/Course';
 import { User } from 'src/app/models/User';
-import { CourseCard } from 'src/app/models/course-card';
+import { DeleteCourseService } from 'src/app/services/delete-course.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 
 @Component({
@@ -12,10 +14,10 @@ export class CourseCardComponent implements OnInit {
 
   loggedInUser = new User();
 
-  @Input() course: CourseCard = {name:"", code:"", status:true, term: 0};
+  @Input() course: Course = {} as Course;
   @Input() privilege: boolean = false;
 
-  constructor(private signInOutService: SignInOutService) { }
+  constructor(private deleteCourseService : DeleteCourseService, private signInOutService: SignInOutService, private router: Router) { }
 
 
 
@@ -32,9 +34,18 @@ export class CourseCardComponent implements OnInit {
       }
       );
   }
+  // method to print the error message from the backend
+
 
   deleteCourse(): void {
-    
+    this.deleteCourseService.postCourseData(this.course).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.router.navigate(['home/allCourses'])
+      },
+      error: (err) => this.router.navigate(['home/allCourses']),
+      complete: () => console.info('Course Submited')
+    })
   }
 
   ngOnInit(): void {
