@@ -22,7 +22,6 @@ export class TaskComponent implements OnInit {
   }
 
   public removeTask() {
-    this.removingDoneTaskEvent.emit(this.task.taskId);
 
     this.studentTaskService.removeTask(this.task.taskId).subscribe({
       next: (res) => {
@@ -44,12 +43,12 @@ export class TaskComponent implements OnInit {
           console.log("in if condition");
           if (this.task.status === true) {
             console.log("unmark as done");
-            this.unMarkAsDoneEvent.emit(this.task);
             this.task.status = false;
+            this.unMarkAsDoneEvent.emit(this.task);            
           } else {
             console.log("mark as done");
-            this.markAsDoneEvent.emit(this.task);
             this.task.status = true;
+            this.markAsDoneEvent.emit(this.task);
           }
         }
       }
