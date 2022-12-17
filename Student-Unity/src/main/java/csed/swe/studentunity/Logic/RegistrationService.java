@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-//@Transactional
 public class RegistrationService {
 
     private final UserService userService;

@@ -1,8 +1,10 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.Courses;
 
 
 import csed.swe.studentunity.DAO.CourseRepo;
 import csed.swe.studentunity.DAO.RegisteredCourseRepository;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
+import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.ActiveCourse;
 import csed.swe.studentunity.model.Course;
 import csed.swe.studentunity.model.RegisteredCourse;

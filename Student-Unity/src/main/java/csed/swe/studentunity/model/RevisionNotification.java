@@ -10,10 +10,8 @@ import lombok.ToString;
 @ToString
 @Entity(name = "RevisionNotification")
 public class RevisionNotification {
-    @Id
-    @Column(name = "user_id")
-    private Long id;
 
+    @Id
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
