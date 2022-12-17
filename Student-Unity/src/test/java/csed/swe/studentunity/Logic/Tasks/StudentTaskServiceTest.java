@@ -1,12 +1,8 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.Tasks;
 
-import csed.swe.studentunity.DAO.StudentTaskRepository;
-import csed.swe.studentunity.Logic.Tasks.StudentTaskService;
+import csed.swe.studentunity.DAO.StudentTaskRepo;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
-import csed.swe.studentunity.model.StudentTask;
-import csed.swe.studentunity.model.StudentTaskId;
-import csed.swe.studentunity.model.Task;
-import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,10 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class StudentTaskServiceTest {
 
     @MockBean
-    private StudentTaskRepository studentTaskRepository;
+    private StudentTaskRepo studentTaskRepo;
     @MockBean
     private ActiveUserService activeUserService;
     @InjectMocks
@@ -58,7 +51,7 @@ class StudentTaskServiceTest {
     @Test
     void getTasksCaseUserNotLoggedIn() {
         String sessionId = null;
-        Mockito.when(studentTaskRepository.findAllStudentTasks(12345L)).thenReturn(null);
+        Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(null);
         Iterable<Object> result =studentTaskService.getTasks(sessionId);
         assertSame(Collections.emptyList(),result);
     }
@@ -66,9 +59,9 @@ class StudentTaskServiceTest {
     @Test
     void getTasksCaseUserLoggedIn() {
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
-        studentTaskService = new StudentTaskService(studentTaskRepository);
+        studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        Mockito.when(studentTaskRepository.findAllStudentTasks(1L)).thenReturn(Optional.ofNullable(studentTasks));
+        Mockito.when(studentTaskRepo.findAllStudentTasks(1L)).thenReturn(Optional.ofNullable(studentTasks));
         Iterable<Object> result =studentTaskService.getTasks(sessionId);
         assertSame(studentTasks,result);
     }
@@ -76,9 +69,9 @@ class StudentTaskServiceTest {
     @Test
     void getTasksCaseUserLoggedInButNoTasks() {
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
-        studentTaskService = new StudentTaskService(studentTaskRepository);
+        studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        Mockito.when(studentTaskRepository.findAllStudentTasks(12345L)).thenReturn(Optional.empty());
+        Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(Optional.empty());
         Iterable<Object> result = studentTaskService.getTasks(sessionId);
         assertSame(Collections.emptyList(), result);
     }
@@ -86,20 +79,19 @@ class StudentTaskServiceTest {
     @Test
     void filterTasksByCourseHavingNoTaskCourse(){
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
-        studentTaskService = new StudentTaskService(studentTaskRepository);
+        studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        Mockito.when(studentTaskRepository.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.empty());
+        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.empty());
         Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,"ABC");
         assertSame(Collections.emptyList(), result);
-
     }
 
     @Test
     void filterTasksByCourseHavingTasks(){
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
-        studentTaskService = new StudentTaskService(studentTaskRepository);
+        studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        Mockito.when(studentTaskRepository.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.ofNullable(studentTasks));
+        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.ofNullable(studentTasks));
         Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,"ABC");
         assertSame(studentTasks, result);
     }
@@ -107,8 +99,8 @@ class StudentTaskServiceTest {
     @Test
     void filterTasksByCourseHavingNoSessionId(){
         String sessionId = null;
-        studentTaskService = new StudentTaskService(studentTaskRepository);
-        Mockito.when(studentTaskRepository.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.empty());
+        studentTaskService = new StudentTaskService(studentTaskRepo);
+        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.empty());
         Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,"ABC");
         assertSame(Collections.emptyList(), result);
     }
@@ -116,14 +108,14 @@ class StudentTaskServiceTest {
     @Test
     void removeTaskCaseUserNotLoggedIn() {
         String sessionId = null;
-        Mockito.when(studentTaskRepository.findAllStudentTasks(12345L)).thenReturn(null);
+        Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(null);
         assertFalse(       studentTaskService.removeTask(sessionId,11L));
     }
 
     @Test
     void removeTaskCaseUserLoggedIn() {
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
-        studentTaskService = new StudentTaskService(studentTaskRepository);
+        studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
         assertTrue( studentTaskService.removeTask(sessionId, 11L));
     }
@@ -132,19 +124,62 @@ class StudentTaskServiceTest {
     @Test
     void markAsDoneCaseUserNotLoggedIn() {
         String sessionId = null;
-        Mockito.when(studentTaskRepository.findAllStudentTasks(12345L)).thenReturn(null);
+        Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(null);
         assertFalse(studentTaskService.markAsDone(sessionId,11L));
     }
 
     @Test
     void markAsDone(){
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
-        studentTaskService = new StudentTaskService(studentTaskRepository);
+        studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
         assertTrue(studentTaskService.markAsDone(sessionId,11L));
-
     }
 
+    @Test
+    void itShouldNotAddTaskIdToAllSubscribedUsersWhenTaskIsNull() {
+        this.studentTaskService = new StudentTaskService(studentTaskRepo);
+        assertFalse(studentTaskService.addTaskIdToAllSubscribedUsers(null));
+    }
 
+    @Test
+    void itShouldNotAddTaskIdToAllSubscribedUsersWhenCourseIsNull() {
+        this.studentTaskService = new StudentTaskService(studentTaskRepo);
+        Task task = new Task(11L, "AI course", null, new Date(), null);
+        assertFalse(studentTaskService.addTaskIdToAllSubscribedUsers(task));
+    }
+
+    @Test
+    void itShouldNotAddTaskIdToAllSubscribedUsersWhenNullTaskId() {
+        this.studentTaskService = new StudentTaskService(studentTaskRepo);
+        Course course = new Course("code");
+        Task task = new Task(null, "OS course", course, new Date(), null);
+        assertFalse(studentTaskService.addTaskIdToAllSubscribedUsers(task));
+    }
+
+    @Test
+    void itShouldNotAddTaskIdToAllSubscribedUsersWhenNullCourseCode() {
+        this.studentTaskService = new StudentTaskService(studentTaskRepo);
+        Course course = new Course(null);
+        Task task = new Task(11L, "OS course", course, new Date(), null);
+        assertFalse(studentTaskService.addTaskIdToAllSubscribedUsers(task));
+    }
+
+    @Test
+    void itShouldNotAddTaskIdToAllSubscribedUsersWhenNullCourseName() {
+        this.studentTaskService = new StudentTaskService(studentTaskRepo);
+        Course course = new Course(123L, null);
+        Task task = new Task(11L, "OS course", course, new Date(), null);
+        assertFalse(studentTaskService.addTaskIdToAllSubscribedUsers(task));
+    }
+
+    @Test
+    void itShouldAddTaskIdToAllSubscribedUsers() {
+        this.studentTaskService = new StudentTaskService(studentTaskRepo);
+        Course course = new Course(123L, "Intro to Operating Systems");
+        course.setCode("code123");
+        Task task = new Task(11L, "OS course", course, new Date(), null);
+        assertTrue(studentTaskService.addTaskIdToAllSubscribedUsers(task));
+    }
 
 }
