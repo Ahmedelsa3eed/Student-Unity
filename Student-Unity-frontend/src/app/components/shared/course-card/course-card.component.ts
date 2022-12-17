@@ -13,8 +13,11 @@ export class CourseCardComponent implements OnInit {
   loggedInUser = new User();
 
   @Input() course: CourseCard = {name:"", code:"", status:true, term: 0};
-
+  @Input() privilege: boolean = false;
+  
   constructor(private signInOutService: SignInOutService) { }
+
+
 
   getSignedInUser(){
     this.signInOutService.getSignedInUser().subscribe(

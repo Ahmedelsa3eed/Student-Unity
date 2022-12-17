@@ -2,9 +2,10 @@
   <ng-template #content>
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
 
-      <div class="card-header justify-content-space-between">{{course.code}}
-        <button *ngIf="loggedInUser.role === 'admin'" class="btn" type="button">
-          <i class="bi bi-three-dots-vertical" style="font-size: 2rem; color: rgb(255, 255, 255);" ></i>
+      <div class="card-header justify-content-space-between">
+        <p>{{course.code}}</p>
+        <button *ngIf="privilege" class="btn" type="button">
+          <i class="bi bi-three-dots-vertical" style="font-size: 1.3rem; color: rgb(255, 255, 255);" ></i>
         </button>
       </div>
       <div class="card-body">
