@@ -34,7 +34,6 @@ public class RegistrationService {
     }
 
     public String verifyUser(VerificationRequest request) {
-        // milestone 2
         boolean response = unverifiedUserService.verifyUser(request.getEmail(), request.getCode());
         if(response) {
             Optional<UnverifiedUser> unverifiedUser = unverifiedUserService.getUnverifiedUser(request.getEmail());
