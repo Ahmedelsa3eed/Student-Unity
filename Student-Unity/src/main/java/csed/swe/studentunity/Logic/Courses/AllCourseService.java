@@ -1,8 +1,10 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.Courses;
 
 
 import csed.swe.studentunity.DAO.CourseRepo;
 import csed.swe.studentunity.DAO.RegisteredCourseRepository;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
+import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.ActiveCourse;
 import csed.swe.studentunity.model.Course;
 import csed.swe.studentunity.model.RegisteredCourse;
@@ -107,7 +109,7 @@ public class AllCourseService {
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
-            registeredCourseRepository.save(new RegisteredCourse(courseId, user.getId(), false));
+            registeredCourseRepository.save(new RegisteredCourse(course, user, true));
             return 200;
         }
         return 404;

@@ -1,6 +1,6 @@
 package csed.swe.studentunity.API;
 
-import csed.swe.studentunity.Logic.AllCourseService;
+import csed.swe.studentunity.Logic.Courses.AllCourseService;
 import csed.swe.studentunity.model.ActiveCourse;
 import csed.swe.studentunity.model.Course;
 import org.springframework.http.HttpStatus;
