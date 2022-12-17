@@ -4,3 +4,12 @@
     align-items: center;
 }
 
+.card-header p {
+  margin: 0;
+}
+
+.modal-title,
+.modal-body {
+  color: #000;
+}
+

@@ -48,6 +48,8 @@ justify-content: center;
 align-items: center;
 } */
 
+.all-courses .add-course {display: inline-block;}
+
 
 /* Terms section */
 .terms .term .collapse-btn > button {
