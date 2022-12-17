@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface RegisteredCourseRepository extends JpaRepository<RegisteredCourse, RegisteredCourseId> {
+public interface RegisteredCourseRepo extends JpaRepository<RegisteredCourse, RegisteredCourseId> {
 
     @Query(value = "Select c.course_id, c.course_name, c.course_code, r.revision_subscription from course as c," +
             "registered_course as r where c.course_id in (select r.course_id where r.id = ?1)", nativeQuery = true)
