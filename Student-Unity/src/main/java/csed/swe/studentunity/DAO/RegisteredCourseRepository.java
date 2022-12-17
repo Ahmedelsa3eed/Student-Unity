@@ -15,6 +15,6 @@ public interface RegisteredCourseRepository extends JpaRepository<RegisteredCour
 
     @Modifying
     @Query(value = "DELETE FROM RegisteredCourse r WHERE r.user.id = ?1 AND r.course.id = ?2")
-    void deleteRegisteredCourseById(Long userId, Long courseId);
+    void unRegisteredCourseById(Long userId, Long courseId);
 
 }

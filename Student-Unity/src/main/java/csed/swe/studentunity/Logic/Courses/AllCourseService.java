@@ -121,7 +121,7 @@ public class AllCourseService {
         User user = userService.getUser(userEmail).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
-            registeredCourseRepository.deleteRegisteredCourseById(user.getId(), courseId);
+            registeredCourseRepository.unRegisteredCourseById(user.getId(), courseId);
             return 200;
         }
         return 404;
