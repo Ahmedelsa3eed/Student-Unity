@@ -10,13 +10,14 @@ import java.util.Optional;
 
 public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskId> {
 
-    @Query("SELECT new Task (t.title, t.dueDate, t.telegramLink), new StudentTask(st.status) " +
-            "FROM Task AS t, StudentTask AS st, User AS u " +
-            "WHERE t = st.studentTaskId.task AND u.id = :userId AND st.studentTaskId.user.id = :userId"
+    @Query(value="SELECT t.task_id,t.course_code,t.title,t.due_date,t.telegram_link,st.status\n" +
+            "FROM task AS t, student_task AS st, user AS u \n" +
+            "WHERE t.task_id = st.task_id AND u.id = :userId AND st.id = :userId",
+            nativeQuery = true
     )
     Optional<Iterable<Object>> findAllStudentTasks(@Param("userId") long userId);
 
-    @Query("SELECT new Task (t.title, t.dueDate,t.telegramLink), new StudentTask(st.status)  " +
+    @Query("SELECT t.title, t.dueDate,t.telegramLink, st.status " +
             "FROM Task AS t, StudentTask AS st, User AS u " +
             "WHERE t = st.studentTaskId.task  AND u.id = :userId " +
             "AND st.studentTaskId.user.id = :userId AND t.course.code = :courseCode"
@@ -24,7 +25,7 @@ public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskI
     Optional<Iterable<Object>> filterStudentTasksByCourse(@Param("userId") Long userId,
                                                           @Param("courseCode") String courseCode);
 
-    @Query("SELECT new Task (t.title, t.dueDate,t.telegramLink), new StudentTask(st.status)  " +
+    @Query("SELECT t.title, t.dueDate,t.telegramLink , st.status  " +
             "FROM Task AS t, StudentTask AS st, User AS u " +
             "WHERE t = st.studentTaskId.task  AND u.id = :userId " +
             "AND st.studentTaskId.user.id = :userId ORDER BY t.dueDate"
@@ -32,10 +33,10 @@ public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskI
     Optional<Iterable<Object>> sortTasksByDate(@Param("userId") Long userId);
 
     @Modifying
-    @Query("update StudentTask st set st.status = true " +
+    @Query("update StudentTask st set st.status = :newStatus " +
             "where st.studentTaskId.user.id = :userId and st.studentTaskId.task.taskId = :taskId"
     )
-    void markAsDone(@Param("userId") Long userId, @Param("taskId") Long taskId);
+    void markAsDone(@Param("userId") Long userId, @Param("taskId") Long taskId, @Param("newStatus") boolean newStatus);
 
     @Modifying
     @Query("delete from StudentTask st " +
@@ -45,10 +46,10 @@ public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskI
 
     @Modifying
     @Query(value =
-            "INSERT INTO student_task st (u.id, :taskId) " +
+            "INSERT INTO studentTask AS st(u.id, :task)  " +
             "SELECT u.id " +
             "FROM user AS u JOIN registered_course AS rc ON u.id = rc.user.id" +
             "WHERE rc.course.course_code = :courseCode", nativeQuery = true
     )
-    void addTaskIdToAllSubscribedUsers(@Param("taskId") Long taskId, @Param("courseCode") String courseCode);
+    void addTaskIdToAllSubscribedUsers(@Param("task") Long taskId, @Param("courseCode") String courseCode);
 }

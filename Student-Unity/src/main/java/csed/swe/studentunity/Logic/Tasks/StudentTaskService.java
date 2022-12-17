@@ -65,11 +65,11 @@ public class StudentTaskService {
         }
     }
 
-    public Boolean markAsDone(String sessionId, long taskId) {
+    public Boolean markAsDone(String sessionId, long taskId, boolean newStatus) {
         try {
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            studentTaskRepo.markAsDone(userId, taskId);
+            studentTaskRepo.markAsDone(userId, taskId, newStatus);
             return true;
         } catch (Exception e) {
             return false;

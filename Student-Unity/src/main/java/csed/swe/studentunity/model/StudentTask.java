@@ -11,8 +11,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "student_task")
+@Entity(name = "StudentTask")
 public class StudentTask implements Serializable {
 
     @EmbeddedId

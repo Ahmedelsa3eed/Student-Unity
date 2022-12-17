@@ -1,22 +1,23 @@
+
 <div class="parent">
     <!-- TO DO Tasks List -->
     <div class="container" style="padding: 20px;">
         <div class="task-header">
             <p class="lead">TO DO</p>
-            <select (ngModelChange)="filterToDoTasks($event)" [(ngModel)]="selectedCourse" 
+            <select (ngModelChange)="filterToDoTasks($event)" [(ngModel)]="selectedCourse"
                 class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option value="All">All</option>
                 <option *ngFor="let c of courses" [ngValue]="c">{{c}}</option>
             </select>
         </div>
-        <app-task 
-            *ngFor="let task of toDoTasks" 
+        <app-task
+            *ngFor="let task of toDoTasks| async"
             [task]="task"
             (removingToDoTaskEvent)="removeToDoTask($event)"
-            (markAsDoneEvent)="trigerToDoStatus($event)">
+            (markAsDoneEvent)="triggerToDoStatus($event)">
         </app-task>
     </div>
-    
+
     <!-- Done Tasks List -->
     <div class="container" style="padding: 20px;">
         <div class="task-header">
@@ -27,11 +28,11 @@
                 <option *ngFor="let c of courses" [ngValue]="c">{{c}}</option>
             </select>
         </div>
-        <app-task 
-            *ngFor="let task of doneTasks" 
+        <app-task
+            *ngFor="let task of doneTasks | async"
             [task]="task"
             (removingDoneTaskEvent)="removeDoneTask($event)"
-            (unMarkAsDoneEvent)="trigerDoneStatus($event)">
+            (unMarkAsDoneEvent)="triggerDoneStatus($event)">
         </app-task>
     </div>
 </div>
