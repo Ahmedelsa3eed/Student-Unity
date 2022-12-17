@@ -14,11 +14,11 @@ import java.util.Date;
 @Entity
 public class Task implements Serializable {
 
-    @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "task_id")
     private Long taskId;
 
-    @Column(columnDefinition = "varchar(20)" ,name = "title")
+    @Column(columnDefinition = "varchar(20)", name = "title")
     private String title;
 
     @ManyToOne
@@ -30,7 +30,7 @@ public class Task implements Serializable {
     private Date dueDate;
 
     @Column(columnDefinition = "varchar(50)", name = "telegram_link")
-    private URL telegramLink;
+    private String telegramLink;
 
     public Task() {}
 
@@ -38,13 +38,13 @@ public class Task implements Serializable {
         this.taskId = taskId;
     }
 
-    public Task(String title, Date dueDate, URL telegramLink) {
+    public Task(String title, Date dueDate, String telegramLink) {
         this.title = title;
         this.dueDate = dueDate;
         this.telegramLink = telegramLink;
     }
 
-    public Task(Long taskId, String title, Course course, Date dueDate, URL telegramLink) {
+    public Task(Long taskId, String title, Course course, Date dueDate, String telegramLink) {
         this.taskId = taskId;
         this.title = title;
         this.course = course;

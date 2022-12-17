@@ -1,7 +1,8 @@
 package csed.swe.studentunity.API;
 
-import csed.swe.studentunity.model.RegistrationRequest;
 import csed.swe.studentunity.Logic.RegistrationService;
+import csed.swe.studentunity.model.RegistrationRequest;
+import csed.swe.studentunity.model.VerificationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,8 @@ public class RegistrationAPI {
          return new ResponseEntity<>(registrationService.addUser(request), HttpStatus.CREATED);
     }
 
-    public String verifyUser() {
-        return null;
+    public ResponseEntity<String> verifyUser(@RequestBody VerificationRequest request) {
+        return new ResponseEntity<>(registrationService.verifyUser(request), HttpStatus.OK);
     }
 
 }
