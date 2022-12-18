@@ -11,10 +11,10 @@ import { STATUS } from 'src/app/models/Status';
 export class TaskComponent implements OnInit {
 
   @Input() task: Task = new Task;
-  @Output() removingDoneTaskEvent = new EventEmitter<String>();
-  @Output() removingToDoTaskEvent = new EventEmitter<String>();
-  @Output() markAsDoneEvent = new EventEmitter<String>();
-  @Output() unMarkAsDoneEvent = new EventEmitter<String>();
+  @Output() removingDoneTaskEvent = new EventEmitter<number>();
+  @Output() removingToDoTaskEvent = new EventEmitter<number>();
+  @Output() markAsDoneEvent = new EventEmitter<Task>();
+  @Output() unMarkAsDoneEvent = new EventEmitter<Task>();
 
   constructor(private studentTaskService: StudentTaskService) { }
 
@@ -22,10 +22,12 @@ export class TaskComponent implements OnInit {
   }
 
   public removeTask() {
+
     this.studentTaskService.removeTask(this.task.taskId).subscribe({
       next: (res) => {
-        if (res.ok && res.body)
-          if (this.task.status === STATUS.DONE)
+        console.log(res);
+        if (res.status === 200)
+          if (this.task.status === true)
             this.removingDoneTaskEvent.emit(this.task.taskId);
           else this.removingToDoTaskEvent.emit(this.task.taskId);
       }
@@ -33,17 +35,22 @@ export class TaskComponent implements OnInit {
   }
 
   public trigerStatus() {
-    this.studentTaskService.triggerTaskStatus(this.task.taskId).subscribe({
+    this.studentTaskService.triggerTaskStatus(this.task).subscribe({
       next: (res) => {
-        if (res.ok && res.body)
-          if (this.task.status === STATUS.DONE) {
-            this.task.status = STATUS.TODO;
-            this.unMarkAsDoneEvent.emit(this.task.taskId);
+        console.log(res);
+        console.log("task", this.task);
+        if (res.status === 200) {
+          console.log("in if condition");
+          if (this.task.status === true) {
+            console.log("unmark as done");
+            this.task.status = false;
+            this.unMarkAsDoneEvent.emit(this.task);            
+          } else {
+            console.log("mark as done");
+            this.task.status = true;
+            this.markAsDoneEvent.emit(this.task);
           }
-          else {
-            this.task.status = STATUS.DONE;
-            this.markAsDoneEvent.emit(this.task.taskId);
-          }
+        }
       }
     })
   }

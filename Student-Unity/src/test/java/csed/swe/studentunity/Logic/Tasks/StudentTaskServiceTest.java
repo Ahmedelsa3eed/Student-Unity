@@ -1,6 +1,7 @@
 package csed.swe.studentunity.Logic.Tasks;
 
 import csed.swe.studentunity.DAO.StudentTaskRepo;
+import csed.swe.studentunity.Logic.Tasks.StudentTaskService;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -125,7 +126,9 @@ class StudentTaskServiceTest {
     void markAsDoneCaseUserNotLoggedIn() {
         String sessionId = null;
         Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(null);
-        assertFalse(studentTaskService.markAsDone(sessionId,11L));
+        assertFalse(studentTaskService.markAsDone(sessionId,11L, true));
+        Mockito.when(studentTaskRepo.findAllStudentTasks(12345L)).thenReturn(null);
+        assertFalse(studentTaskService.markAsDone(sessionId,11L, true));
     }
 
     @Test
@@ -133,8 +136,9 @@ class StudentTaskServiceTest {
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
         studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        assertTrue(studentTaskService.markAsDone(sessionId,11L));
+        assertTrue(studentTaskService.markAsDone(sessionId,11L, true));
     }
+
 
     @Test
     void itShouldNotAddTaskIdToAllSubscribedUsersWhenTaskIsNull() {
