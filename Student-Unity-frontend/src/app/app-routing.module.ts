@@ -8,8 +8,10 @@ import { SuccessSignUpComponent } from './components/success-sign-up/success-sig
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { AllCoursesComponent } from './components/all-courses/all-courses.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
+import { VerficationComponent } from './components/verfication/verfication.component';
 
 const routes: Routes = [
+  { path: 'verfication', component: VerficationComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SingUpComponent },
   { path: 'success-sign-up', component: SuccessSignUpComponent },
