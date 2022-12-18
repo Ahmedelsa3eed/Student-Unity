@@ -12,4 +12,5 @@ export class VerficationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
 }
