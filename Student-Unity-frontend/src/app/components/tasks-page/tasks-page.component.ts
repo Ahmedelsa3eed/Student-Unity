@@ -2,6 +2,7 @@ import { StudentTaskService } from './../../services/student-task.service';
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/Task';
 import { STATUS } from 'src/app/models/Status';
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-tasks-page',
@@ -9,8 +10,10 @@ import { STATUS } from 'src/app/models/Status';
   styleUrls: ['./tasks-page.component.css'],
 })
 export class TasksPageComponent implements OnInit {
-  public doneTasks: Task[] = [];
-  public toDoTasks: Task[] = [];
+  public doneTasks?: Observable<Task[]> ;
+  public toDoTasks?: Observable<Task[]>;
+  public doneTasks$ = new BehaviorSubject<Task[]>([])
+  public toDoTasks$ = new BehaviorSubject<Task[]>([])
   public courses: string[] = [];
   public selectedCourse: string = 'All';
 
@@ -19,22 +22,28 @@ export class TasksPageComponent implements OnInit {
   ngOnInit(): void {
     this.getStudentTasks();
     this.getSubscribedCourses();
+    this.doneTasks = this.doneTasks$.asObservable()
+    this.toDoTasks = this.toDoTasks$.asObservable()
+
+
   }
 
   public getStudentTasks() {
     this.studentTaskService.getStudentTasks().subscribe({
       next: (res) => {
         if (res.ok && res.body) {
-          this.doneTasks = res.body.filter(
-            (task) => task.status === STATUS.DONE
-          );
-          this.toDoTasks = res.body.filter(
-            (task) => task.status === STATUS.TODO
-          );
+          console.log("res.body", res.body);
+          console.log(res.body);
+          this.doneTasks$.next( res.body.filter((task: Task) => task.status == true));
+          this.toDoTasks$.next(  res.body.filter((task: Task) => task.status == false));
         }
+        console.log("doneTasks", this.doneTasks$);
+        console.log("toDoTasks", this.toDoTasks$);
       },
       error: (e) => this.handleResponseError(e),
     });
+    console.log(this.doneTasks);
+
   }
 
   private handleResponseError(err: any) {
@@ -55,9 +64,7 @@ export class TasksPageComponent implements OnInit {
     this.studentTaskService.filterToDoTasks($event).subscribe({
       next: (res) => {
         if (res.ok && res.body) {
-          this.toDoTasks = res.body.filter(
-            (task) => task.status === STATUS.TODO
-          );
+          this.toDoTasks$.next( res.body.filter((task) => task.status === false));
         }
       },
       error: (e) => console.error(e),
@@ -68,9 +75,7 @@ export class TasksPageComponent implements OnInit {
     this.studentTaskService.filterDoneTasks($event).subscribe({
       next: (res) => {
         if (res.ok && res.body) {
-          this.doneTasks = res.body.filter(
-            (task) => task.status === STATUS.DONE
-          );
+          this.doneTasks$.next(res.body.filter((task) => task.status === true));
         }
       },
       error: (e) => console.error(e),
@@ -78,31 +83,30 @@ export class TasksPageComponent implements OnInit {
   }
 
   public removeDoneTask($taskId: any) {
-    this.doneTasks = this.doneTasks.filter(
-      (task) => task.taskId !== $taskId
-    );
+    this.doneTasks$.next( this.doneTasks$.value.filter((task) => task.taskId !== $taskId));
+    this.doneTasks = this.doneTasks$.asObservable()
   }
 
   public removeToDoTask($taskId: any) {
-    this.toDoTasks = this.toDoTasks.filter(
-      (task) => task.taskId !== $taskId
-    );
+    this.toDoTasks$.next( this.toDoTasks$.value.filter((task) => task.taskId !== $taskId));
+    this.toDoTasks = this.toDoTasks$.asObservable()
   }
 
-  public trigerDoneStatus($taskId: any) {
-    let task = this.doneTasks.find((task) => $taskId == task.taskId);
-    if (task) this.toDoTasks.push(task);
-    this.doneTasks = this.doneTasks.filter(
-      (task) => $taskId !== task.taskId
-    );
+  public triggerDoneStatus($task: Task) {
+    this.doneTasks$.next( this.doneTasks$.value.filter((task) => task.taskId !== $task.taskId));
+    this.doneTasks = this.doneTasks$.asObservable()
+    this.toDoTasks$.next( [...this.toDoTasks$.value, $task]);
+    this.toDoTasks = this.toDoTasks$.asObservable()
   }
 
-  public trigerToDoStatus($taskId: any) {
-    let task = this.toDoTasks.find((task) => $taskId == task.taskId);
-    if (task) this.doneTasks.push(task);
-    this.toDoTasks = this.toDoTasks.filter(
-      (task) => $taskId !== task.taskId
-    );
+
+  public triggerToDoStatus($task: Task) {
+    console.log("trigerToDoStatus", this.toDoTasks$.value);
+    this.toDoTasks$.next( this.toDoTasks$.value.filter((task) => task.taskId !== $task.taskId));
+    this.toDoTasks = this.toDoTasks$.asObservable()
+    this.doneTasks$.next( [...this.doneTasks$.value, $task]);
+    this.doneTasks = this.doneTasks$.asObservable()
+
   }
 
 }

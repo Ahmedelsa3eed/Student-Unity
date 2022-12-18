@@ -177,4 +177,10 @@ public class AllCoursesAPI {
         return new ResponseEntity<>(HttpStatusCode.valueOf(allCourseService.unRegisterCourse(sessionId, courseId)));
     }
 
+    @PutMapping("/toggleRVSubscription")
+    public ResponseEntity<?> toggleRVSubscription(@RequestParam("sessionId") String sessionId, @RequestParam("courseId") long courseId,
+                                                  @RequestParam("oldRevisionSubscription") boolean oldRevisionSubscription){
+        return new ResponseEntity<>(HttpStatusCode.valueOf(allCourseService.toggleRVSubscription(sessionId, courseId, oldRevisionSubscription)));
+    }
+
 }

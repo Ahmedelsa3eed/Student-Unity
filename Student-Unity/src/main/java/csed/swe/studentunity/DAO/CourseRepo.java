@@ -12,7 +12,7 @@ public interface CourseRepo extends JpaRepository<Course, String> {
     void deleteCourseByCode(String code);
 
     Optional<Course> findCourseByCode(String code);
-    @Query(value = "SELECT * FROM course WHERE id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM course WHERE course_id = ?1", nativeQuery = true)
     Optional<Course> findCourseById(long id);
 
     List<Course> findCourseByactiveCourseNotNull();

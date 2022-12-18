@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CookieService } from 'ngx-cookie-service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { AccountComponent } from './components/account/account.component';
@@ -18,8 +20,19 @@ import { CourseComponent } from './components/course/course.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
-import { CoursePageComponent } from './components/course-page/course-page.component';
+import { AddTaskComponent } from './components/addtask/add-task.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
+const material=[
+  MatDatepickerModule,
+  MatNativeDateModule
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,14 +47,24 @@ import { CoursePageComponent } from './components/course-page/course-page.compon
     MyCoursesComponent,
     TaskComponent,
     TasksPageComponent,
-    CoursePageComponent
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
