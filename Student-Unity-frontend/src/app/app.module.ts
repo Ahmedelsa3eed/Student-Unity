@@ -34,6 +34,7 @@ import { CommonModule } from '@angular/common';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { RemoveSpacesPipe } from './shared/remove-spaces.pipe';
 import { VerficationComponent } from './components/verfication/verfication.component';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 const material=[
   MatDatepickerModule,
@@ -78,7 +79,9 @@ const material=[
     MatNativeDateModule,
     MatSelectModule,
     MatAutocompleteModule,
-    CommonModule
+    CommonModule,
+    CommonModule,
+    NgOtpInputModule
   ],
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
