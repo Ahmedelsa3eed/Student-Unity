@@ -31,9 +31,9 @@ jobs:
         cache: 'npm'
         cache-dependency-path: Student-Unity-frontend/package-lock.json
     - run: |
-      cd Student-Unity-frontend
-      npm ci
-      npm format
+        cd Student-Unity-frontend
+        npm ci
+        npm format
         
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
