@@ -33,7 +33,7 @@ jobs:
       - run: |
           cd Student-Unity-frontend
           npm ci
-          npm run format:write
+          npm prepare
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master

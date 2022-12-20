@@ -11,6 +11,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Prettier code formatting 
 - ``npm i --save-dev --save-exact prettier``
+- ``npm install --save-dev lint-staged``
+- ``npm install husky --save-dev``
 ### Code check
 - ``npx prettier --check .``
 
