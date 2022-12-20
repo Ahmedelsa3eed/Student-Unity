@@ -25,7 +25,6 @@ export class TaskComponent implements OnInit {
 
     this.studentTaskService.removeTask(this.task.taskId).subscribe({
       next: (res) => {
-        console.log(res);
         if (res.status === 200)
           if (this.task.status === true)
             this.removingDoneTaskEvent.emit(this.task.taskId);
@@ -37,16 +36,11 @@ export class TaskComponent implements OnInit {
   public trigerStatus() {
     this.studentTaskService.triggerTaskStatus(this.task).subscribe({
       next: (res) => {
-        console.log(res);
-        console.log("task", this.task);
         if (res.status === 200) {
-          console.log("in if condition");
           if (this.task.status === true) {
-            console.log("unmark as done");
             this.task.status = false;
-            this.unMarkAsDoneEvent.emit(this.task);            
+            this.unMarkAsDoneEvent.emit(this.task);
           } else {
-            console.log("mark as done");
             this.task.status = true;
             this.markAsDoneEvent.emit(this.task);
           }

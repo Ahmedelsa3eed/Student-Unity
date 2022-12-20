@@ -26,7 +26,6 @@ export class AccountComponent implements OnInit {
       (response: any) => {
         this.isRemoving = false;
         this.onDelete.emit(this.user);
-        console.log(response);
       },(error: any) => {
         this.isRemoving = false;
         console.log(error);
@@ -35,13 +34,11 @@ export class AccountComponent implements OnInit {
   }
 
   changeRole() {
-    console.log("The new role is "+this.user.role)
     this.isChangingRole = true;
     this.accountService.changeRole(this.signInOutService.getSignedInUserSessionID(), this.user, this.user.role).
     subscribe(
       res => {
         this.isChangingRole = false;
-        console.log(res);
 
         },
         err => {

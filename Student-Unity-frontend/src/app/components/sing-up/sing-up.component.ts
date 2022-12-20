@@ -49,7 +49,6 @@ export class SingUpComponent implements OnInit, OnDestroy {
     .subscribe({
       next: (res) => {
         // If user already exists or registred successfully, he will be directed to signIn
-        console.log(res);
 
         this.router.navigate(['verfication'], {
           queryParams: { email: this.signUpdata.email }

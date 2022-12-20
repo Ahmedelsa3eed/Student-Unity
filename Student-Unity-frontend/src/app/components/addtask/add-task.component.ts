@@ -56,11 +56,9 @@ export class AddTaskComponent implements OnInit {
     }
 
     addTask() {
-        console.log(this.addTaskForm.value)
         this.task.title = this.addTaskForm.value.Title
         this.task.dueDate = this.addTaskForm.value.DueDate
         this.task.course = this.addTaskForm.value.Course
-        console.log(this.task)
         this.task.dueDate = this.task.dueDate?.concat(':00')
         this.addTaskService
             .addTask(
@@ -69,7 +67,6 @@ export class AddTaskComponent implements OnInit {
             )
             .subscribe(
                 (res) => {
-                    console.log(res)
                     if (res.status == 200) {
                         console.log('Task Added Successfully')
                     }

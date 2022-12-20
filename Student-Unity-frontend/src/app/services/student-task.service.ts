@@ -18,7 +18,6 @@ export class StudentTaskService {
   ) {}
 
   public getStudentTasks(): Observable<HttpResponse<Task[]>> {
-    console.log('getStudentTasks');
     return this.http.get<Task[]>(this.url + '/all', {
       observe: 'response',
       params: {
@@ -29,8 +28,6 @@ export class StudentTaskService {
       map(data => {
         return new HttpResponse<Task[]>({
           body: data.body?.map(list => {
-            console.log("list is ---------");
-            console.log(list);
             // @ts-ignore
             return new Task( list[0],list[1],list[2],list[3],list[4], list[5]);
             }

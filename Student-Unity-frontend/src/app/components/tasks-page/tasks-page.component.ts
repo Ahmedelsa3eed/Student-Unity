@@ -36,18 +36,12 @@ export class TasksPageComponent implements OnInit {
     this.studentTaskService.getStudentTasks().subscribe({
       next: (res) => {
         if (res.ok && res.body) {
-          console.log("res.body", res.body);
-          console.log(res.body);
           this.doneTasks$.next( res.body.filter((task: Task) => task.status == true));
           this.toDoTasks$.next(  res.body.filter((task: Task) => task.status == false));
         }
-        console.log("doneTasks", this.doneTasks$);
-        console.log("toDoTasks", this.toDoTasks$);
       },
       error: (e) => this.handleResponseError(e),
     });
-    console.log(this.doneTasks);
-
   }
 
   private handleResponseError(err: any) {
@@ -114,7 +108,6 @@ export class TasksPageComponent implements OnInit {
 
 
   public triggerToDoStatus($task: Task) {
-    console.log("trigerToDoStatus", this.toDoTasks$.value);
     this.toDoTasks$.next( this.toDoTasks$.value.filter((task) => task.taskId !== $task.taskId));
     this.toDoTasks = this.toDoTasks$.asObservable()
     this.doneTasks$.next( [...this.doneTasks$.value, $task]);

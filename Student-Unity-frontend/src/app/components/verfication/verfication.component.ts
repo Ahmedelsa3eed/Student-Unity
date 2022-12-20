@@ -31,8 +31,6 @@ export class VerficationComponent implements OnInit {
 
   constructor(private router : Router, private verficationService : VerficationCodeService) {
     this.email = this.router.getCurrentNavigation()?.extras.queryParams?.['email'];
-    console.log(this.router.getCurrentNavigation());
-    console.log(this.email);
    }
 
   onOtpChange(otp: string) {
@@ -47,7 +45,6 @@ export class VerficationComponent implements OnInit {
 
       this.verficationService.postVerficationCode(this.verficationData).subscribe({
         next: (res) => {
-          console.log(res);
           this.router.navigate(['/success-sign-up']);
         },
         error: (e) => console.error(e),

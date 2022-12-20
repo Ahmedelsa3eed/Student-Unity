@@ -53,7 +53,6 @@ export class SignInComponent implements OnInit {
   }
 
   public handleSignInResponse(response: HttpResponse<any>, signInForm: NgForm) {
-    console.log(response);
     this.loadings = false;
     if (response.status == 200) {
       this.signInOutService.fillSignedInUserInfo(signInForm.value.rememberMe, response.body);

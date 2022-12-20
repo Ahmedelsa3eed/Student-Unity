@@ -41,10 +41,8 @@ export class MyCoursesComponent implements OnInit {
     this.coursesService.unRegisterCourse(this.signInOutService.getSignedInUserSessionID(), courseId).subscribe(
       () => {
         this.registeredCourses.forEach((course, index) => {
-          console.log(course.id);
           if (course.id == courseId)
             this.registeredCourses.splice(index, 1);
-          console.log(this.registeredCourses);
         });
       },
       (error: HttpErrorResponse) => {
