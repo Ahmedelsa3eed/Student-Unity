@@ -13,6 +13,8 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -34,40 +36,79 @@ public class AllCourseService {
         this.activeCourseService = activeCourseService;
     }
 
-    public String addCourse(String role, Course course){
-        if (!role.equals("admin")){
-            return "Only admins can add courses";
+    public ResponseEntity<String> addCourse(String sessionId, Course course){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user == null){
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        if (!user.getRole().equals("admin")){
+            return new ResponseEntity<>("Only admins can add courses", HttpStatus.FORBIDDEN);
+        }
+        if (course == null){
+            return new ResponseEntity<>("couldn't add course", HttpStatus.CONFLICT);
         }
         courseRepo.save(course);
-        return "ok";
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-    public String removeCourse(String role, String code){
-        if (!role.equals("admin")){
-            return "Only admins cant delete courses";
+    public ResponseEntity<String> removeCourse(String sessionId, String code){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user == null){
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        if (!user.getRole().equals("admin")){
+            return new ResponseEntity<>("Only admins can delete courses", HttpStatus.FORBIDDEN);
         }
         courseRepo.deleteCourseByCode(code);
-        return "ok";
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-    public String makeCourseActive(String role, String code){
-        if (!role.equals("admin")){
-            return "Only admins can change status";
+    public ResponseEntity<String> makeCourseActive(String sessionId, String code){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user == null){
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
         }
-        Course course = courseRepo.findCourseByCode(code).orElseThrow(() -> new RuntimeException());
+        if (!user.getRole().equals("admin")){
+            return new ResponseEntity<>("Only admins can change status", HttpStatus.FORBIDDEN);
+        }
+        Course course = courseRepo.findCourseByCode(code).orElse(null);
+        if (course == null){
+            return new ResponseEntity<>("Course doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        if (course.getActiveCourse() != null){
+            return new ResponseEntity<>("Course is already active", HttpStatus.FAILED_DEPENDENCY);
+        }
         ActiveCourse activeCourse = new ActiveCourse();
         activeCourse.setCourse(course);
         course.setActiveCourse(activeCourse);
-        return "ok";
+        return new ResponseEntity<>("ok", HttpStatus.ACCEPTED);
     }
 
-    public String makeCourseInActive(String role, String code){
-        Course course = courseRepo.findCourseByCode(code).orElseThrow(() -> new RuntimeException());
+    public ResponseEntity<String> makeCourseInActive(String sessionId, String code){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user == null){
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        if (!user.getRole().equals("admin")){
+            return new ResponseEntity<>("Only admins can change status", HttpStatus.FORBIDDEN);
+        }
+        Course course = courseRepo.findCourseByCode(code).orElse(null);
+        if (course == null){
+            return new ResponseEntity<>("Course doesn't exist", HttpStatus.NOT_FOUND);
+        }
         ActiveCourse activeCourse = course.getActiveCourse();
         activeCourseService.deleteActiveCourse(course.getId());
         activeCourse = null;
         course.setActiveCourse(null);
-        return "ok";
+        return new ResponseEntity<>("ok", HttpStatus.ACCEPTED);
     }
 
     public Course getCourse(String code){
@@ -139,45 +180,65 @@ public class AllCourseService {
         return 404;
     }
 
-    public String editCourseName(String role, String name, String code){
-
-        if (!role.equals("admin")){
-            return "Only admins can edit courses";
+    public ResponseEntity<String> editCourseName(String sessionId, String name, String code){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user == null){
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        if (!user.getRole().equals("admin")){
+            return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
         }
         Course c = courseRepo.findCourseByCode(code).orElse(null);
         if (c == null){
-            return "Course not found";
+            return new ResponseEntity<>("Course not found", HttpStatus.NOT_FOUND);
         }
+
         c.setName(name);
-        return "ok";
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
-    public String editCourseCode(String role, String new_code, String code){
-        if (!role.equals("admin")){
-            return "Only admins can edit courses";
+    public ResponseEntity<String> editCourseCode(String sessionId, String new_code, String code){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user == null){
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        if (!user.getRole().equals("admin")){
+            return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
         }
         Course c = courseRepo.findCourseByCode(code).orElse(null);
         if (c == null){
-            return "Course not found";
+            return new ResponseEntity<>("Course not found", HttpStatus.NOT_FOUND);
         }
+
         c.setCode(new_code);
-        return "ok";
+        return new ResponseEntity<>("ok", HttpStatus.OK);
+
     }
 
-    public String editActiveCourse(String role, String code, ActiveCourse activeCourse){
-        if (!role.equals("admin")){
-            return "Only admins can edit courses";
+    public ResponseEntity<String> editActiveCourse(String sessionId, String code, ActiveCourse activeCourse){
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(userEmail).orElse(null);
+        if (user == null){
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.NOT_FOUND);
+        }
+        if (!user.getRole().equals("admin")){
+            return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
         }
         Course c = courseRepo.findCourseByCode(code).orElse(null);
         if (c == null){
-            return "Course not found";
+            return new ResponseEntity<>("Course not found", HttpStatus.NOT_FOUND);
         }
         if (c.getActiveCourse() == null){
-            return "course is not active";
+            return new ResponseEntity<>("course is not active", HttpStatus.FAILED_DEPENDENCY);
         }
         c.getActiveCourse().setTimeTable(activeCourse.getTimeTable());
         c.getActiveCourse().setTelegramLink(activeCourse.getTelegramLink());
         c.getActiveCourse().setNotificationsToken(activeCourse.getNotificationsToken());
-        return "ok";
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
     public Course getCourseById(long id) {
