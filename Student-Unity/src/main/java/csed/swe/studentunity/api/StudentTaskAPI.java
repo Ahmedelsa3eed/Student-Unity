@@ -1,4 +1,4 @@
-package csed.swe.studentunity.api;
+package csed.swe.studentunity.API;
 
 import csed.swe.studentunity.logic.tasks.StudentTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,13 @@ public class StudentTaskAPI {
 
     @GetMapping("/filterTasksByCourseCode")
     public ResponseEntity<Iterable<Object>> filterTasksByCourse(@RequestParam("sessionId") String sessionId,
-                                                        @RequestParam("courseCode") String courseCode) {
-        return new ResponseEntity<>(studentTaskService.filterTasksByCourse(sessionId, courseCode), HttpStatus.OK);
+                                                            @RequestParam("courseId") Long courseId,
+                                                             @RequestParam("status") Boolean status) {
+        return new ResponseEntity<>(studentTaskService.filterTasksByCourse(sessionId, courseId, status), HttpStatus.OK);
     }
+
+
+
 
     @GetMapping("/sortTasksByDate")
     public ResponseEntity<Iterable<Object>> sortTasksByDate(@RequestParam("sessionId") String sessionId) {

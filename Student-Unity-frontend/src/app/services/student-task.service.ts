@@ -39,37 +39,29 @@ export class StudentTaskService {
 
   }
 
-  public getSubscribedCourses(): Observable<HttpResponse<string[]>> {
-    return this.http.get<string[]>(this.url + '/allSubscribedCourses', {
-      observe: 'response',
-      params: {
-        sessionId: this.userService.getSignedInUserSessionID(),
-      },
-      responseType: 'json',
-    });
-  }
-
-  public filterToDoTasks(courseCode: string): Observable<HttpResponse<Task[]>> {
+  public filterTasks(courseId: number, status: boolean): Observable<HttpResponse<Task[]>> {
     return this.http.get<Task[]>(this.url + '/filterTasksByCourseCode', {
       observe: 'response',
       params: {
         sessionId: this.userService.getSignedInUserSessionID(),
-        courseCode: courseCode,
+        courseId: courseId,
+        status: status
       },
       responseType: 'json',
-    });
+    }).pipe(
+      map(data => {
+          return new HttpResponse<Task[]>({
+            body: data.body?.map(list => {
+                // @ts-ignore
+                return new Task( list[0],list[1],list[2],list[3],list[4], list[5]);
+              }
+            ),
+            headers: data.headers,
+          });
+        }
+      ));
   }
 
-  public filterDoneTasks(courseCode: string): Observable<HttpResponse<Task[]>> {
-    return this.http.get<Task[]>(this.url + '/filterTasksByCourseCode', {
-      observe: 'response',
-      params: {
-        sessionId: this.userService.getSignedInUserSessionID(),
-        courseCode: courseCode,
-      },
-      responseType: 'json',
-    });
-  }
 
   public removeTask(taskId: number): Observable<HttpResponse<any>> {
     return this.http.delete(this.url + '/removeTask', {

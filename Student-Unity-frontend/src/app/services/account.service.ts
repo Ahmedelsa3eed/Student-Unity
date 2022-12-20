@@ -46,9 +46,6 @@ export class AccountService {
   }
 
   public deleteAccount(sessionID: string, targetUser: User): Observable<HttpResponse<any>> {
-    console.log("deleteAccount");
-    console.log(sessionID);
-    console.log(targetUser);
     return this.http.delete(this.url + '/delete', {
       observe: 'response',
       params: {

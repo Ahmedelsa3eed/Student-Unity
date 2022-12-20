@@ -17,13 +17,16 @@ public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskI
     )
     Optional<Iterable<Object>> findAllStudentTasks(@Param("userId") long userId);
 
-    @Query("SELECT t.title, t.dueDate,t.telegramLink, st.status " +
-            "FROM Task AS t, StudentTask AS st, User AS u " +
-            "WHERE t = st.studentTaskId.task  AND u.id = :userId " +
-            "AND st.studentTaskId.user.id = :userId AND t.course.code = :courseCode"
+    @Query("SELECT t.taskId, c.code , t.title ,t.dueDate,t.telegramLink, st.status " +
+            "FROM Task AS t, StudentTask AS st, User AS u , Course as c " +
+            "WHERE t.taskId = st.studentTaskId.task.taskId  AND u.id = :userId AND c.id = t.course.id " +
+            "AND st.studentTaskId.user.id = :userId " +
+            "AND t.course.id = :courseId " +
+            "AND st.status = :status "
     )
     Optional<Iterable<Object>> filterStudentTasksByCourse(@Param("userId") Long userId,
-                                                          @Param("courseCode") String courseCode);
+                                                          @Param("courseId") Long courseId,
+                                                          @Param("status") Boolean status);
 
     @Query("SELECT t.title, t.dueDate,t.telegramLink , st.status  " +
             "FROM Task AS t, StudentTask AS st, User AS u " +

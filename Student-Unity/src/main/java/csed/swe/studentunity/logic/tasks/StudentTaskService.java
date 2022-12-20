@@ -43,11 +43,11 @@ public class StudentTaskService {
         }
     }
 
-    public Iterable<Object> filterTasksByCourse(String sessionId, String courseCode) {
+    public Iterable<Object> filterTasksByCourse(String sessionId, Long courseId, Boolean status) {
         try{
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            Optional<Iterable<Object>> studentTasks =  studentTaskRepo.filterStudentTasksByCourse(userId, courseCode);
+            Optional<Iterable<Object>> studentTasks =  studentTaskRepo.filterStudentTasksByCourse(userId, courseId, status);
             return studentTasks.orElse(Collections.emptyList());
         } catch (Exception e) {
             return Collections.emptyList();

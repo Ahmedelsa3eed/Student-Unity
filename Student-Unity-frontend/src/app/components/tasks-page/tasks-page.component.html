@@ -4,7 +4,7 @@
     <div class="container" style="padding: 20px;">
         <div class="task-header">
             <p class="lead">TO DO</p>
-            <select (ngModelChange)="filterToDoTasks($event)" [(ngModel)]="selectedCourse"
+            <select (ngModelChange)="filterToDoTasks($event)" [(ngModel)]="selectedCourseToDo"
                 class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option value="All">All</option>
                 <option *ngFor="let c of registeredCourses" [ngValue]="c">{{c.name}}</option>
@@ -22,7 +22,7 @@
     <div class="container" style="padding: 20px;">
         <div class="task-header">
             <p class="lead">DONE</p>
-            <select (ngModelChange)="filterDoneTasks($event)" [(ngModel)]="selectedCourse"
+            <select (ngModelChange)="filterDoneTasks($event)" [(ngModel)]="selectedCourseDone"
                 class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option value="All">All</option>
                 <option *ngFor="let c of registeredCourses" [ngValue]="c">{{c.name}}</option>

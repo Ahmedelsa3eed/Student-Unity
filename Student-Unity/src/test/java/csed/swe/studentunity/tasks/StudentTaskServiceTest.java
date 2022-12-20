@@ -82,8 +82,8 @@ class StudentTaskServiceTest {
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
         studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.empty());
-        Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,"ABC");
+        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,1L, true)).thenReturn(Optional.empty());
+        Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,1L, true);
         assertSame(Collections.emptyList(), result);
     }
 
@@ -92,8 +92,8 @@ class StudentTaskServiceTest {
         String sessionId = "a1633f4e-2994-4eee-bd4e-235a714adb18";
         studentTaskService = new StudentTaskService(studentTaskRepo);
         Mockito.when(activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId))).thenReturn(1L);
-        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.ofNullable(studentTasks));
-        Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,"ABC");
+        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,1L,true)).thenReturn(Optional.ofNullable(studentTasks));
+        Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,1L,true);
         assertSame(studentTasks, result);
     }
 
@@ -101,8 +101,8 @@ class StudentTaskServiceTest {
     void filterTasksByCourseHavingNoSessionId(){
         String sessionId = null;
         studentTaskService = new StudentTaskService(studentTaskRepo);
-        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L,"ABC")).thenReturn(Optional.empty());
-        Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,"ABC");
+        Mockito.when(studentTaskRepo.filterStudentTasksByCourse(1L, 1L, false)).thenReturn(Optional.empty());
+        Iterable<Object> result =studentTaskService.filterTasksByCourse(sessionId,1L,false);
         assertSame(Collections.emptyList(), result);
     }
 
