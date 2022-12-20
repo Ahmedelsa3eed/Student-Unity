@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CookieService } from 'ngx-cookie-service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { AppComponent } from './app.component';
 import { AccountComponent } from './components/account/account.component';
 import { AccountPageComponent } from './components/account-page/account-page.component';
@@ -66,7 +66,8 @@ const material=[
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgOtpInputModule
   ],
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
