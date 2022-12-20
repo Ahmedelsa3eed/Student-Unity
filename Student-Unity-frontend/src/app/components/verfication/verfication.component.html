@@ -1,33 +1,37 @@
 <div class="container height-100 d-flex justify-content-center align-items-center">
-  <div class="position-relative">
-      <div class="card p-3">
-        <div class="otp-checking" *ngIf="!otpValidity">
-          <h6>Please enter the one time password <br> to verify your account</h6>
-          <div> <span>A code has been sent to</span> {{email}} </div>
-          <div id="otp" class="inputs d-grid mt-2">
-            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length: otpLenght, isPasswordInput: false, letterCase: 'Upper'}">
-
-            </ng-otp-input>
-            <div class="otp-timer my-3">
-              <div class="alert alert-danger" *ngIf="tryAgain">
-                Codes didnt match. Please try again.
-              </div>
-              Your code <span *ngIf="otpTime">will expire in <span class="text-danger">{{otpTime | date:"mm:ss"}}</span></span>
-              <span *ngIf="!otpTime">has expired!</span>
+    <div class="position-relative">
+        <div class="card p-3">
+            <div class="otp-checking" *ngIf="!otpValidity">
+                <h6>
+                    Please enter the one time password <br />
+                    to verify your account
+                </h6>
+                <div><span>A code has been sent to</span> {{ email }}</div>
+                <div id="otp" class="inputs d-grid mt-2">
+                    <ng-otp-input
+                        (onInputChange)="onOtpChange($event)"
+                        [config]="{ length: otpLenght, isPasswordInput: false }"
+                    >
+                    </ng-otp-input>
+                    <div class="otp-timer my-3">
+                        <div class="alert alert-danger" *ngIf="tryAgain">Codes didnt match. Please try again.</div>
+                        Your code
+                        <span *ngIf="otpTime"
+                            >will expire in <span class="text-danger">{{ otpTime | date : 'mm:ss' }}</span></span
+                        >
+                        <span *ngIf="!otpTime">has expired!</span>
+                    </div>
+                </div>
+                <div class=""><button class="btn btn-primary px-4" (click)="verfiy()">Validate</button></div>
             </div>
 
-          </div>
-          <div class=""> <button class="btn btn-primary px-4" (click)="verfiy()">Validate</button> </div>
+            <!-- OTP Validated -->
+            <div class="validated" *ngIf="otpValidity">
+                <div class="alert alert-success" role="alert">
+                    Great! Your account has been verified.<br />
+                    You will be redirected to the home page in {{ tryAgain }} seconds.
+                </div>
+            </div>
         </div>
-
-        <!-- OTP Validated -->
-        <div class="validated" *ngIf="otpValidity">
-          <div class="alert alert-success" role="alert">
-            Great! Your account has been verified.<br>
-            You will be redirected to the home page in {{tryAgain}} seconds.
-          </div>
-        </div>
-      </div>
-  </div>
+    </div>
 </div>
-

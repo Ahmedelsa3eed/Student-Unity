@@ -11,4 +11,7 @@ public class VerificationRequest {
     private String email;
     private String code;
 
+    public String toString() {
+        return "email: " + email + " code: " + code;
+    }
 }
