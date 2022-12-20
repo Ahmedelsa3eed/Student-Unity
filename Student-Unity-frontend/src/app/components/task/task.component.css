@@ -1,5 +1,5 @@
 .bi {
-    vertical-align: -.2em;
+    vertical-align: -0.2em;
     fill: currentColor;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .parent div {
-    color: #6B7A99;
+    color: #6b7a99;
     padding: 29px;
     font-size: 12px;
     font-weight: bold;
@@ -38,7 +38,7 @@
 
 .card-header {
     position: relative;
-    background-color: #FFFF;
+    background-color: #ffff;
 }
 
 .header-item {

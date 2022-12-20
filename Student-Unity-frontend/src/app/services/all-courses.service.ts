@@ -5,25 +5,24 @@ import { environment } from 'src/environments/environment';
 import { Course } from '../models/Course';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class AllCoursesService {
+    constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
-
-  getAllCourses(): Observable<Course[]>{
-    return this.httpClient.get<Course[]>("/assets/all-courses-data.json");
-  }
-  postCourseData(course: Course): Observable<HttpResponse<string>> {
-    return this.httpClient.post(`${environment.baseUrl}/add-course`, course, {
-      observe: "response",
-      responseType: "text",
-    });
-  }
-  deleteCourse(course: Course): Observable<HttpResponse<string>> {
-    return this.httpClient.post(`${environment.baseUrl}/delete-course`, course, {
-      observe: "response",
-      responseType: "text",
-    });
-  }
+    getAllCourses(): Observable<Course[]> {
+        return this.httpClient.get<Course[]>('/assets/all-courses-data.json');
+    }
+    postCourseData(course: Course): Observable<HttpResponse<string>> {
+        return this.httpClient.post(`${environment.baseUrl}/add-course`, course, {
+            observe: 'response',
+            responseType: 'text',
+        });
+    }
+    deleteCourse(course: Course): Observable<HttpResponse<string>> {
+        return this.httpClient.post(`${environment.baseUrl}/delete-course`, course, {
+            observe: 'response',
+            responseType: 'text',
+        });
+    }
 }

@@ -5,11 +5,10 @@
 }
 
 .card-header p {
-  margin: 0;
+    margin: 0;
 }
 
 .modal-title,
 .modal-body {
-  color: #000;
+    color: #000;
 }
-
