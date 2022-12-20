@@ -2,7 +2,7 @@
     <div class="col-10">
         <div class="h3">{{ course.name }}</div>
         <div class="text-secondary mb-1">{{ course.code }}</div>
-        <a href="{{ course.telegramLink }}">Telegram Link</a>
+        <a *ngIf="course.telegramLink != ''" href="{{ course.telegramLink }}">Telegram Link</a>
     </div>
     <div class="vstack gap-2" style="width: fit-content;">
         <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
