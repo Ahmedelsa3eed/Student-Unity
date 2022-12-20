@@ -48,7 +48,8 @@ export class AddTaskComponent implements OnInit {
         "timeTable": "12:00",
         "telegramLink": "",
         "status":true ,
-        "notificationsToken": ""
+        "notificationsToken": "",
+        "revisionSubscription": false
       },
       {
         "id": 1,
@@ -57,7 +58,8 @@ export class AddTaskComponent implements OnInit {
         "timeTable": "12:00",
         "telegramLink": "",
         "status":true ,
-        "notificationsToken": ""
+        "notificationsToken": "",
+        "revisionSubscription": false
       },
       {
         "id": 1,
@@ -66,7 +68,8 @@ export class AddTaskComponent implements OnInit {
         "timeTable": "12:00",
         "telegramLink": "",
         "status":true ,
-        "notificationsToken": ""
+        "notificationsToken": "",
+        "revisionSubscription": false
       },
       {
         "id": 1,
@@ -75,7 +78,8 @@ export class AddTaskComponent implements OnInit {
         "timeTable": "12:00",
         "telegramLink": "",
         "status":true ,
-        "notificationsToken": ""
+        "notificationsToken": "",
+        "revisionSubscription": false
       },
       {
         "id": 1,
@@ -84,7 +88,8 @@ export class AddTaskComponent implements OnInit {
         "timeTable": "12:00",
         "telegramLink": "",
         "status":true ,
-        "notificationsToken": ""
+        "notificationsToken": "",
+        "revisionSubscription": false
       },
       {
         "id": 1,
@@ -93,7 +98,8 @@ export class AddTaskComponent implements OnInit {
         "timeTable": "12:00",
         "telegramLink": "",
         "status":true ,
-        "notificationsToken": ""
+        "notificationsToken": "",
+        "revisionSubscription": false
       },
       {
         "id": 1,

@@ -241,4 +241,11 @@ public class AllCourseService {
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
+    public Course getCourseById(long id) {
+        Course course = courseRepo.findCourseById(id).orElseThrow(() -> new RuntimeException());
+        return course;
+    }
+
+
+
 }

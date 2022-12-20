@@ -16,7 +16,6 @@ import { SignInOutService } from './services/sign-in-out.service';
 import { HomeComponent } from './components/home/home.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
-import { CourseComponent } from './components/course/course.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
@@ -28,6 +27,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { CoursePageComponent } from './components/course-page/course-page.component';
 
 const material=[
   MatDatepickerModule,
@@ -43,8 +43,8 @@ const material=[
     HomeComponent,
     SingUpComponent,
     SuccessSignUpComponent,
-    CourseComponent,
     MyCoursesComponent,
+    CoursePageComponent,
     TaskComponent,
     TasksPageComponent,
     AddTaskComponent
