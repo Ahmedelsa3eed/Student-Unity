@@ -25,7 +25,6 @@ export class CoursePageComponent implements OnInit {
       let courseId = params['courseId'];
       this.coursesService.getCourseById(courseId).subscribe(
         (response) => {
-          console.log(response);
           this.course.id = response.id;
           this.course.code = response.code;
           this.course.name = response.name;
@@ -41,11 +40,9 @@ export class CoursePageComponent implements OnInit {
   }
 
   onAddCategory(newCategoryName: string){
-    console.log(newCategoryName);
   }
 
   onAddMaterial(newCategoryName: string){
-    console.log(newCategoryName);
   }
 
 }

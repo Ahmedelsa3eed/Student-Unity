@@ -37,7 +37,6 @@ export class AccountPageComponent implements OnInit {
     .subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
-        console.log(res.body)
         this.isLoading = false;
       }
     }, err => {
@@ -53,7 +52,6 @@ export class AccountPageComponent implements OnInit {
     .subscribe(res => {
       if(res.body) {
         this.users$.next(res.body);
-        console.log(res.body)
         this.isLoading = false;
       }
       this.isLoading = false;

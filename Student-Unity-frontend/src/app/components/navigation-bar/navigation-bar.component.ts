@@ -31,7 +31,6 @@ export class NavigationBarComponent implements OnInit {
     this.isLoading = true;
     this.signInOutService.getSignedInUser().subscribe(
       res => {
-        console.log(res);
         this.isLoading = false;
         if (res.body) {
           this.loggedInUser = res.body;

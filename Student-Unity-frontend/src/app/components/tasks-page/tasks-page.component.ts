@@ -19,7 +19,8 @@ export class TasksPageComponent implements OnInit {
   public doneTasks$ = new BehaviorSubject<Task[]>([])
   public toDoTasks$ = new BehaviorSubject<Task[]>([])
   public registeredCourses: Course[] = [];
-  public selectedCourse: string = 'All';
+  public selectedCourseToDo: string = 'All';
+  public selectedCourseDone: string = 'All';
 
   constructor(private studentTaskService: StudentTaskService,
               private coursesService:CoursesService,
@@ -28,26 +29,21 @@ export class TasksPageComponent implements OnInit {
   ngOnInit(): void {
     this.getStudentTasks();
     this.getSubscribedCourses();
-    this.doneTasks = this.doneTasks$.asObservable()
-    this.toDoTasks = this.toDoTasks$.asObservable()
+
   }
 
   public getStudentTasks() {
     this.studentTaskService.getStudentTasks().subscribe({
       next: (res) => {
         if (res.ok && res.body) {
-          console.log("res.body", res.body);
-          console.log(res.body);
           this.doneTasks$.next( res.body.filter((task: Task) => task.status == true));
           this.toDoTasks$.next(  res.body.filter((task: Task) => task.status == false));
+          this.doneTasks = this.doneTasks$.asObservable()
+          this.toDoTasks = this.toDoTasks$.asObservable()
         }
-        console.log("doneTasks", this.doneTasks$);
-        console.log("toDoTasks", this.toDoTasks$);
       },
       error: (e) => this.handleResponseError(e),
     });
-    console.log(this.doneTasks);
-
   }
 
   private handleResponseError(err: any) {
@@ -74,25 +70,49 @@ export class TasksPageComponent implements OnInit {
   }
 
   public filterToDoTasks($event: any) {
-    this.studentTaskService.filterToDoTasks($event).subscribe({
-      next: (res) => {
-        if (res.ok && res.body) {
-          this.toDoTasks$.next( res.body.filter((task) => task.status === false));
-        }
-      },
-      error: (e) => console.error(e),
-    });
+    console.log($event);
+
+    if ($event == 'All') {
+      this.getStudentTasks();
+
+    }else {
+      this.studentTaskService.filterTasks($event.id, false).subscribe({
+        next: (res) => {
+          if (res.status == 200 ) {
+            console.log(res.body);
+            // @ts-ignore
+            this.toDoTasks$.next(res.body);
+            console.log(this.toDoTasks$.value);
+            this.toDoTasks = this.toDoTasks$.asObservable()
+            console.log(this.toDoTasks);
+          }
+        },
+        error: (e) => console.error(e),
+      });
+    }
   }
 
   public filterDoneTasks($event: any) {
-    this.studentTaskService.filterDoneTasks($event).subscribe({
-      next: (res) => {
-        if (res.ok && res.body) {
-          this.doneTasks$.next(res.body.filter((task) => task.status === true));
-        }
-      },
-      error: (e) => console.error(e),
-    });
+    console.log($event);
+    if ($event== 'All') {
+      this.getStudentTasks();
+
+    }else {
+
+      this.studentTaskService.filterTasks($event.id, true).subscribe({
+        next: (res) => {
+          if (res.status == 200 ) {
+            console.log(res.body);
+            // @ts-ignore
+            this.doneTasks$.next(res.body);
+            console.log(this.doneTasks$.value);
+            this.doneTasks = this.doneTasks$.asObservable()
+            console.log(this.doneTasks);
+          }
+        },
+        error: (e) => console.error(e),
+      });
+    }
   }
 
   public removeDoneTask($taskId: any) {
@@ -114,7 +134,6 @@ export class TasksPageComponent implements OnInit {
 
 
   public triggerToDoStatus($task: Task) {
-    console.log("trigerToDoStatus", this.toDoTasks$.value);
     this.toDoTasks$.next( this.toDoTasks$.value.filter((task) => task.taskId !== $task.taskId));
     this.toDoTasks = this.toDoTasks$.asObservable()
     this.doneTasks$.next( [...this.doneTasks$.value, $task]);
