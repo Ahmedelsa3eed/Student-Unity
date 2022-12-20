@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prepare": "cd .. && husky install Student-Unity-frontend/.husky",
-    "format:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\""
+    "format:write": "prettier --config .prettierrc --write \"src/**/*.{js,jsx,ts,tsx,md,html,css}\""
   },
   "private": true,
   "dependencies": {
@@ -51,11 +51,11 @@
     "typescript": "~4.4.3"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,md,html,css}": "prettier --config .prettierrc --write"
+    "src/**/*.{js,jsx,ts,tsx,md,html,css}": "npm run format:write"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"       
+      "pre-commit": "lint-staged"    
     }
   }
 }
