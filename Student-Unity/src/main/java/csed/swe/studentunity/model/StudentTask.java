@@ -4,21 +4,27 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity(name = "StudentTask")
+@Table(name = "student_task")
 public class StudentTask implements Serializable {
 
     @EmbeddedId
     private StudentTaskId studentTaskId;
 
-    @Column(name = "status")
-    private boolean status;
+    // defult value is 0
+
+    @ColumnDefault("false")
+    @Column(name = "status", nullable = false)
+    private boolean status = false;
 
     public StudentTask() {}
 

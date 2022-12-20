@@ -47,6 +47,6 @@ public class RegistrationAPI {
         } else {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
-    }
+
 
 }

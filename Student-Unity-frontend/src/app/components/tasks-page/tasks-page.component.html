@@ -7,7 +7,7 @@
             <select (ngModelChange)="filterToDoTasks($event)" [(ngModel)]="selectedCourse"
                 class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option value="All">All</option>
-                <option *ngFor="let c of courses" [ngValue]="c">{{c}}</option>
+                <option *ngFor="let c of registeredCourses" [ngValue]="c">{{c.name}}</option>
             </select>
         </div>
         <app-task
@@ -25,7 +25,7 @@
             <select (ngModelChange)="filterDoneTasks($event)" [(ngModel)]="selectedCourse"
                 class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option value="All">All</option>
-                <option *ngFor="let c of courses" [ngValue]="c">{{c}}</option>
+                <option *ngFor="let c of registeredCourses" [ngValue]="c">{{c.name}}</option>
             </select>
         </div>
         <app-task

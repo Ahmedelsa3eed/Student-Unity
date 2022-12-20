@@ -6,6 +6,7 @@ export class Course {
   telegramLink: string;
   status: boolean;
   notificationsToken: string;
+  term: number;
   revisionSubscription: boolean;
 
   constructor() {
@@ -17,6 +18,7 @@ export class Course {
     this.status = false;
     this.notificationsToken = "";
     this.revisionSubscription = true;
+    this.term = 0;
   }
 
 }
