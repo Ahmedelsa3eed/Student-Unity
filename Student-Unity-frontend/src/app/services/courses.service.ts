@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/models/Course';
@@ -11,8 +11,30 @@ export class CoursesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUserRegisteredCourse(): Observable<Course[]>{
-    return this.httpClient.get<Course[]>(environment.baseUrl + "/course/getRegisteredCourses");
+  getCourseById(courseId: number): Observable<any>{
+    return this.httpClient.get<any>(environment.baseUrl + "/AllCourses/getCourseById", {
+      params: {
+        id: courseId
+      }
+    });
+  }
+
+  getUserRegisteredCourse(sessionId: string): Observable<any>{
+    return this.httpClient.get<any>(environment.baseUrl + "/AllCourses/getRegisteredCourses/" + sessionId);
+  }
+
+  unRegisterCourse(sessionId: string, courseId: number): Observable<HttpStatusCode>{
+    return this.httpClient.delete<HttpStatusCode>(environment.baseUrl + "/AllCourses/unRegisterCourse/" + sessionId + "/" + courseId);
+  }
+
+  toggleRVSubscription(sessionId: string, courseId: number, oldRevisionSubscription: boolean): Observable<HttpStatusCode>{
+    return this.httpClient.put<HttpStatusCode>(environment.baseUrl + "/AllCourses/toggleRVSubscription", {}, {
+      params: {
+        sessionId: sessionId,
+        courseId: courseId,
+        oldRevisionSubscription: oldRevisionSubscription
+      }
+    });
   }
 
 }

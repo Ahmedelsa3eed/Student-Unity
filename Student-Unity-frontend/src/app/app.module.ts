@@ -4,7 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CookieService } from 'ngx-cookie-service';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import { NgOtpInputComponent, NgOtpInputModule } from 'ng-otp-input';
 import { AppComponent } from './app.component';
 import { AccountComponent } from './components/account/account.component';
 import { AccountPageComponent } from './components/account-page/account-page.component';
@@ -20,7 +22,21 @@ import { CourseCardComponent } from './components/shared/course-card/course-card
 import { CommonModule } from '@angular/common';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { RemoveSpacesPipe } from './shared/remove-spaces.pipe';
+import { TaskComponent } from './components/task/task.component';
+import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
+import { AddTaskComponent } from './components/addtask/add-task.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { CoursePageComponent } from './components/course-page/course-page.component';
+import { VerficationComponent } from './components/verfication/verfication.component';
 
+
+const material = [MatDatepickerModule, MatNativeDateModule]
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +52,12 @@ import { RemoveSpacesPipe } from './shared/remove-spaces.pipe';
     CourseCardComponent,
     CourseCardComponent,
     AddCourseComponent,
-    RemoveSpacesPipe
+    RemoveSpacesPipe,
+    CoursePageComponent,
+    TaskComponent,
+    TasksPageComponent,
+    AddTaskComponent,
+    VerficationComponent
   ],
   imports: [
     BrowserModule,
@@ -44,9 +65,21 @@ import { RemoveSpacesPipe } from './shared/remove-spaces.pipe';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    NgOtpInputModule
   ],
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
+
 })
-export class AppModule { }
+export class AppModule {}

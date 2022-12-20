@@ -1,7 +1,7 @@
-package csed.swe.studentunity.Logic.AccountsPage;
+package csed.swe.studentunity.Logic.Accounts;
 
 import csed.swe.studentunity.DAO.AccountRepo;
-import csed.swe.studentunity.Logic.ActiveUserService;
+import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

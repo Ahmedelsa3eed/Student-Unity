@@ -1,7 +1,7 @@
-package csed.swe.studentunity.Logic;
+package csed.swe.studentunity.Logic.User;
 
 import csed.swe.studentunity.model.User;
-import csed.swe.studentunity.DAO.UserRepository;
+import csed.swe.studentunity.DAO.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepo userRepo;
 
     public void addUser(User user) {
-         userRepository.save(user);
+         userRepo.save(user);
     }
 
     public Optional<User> getUser(String email) {
@@ -24,12 +24,12 @@ public class UserService {
             if user exist it will be false
             if user doesn't exist return true
         */
-        return userRepository.findUserByEmail(email);
+        return userRepo.findUserByEmail(email);
     }
 
     public String deleteUser(Long id){
         try {
-            userRepository.deleteById(id);
+            userRepo.deleteById(id);
             return "deleted successfully";
         }
         catch (Exception e){
@@ -37,14 +37,5 @@ public class UserService {
         }
     }
 
-    public String getUnverifiedUser() {
-        // milestone 2
-        return null;
-    }
-
-    public String addUnverifiedUser() {
-        // milestone 2
-        return null;
-    }
 
 }

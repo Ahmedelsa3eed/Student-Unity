@@ -13,13 +13,14 @@ import java.io.Serializable;
 @Entity(name = "User")
 @Table(name = "user",
         uniqueConstraints = {
-                @UniqueConstraint(name = "email_unique", columnNames = "email"),
-                @UniqueConstraint(name = "student_id_unique", columnNames = "student_id")
+                @UniqueConstraint(name = "email_unique", columnNames = "email")
         })
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", updatable = false)
+
     private Long id;
 
     @Column(name = "email", nullable = false, updatable = false, columnDefinition = "varchar(100)")
@@ -40,19 +41,23 @@ public class User implements Serializable {
     @Column(name = "role", nullable = false, columnDefinition = "TEXT")
     private String role;
 
-    @Column(name = "revision_notification_token")
-    private String revisionNotificationToken;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private RevisionNotification revisionNotification;
 
     public User() {}
 
-    public User(String email, Integer studentId, String firstName, String lastName, String password, String role, String revisionNotificationToken) {
+    public User(String email, Integer studentId, String firstName, String lastName, String password, String role) {
         this.email = email;
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.role = role;
-        this.revisionNotificationToken = revisionNotificationToken;
     }
 
+
+    public User(Long userId) {
+        this.id = userId;
+    }
 }

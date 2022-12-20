@@ -14,22 +14,42 @@ import java.util.Date;
 @Entity
 public class Task implements Serializable {
 
-    @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "task_id")
     private Long taskId;
 
-    @Column(columnDefinition = "varchar(20)")
+    @Column(columnDefinition = "varchar(20)", name = "title")
     private String title;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-    private String courseCode;
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    private Course course;
 
     @Column(columnDefinition = "Date")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date dueDate;
 
-    @Column(columnDefinition = "varchar(50)")
-    private URL telegramLink;
+    @Column(columnDefinition = "varchar(50)", name = "telegram_link")
+    private String telegramLink;
 
     public Task() {}
+
+    public Task(Long taskId) {
+        this.taskId = taskId;
+    }
+
+    public Task(String title, Date dueDate, String telegramLink) {
+        this.title = title;
+        this.dueDate = dueDate;
+        this.telegramLink = telegramLink;
+    }
+
+    public Task(Long taskId, String title, Course course, Date dueDate, String telegramLink) {
+        this.taskId = taskId;
+        this.title = title;
+        this.course = course;
+        this.dueDate = dueDate;
+        this.telegramLink = telegramLink;
+    }
+
 }

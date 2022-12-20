@@ -1,0 +1,82 @@
+<div class="row p-3 border-bottom">
+    <div class="col-10">
+        <div class="h3">{{ course.name }}</div>
+        <div class="text-secondary mb-1">{{ course.code }}</div>
+        <a *ngIf="course.telegramLink != ''" href="{{ course.telegramLink }}">Telegram Link</a>
+    </div>
+    <div class="vstack gap-2" style="width: fit-content;">
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addMaterialModal">Add Material</button>
+    </div>
+</div>
+
+<div class="row p-3 gap-2">
+    <div class="col-3 p-3 materia-categorty">Lectures</div>
+    <div class="col-3 p-3 materia-categorty">Sheets</div>
+    <div class="col-3 p-3 materia-categorty">Labs</div>
+    <div class="col-3 p-3 materia-categorty">Sessions</div>
+    <div class="col-3 p-3 materia-categorty">References</div>
+  </div>
+
+<div class="p-3" style="position: fixed; bottom: 0; width: 100%;">
+    <div class="border-top p-2">
+        {{ course.timeTable }}
+    </div>
+    <ul class="nav border-top">
+        <li class="nav-item"><a href="#" class="nav-link px-2">Announcements</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2">Tasks</a></li>
+    </ul>
+</div>
+
+<div class="modal" id="addCategoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Category</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input #addCategoryNameInput type="text" class="form-control" placeholder="Category Name">
+                <div style="margin-left: 5px; margin-top: 10px;">{{ addCategoryResponse }}</div>
+                <div *ngIf="addCategoryLoading" class="spinner-border text-primary" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="onAddCategory(addCategoryNameInput.value)">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addMaterialModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Material</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input #addMaterialTitleInput type="text" class="form-control mb-3" placeholder="Material Title">
+                <input #addMaterialLinkInput type="url" class="form-control my-3" placeholder="Material Link">
+                <select class="form-select my-3" aria-label="Material Category">
+                    <option selected>Select Material Category</option>
+                    <option value="1">Lecture</option>
+                    <option value="2">Sheets</option>
+                    <option value="3">Labs</option>
+                    <option value="4">Sessions</option>
+                    <option value="5">References</option>
+                </select>
+                <div style="margin-left: 5px; margin-top: 10px;">{{ addMaterialResponse }}</div>
+                <div *ngIf="addMaterialLoading" class="spinner-border text-primary" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="onAddMaterial(addCategoryNameInput.value)">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

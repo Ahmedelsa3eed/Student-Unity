@@ -1,34 +1,52 @@
 package csed.swe.studentunity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
 @Entity(name = "Course")
-@Table(name = "course", uniqueConstraints = {
-        @UniqueConstraint(name = "code", columnNames = "code"),
-    })
-public class Course {
-    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
-    String name;
+@Table(name = "course",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "code_unique", columnNames = "course_code"),
+        })
+public class Course implements Serializable {
 
     @Id
-    @Column(name = "code", nullable = false, columnDefinition = "TEXT")
-    String code;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "course_id")
+    long id;
 
-    @Column(name = "timeTable", nullable = false, columnDefinition = "TEXT")
-    String timeTable;
+    @Column(name = "course_name", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
+    private String name;
 
-    @Column(name = "telegramLink", nullable = false, columnDefinition = "TEXT")
-    String telegramLink;
+    @Column(name = "course_code", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
+    private String code;
 
-    @Column(name = "status", nullable = false, columnDefinition = "BOOLEAN")
-    boolean status;
 
-    @Column(name = "notificationsToken", nullable = false, columnDefinition = "TEXT")
-    String notificationsToken;
+    @JsonManagedReference
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private ActiveCourse activeCourse;
+
+
+
+    public Course() { }
+
+    public Course(String courseCode) {
+        this.code = courseCode;
+    }
+
+    public Course(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 }

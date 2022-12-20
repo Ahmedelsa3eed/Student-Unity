@@ -1,5 +1,8 @@
 package csed.swe.studentunity.Logic;
 
+import csed.swe.studentunity.Logic.User.ActiveUserService;
+import csed.swe.studentunity.Logic.User.UserService;
+import csed.swe.studentunity.model.LoginResponses;
 import csed.swe.studentunity.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,7 @@ public class LoginService {
             User user = queries.getUser(email).orElseThrow(RuntimeException::new);
             if (user.getPassword().equals(password)) {
                 ActiveUserService activeUserService = ActiveUserService.getInstance();
-                activeUserService.login(email, user.getRole());
+                activeUserService.login(email, user.getRole(), user.getId());
                 return LoginResponses.SUCCESSFUL_LOGIN;
             } else {
                 return LoginResponses.WRONG_PASSWORD;

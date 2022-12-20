@@ -1,6 +1,8 @@
 package csed.swe.studentunity.model;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,27 +14,32 @@ import java.util.Objects;
 @Embeddable
 public class StudentTaskId implements Serializable {
 
-    private String email;
-    private Long taskId;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
 
     public StudentTaskId() {}
 
-    public StudentTaskId(String email, Long taskId) {
-        this.email = email;
-        this.taskId = taskId;
+    public StudentTaskId(User user, Task task) {
+        this.user = user;
+        this.task = task;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StudentTaskId other = (StudentTaskId) o;
-        return email.equals(other.email) && taskId.equals(other.taskId);
+        StudentTaskId that = (StudentTaskId) o;
+        return Objects.equals(user, that.user) && Objects.equals(task, that.task);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, taskId);
+        return Objects.hash(user, task);
     }
 
 }
