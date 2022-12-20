@@ -28,7 +28,7 @@ public class StudentTaskService {
     public Boolean addTaskIdToAllSubscribedUsers(Task task) {
         if (task == null || task.getTaskId() == null || task.getCourse() == null || task.getCourse().getCode() == null)
             return false;
-        this.studentTaskRepo.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourse().getCode());
+        this.studentTaskRepo.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourse().getId());
         return true;
     }
 
