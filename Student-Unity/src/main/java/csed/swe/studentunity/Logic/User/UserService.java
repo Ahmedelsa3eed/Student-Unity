@@ -18,12 +18,7 @@ public class UserService {
     }
 
     public Optional<User> getUser(String email) {
-        /*
-            return of type Optional<User>
-            it has method isEmpty
-            if user exist it will be false
-            if user doesn't exist return true
-        */
+
         return userRepository.findUserByEmail(email);
     }
 

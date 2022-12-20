@@ -2,6 +2,7 @@ package csed.swe.studentunity.API;
 
 import csed.swe.studentunity.Logic.RegistrationService;
 import csed.swe.studentunity.model.RegistrationRequest;
+import csed.swe.studentunity.model.RegistrationResponses;
 import csed.swe.studentunity.model.VerificationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,33 @@ public class RegistrationAPI {
     private RegistrationService registrationService;
 
     @PostMapping(path = "register")
-    public ResponseEntity<String> addUser(@RequestBody RegistrationRequest request) {
-         return new ResponseEntity<>(registrationService.addUser(request), HttpStatus.CREATED);
+    public ResponseEntity<RegistrationResponses> addUser(@RequestBody RegistrationRequest request) {
+        RegistrationResponses registrationResponses = registrationService.addUser(request);
+         return new ResponseEntity<>(registrationResponses, httpStatus(registrationResponses));
     }
 
-    public ResponseEntity<String> verifyUser(@RequestBody VerificationRequest request) {
-        return new ResponseEntity<>(registrationService.verifyUser(request), HttpStatus.OK);
+    @PostMapping(path = "verify")
+    public ResponseEntity<RegistrationResponses> verifyUser(@RequestBody VerificationRequest request) {
+        RegistrationResponses registrationResponses = registrationService.verifyUser(request);
+        return new ResponseEntity<>(registrationResponses, httpStatus(registrationResponses));
+    }
+
+    private HttpStatus httpStatus(RegistrationResponses registrationResponses) {
+        if (registrationResponses == RegistrationResponses.SUCCESSFUL_REGISTRATION) {
+            return HttpStatus.CREATED;
+        } else if (registrationResponses == RegistrationResponses.SUCCESSFUL_VERIFICATION) {
+            return HttpStatus.ACCEPTED;
+        } else if (registrationResponses == RegistrationResponses.USER_ALREADY_EXISTS) {
+            return HttpStatus.FORBIDDEN;
+        } else if (registrationResponses == RegistrationResponses.USER_IS_NOT_REGISTERED) {
+            return HttpStatus.NOT_FOUND;
+        } else if (registrationResponses == RegistrationResponses.FAILED_VERIFICATION) {
+            return HttpStatus.EXPECTATION_FAILED;
+        } else if (registrationResponses == RegistrationResponses.USER_NEEDS_VERIFICATION) {
+            return HttpStatus.FORBIDDEN;
+        } else {
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
     }
 
 }

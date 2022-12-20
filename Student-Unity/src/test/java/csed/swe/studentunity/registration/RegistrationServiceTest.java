@@ -3,6 +3,7 @@ package csed.swe.studentunity.registration;
 import csed.swe.studentunity.Logic.RegistrationService;
 import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.RegistrationRequest;
+import csed.swe.studentunity.model.RegistrationResponses;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,20 +23,20 @@ class RegistrationServiceTest {
     @Test
     void itShouldAddUser() {
         // when
-        String response = underTest.addUser(registrationRequest);
+        RegistrationResponses response = underTest.addUser(registrationRequest);
 
         // then
-        String expected = "User registered successfully";
+        RegistrationResponses expected = RegistrationResponses.SUCCESSFUL_REGISTRATION;
         assertThat(response).isEqualTo(expected);
     }
 
     @Test
     void itShouldFindUserExisted() {
         // when
-        String response = underTest.addUser(registrationRequest);
+        RegistrationResponses response = underTest.addUser(registrationRequest);
 
         // then
-        String expected = "User is already exist";
+        RegistrationResponses expected = RegistrationResponses.USER_ALREADY_EXISTS;
         assertThat(response).isEqualTo(expected);
 
         userService.deleteUser(userService.getUser("registrationTest@alexu.edu.eg").orElseThrow().getId());
