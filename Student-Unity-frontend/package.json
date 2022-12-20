@@ -52,10 +52,5 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,md,html,css}": "npm run format:write"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"    
-    }
   }
 }
