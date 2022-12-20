@@ -1,7 +1,7 @@
 package csed.swe.studentunity.registration;
 
-import csed.swe.studentunity.Logic.RegistrationService;
-import csed.swe.studentunity.Logic.User.UserService;
+import csed.swe.studentunity.logic.RegistrationService;
+import csed.swe.studentunity.logic.user.UserService;
 import csed.swe.studentunity.model.RegistrationRequest;
 import csed.swe.studentunity.model.RegistrationResponses;
 import org.junit.jupiter.api.Test;
