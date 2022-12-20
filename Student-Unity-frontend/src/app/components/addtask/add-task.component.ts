@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Course } from '../../models/Course'
-import { BehaviorSubject } from 'rxjs'
+import {BehaviorSubject, map} from 'rxjs'
 import { CoursesService } from '../../services/courses.service'
 import { SignInOutService } from '../../services/sign-in-out.service'
 import { Task } from '../../models/Task'
 import { Observable } from 'rxjs'
 import { AddTaskService } from '../../services/add-task.service'
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
     selector: 'app-add-task',
@@ -16,12 +17,7 @@ import { AddTaskService } from '../../services/add-task.service'
 export class AddTaskComponent implements OnInit {
     addTaskForm!: FormGroup
     task = new Task()
-    courses?: Observable<Course[]>
-    courses$ = new BehaviorSubject<Course[]>([])
-
-    myControl = new FormControl('')
-    options: string[] = ['One', 'Two', 'Three']
-    filteredOptions?: Observable<string[]>
+    registeredCourses: Course[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,153 +33,28 @@ export class AddTaskComponent implements OnInit {
             Course: this.formBuilder.control('', [Validators.required]),
             Time: this.formBuilder.control(''),
         })
-        this.courses$.next([
-            {
-                id: 1,
-                name: 'AI',
-                code: 'ABC',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'ER',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'CO',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'Math',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'EEEI',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'SWE',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'Algorithms',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-        ] as Course[])
-        this.courses = this.courses$.asObservable()
+        this.getCourses()
     }
 
     getCourses() {
-        // return dummy data courses for now
-
-        this.courses$.next([
-            {
-                id: 1,
-                name: 'AI',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'ER',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'CO',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'Math',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'EEEI',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'SWE',
-                code: 'AI123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-            {
-                id: 1,
-                name: 'Algorithms',
-                code: 'Algo123',
-                timeTable: '12:00',
-                telegramLink: '',
-                status: true,
-                notificationsToken: '',
-            },
-        ] as Course[])
-        this.courses = this.courses$.asObservable()
-
-        // this.coursesService.getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID())
-        // .subscribe(
-        //   res => {
-        //     this.courses$.next(res);
-        //     console.log(res)
-        //
-        // });
-        //
+      this.coursesService.getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID()).pipe(
+        map(list => {list.forEach((data: any) => {
+          let course: Course = new Course;
+          course.id = data[0];
+          course.name = data[1];
+          course.code = data[2];
+          course.revisionSubscription = data[3];
+          this.registeredCourses.push(course);
+        });})
+      ).subscribe(
+        () => {},
+        (error: HttpErrorResponse) => {
+          if(error.status == 404)
+            alert("User Not Found");
+        }
+      );
     }
+
     addTask() {
         console.log(this.addTaskForm.value)
         this.task.title = this.addTaskForm.value.Title

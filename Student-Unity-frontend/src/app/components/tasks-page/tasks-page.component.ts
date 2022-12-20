@@ -2,7 +2,11 @@ import { StudentTaskService } from './../../services/student-task.service';
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/Task';
 import { STATUS } from 'src/app/models/Status';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
+import {Course} from "../../models/Course";
+import {HttpErrorResponse} from "@angular/common/http";
+import {CoursesService} from "../../services/courses.service";
+import {SignInOutService} from "../../services/sign-in-out.service";
 
 @Component({
   selector: 'app-tasks-page',
@@ -14,18 +18,18 @@ export class TasksPageComponent implements OnInit {
   public toDoTasks?: Observable<Task[]>;
   public doneTasks$ = new BehaviorSubject<Task[]>([])
   public toDoTasks$ = new BehaviorSubject<Task[]>([])
-  public courses: string[] = [];
+  public registeredCourses: Course[] = [];
   public selectedCourse: string = 'All';
 
-  constructor(private studentTaskService: StudentTaskService) {}
+  constructor(private studentTaskService: StudentTaskService,
+              private coursesService:CoursesService,
+              private signInOutService:SignInOutService) {}
 
   ngOnInit(): void {
     this.getStudentTasks();
     this.getSubscribedCourses();
     this.doneTasks = this.doneTasks$.asObservable()
     this.toDoTasks = this.toDoTasks$.asObservable()
-
-
   }
 
   public getStudentTasks() {
@@ -51,13 +55,22 @@ export class TasksPageComponent implements OnInit {
   }
 
   public getSubscribedCourses() {
-    this.studentTaskService.getSubscribedCourses().subscribe({
-      next: (res) => {
-        if (res.ok && res.body) {
-          this.courses = res.body;
-        }
-      },
-    });
+    this.coursesService.getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID()).pipe(
+      map(list => {list.forEach((data: any) => {
+        let course: Course = new Course;
+        course.id = data[0];
+        course.name = data[1];
+        course.code = data[2];
+        course.revisionSubscription = data[3];
+        this.registeredCourses.push(course);
+      });})
+    ).subscribe(
+      () => {},
+      (error: HttpErrorResponse) => {
+        if(error.status == 404)
+          alert("User Not Found");
+      }
+    );
   }
 
   public filterToDoTasks($event: any) {

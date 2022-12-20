@@ -63,7 +63,7 @@ export class MyCoursesComponent implements OnInit {
       }
     );
   }
-  
+
   openCoursePage(courseId: number){
     this.router.navigate(['course'], {queryParams: {courseId: courseId}, relativeTo: this.activatedRoute.parent});
   }

@@ -35,9 +35,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { CoursePageComponent } from './components/course-page/course-page.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
 
-
-const material = [MatDatepickerModule, MatNativeDateModule]
 @NgModule({
+
   declarations: [
     AppComponent,
     AccountComponent,
@@ -78,6 +77,7 @@ const material = [MatDatepickerModule, MatNativeDateModule]
     MatAutocompleteModule,
     NgOtpInputModule
   ],
+
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
 

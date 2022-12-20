@@ -27,9 +27,6 @@ export class StudentTaskService {
       responseType: 'json',
     }).pipe(
       map(data => {
-        console.log( "data is++++++++++++++");
-        console.log(data);
-
         return new HttpResponse<Task[]>({
           body: data.body?.map(list => {
             console.log("list is ---------");
