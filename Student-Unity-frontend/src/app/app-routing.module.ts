@@ -10,9 +10,11 @@ import { TasksPageComponent } from './components/tasks-page/tasks-page.component
 import { CoursePageComponent } from './components/course-page/course-page.component';
 
 import { AddTaskComponent } from './components/addtask/add-task.component';
+import { VerficationComponent } from './components/verfication/verfication.component';
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SingUpComponent },
+  { path: 'verfication', component: VerficationComponent},
   { path: 'success-sign-up', component: SuccessSignUpComponent },
   {
     path: 'home',
