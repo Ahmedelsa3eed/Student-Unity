@@ -1,19 +1,38 @@
 import { STATUS } from './Status';
+import {Course} from "./Course";
 
 export class Task {
-  taskId: string;
-  title: string;
-  courseCode: string;
-  dueDate: string;
-  telegramLink: string;
-  status: STATUS;
+  taskId: number;
+  title?: string;
+  courseCode?: string;
+  course?: any;
+  dueDate?: string;
+  telegramLink?: string;
+  status?: boolean;
 
-  constructor() {
-    this.taskId = '';
-    this.title = '';
-    this.courseCode = '';
-    this.dueDate = '';
-    this.telegramLink = '';
-    this.status = STATUS.TODO;
+
+  constructor(taskId?: number,
+              courseCode?: string,
+              title?: string,
+              dueDate?: string,
+              telegramLink?: string,
+              status?: boolean) {
+    if (taskId) {
+    this.taskId = taskId;
+    this.title = title;
+    this.courseCode = courseCode;
+    this.dueDate = dueDate;
+    this.telegramLink = telegramLink;
+    this.status = status;
+    }
+    else {
+      this.taskId = 0;
+      this.title = "";
+      this.courseCode = "";
+      this.course = null;
+      this.dueDate = "";
+      this.telegramLink = "";
+      this.status = false;
+    }
   }
 }

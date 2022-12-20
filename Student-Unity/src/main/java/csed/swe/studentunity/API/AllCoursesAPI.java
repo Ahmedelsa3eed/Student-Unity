@@ -22,66 +22,45 @@ public class AllCoursesAPI {
     }
 
     @PostMapping("/addCourse")
-    public ResponseEntity<String> addCourse(@RequestParam String role, @RequestBody Course course){
-        try{
-            String added = allCourseService.addCourse(role, course);
-            if (added.equals("Only admins can add courses")){
-                return new ResponseEntity<>(added, HttpStatus.FORBIDDEN);
-            }
-            else{
-                return new ResponseEntity<>(added, HttpStatus.OK);
-            }
+    public ResponseEntity<String> addCourse(@RequestParam String sessionId, @RequestBody Course course){
+        try {
+            return allCourseService.addCourse(sessionId, course);
         }
-        catch(Exception e){
+        catch (Exception e){
             return new ResponseEntity<>("Couldn't add course", HttpStatus.CONFLICT);
         }
     }
 
     @DeleteMapping("/removeCourse")
-    public ResponseEntity<String> removeCourse(@RequestParam String role, @RequestParam String code){
-        String removed = allCourseService.removeCourse(role, code);
-        if (removed.equals("Only admins cant delete courses")){
-            return new ResponseEntity<>(removed, HttpStatus.FORBIDDEN);
-        }
-        return new ResponseEntity<>(removed, HttpStatus.OK);
+    public ResponseEntity<String> removeCourse(@RequestParam String sessionId, @RequestParam String code){
+        return allCourseService.removeCourse(sessionId, code);
     }
 
     @PutMapping("/makeCourseActive")
-    public ResponseEntity<String> makeCourseActive(@RequestParam String role, @RequestParam String code){
-        try{
-            String changed = allCourseService.makeCourseActive(role, code);
-            if (changed.equals("ok")){
-                return new ResponseEntity<>(changed, HttpStatus.ACCEPTED);
-            }
-            else{
-                return new ResponseEntity<>(changed, HttpStatus.FORBIDDEN);
-            }
-        }
-        catch (RuntimeException e){
-            return new ResponseEntity<>("Course doesn't exist", HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> makeCourseActive(@RequestParam String sessionId, @RequestParam String code){
+        return allCourseService.makeCourseActive(sessionId, code);
     }
 
     @PutMapping("/makeCourseInActive")
-    public ResponseEntity<String> makeCourseInActive(@RequestParam String role, @RequestParam String code){
-        try{
-            String changed = allCourseService.makeCourseInActive(role, code);
-            if (changed.equals("ok")){
-                return new ResponseEntity<>(changed, HttpStatus.ACCEPTED);
-            }
-            else{
-                return new ResponseEntity<>(changed, HttpStatus.FORBIDDEN);
-            }
-        }
-        catch (RuntimeException e){
-            return new ResponseEntity<>("Course doesn't exist", HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> makeCourseInActive(@RequestParam String sessionId, @RequestParam String code){
+        return allCourseService.makeCourseInActive(sessionId, code);
     }
 
     @GetMapping("/getCourse")
     public ResponseEntity<Course> getCourse(@RequestParam String code){
         try{
             Course course = allCourseService.getCourse(code);
+            return new ResponseEntity<>(course, HttpStatus.OK);
+        }
+        catch (RuntimeException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getCourseById")
+    public ResponseEntity<Course> getCourseById(@RequestParam long id){
+        try{
+            Course course = allCourseService.getCourseById(id);
             return new ResponseEntity<>(course, HttpStatus.OK);
         }
         catch (RuntimeException e){
@@ -106,59 +85,27 @@ public class AllCoursesAPI {
     }
 
     @PutMapping("/editCourseName")
-    public ResponseEntity<String> editCourseName(@RequestParam String role, @RequestParam String name, @RequestParam String code){
+    public ResponseEntity<String> editCourseName(@RequestParam String sessionId, @RequestParam String name, @RequestParam String code){
         try {
-            String returnValue = allCourseService.editCourseName(role, name, code);
-            if (returnValue.equals("ok")){
-                return new ResponseEntity<>(returnValue, HttpStatus.OK);
-            }
-            else if (returnValue.equals("Course not found"))
-                return new ResponseEntity<>(returnValue, HttpStatus.NOT_FOUND);
-            else {
-                return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
-            }
+            return allCourseService.editCourseName(sessionId, name, code);
         }
-        catch (RuntimeException e){
+        catch (Exception e){
             return new ResponseEntity<>("Name already exists", HttpStatus.CONFLICT);
         }
     }
 
     @PutMapping("/editCourseCode")
-    public ResponseEntity<String> editCourseCode(@RequestParam String role, @RequestParam String new_code, @RequestParam String code){
+    public ResponseEntity<String> editCourseCode(@RequestParam String sessionId, @RequestParam String new_code, @RequestParam String code){
         try {
-            String returnValue = allCourseService.editCourseCode(role, new_code, code);
-            if (returnValue.equals("ok")){
-                return new ResponseEntity<>(returnValue, HttpStatus.OK);
-            }
-            else if (returnValue.equals("Course not found"))
-                return new ResponseEntity<>(returnValue, HttpStatus.NOT_FOUND);
-            else {
-                return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
-            }
+            return allCourseService.editCourseCode(sessionId, new_code, code);
         }
-        catch (RuntimeException e){
+        catch (Exception e){
             return new ResponseEntity<>("Code already exists", HttpStatus.CONFLICT);
         }
     }
     @PutMapping("/editActiveCourse")
-    public ResponseEntity<String> editActiveCourse(@RequestParam String role, @RequestParam String code, @RequestBody ActiveCourse activeCourse){
-        try {
-            String returnValue = allCourseService.editActiveCourse(role, code, activeCourse);
-            if (returnValue.equals("ok")){
-                return new ResponseEntity<>(returnValue, HttpStatus.OK);
-            }
-            else if (returnValue.equals("Course not found"))
-                return new ResponseEntity<>(returnValue, HttpStatus.NOT_FOUND);
-            else if (returnValue.equals("Only admins can edit courses")) {
-                return new ResponseEntity<>("Only admins can edit courses", HttpStatus.FORBIDDEN);
-            }
-            else{
-                return new ResponseEntity<>("Course is not active", HttpStatus.FAILED_DEPENDENCY);
-            }
-        }
-        catch (RuntimeException e){
-            return new ResponseEntity<>("Error", HttpStatus.SEE_OTHER);
-        }
+    public ResponseEntity<String> editActiveCourse(@RequestParam String sessionId, @RequestParam String code, @RequestBody ActiveCourse activeCourse){
+        return allCourseService.editActiveCourse(sessionId, code, activeCourse);
     }
 
     @GetMapping("/getRegisteredCourses/{sessionId}")
@@ -175,6 +122,12 @@ public class AllCoursesAPI {
     @DeleteMapping("/unRegisterCourse/{sessionId}/{courseId}")
     public ResponseEntity<?> unRegisterCourse(@PathVariable("sessionId") String sessionId, @PathVariable("courseId") long courseId){
         return new ResponseEntity<>(HttpStatusCode.valueOf(allCourseService.unRegisterCourse(sessionId, courseId)));
+    }
+
+    @PutMapping("/toggleRVSubscription")
+    public ResponseEntity<?> toggleRVSubscription(@RequestParam("sessionId") String sessionId, @RequestParam("courseId") long courseId,
+                                                  @RequestParam("oldRevisionSubscription") boolean oldRevisionSubscription){
+        return new ResponseEntity<>(HttpStatusCode.valueOf(allCourseService.toggleRVSubscription(sessionId, courseId, oldRevisionSubscription)));
     }
 
 }

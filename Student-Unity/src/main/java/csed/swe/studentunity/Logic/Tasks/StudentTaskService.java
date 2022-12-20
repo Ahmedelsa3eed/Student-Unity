@@ -1,6 +1,6 @@
 package csed.swe.studentunity.Logic.Tasks;
 
-import csed.swe.studentunity.DAO.StudentTaskRepository;
+import csed.swe.studentunity.DAO.StudentTaskRepo;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +15,28 @@ import java.util.UUID;
 @Transactional
 public class StudentTaskService {
 
-    private final StudentTaskRepository studentTaskRepository;
+    private final StudentTaskRepo studentTaskRepo;
     @Autowired
-    public StudentTaskService(StudentTaskRepository studentTaskRepository) {
-        this.studentTaskRepository = studentTaskRepository;
+    public StudentTaskService(StudentTaskRepo studentTaskRepo) {
+        this.studentTaskRepo = studentTaskRepo;
     }
 
     public StudentTask saveStudentTask(StudentTask studentTask) {
-        return studentTaskRepository.save(studentTask);
+        return studentTaskRepo.save(studentTask);
     }
 
-    public void addTaskIdToAllSubscribedUsers(Task task) {
-        this.studentTaskRepository.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourse().getCode());
+    public Boolean addTaskIdToAllSubscribedUsers(Task task) {
+        if (task == null || task.getTaskId() == null || task.getCourse() == null || task.getCourse().getCode() == null)
+            return false;
+        this.studentTaskRepo.addTaskIdToAllSubscribedUsers(task.getTaskId(), task.getCourse().getId());
+        return true;
     }
 
     public Iterable<Object> getTasks(String sessionId) {
         try{
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            Optional<Iterable<Object>> studentTasks =  studentTaskRepository.findAllStudentTasks(userId);
+            Optional<Iterable<Object>> studentTasks =  studentTaskRepo.findAllStudentTasks(userId);
             return studentTasks.orElse(Collections.emptyList());
         } catch (Exception e) {
             return Collections.emptyList();
@@ -44,7 +47,7 @@ public class StudentTaskService {
         try{
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            Optional<Iterable<Object>> studentTasks =  studentTaskRepository.filterStudentTasksByCourse(userId, courseCode);
+            Optional<Iterable<Object>> studentTasks =  studentTaskRepo.filterStudentTasksByCourse(userId, courseCode);
             return studentTasks.orElse(Collections.emptyList());
         } catch (Exception e) {
             return Collections.emptyList();
@@ -55,18 +58,18 @@ public class StudentTaskService {
         try{
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            Optional<Iterable<Object>> studentTasks =  studentTaskRepository.sortTasksByDate(new User(userId));
+            Optional<Iterable<Object>> studentTasks =  studentTaskRepo.sortTasksByDate(userId);
             return studentTasks.orElse(Collections.emptyList());
         } catch (Exception e) {
             return Collections.emptyList();
         }
     }
 
-    public Boolean markAsDone(String sessionId, long taskId) {
+    public Boolean markAsDone(String sessionId, long taskId, boolean newStatus) {
         try {
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            studentTaskRepository.markAsDone(userId, taskId);
+            studentTaskRepo.markAsDone(userId, taskId, newStatus);
             return true;
         } catch (Exception e) {
             return false;
@@ -77,7 +80,7 @@ public class StudentTaskService {
         try {
             ActiveUserService activeUserService = ActiveUserService.getInstance();
             Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
-            studentTaskRepository.removeTask(userId, taskId);
+            studentTaskRepo.removeTask(userId, taskId);
             return true;
         } catch (Exception e) {
             return false;
