@@ -16,7 +16,6 @@ import { SignInOutService } from './services/sign-in-out.service';
 import { HomeComponent } from './components/home/home.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
-import { CourseComponent } from './components/course/course.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
 import { TaskComponent } from './components/task/task.component';
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
@@ -35,6 +34,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { RemoveSpacesPipe } from './shared/remove-spaces.pipe';
 import { VerficationComponent } from './components/verfication/verfication.component';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { CoursePageComponent } from './components/course-page/course-page.component';
 
 const material=[
   MatDatepickerModule,
@@ -50,8 +50,8 @@ const material=[
     HomeComponent,
     SingUpComponent,
     SuccessSignUpComponent,
-    CourseComponent,
     MyCoursesComponent,
+    CoursePageComponent,
     TaskComponent,
     TasksPageComponent,
     AddTaskComponent,
