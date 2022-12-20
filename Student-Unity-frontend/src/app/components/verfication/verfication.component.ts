@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgOtpInputComponent } from 'ng-otp-input';
+import { VerificationRequest } from 'src/app/models/verification-request';
+import { VerficationCodeService } from 'src/app/services/verfication-code.service';
 
 @Component({
   selector: 'app-verfication',
@@ -11,36 +14,48 @@ import { NgOtpInputComponent } from 'ng-otp-input';
 
 export class VerficationComponent implements OnInit {
 
-  otpLenght: number = 3;
+  otpLenght: number = 6;
 
   otpValidity: boolean = false;
   tryAgain: boolean = false;
 
-  otpTime: number = 120*1000;         // Time in milliseconds
+  otpContent: string = '';
+
+  otpTime: number = 10*60*1000;         // Time in milliseconds
   redirectTime: number = 5*1000;      // Time in milliseconds
+  private verficationData : VerificationRequest = {} as VerificationRequest;
+  email: string = "";
 
-  email: string = "el.sherif.mohamad@alexu.edu.eg";
-
-  @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInput:NgOtpInputComponent = {} as NgOtpInputComponent;
-
-  constructor() { }
+  @ViewChild(NgOtpInputComponent, { static: false }) ngOtpInput:NgOtpInputComponent = {} as NgOtpInputComponent;
 
 
+  constructor(private router : Router, private verficationService : VerficationCodeService) {
+    this.email = this.router.getCurrentNavigation()?.extras.queryParams?.['email'];
+    console.log(this.router.getCurrentNavigation());
+    console.log(this.email);
+   }
 
   onOtpChange(otp: string) {
-    if (otp.length == this.otpLenght) {
-      this.ngOtpInput.otpForm.disable();
-      // Compare otp with server
-      //
-      // If otp is correct
-      //     this.otpValidity = true;
-      //     this.startTimer("redirect");
-      //     redirect to home page
-      // Else
-          this.tryAgain = true;
-          this.ngOtpInput.otpForm.enable();
+    this.otpContent = otp;
+  }
+
+
+  verfiy() {
+    if (this.otpContent.length == this.otpLenght) {
+      this.verficationData.code = this.otpContent;
+      this.verficationData.email = this.email;
+
+      this.verficationService.postVerficationCode(this.verficationData).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigate(['/home']);
+        },
+        error: (e) => console.error(e),
+        complete: () => console.info('Registeration Done!')
+      })
     }
   }
+
 
 
   // Timer for otp or redirect
@@ -69,6 +84,4 @@ export class VerficationComponent implements OnInit {
   ngOnInit(): void {
     this.startTimer("otp");
   }
-
-
 }

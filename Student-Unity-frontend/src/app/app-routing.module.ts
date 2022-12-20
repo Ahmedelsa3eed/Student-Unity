@@ -14,7 +14,7 @@ import { VerficationComponent } from './components/verfication/verfication.compo
 
 import { AddTaskComponent } from './components/addtask/add-task.component';
 const routes: Routes = [
-  { path: 'verfication', component: VerficationComponent},
+  { path: 'verfication', component: VerficationComponent, data: {}},
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SingUpComponent },
   { path: 'success-sign-up', component: SuccessSignUpComponent },
