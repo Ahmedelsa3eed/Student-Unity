@@ -28,6 +28,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { CoursePageComponent } from './components/course-page/course-page.component';
+import { VerficationComponent } from './components/verfication/verfication.component';
 
 const material=[
   MatDatepickerModule,
@@ -47,7 +48,8 @@ const material=[
     CoursePageComponent,
     TaskComponent,
     TasksPageComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    VerficationComponent
   ],
   imports: [
     BrowserModule,
