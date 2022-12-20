@@ -14,51 +14,50 @@ import { CoursePageComponent } from './components/course-page/course-page.compon
 import { AddTaskComponent } from './components/addtask/add-task.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
 const routes: Routes = [
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SingUpComponent },
-  { path: 'verfication', component: VerficationComponent},
-  { path: 'success-sign-up', component: SuccessSignUpComponent },
-  {
-    path: 'home',
-    component: HomeComponent,
-    children: [
-      {
-        path: 'accountsPage',
-        component: AccountPageComponent
-      },
-      {
-        path: 'myCourses',
-        component: MyCoursesComponent
-      },
-      {
-        path: 'allCourses',
-        component: AllCoursesComponent
-      },
-      {
-        path: 'addCourse',
-        component: AddCourseComponent
-      },
-      {
-        path: 'tasksPage',
-        component: TasksPageComponent
-      },
-      {
-        path: 'course',
-        component: CoursePageComponent
-      },
-      {
-        path: 'addTask',
-        component: AddTaskComponent
-      }
-
-    ]
-  },
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full'},
-  { path: '**', component: SignInComponent }
+    { path: 'sign-in', component: SignInComponent },
+    { path: 'sign-up', component: SingUpComponent },
+    { path: 'verfication', component: VerficationComponent },
+    { path: 'success-sign-up', component: SuccessSignUpComponent },
+    {
+        path: 'home',
+        component: HomeComponent,
+        children: [
+            {
+                path: 'accountsPage',
+                component: AccountPageComponent,
+            },
+            {
+                path: 'myCourses',
+                component: MyCoursesComponent,
+            },
+            {
+                path: 'allCourses',
+                component: AllCoursesComponent,
+            },
+            {
+                path: 'addCourse',
+                component: AddCourseComponent,
+            },
+            {
+                path: 'tasksPage',
+                component: TasksPageComponent,
+            },
+            {
+                path: 'course',
+                component: CoursePageComponent,
+            },
+            {
+                path: 'addTask',
+                component: AddTaskComponent,
+            },
+        ],
+    },
+    { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+    { path: '**', component: SignInComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

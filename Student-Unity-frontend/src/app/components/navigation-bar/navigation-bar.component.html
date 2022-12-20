@@ -1,31 +1,45 @@
-<div class="p-3 sidebar" style="width: 300px;">
-  <!-- Title -->
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
-    <em class="bi bi-unity pe-none me-2"></em>
-    <span class="fs-4">Student Unity</span>
-  </a>
-  <a href="/" class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none" (click)="logout()">
-    <span class="fs-4">logout</span>
-  </a>
-  <button *ngIf="loggedInUser.role =='admin'" class="btn btn-primary" type="button" style="margin-top: 50px" (click)="navigateTo('addTask')" >
-    Add Task
-  </button>
+<div class="p-3 sidebar" style="width: 300px">
+    <!-- Title -->
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <em class="bi bi-unity pe-none me-2"></em>
+        <span class="fs-4">Student Unity</span>
+    </a>
+    <a href="/" class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none" (click)="logout()">
+        <span class="fs-4">logout</span>
+    </a>
+    <button
+        *ngIf="loggedInUser.role == 'admin'"
+        class="btn btn-primary"
+        type="button"
+        style="margin-top: 50px"
+        (click)="navigateTo('addTask')"
+    >
+        Add Task
+    </button>
 
-  <hr>
+    <hr />
 
-  <!-- Profile -->
-  <div class="profile text-center">
-    <h4 *ngIf="loggedInUser !=null">{{loggedInUser.firstName}}  {{loggedInUser.lastName}}</h4>
-  </div>
+    <!-- Profile -->
+    <div class="profile text-center">
+        <h4 *ngIf="loggedInUser != null">{{ loggedInUser.firstName }} {{ loggedInUser.lastName }}</h4>
+    </div>
 
-  <!-- Buttons -->
-  <div class="parent">
-    <div [routerLink]="['/home/allCourses']" [routerLinkActive]="['active']" (click)="navigateTo('allCourses')"><em class="bi bi-stack"></em>All Courses</div>
-    <div [routerLink]="['/home/myCourses']" [routerLinkActive]="['active']"(click)="navigateTo('myCourses')"><em class="bi bi-book"></em>My Courses</div>
-    <div (click)="navigateTo('tasksPage')"><em class="bi bi-list-task"></em>Tasks</div>
-    <div><em class="bi bi-megaphone pe-none me-2"></em>Announcements</div>
-    <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
-    <div *ngIf="loggedInUser.role =='admin'" [routerLink]="['/home/accountsPage']" [routerLinkActive]="['active']" (click)="navigateTo('accountsPage')">
-  </div>
-
+    <!-- Buttons -->
+    <div class="parent">
+        <div [routerLink]="['/home/allCourses']" [routerLinkActive]="['active']" (click)="navigateTo('allCourses')">
+            <em class="bi bi-stack"></em>All Courses
+        </div>
+        <div [routerLink]="['/home/myCourses']" [routerLinkActive]="['active']" (click)="navigateTo('myCourses')">
+            <em class="bi bi-book"></em>My Courses
+        </div>
+        <div (click)="navigateTo('tasksPage')"><em class="bi bi-list-task"></em>Tasks</div>
+        <div><em class="bi bi-megaphone pe-none me-2"></em>Announcements</div>
+        <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
+        <div
+            *ngIf="loggedInUser.role == 'admin'"
+            [routerLink]="['/home/accountsPage']"
+            [routerLinkActive]="['active']"
+            (click)="navigateTo('accountsPage')"
+        ></div>
+    </div>
 </div>
