@@ -17,6 +17,11 @@ import { HomeComponent } from './components/home/home.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
 import { MyCoursesComponent } from './components/my-courses/my-courses.component';
+import { AllCoursesComponent } from './components/all-courses/all-courses.component';
+import { CourseCardComponent } from './components/shared/course-card/course-card.component';
+import { CommonModule } from '@angular/common';
+import { AddCourseComponent } from './components/add-course/add-course.component';
+import { RemoveSpacesPipe } from './shared/remove-spaces.pipe';
 import { TaskComponent } from './components/task/task.component';
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
 import { AddTaskComponent } from './components/addtask/add-task.component';
@@ -42,6 +47,11 @@ import { VerficationComponent } from './components/verfication/verfication.compo
     SingUpComponent,
     SuccessSignUpComponent,
     MyCoursesComponent,
+    AllCoursesComponent,
+    CourseCardComponent,
+    CourseCardComponent,
+    AddCourseComponent,
+    RemoveSpacesPipe,
     CoursePageComponent,
     TaskComponent,
     TasksPageComponent,
@@ -54,6 +64,7 @@ import { VerficationComponent } from './components/verfication/verfication.compo
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CommonModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
     MatFormFieldModule,

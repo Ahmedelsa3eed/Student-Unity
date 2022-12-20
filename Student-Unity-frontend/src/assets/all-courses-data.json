@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Software Engineering",
+    "code": "CSE x61",
+    "status": true,
+    "term": 5
+  },
+  {
+    "name": "Programming-1",
+    "code": "CSE 111",
+    "status": true,
+    "term": 0
+  },
+  {
+    "name": "Data Structure",
+    "code": "CSE 215",
+    "status": true,
+    "term": 2
+  },
+  {
+    "name": "Algorithm",
+    "code": "CSE 216",
+    "status": true,
+    "term": 3
+  },
+  {
+    "name": "Database",
+    "code": "CSE 217",
+    "status": true,
+    "term": 4
+  },
+  {
+    "name": "Computer Architecture",
+    "code": "CSE 218",
+    "status": false,
+    "term": 9
+  },
+  {
+    "name": "Operating System",
+    "code": "CSE 219",
+    "status": true,
+    "term": 7
+  },
+  {
+    "name": "Computer Graphics",
+    "code": "CSE 220",
+    "status": true,
+    "term": 8
+  },
+  {
+    "name": "Compiler Design",
+    "code": "CSE 221",
+    "status": false,
+    "term": 9
+  },
+  {
+    "name": "Artificial Intelligence",
+    "code": "CSE 222",
+    "status": true,
+    "term": 9
+  },
+  {
+    "name": "Computer Network",
+    "code": "CSE 223",
+    "status": false,
+    "term": 9
+  }
+]
