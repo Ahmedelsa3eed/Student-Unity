@@ -11,7 +11,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { VerficationComponent } from './components/verfication/verfication.component';
 
 const routes: Routes = [
-  { path: 'verfication', component: VerficationComponent},
+  { path: 'verfication', component: VerficationComponent, data: {}},
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SingUpComponent },
   { path: 'success-sign-up', component: SuccessSignUpComponent },

@@ -27,6 +27,7 @@ export class SingUpComponent implements OnInit, OnDestroy {
     }, {
       validators: ConfirmedValidator('password', 'rPassword')
     });
+
   }
 
   // on destroy of component
@@ -42,17 +43,23 @@ export class SingUpComponent implements OnInit, OnDestroy {
     this.signUpdata.password = this.registerForm.get('password')?.value;
     this.signUpdata.studentId = this.registerForm.get('studentId')?.value;
 
+    this.router.navigate(['verfication'], {
+      queryParams: { email: this.signUpdata.email }
+    });
 
-    this.signUpService.postSignUpData(this.signUpdata)
-    .subscribe({
-      next: (res) => {
-        // If user already exists or registred successfully, he will be directed to signIn
-        console.log(res);
-        this.router.navigate(['sign-in']);
-      },
-      error: (e) => this.httpError(e),
-      complete: () => console.info('Registeration Done!')
-    })
+    // this.signUpService.postSignUpData(this.signUpdata)
+    // .subscribe({
+    //   next: (res) => {
+    //     // If user already exists or registred successfully, he will be directed to signIn
+    //     console.log(res);
+
+    //     this.router.navigate(['verfication'], {
+    //       queryParams: { email: this.signUpdata.email }
+    //     });
+    //   },
+    //   error: (e) => this.httpError(e),
+    //   complete: () => console.info('Registeration Done!')
+    // })
   }
 
   // method to print the error message from the backend
