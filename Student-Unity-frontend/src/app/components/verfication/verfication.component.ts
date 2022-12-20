@@ -48,7 +48,7 @@ export class VerficationComponent implements OnInit {
       this.verficationService.postVerficationCode(this.verficationData).subscribe({
         next: (res) => {
           console.log(res);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/success-sign-up']);
         },
         error: (e) => console.error(e),
         complete: () => console.info('Registeration Done!')
