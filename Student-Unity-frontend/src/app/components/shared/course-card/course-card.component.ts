@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
 import { User } from 'src/app/models/User';
-import { DeleteCourseService } from 'src/app/services/delete-course.service';
+import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class CourseCardComponent implements OnInit {
   @Input() course: Course = {} as Course;
   @Input() privilege: boolean = false;
 
-  constructor(private deleteCourseService : DeleteCourseService, private signInOutService: SignInOutService, private router: Router) { }
+  constructor(private allCoursesService : AllCoursesService, private signInOutService: SignInOutService, private router: Router) { }
 
 
 
@@ -38,7 +38,7 @@ export class CourseCardComponent implements OnInit {
 
 
   deleteCourse(): void {
-    this.deleteCourseService.postCourseData(this.course).subscribe({
+    this.allCoursesService.deleteCourse(this.course).subscribe({
       next: (res) => {
         console.log(res);
         this.router.navigate(['home/allCourses'])

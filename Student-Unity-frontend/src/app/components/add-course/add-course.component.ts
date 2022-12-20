@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignUpData } from 'src/app/models/sign-up-data.model';
-import { AddCourseService } from 'src/app/services/add-course.service';
 import { ConfirmedValidator } from '../shared/match.validator';
 import { Course } from 'src/app/models/Course';
+import { AllCoursesService } from 'src/app/services/all-courses.service';
 
 @Component({
   selector: 'app-add-course',
@@ -17,7 +17,7 @@ export class AddCourseComponent implements OnInit {
   postError: boolean = false;
   postErrorMessage: string = "";
   course: Course = {} as Course;
-  constructor(private fb: FormBuilder, private addCourseService: AddCourseService, private router: Router) { }
+  constructor(private fb: FormBuilder, private allCoursesService: AllCoursesService, private router: Router) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group ({
@@ -40,7 +40,7 @@ export class AddCourseComponent implements OnInit {
     this.course.status = this.registerForm.get('status')?.value;
     this.course.term = this.registerForm.get('term')?.value;
     console.log(this.course);
-    this.addCourseService.postCourseData(this.course).subscribe({
+    this.allCoursesService.postCourseData(this.course).subscribe({
       next: (res) => {
         console.log(res);
         this.router.navigate(['home/allCourses'])
@@ -48,7 +48,7 @@ export class AddCourseComponent implements OnInit {
       error: (err) => this.httpError(err),
       complete: () => console.info('Course Submited')
     })
-    
+
     this.router.navigate(['home/allCourses']);
   }
 
