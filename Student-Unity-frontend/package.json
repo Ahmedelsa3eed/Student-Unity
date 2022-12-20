@@ -24,7 +24,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
     "ng-otp-input": "^1.8.5",
-    "ng2-bootstrap": "^1.6.3",
+    "ng2-bootstrap": "^0.53.0",
     "ngx-bootstrap": "^8.0.0",
     "ngx-cookie-service": "^13.0.1",
     "ngx-material-timepicker": "^5.5.3",
@@ -33,7 +33,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.0.1",
+    "@angular-devkit/build-angular": "^13.3.10",
     "@angular/cli": "~13.0.1",
     "@angular/compiler-cli": "~13.0.0",
     "@types/jasmine": "~3.10.0",

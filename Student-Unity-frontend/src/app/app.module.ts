@@ -29,18 +29,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { CoursePageComponent } from './components/course-page/course-page.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
-import { NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
-import { HttpClientModule } from '@angular/common/http'
-import { AppRoutingModule } from './app-routing.module'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { CookieService } from 'ngx-cookie-service'
-import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatNativeDateModule } from '@angular/material/core'
 
-
-const material = [MatDatepickerModule, MatNativeDateModule]
 @NgModule({
+
   declarations: [
     AppComponent,
     AccountComponent,
@@ -75,6 +66,7 @@ const material = [MatDatepickerModule, MatNativeDateModule]
     MatAutocompleteModule,
     NgOtpInputModule
   ],
+
   providers: [SignInOutService, CookieService],
   bootstrap: [AppComponent]
 

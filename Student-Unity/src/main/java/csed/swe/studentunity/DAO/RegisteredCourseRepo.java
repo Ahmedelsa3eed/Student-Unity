@@ -13,8 +13,8 @@ import java.util.Optional;
 
 public interface RegisteredCourseRepo extends JpaRepository<RegisteredCourse, RegisteredCourseId> {
 
-    @Query(value = "Select c.course_id, c.course_name, c.course_code, r.revision_subscription from course as c," +
-            "registered_course as r where c.course_id in (select r.course_id where r.id = ?1)", nativeQuery = true)
+    @Query(value = "Select c.course_id, c.course_name, c.course_code, r.revision_subscription from course as c join " +
+            "registered_course as r on c.course_id = r.course_id where r.id = ?1", nativeQuery=true)
     List<?> getRegisteredCourseByUserId(Long userId);
 
     @Modifying

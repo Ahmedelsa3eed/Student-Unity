@@ -10,7 +10,7 @@
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Select Course Name </mat-label>
       <mat-select formControlName="Course" id="Course">
-        <mat-option *ngFor="let course of courses | async  " [value]="course">
+        <mat-option *ngFor="let course of registeredCourses  " [value]="course">
           {{course.name}}
         </mat-option>
       </mat-select>

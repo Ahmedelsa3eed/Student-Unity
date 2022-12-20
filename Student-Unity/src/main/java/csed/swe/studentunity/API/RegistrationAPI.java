@@ -23,6 +23,7 @@ public class RegistrationAPI {
          return new ResponseEntity<>(registrationService.addUser(request), HttpStatus.CREATED);
     }
 
+    @PostMapping(path = "verify")
     public ResponseEntity<String> verifyUser(@RequestBody VerificationRequest request) {
         return new ResponseEntity<>(registrationService.verifyUser(request), HttpStatus.OK);
     }

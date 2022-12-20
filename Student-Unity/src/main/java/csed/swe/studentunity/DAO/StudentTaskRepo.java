@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskId> {
 
-    @Query(value="SELECT t.task_id,t.course_code,t.title,t.due_date,t.telegram_link,st.status\n" +
-            "FROM task AS t, student_task AS st, user AS u \n" +
-            "WHERE t.task_id = st.task_id AND u.id = :userId AND st.id = :userId",
+    @Query(value="SELECT t.task_id,c.course_code,t.title,t.due_date,t.telegram_link,st.status " +
+            "FROM task as t NATURAL JOIN student_task as st NATURAL JOIN user as u NATURAL JOIN course as c " +
+            "WHERE st.id = :userId",
             nativeQuery = true
     )
     Optional<Iterable<Object>> findAllStudentTasks(@Param("userId") long userId);

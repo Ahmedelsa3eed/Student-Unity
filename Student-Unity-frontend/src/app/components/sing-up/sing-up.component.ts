@@ -42,7 +42,9 @@ export class SingUpComponent implements OnInit, OnDestroy {
     this.signUpdata.email = this.registerForm.get('email')?.value;
     this.signUpdata.password = this.registerForm.get('password')?.value;
     this.signUpdata.studentId = this.registerForm.get('studentId')?.value;
-
+    this.router.navigate(['verfication'], {
+      queryParams: { email: this.signUpdata.email }
+    });
     this.signUpService.postSignUpData(this.signUpdata)
     .subscribe({
       next: (res) => {
