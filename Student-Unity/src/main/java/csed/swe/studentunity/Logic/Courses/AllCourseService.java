@@ -180,4 +180,11 @@ public class AllCourseService {
         return "ok";
     }
 
+    public Course getCourseById(long id) {
+        Course course = courseRepo.findCourseById(id).orElseThrow(() -> new RuntimeException());
+        return course;
+    }
+
+
+
 }

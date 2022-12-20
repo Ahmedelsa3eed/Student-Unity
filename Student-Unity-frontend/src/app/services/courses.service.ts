@@ -11,6 +11,14 @@ export class CoursesService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getCourseById(courseId: number): Observable<any>{
+    return this.httpClient.get<any>(environment.baseUrl + "/AllCourses/getCourseById", {
+      params: {
+        id: courseId
+      }
+    });
+  }
+
   getUserRegisteredCourse(sessionId: string): Observable<any>{
     return this.httpClient.get<any>(environment.baseUrl + "/AllCourses/getRegisteredCourses/" + sessionId);
   }

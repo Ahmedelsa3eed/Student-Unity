@@ -89,6 +89,17 @@ public class AllCoursesAPI {
         }
     }
 
+    @GetMapping("/getCourseById")
+    public ResponseEntity<Course> getCourseById(@RequestParam long id){
+        try{
+            Course course = allCourseService.getCourseById(id);
+            return new ResponseEntity<>(course, HttpStatus.OK);
+        }
+        catch (RuntimeException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/getAllCourses")
     public ResponseEntity<List<Course>> getAllCourses(){
         return new ResponseEntity<>(allCourseService.getAllCourses(), HttpStatus.OK);

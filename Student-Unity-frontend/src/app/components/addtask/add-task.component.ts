@@ -108,9 +108,8 @@ export class AddTaskComponent implements OnInit {
         "timeTable": "12:00",
         "telegramLink": "",
         "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      }]);
+        "notificationsToken": ""
+      }] as Course[]);
     this.courses = this.courses$.asObservable();
   }
 
@@ -118,76 +117,70 @@ export class AddTaskComponent implements OnInit {
     // return dummy data courses for now
 
     this.courses$.next([
-      {
-        "id": 1,
-        "name": "AI",
-        "code": "AI123",
-        "timeTable": "12:00",
-        "telegramLink": "",
-        "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      },
-      {
-        "id": 1,
-        "name": "ER",
-        "code": "AI123",
-        "timeTable": "12:00",
-        "telegramLink": "",
-        "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      },
-      {
-        "id": 1,
-        "name": "CO",
-        "code": "AI123",
-        "timeTable": "12:00",
-        "telegramLink": "",
-        "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      },
-      {
-        "id": 1,
-        "name": "Math",
-        "code": "AI123",
-        "timeTable": "12:00",
-        "telegramLink": "",
-        "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      },
-      {
-        "id": 1,
-        "name": "EEEI",
-        "code": "AI123",
-        "timeTable": "12:00",
-        "telegramLink": "",
-        "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      },
-      {
-        "id": 1,
-        "name": "SWE",
-        "code": "AI123",
-        "timeTable": "12:00",
-        "telegramLink": "",
-        "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      },
-      {
-        "id": 1,
-        "name": "Algorithms",
-        "code": "AI123",
-        "timeTable": "12:00",
-        "telegramLink": "",
-        "status":true ,
-        "notificationsToken": "",
-        "revisionSubscription": false
-      }]);
+        {
+            id: 1,
+            name: 'AI',
+            code: 'AI123',
+            timeTable: '12:00',
+            telegramLink: '',
+            status: true,
+            notificationsToken: '',
+        },
+        {
+            id: 1,
+            name: 'ER',
+            code: 'AI123',
+            timeTable: '12:00',
+            telegramLink: '',
+            status: true,
+            notificationsToken: '',
+        },
+        {
+            id: 1,
+            name: 'CO',
+            code: 'AI123',
+            timeTable: '12:00',
+            telegramLink: '',
+            status: true,
+            notificationsToken: '',
+        },
+        {
+            id: 1,
+            name: 'Math',
+            code: 'AI123',
+            timeTable: '12:00',
+            telegramLink: '',
+            status: true,
+            notificationsToken: '',
+        },
+        {
+            id: 1,
+            name: 'EEEI',
+            code: 'AI123',
+            timeTable: '12:00',
+            telegramLink: '',
+            status: true,
+            notificationsToken: '',
+        },
+        {
+            id: 1,
+            name: 'SWE',
+            code: 'AI123',
+            timeTable: '12:00',
+            telegramLink: '',
+            status: true,
+            notificationsToken: '',
+        },
+        {
+            id: 1,
+            name: 'Algorithms',
+            code: 'Algo123',
+            timeTable: '12:00',
+            telegramLink: '',
+            status: true,
+            notificationsToken: '',
+        },
+    ] as Course[])
     this.courses = this.courses$.asObservable();
 
 
