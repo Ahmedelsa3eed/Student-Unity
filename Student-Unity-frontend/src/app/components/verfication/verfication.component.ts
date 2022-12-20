@@ -14,7 +14,7 @@ import { VerficationCodeService } from 'src/app/services/verfication.service';
 
 export class VerficationComponent implements OnInit {
 
-  otpLenght: number = 6;
+  otpLenght: number = 36;
 
   otpValidity: boolean = false;
   tryAgain: boolean = false;
@@ -44,14 +44,14 @@ export class VerficationComponent implements OnInit {
     if (this.otpContent.length == this.otpLenght) {
       this.verficationData.code = this.otpContent;
       this.verficationData.email = this.email;
+      console.log(this.verficationData);
 
       this.verficationService.postVerficationCode(this.verficationData).subscribe({
         next: (res) => {
           console.log(res);
           this.router.navigate(['/success-sign-up']);
         },
-        error: (e) => console.error(e),
-        complete: () => console.info('Registeration Done!')
+        error: (e) => console.error(e)
       })
     }
   }
