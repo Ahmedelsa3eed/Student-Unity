@@ -46,10 +46,10 @@ public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskI
 
     @Modifying
     @Query(value =
-            "INSERT INTO studentTask AS st(u.id, :task)  " +
-            "SELECT u.id " +
-            "FROM user AS u JOIN registered_course AS rc ON u.id = rc.user.id" +
-            "WHERE rc.course.course_code = :courseCode", nativeQuery = true
+            "INSERT INTO student_task (id, task_id) " +
+            "SELECT u.id, :taskId " +
+            "FROM user AS u JOIN registered_course AS rc ON u.id = rc.id " +
+            "WHERE rc.course_id = :courseId", nativeQuery = true
     )
-    void addTaskIdToAllSubscribedUsers(@Param("task") Long taskId, @Param("courseCode") String courseCode);
+    void addTaskIdToAllSubscribedUsers(@Param("taskId") Long taskId, @Param("courseId") Long courseId);
 }
