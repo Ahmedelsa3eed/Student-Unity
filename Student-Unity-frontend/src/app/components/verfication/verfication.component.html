@@ -5,7 +5,7 @@
           <h6>Please enter the one time password <br> to verify your account</h6>
           <div> <span>A code has been sent to</span> {{email}} </div>
           <div id="otp" class="inputs d-grid mt-2">
-            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length: otpLenght, isPasswordInput: false, letterCase: 'Upper'}">
+            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length: otpLenght, isPasswordInput: false}">
 
             </ng-otp-input>
             <div class="otp-timer my-3">

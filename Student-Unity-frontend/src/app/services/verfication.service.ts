@@ -11,7 +11,8 @@ export class VerficationCodeService {
 
   constructor(private http: HttpClient) { }
   postVerficationCode(verficationRequest : VerificationRequest): Observable<HttpResponse<string>> {
-    return this.http.post(`${environment.baseUrl}/registration/verfication`, verficationRequest, {
+    console.log(verficationRequest);
+    return this.http.post(`${environment.baseUrl}/registration/verify`, verficationRequest, {
       observe: "response",
       responseType: "text",
     });

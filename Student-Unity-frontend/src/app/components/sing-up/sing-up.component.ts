@@ -20,7 +20,7 @@ export class SingUpComponent implements OnInit, OnDestroy {
     this.registerForm = this.fb.group ({
       firstName: this.fb.control(null, [Validators.required, Validators.maxLength(16), Validators.pattern("[a-zA-Z]*")]),
       lastName: this.fb.control(null, [Validators.required, Validators.maxLength(16), Validators.pattern("[a-zA-Z]*")]),
-      email: this.fb.control(null, [Validators.required, Validators.pattern("^[A-Za-z0-9._%+-]+@alexu\.edu\.eg")]),
+      email: this.fb.control(null, [Validators.required]),
       password: this.fb.control(null, [Validators.required, Validators.maxLength(16), Validators.minLength(8)]),
       rPassword: this.fb.control(null, [Validators.required, ConfirmedValidator('password', 'rPassword')]),
       studentId: this.fb.control(null, [Validators.required])
