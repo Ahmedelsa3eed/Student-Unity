@@ -18,7 +18,6 @@ export class AddTaskComponent implements OnInit {
     addTaskForm!: FormGroup
     task = new Task()
     registeredCourses: Course[] = [];
-    options: string[] = ['One', 'Two', 'Three']
 
     constructor(
         private formBuilder: FormBuilder,
@@ -55,6 +54,7 @@ export class AddTaskComponent implements OnInit {
         }
       );
     }
+
     addTask() {
         console.log(this.addTaskForm.value)
         this.task.title = this.addTaskForm.value.Title
