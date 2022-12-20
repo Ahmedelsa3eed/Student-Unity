@@ -1,4 +1,4 @@
-package csed.swe.studentunity.API;
+package csed.swe.studentunity.api;
 
 import csed.swe.studentunity.logic.tasks.StudentTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
