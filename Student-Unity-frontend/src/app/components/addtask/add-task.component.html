@@ -17,17 +17,11 @@
     </mat-form-field>
   <div>
     <mat-form-field appearance="fill">
-      <mat-label>Choose the due date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="DueDate" id="DueDate">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-label>Choose the dueDate</mat-label>
+      <input matInput type="datetime-local" formControlName="DueDate" id="DueDate">
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
-    <mat-form-field appearance="fill">
-      <mat-label>Select Course Name </mat-label>
-      <input matInput placeholder="Ex. sheet 4 AI"  formArrayName="Time" id="Time">
-    </mat-form-field>
     <hr>
     <button class="btn btn-primary" type="submit" [disabled]="addTaskForm.invalid"   (click)="addTask()">Add Task</button>
   </form>

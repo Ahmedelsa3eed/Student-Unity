@@ -24,7 +24,7 @@ public class TaskService {
      * */
     public Boolean addTask(Task task) {
         if (task == null) return false;
-        this.taskRepo.save(task);
+        task = this.taskRepo.save(task);
         return studentTaskService.addTaskIdToAllSubscribedUsers(task);
     }
 
