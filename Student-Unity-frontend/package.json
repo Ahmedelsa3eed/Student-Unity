@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "format:write": "npx prettier --write src"
+    "prepare": "cd .. && husky install Student-Unity-frontend/.husky",
+    "format:write": "prettier --config .prettierrc.json --write \"src/**/*.{js,ts,md,html,css}\""
   },
   "private": true,
   "dependencies": {
@@ -23,7 +24,8 @@
     "@angular/router": "~13.0.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
-    "ng2-bootstrap": "^1.6.3",
+    "ng-otp-input": "^1.8.5",
+    "ng2-bootstrap": "^0.53.0",
     "ngx-bootstrap": "^8.0.0",
     "ngx-cookie-service": "^13.0.1",
     "ngx-material-timepicker": "^5.5.3",
@@ -32,18 +34,23 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.0.1",
+    "@angular-devkit/build-angular": "^13.3.10",
     "@angular/cli": "~13.0.1",
     "@angular/compiler-cli": "~13.0.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "husky": "^8.0.2",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "lint-staged": "^13.1.0",
     "prettier": "2.8.1",
     "typescript": "~4.4.3"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,md,html,css}": "npm run format:write"
   }
 }

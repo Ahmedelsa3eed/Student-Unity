@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jdk.jfr.Registered;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

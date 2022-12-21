@@ -1,113 +1,193 @@
 <div class="container sign-up-page">
-  <form [formGroup]="registerForm" (ngSubmit)="registerSubmitted" class = "border p-2 rounded-3">
-    <!--Input first and last Name-->
-    <div class = "row g-3">
-      <div class = "col text-center p-2 mb-3 bg-light">
-        <span class = "fs-3"> Register</span>
-      </div>
-    </div>
-    <!--Input first and last Name-->
-    <div class = "row">
-      <div class="col mb-3">
+    <form [formGroup]="registerForm" (ngSubmit)="(registerSubmitted)" class="border p-2 rounded-3">
+        <!--Input first and last Name-->
+        <div class="row g-3">
+            <div class="col text-center p-2 mb-3 bg-light">
+                <span class="fs-3"> Register</span>
+            </div>
+        </div>
+        <!--Input first and last Name-->
+        <div class="row">
+            <div class="col mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="First Name"
+                    id="firstName"
+                    formControlName="firstName"
+                />
+                <div
+                    class="formtext text-danger"
+                    *ngIf="FirstName.errors?.['required'] && (FirstName.touched || FirstName.dirty)"
+                >
+                    First Name is Required.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="FirstName.errors?.['maxlength'] && (FirstName.touched || FirstName.dirty)"
+                >
+                    Name is more than 16 letter.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="FirstName.errors?.['pattern'] && (FirstName.touched || FirstName.dirty)"
+                >
+                    Name should only conatain latin letters.
+                </div>
+            </div>
 
-        <label for="firstName" class="form-label">First Name</label>
-        <input type = "text" class = "form-control" placeholder = "First Name"
-          id="firstName" formControlName = "firstName">
-        <div class="formtext text-danger" *ngIf = "FirstName.errors?.['required'] && (FirstName.touched || FirstName.dirty)">
-          First Name is Required.
+            <div class="col mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Last Name"
+                    id="lastName"
+                    formControlName="lastName"
+                />
+                <div
+                    class="formtext text-danger"
+                    *ngIf="LastName.errors?.['required'] && (LastName.touched || LastName.dirty)"
+                >
+                    First Name is Required.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="LastName.errors?.['maxlength'] && (LastName.touched || LastName.dirty)"
+                >
+                    Name is more than 16 letter.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="LastName.errors?.['pattern'] && (LastName.touched || LastName.dirty)"
+                >
+                    Name should only conatain latin letters.
+                </div>
+            </div>
         </div>
-        <div class="formtext text-danger" *ngIf = "FirstName.errors?.['maxlength'] && (FirstName.touched || FirstName.dirty)">
-          Name is more than 16 letter.
+        <!--Input email-->
+        <div class="row">
+            <div class="col mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    placeholder="email@alexu.edu.eg"
+                    id="email"
+                    formControlName="email"
+                />
+                <div class="formtext text-danger" *ngIf="Email.errors?.['required'] && (Email.touched || Email.dirty)">
+                    Email is Required.
+                </div>
+                <div class="formtext text-danger" *ngIf="Email.errors?.['pattern'] && (Email.touched || Email.dirty)">
+                    Email should belong the specified domain.
+                </div>
+                <div class="form-text"></div>
+            </div>
         </div>
-        <div class="formtext text-danger" *ngIf = "FirstName.errors?.['pattern'] && (FirstName.touched || FirstName.dirty)">
-          Name should only conatain latin letters.
+        <!--Input password-->
+        <div class="row">
+            <div class="col mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Password"
+                    id="password"
+                    formControlName="password"
+                />
+                <div
+                    class="formtext text-danger"
+                    *ngIf="Password.errors?.['required'] && (Password.touched || Password.dirty)"
+                >
+                    Password is Required.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="Password.errors?.['maxlength'] && (Password.touched || Password.dirty)"
+                >
+                    Password is more than 16 characters.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="Password.errors?.['minlength'] && (Password.touched || Password.dirty)"
+                >
+                    Password is less than 8 characters.
+                </div>
+            </div>
         </div>
-
-
-      </div>
-
-      <div class="col mb-3">
-        <label for="lastName" class="form-label">Last Name</label>
-        <input type = "text" class = "form-control" placeholder = "Last Name" id="lastName" formControlName = "lastName">
-        <div class="formtext text-danger" *ngIf = "LastName.errors?.['required'] && (LastName.touched || LastName.dirty)">
-          First Name is Required.
+        <!--Input confirm password-->
+        <div class="row">
+            <div class="col mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Confirm Password"
+                    id="rPassword"
+                    formControlName="rPassword"
+                />
+                <div
+                    class="formtext text-danger"
+                    *ngIf="RPassword.errors?.['required'] && (RPassword.touched || RPassword.dirty)"
+                >
+                    Confirm Password is Required.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="registerForm.errors?.['ValudesNotMatch'] && (RPassword.touched || RPassword.dirty)"
+                >
+                    Password Don't Match.
+                </div>
+            </div>
         </div>
-        <div class="formtext text-danger" *ngIf = "LastName.errors?.['maxlength'] && (LastName.touched || LastName.dirty)">
-          Name is more than 16 letter.
+        <!--student id-->
+        <div class="row">
+            <div class="col mb-3">
+                <label for="studentId" class="form-label">Student ID</label>
+                <input
+                    type="number"
+                    class="form-control"
+                    placeholder="19010000"
+                    id="studentId"
+                    formControlName="studentId"
+                />
+                <div
+                    class="formtext text-danger"
+                    *ngIf="StudentId.errors?.['required'] && (StudentId.touched || StudentId.dirty)"
+                >
+                    Student ID is Required.
+                </div>
+            </div>
         </div>
-        <div class="formtext text-danger" *ngIf = "LastName.errors?.['pattern'] && (LastName.touched || LastName.dirty)">
-          Name should only conatain latin letters.
+        <!--submit-->
+        <div class="row">
+            <div class="col mb-3">
+                <div [hidden]="!postError" class="alert alert-danger text-center" role="alert">
+                    {{ postErrorMessage }}
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="d-grid">
+                    <button
+                        type="submit"
+                        [disabled]="registerForm.invalid"
+                        class="btn btn-primary"
+                        (click)="registerSubmitted()"
+                    >
+                        Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="side-img offset-1">
+        <img
+            src="https://img.freepik.com/free-vector/computer-monitor-graphic-animator-creating-video-game-modeling-motion-processing-video-file-using-professional-editor-vector-illustration-graphic-design-art-designer-workplace-concept_74855-13038.jpg?w=1060&t=st=1670046577~exp=1670047177~hmac=e4eac60c95c885b1c162097fd888db99d13eaabc7ce40e7bbbf357c17e5976c9"
+            alt="test"
+        />
     </div>
-    <!--Input email-->
-    <div class = "row">
-      <div class="col mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type = "email" class = "form-control" placeholder = "email@alexu.edu.eg" id="email" formControlName="email">
-        <div class="formtext text-danger" *ngIf = "Email.errors?.['required'] && (Email.touched || Email.dirty)">
-          Email is Required.
-        </div>
-        <div class="formtext text-danger" *ngIf = "Email.errors?.['pattern'] && (Email.touched || Email.dirty)">
-          Email should belong the specified domain.
-        </div>
-        <div class = "form-text"></div>
-      </div>
-    </div>
-    <!--Input password-->
-    <div class = "row">
-      <div class="col mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type = "password" class = "form-control" placeholder = "Password" id = "password" formControlName = "password">
-        <div class="formtext text-danger" *ngIf = "Password.errors?.['required'] && (Password.touched || Password.dirty)">
-          Password is Required.
-        </div>
-        <div class="formtext text-danger" *ngIf = "Password.errors?.['maxlength'] && (Password.touched || Password.dirty)">
-          Password is more than 16 characters.
-        </div>
-        <div class="formtext text-danger" *ngIf = "Password.errors?.['minlength'] && (Password.touched || Password.dirty)">
-          Password is less than 8 characters.
-        </div>
-      </div>
-    </div>
-    <!--Input confirm password-->
-    <div class = "row">
-      <div class="col mb-3">
-        <label for="confirmPassword" class="form-label">Confirm Password</label>
-        <input type = "password" class = "form-control" placeholder = "Confirm Password" id = "rPassword" formControlName = "rPassword">
-        <div class="formtext text-danger" *ngIf = "RPassword.errors?.['required'] && (RPassword.touched || RPassword.dirty)">
-          Confirm Password is Required.
-        </div>
-        <div class="formtext text-danger" *ngIf = "registerForm.errors?.['ValudesNotMatch'] && (RPassword.touched || RPassword.dirty)">
-          Password Don't Match.
-        </div>
-      </div>
-    </div>
-    <!--student id-->
-    <div class = "row">
-      <div class="col mb-3">
-        <label for="studentId" class="form-label">Student ID</label>
-        <input type = "number" class = "form-control" placeholder = "19010000" id = "studentId" formControlName = "studentId">
-        <div class="formtext text-danger" *ngIf = "StudentId.errors?.['required'] && (StudentId.touched || StudentId.dirty)">
-          Student ID is Required.
-        </div>
-      </div>
-    </div>
-    <!--submit-->
-    <div class = "row">
-      <div class="col mb-3">
-        <div [hidden]="!postError" class="alert alert-danger text-center" role="alert">
-          {{ postErrorMessage }}
-        </div>
-      </div>
-    </div>
-    <div class = "row">
-      <div class="col-6 offset-3">
-        <div class = "d-grid">
-          <button type = "submit" [disabled]="registerForm.invalid" class = "btn btn-primary" (click) = "registerSubmitted()">Register</button>
-        </div>
-      </div>
-    </div>
-  </form>
-  <div class="side-img offset-1"><img src="https://img.freepik.com/free-vector/computer-monitor-graphic-animator-creating-video-game-modeling-motion-processing-video-file-using-professional-editor-vector-illustration-graphic-design-art-designer-workplace-concept_74855-13038.jpg?w=1060&t=st=1670046577~exp=1670047177~hmac=e4eac60c95c885b1c162097fd888db99d13eaabc7ce40e7bbbf357c17e5976c9" alt="test"></div>
 </div>
