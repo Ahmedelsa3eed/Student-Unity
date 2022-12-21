@@ -22,7 +22,7 @@ public class AllCoursesAPI {
     }
 
     @PostMapping("/addCourse")
-    public ResponseEntity<String> addCourse(@RequestParam String sessionId, @RequestBody Course course){
+    public ResponseEntity<String> addCourse(@RequestParam("sessionId") String sessionId, @RequestBody Course course){
         try {
             return allCourseService.addCourse(sessionId, course);
         }

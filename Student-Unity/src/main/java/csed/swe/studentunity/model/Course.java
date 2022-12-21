@@ -1,6 +1,7 @@
 package csed.swe.studentunity.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -33,6 +34,9 @@ public class Course implements Serializable {
     @Column(name = "course_code", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
     private String code;
 
+    @Column(name = "term")
+    private Integer term;
+
 
     @JsonManagedReference
     @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -40,7 +44,7 @@ public class Course implements Serializable {
     private ActiveCourse activeCourse;
 
     @OneToMany(mappedBy="course", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private List<RegisteredCourse> registeredCourses = new ArrayList<>();
 
     public Course() { }
@@ -54,4 +58,9 @@ public class Course implements Serializable {
         this.name = name;
     }
 
+    public Course(String name, String code, Integer term) {
+        this.name = name;
+        this.code = code;
+        this.term = term;
+    }
 }

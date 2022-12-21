@@ -48,13 +48,13 @@ export class AddCourseComponent implements OnInit {
         this.allCoursesService.postCourseData(this.signInOutService.getSignedInUserSessionID(), this.course).subscribe({
             next: (res) => {
                 console.log(res);
-                this.router.navigate(['home/allCourses']);
+              this.router.navigate(['home/allCourses']);
             },
             error: (err) => this.httpError(err),
             complete: () => console.info('Course Submited'),
         });
+      this.router.navigate(['home/allCourses']);
 
-        this.router.navigate(['home/allCourses']);
     }
 
     // method to print the error message from the backend

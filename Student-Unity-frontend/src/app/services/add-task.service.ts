@@ -10,6 +10,7 @@ export class AddTaskService {
     constructor(private http: HttpClient) {}
 
     public addTask(sessionId: string, task: Task): Observable<HttpResponse<any>> {
+      console.log(task);
         return this.http.post<any>(`${environment.baseUrl}/tasks/addTask`, task, {
             observe: 'response',
             params: {
