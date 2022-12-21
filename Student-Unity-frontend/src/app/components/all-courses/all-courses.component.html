@@ -40,10 +40,11 @@
 
     <!-- Filtered result -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" *ngIf="showFilteredList">
-        <div class="card card-body col-md course" *ngFor="let course of filteredCourses">
+        <div class="card card-body col-md course" *ngFor="let course of courses | async">
             <app-course-card [course]="course" [privilege]="privilege"> </app-course-card>
         </div>
     </div>
+
 
     <!-- Terms -->
     <div class="terms" *ngIf="!showFilteredList">

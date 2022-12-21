@@ -33,6 +33,9 @@ public class Course implements Serializable {
     @Column(name = "course_code", nullable = false, columnDefinition = "VARCHAR(100)", unique = true)
     private String code;
 
+    @Column(name = "term")
+    private Integer term;
+
 
     @JsonManagedReference
     @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -54,4 +57,9 @@ public class Course implements Serializable {
         this.name = name;
     }
 
+    public Course(String name, String code, Integer term) {
+        this.name = name;
+        this.code = code;
+        this.term = term;
+    }
 }

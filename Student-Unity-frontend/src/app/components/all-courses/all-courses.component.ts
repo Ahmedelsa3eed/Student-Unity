@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,9 @@ export class AllCoursesComponent implements OnInit {
     private _courseSearch: string = '';
     private numberOfTerms: number = 10;
     sub!: Subscription;
-    courses: Course[] = [];
+    courses?: Observable<Course[]>;
+    courses$= new BehaviorSubject<Course[]>([]);
+
     terms: Course[][] = [] as Course[][];
     filteredCourses: Course[] = [];
     showFilteredList: boolean = false;
@@ -40,8 +42,12 @@ export class AllCoursesComponent implements OnInit {
         this.getSignedInUser();
         this.sub = this.allCoursesService.getAllCourses().subscribe({
             next: (courses) => {
-                this.courses = courses;
-                this.filterTerms();
+              console.log(courses);
+              this.courses$.next(courses);
+
+              this.filterTerms();
+              this.courses = this.courses$.asObservable();
+
             },
             error: (err) => console.log(err),
         });
@@ -69,7 +75,7 @@ export class AllCoursesComponent implements OnInit {
         for (let i = 0; i < this.numberOfTerms; i++) {
             this.terms.push([]);
         }
-        for (const course of this.courses) {
+        for (const course of this.courses$.value) {
             this.terms[course.term].push(course);
         }
         for (let i = 0; i < this.numberOfTerms; i++) {
@@ -108,7 +114,7 @@ export class AllCoursesComponent implements OnInit {
 
     filterCourses(): void {
         // filter by course code or course name
-        this.filteredCourses = this.courses.filter(
+        this.filteredCourses = this.courses$.value.filter(
             (course: Course) =>
                 course.code.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase()) ||
                 course.name.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase())
@@ -118,7 +124,6 @@ export class AllCoursesComponent implements OnInit {
         if (this._filterByStatus) {
             this.filteredCourses = this.filteredCourses.filter((course: Course) => course.status === true);
         }
-
         this.showFilteredList = this._filterByStatus || this._courseSearch.length > 0;
     }
 
