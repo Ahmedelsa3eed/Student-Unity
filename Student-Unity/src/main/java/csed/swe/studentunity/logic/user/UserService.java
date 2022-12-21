@@ -21,14 +21,8 @@ public class UserService {
         return userRepo.findUserByEmail(email);
     }
 
-    public String deleteUser(Long id){
-        try {
-            userRepo.deleteById(id);
-            return "deleted successfully";
-        }
-        catch (Exception e){
-            return "ID doesn't exist";
-        }
+    public void deleteUser(Long id){
+        userRepo.deleteById(id);
     }
 
 
