@@ -21,14 +21,8 @@ public class UnverifiedUserService {
     }
 
 
-    public String deleteUnverifiedUser(Long id){
-        try {
-            unverifiedUserRepo.deleteById(id);
-            return "deleted successfully";
-        }
-        catch (Exception e){
-            return "ID doesn't exist";
-        }
+    public void deleteUnverifiedUser(Long id){
+        unverifiedUserRepo.deleteById(id);
     }
 
 

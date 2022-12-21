@@ -1,9 +1,12 @@
 package csed.swe.studentunity.logic.user;
 
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.UUID;
 
 // Singleton design pattern
+@Service
 public class ActiveUserService {
 
     private static ActiveUserService instance = null;
@@ -66,8 +69,8 @@ public class ActiveUserService {
         emails.remove(email);
     }
     public void logout(UUID sessionId) {
-        sessions.remove(sessionId);
         emails.remove(getEmailFromSessionId(sessionId));
+        sessions.remove(sessionId);
     }
 
 }
