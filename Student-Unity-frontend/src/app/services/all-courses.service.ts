@@ -19,26 +19,36 @@ export class AllCoursesService {
         console.log(`${environment.baseUrl}/AllCourses/addCourse`);
         return this.httpClient.post(`${environment.baseUrl}/AllCourses/addCourse`, course, {
             params: {
-                sessionId: sessionId
+                sessionId: sessionId,
             },
             observe: 'response',
             responseType: 'text',
         });
     }
     deleteCourse(sessionId: string, code: string): Observable<HttpResponse<string>> {
-        return this.httpClient.post(`${environment.baseUrl}/AllCourses/removeCourse`, {}, {
-          params: {
-            sessionId: sessionId,
-            code: code
-          },
-          observe: 'response',
-          responseType: 'text',
-        });
+        return this.httpClient.post(
+            `${environment.baseUrl}/AllCourses/removeCourse`,
+            {},
+            {
+                params: {
+                    sessionId: sessionId,
+                    code: code,
+                },
+                observe: 'response',
+                responseType: 'text',
+            }
+        );
     }
+
     registerCourse(sessionId: string, courseId: number): Observable<HttpResponse<string>> {
-        return this.httpClient.post(`${environment.baseUrl}/AllCourses/registerCourse`, {sessionId, courseId}, {
-            observe: 'response',
-            responseType: 'text',
-        });
+        return this.httpClient.post(
+            `${environment.baseUrl}/AllCourses/registerCourse`,
+            {},
+            {
+                params: { sessionId: sessionId, courseId: courseId },
+                observe: 'response',
+                responseType: 'text',
+            }
+        );
     }
 }

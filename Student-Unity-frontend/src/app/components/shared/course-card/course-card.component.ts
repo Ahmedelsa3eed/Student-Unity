@@ -24,7 +24,7 @@ export class CourseCardComponent implements OnInit {
 
     getSignedInUser() {
         this.signInOutService.getSignedInUser().subscribe({
-          next: (res) => {
+            next: (res) => {
                 console.log(res);
                 if (res.body) {
                     this.loggedInUser = res.body;
@@ -32,7 +32,7 @@ export class CourseCardComponent implements OnInit {
             },
             error: (err) => {
                 console.log(err);
-            }
+            },
         });
     }
     // method to print the error message from the backend
@@ -47,7 +47,16 @@ export class CourseCardComponent implements OnInit {
             complete: () => console.info('Course Submited'),
         });
     }
-
+    subscribeCourse(): void {
+        this.allCoursesService.registerCourse(this.loggedInUser.sessionID, this.course.id).subscribe({
+            next: (res) => {
+                console.log(res);
+                this.router.navigate(['home/allCourses']);
+            },
+            error: (err) => this.router.navigate(['home/allCourses']),
+            complete: () => console.info('Course Submited'),
+        });
+    }
     ngOnInit(): void {
         this.getSignedInUser();
     }
