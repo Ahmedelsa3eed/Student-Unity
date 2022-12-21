@@ -1,10 +1,8 @@
 package csed.swe.studentunity.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import csed.swe.studentunity.logic.courses.AllCourseService;
 import csed.swe.studentunity.model.ActiveCourse;
 import csed.swe.studentunity.model.Course;
-import csed.swe.studentunity.model.NewCourse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +22,9 @@ public class AllCoursesAPI {
     }
 
     @PostMapping("/addCourse")
-    public ResponseEntity<String> addCourse(@RequestParam("sessionId") String sessionId, @RequestBody NewCourse course){
+    public ResponseEntity<String> addCourse(@RequestParam("sessionId") String sessionId, @RequestBody Course course){
         try {
-            Course c = new Course(course.getName(), course.getCode(), course.getTerm());
-            return allCourseService.addCourse(sessionId, c);
+            return allCourseService.addCourse(sessionId, course);
         }
         catch (Exception e){
             return new ResponseEntity<>("Couldn't add course", HttpStatus.CONFLICT);

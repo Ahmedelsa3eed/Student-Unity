@@ -1,6 +1,7 @@
 package csed.swe.studentunity.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -43,7 +44,7 @@ public class Course implements Serializable {
     private ActiveCourse activeCourse;
 
     @OneToMany(mappedBy="course", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private List<RegisteredCourse> registeredCourses = new ArrayList<>();
 
     public Course() { }

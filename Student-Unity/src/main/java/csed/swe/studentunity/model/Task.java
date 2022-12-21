@@ -52,4 +52,6 @@ public class Task implements Serializable {
         this.telegramLink = telegramLink;
     }
 
+    public Task(String title, Course course, Date dueDate) {
+    }
 }
