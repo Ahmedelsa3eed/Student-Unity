@@ -5,10 +5,7 @@ import csed.swe.studentunity.DAO.CourseRepo;
 import csed.swe.studentunity.DAO.RegisteredCourseRepo;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.Logic.User.UserService;
-import csed.swe.studentunity.model.ActiveCourse;
-import csed.swe.studentunity.model.Course;
-import csed.swe.studentunity.model.RegisteredCourse;
-import csed.swe.studentunity.model.User;
+import csed.swe.studentunity.model.*;
 import jakarta.transaction.Transactional;
 
 import org.springframework.data.domain.Example;
@@ -137,17 +134,18 @@ public class AllCourseService {
 
     public Object[] getRegisteredCourses(String sessionId){
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
-        User user = userService.getUser(userEmail).orElse(null);
-        if (user != null)
-            return new Object[]{registeredCourseRepo.getRegisteredCourseByUserId(user.getId()), 200};
+        Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
+        if (userId != null)
+            return new Object[]{registeredCourseRepo.getRegisteredCourseByUserId(userId), 200};
         return new Object[]{new ArrayList<>(), 404};
     }
 
     public int registerCourse(String sessionId, long courseId) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
-        User user = userService.getUser(userEmail).orElse(null);
+        String email = activeUserService.getEmailFromSessionId(UUID.fromString(sessionId));
+        if (email == null)
+            return 404;
+        User user = userService.getUser(email).orElse(null);
         Course course = courseRepo.findCourseById(courseId).orElse(null);
         if (user != null && course != null) {
             registeredCourseRepo.save(new RegisteredCourse(course, user, true));
@@ -158,11 +156,9 @@ public class AllCourseService {
 
     public int unRegisterCourse(String sessionId, long courseId) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
-        User user = userService.getUser(userEmail).orElse(null);
-        RegisteredCourse registeredCourse = registeredCourseRepo.getRegisteredCourseByCourseId(courseId).orElse(null);
-        if (user != null && registeredCourse != null) {
-            registeredCourseRepo.unRegisteredCourse(registeredCourse.getCourse(), user);
+        Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
+        if (userId != null) {
+            registeredCourseRepo.unRegisteredCourse(courseId, userId);
             return 200;
         }
         return 404;
@@ -170,11 +166,9 @@ public class AllCourseService {
 
     public int toggleRVSubscription(String sessionId, long courseId, boolean oldRevisionSubscription) {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
-        String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
-        User user = userService.getUser(userEmail).orElse(null);
-        RegisteredCourse registeredCourse = registeredCourseRepo.getRegisteredCourseByCourseId(courseId).orElse(null);
-        if (user != null && registeredCourse != null) {
-            registeredCourseRepo.updateRegisteredCourseRevisionSubscription(registeredCourse.getCourse(), user, !oldRevisionSubscription);
+        Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
+        if (userId != null) {
+            registeredCourseRepo.updateRVSubscription(courseId, userId, !oldRevisionSubscription);
             return 200;
         }
         return 404;
@@ -198,6 +192,7 @@ public class AllCourseService {
         c.setName(name);
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
+
     public ResponseEntity<String> editCourseCode(String sessionId, String new_code, String code){
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         String userEmail = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
@@ -245,7 +240,5 @@ public class AllCourseService {
         Course course = courseRepo.findCourseById(id).orElseThrow(() -> new RuntimeException());
         return course;
     }
-
-
 
 }

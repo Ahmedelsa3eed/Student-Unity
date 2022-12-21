@@ -13,17 +13,16 @@ import java.util.Optional;
 
 public interface RegisteredCourseRepo extends JpaRepository<RegisteredCourse, RegisteredCourseId> {
 
-    @Query(value = "Select c.course_id, c.course_name, c.course_code, r.revision_subscription from course as c," +
-            "registered_course as r where c.course_id in (select r.course_id where r.id = ?1)", nativeQuery = true)
+    @Query(value = "Select c.course_id, c.course_name, c.course_code, r.revision_subscription from course as c join " +
+            "registered_course as r on c.course_id = r.course_id where r.id = ?1", nativeQuery = true)
     List<?> getRegisteredCourseByUserId(Long userId);
 
     @Modifying
-    @Query(value = "DELETE FROM RegisteredCourse r WHERE r.course = ?1 AND r.user = ?2")
-    void unRegisteredCourse(Course course, User user);
+    @Query(value = "DELETE FROM registered_course WHERE course_id = ?1 AND id = ?2", nativeQuery = true)
+    void unRegisteredCourse(Long courseId, Long userId);
 
     @Modifying
-    @Query(value = "update RegisteredCourse r set r.revisionSubscription = ?3 where r.course = ?1 and r.user = ?2")
-    void updateRegisteredCourseRevisionSubscription(Course course, User user, Boolean newRevisionSubscription);
+    @Query(value = "update registered_course set revision_subscription = ?3 where course_id = ?1 and id = ?2", nativeQuery = true)
+    void updateRVSubscription(Long courseId, Long userId, Boolean newRevisionSubscription);
 
-    Optional<RegisteredCourse> getRegisteredCourseByCourseId(long course_id);
 }

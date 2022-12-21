@@ -3,10 +3,14 @@ package csed.swe.studentunity.Logic.Courses;
 import csed.swe.studentunity.Logic.User.ActiveUserService;
 import csed.swe.studentunity.Logic.User.UserService;
 import csed.swe.studentunity.model.Course;
+import csed.swe.studentunity.model.RegisteredCourse;
 import csed.swe.studentunity.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+import java.util.Objects;
 
 
 @SpringBootTest
@@ -204,7 +208,6 @@ class AllCourseServiceTest {
 
     @Test
     public void getCourseDoesnotExist(){
-
         String res;
         try{
             allCourseService.getCourse("test15code");
@@ -214,6 +217,169 @@ class AllCourseServiceTest {
             res = "course does not exist";
         }
         assert res.equals("course does not exist");
+    }
+
+    @Test
+    public void getCourseByIdExists(){
+        User adminUser = new User("coursetest101@test.com", 101, "first name", "last name", "password", "admin");
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        Course course = new Course("test15code");
+        course.setName("test15name");
+        allCourseService.addCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course);
+        Course course1 = allCourseService.getCourseById(course.getId());
+        assert course.getId() == course1.getId();
+        assert course.getCode().equals(course1.getCode());
+        assert course.getName().equals(course1.getName());
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test15code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void getCourseByIdDoesnotExist(){
+        String res;
+        try{
+            allCourseService.getCourseById(123133);
+            res = "ok";
+        }
+        catch (RuntimeException e){
+            res = "course does not exist";
+        }
+        assert res.equals("course does not exist");
+    }
+
+    User adminUser = new User("coursetest120@test.com", 120, "first name", "last name", "password", "admin");
+    Course course = new Course("test30code");
+
+    @Test
+    public void registerCourseExists() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.addCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course);
+        allCourseService.registerCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        Object[] registeredCourse = (Object[])((List<Object>)allCourseService.getRegisteredCourses(activeUserService.getSessionIdAsString(adminUser.getEmail()))[0]).get(0);
+        assert (Long) registeredCourse[0] == course.getId();
+        assert Objects.equals(registeredCourse[1], course.getName());
+        assert Objects.equals(registeredCourse[2], course.getCode());
+        assert (Boolean) registeredCourse[3];
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void registerCourseDoesnotExist() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.registerCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        assert ((List<Object>)allCourseService.getRegisteredCourses(activeUserService.getSessionIdAsString(adminUser.getEmail()))[0]).size() == 0;
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void registerCourseRegistered() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.addCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course);
+        allCourseService.registerCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        allCourseService.registerCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        assert ((List<Object>)allCourseService.getRegisteredCourses(activeUserService.getSessionIdAsString(adminUser.getEmail()))[0]).size() == 1;
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void unRegisterCourseDoesnotExist() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.unRegisterCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void unRegisterCourseRegistered() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.addCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course);
+        allCourseService.registerCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        allCourseService.unRegisterCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        assert ((List<Object>)allCourseService.getRegisteredCourses(activeUserService.getSessionIdAsString(adminUser.getEmail()))[0]).size() == 0;
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void unRegisterCourseUnRegistered() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.addCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course);
+        allCourseService.unRegisterCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void toggleRVSubscriptionRegisteredCourse() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.addCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course);
+        allCourseService.registerCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId());
+        allCourseService.toggleRVSubscription(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId(), true);
+        Object[] registeredCourse = (Object[])((List<Object>)allCourseService.getRegisteredCourses(activeUserService.getSessionIdAsString(adminUser.getEmail()))[0]).get(0);
+        assert !(Boolean) registeredCourse[3];
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void toggleRVSubscriptionUnRegisteredCourse() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.addCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), course);
+        allCourseService.toggleRVSubscription(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId(), true);
+        assert ((List<Object>)allCourseService.getRegisteredCourses(activeUserService.getSessionIdAsString(adminUser.getEmail()))[0]).size() == 0;
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
+    }
+
+    @Test
+    public void toggleRVSubscriptionCourseDoesnotExist() {
+        userService.addUser(adminUser);
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        activeUserService.login(adminUser.getEmail(), adminUser.getRole(), adminUser.getId());
+        course.setName("test30name");
+        allCourseService.toggleRVSubscription(activeUserService.getSessionIdAsString(adminUser.getEmail()), course.getId(), true);
+        assert ((List<Object>)allCourseService.getRegisteredCourses(activeUserService.getSessionIdAsString(adminUser.getEmail()))[0]).size() == 0;
+        allCourseService.removeCourse(activeUserService.getSessionIdAsString(adminUser.getEmail()), "test30code");
+        activeUserService.deleteSession(activeUserService.getSessionIdAsString(adminUser.getEmail()));
+        userService.deleteUser(adminUser.getId());
     }
 
 }

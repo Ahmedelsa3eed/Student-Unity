@@ -1,11 +1,15 @@
 package csed.swe.studentunity.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -44,6 +48,10 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private RevisionNotification revisionNotification;
+
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<RegisteredCourse> registeredCourses = new ArrayList<>();
 
     public User() {}
 

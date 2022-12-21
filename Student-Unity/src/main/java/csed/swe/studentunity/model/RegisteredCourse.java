@@ -1,5 +1,6 @@
 package csed.swe.studentunity.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +17,15 @@ import java.io.Serializable;
 public class RegisteredCourse implements Serializable {
 
     @Id
-    @JoinColumn(name = "course_id")
     @ManyToOne
+    @JoinColumn(name = "course_id")
+    @JsonManagedReference
     private Course course;
 
     @Id
-    @JoinColumn(name = "id")
     @ManyToOne
+    @JoinColumn(name = "id")
+    @JsonManagedReference
     private User user;
 
     @Column(name = "revision_subscription")
