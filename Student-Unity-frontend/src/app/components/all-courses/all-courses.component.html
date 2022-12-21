@@ -40,40 +40,18 @@
 
     <!-- Filtered result -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" *ngIf="showFilteredList">
-        <div class="card card-body col-md course" *ngFor="let course of courses | async">
+        <div class="card card-body col-md course" *ngFor="let course of filteredCourses">
             <app-course-card [course]="course" [privilege]="privilege"> </app-course-card>
         </div>
     </div>
 
-
-    <!-- Terms -->
     <div class="terms" *ngIf="!showFilteredList">
-        <!-- Term -->
-        <div class="term my-3" *ngFor="let term of terms; let i = index">
-            <div class="collapse-btn" *ngIf="term.length != 0">
-                <button
-                    class="btn btn-outline-primary"
-                    (click)="reverse($event)"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    [attr.data-bs-target]="'#Term' + i"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                >
-                    <span>Term {{ term[0].term }}</span>
-                    <i class="bi bi-caret-down-fill"></i>
-                </button>
-            </div>
-
-            <!-- Courses -->
-            <div class="collapse" [attr.id]="'Term' + i">
-                <div class="card card-body courses-holder container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        <div class="col-md" *ngFor="let course of term">
-                            <div class="card card-body course">
-                                <app-course-card [course]="course" [privilege]="privilege"></app-course-card>
-                            </div>
-                        </div>
+        <!-- Courses -->
+        <div class="card card-body courses-holder container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col-md" *ngFor="let course of courses | async">
+                    <div class="card card-body course">
+                        <app-course-card [course]="course" [privilege]="privilege"></app-course-card>
                     </div>
                 </div>
             </div>
