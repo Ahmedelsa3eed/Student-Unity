@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,7 @@ export class AllCoursesComponent implements OnInit {
     private numberOfTerms: number = 10;
     sub!: Subscription;
     courses?: Observable<Course[]>;
-    courses$= new BehaviorSubject<Course[]>([]);
+    courses$ = new BehaviorSubject<Course[]>([]);
 
     terms: Course[][] = [] as Course[][];
     filteredCourses: Course[] = [];
@@ -42,12 +42,9 @@ export class AllCoursesComponent implements OnInit {
         this.getSignedInUser();
         this.sub = this.allCoursesService.getAllCourses().subscribe({
             next: (courses) => {
-              console.log(courses);
-              this.courses$.next(courses);
-
-              this.filterTerms();
-              this.courses = this.courses$.asObservable();
-
+                console.log(courses);
+                this.courses$.next(courses);
+                this.courses = this.courses$.asObservable();
             },
             error: (err) => console.log(err),
         });
@@ -69,19 +66,6 @@ export class AllCoursesComponent implements OnInit {
 
     get courseSearch(): string {
         return this._courseSearch;
-    }
-
-    filterTerms(): void {
-        for (let i = 0; i < this.numberOfTerms; i++) {
-            this.terms.push([]);
-        }
-        for (const course of this.courses$.value) {
-            this.terms[course.term].push(course);
-        }
-        for (let i = 0; i < this.numberOfTerms; i++) {
-            console.log(this.terms[i]);
-        }
-        console.log(this.terms);
     }
 
     reverse(event: any): void {
