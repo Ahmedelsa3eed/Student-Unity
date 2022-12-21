@@ -23,22 +23,22 @@ export class CourseCardComponent implements OnInit {
     ) {}
 
     getSignedInUser() {
-        this.signInOutService.getSignedInUser().subscribe(
-            (res) => {
+        this.signInOutService.getSignedInUser().subscribe({
+          next: (res) => {
                 console.log(res);
                 if (res.body) {
                     this.loggedInUser = res.body;
                 }
             },
-            (err) => {
+            error: (err) => {
                 console.log(err);
             }
-        );
+        });
     }
     // method to print the error message from the backend
 
     deleteCourse(): void {
-        this.allCoursesService.deleteCourse(this.course).subscribe({
+        this.allCoursesService.deleteCourse(this.loggedInUser.sessionID, this.course.code).subscribe({
             next: (res) => {
                 console.log(res);
                 this.router.navigate(['home/allCourses']);
