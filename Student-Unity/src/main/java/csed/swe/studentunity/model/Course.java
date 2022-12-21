@@ -1,5 +1,6 @@
 package csed.swe.studentunity.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -8,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,7 +39,9 @@ public class Course implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ActiveCourse activeCourse;
 
-
+    @OneToMany(mappedBy="course", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<RegisteredCourse> registeredCourses = new ArrayList<>();
 
     public Course() { }
 
