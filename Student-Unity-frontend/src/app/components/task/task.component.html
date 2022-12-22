@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body">
+        <!-- Title -->
+        <div class="card-header">
+            <h5 class="card-title header-item">{{ task.title }}</h5>
+            <em (click)="removeTask()" class="bi bi-trash3 header-item" style="cursor: pointer"></em>
+        </div>
+        <div>
+            <h6 class="card-subtitle mb-2 text-muted">{{ task.courseCode }}</h6>
+        </div>
+        <div class="parent">
+            <div><em class="bi bi-alarm"></em> {{ task.dueDate }}</div>
+            <div id="link">
+                <a href="{{ task.telegramLink }}">
+                    <em class="bi bi-link"></em>
+                    Telegram
+                </a>
+            </div>
+            <div id="mark" (click)="trigerStatus()"><em class="bi bi-check2-square"></em></div>
+        </div>
+    </div>
+</div>

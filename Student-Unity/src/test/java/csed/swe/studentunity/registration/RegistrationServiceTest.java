@@ -1,6 +1,10 @@
 package csed.swe.studentunity.registration;
 
-import csed.swe.studentunity.user.UserService;
+import csed.swe.studentunity.logic.RegistrationService;
+import csed.swe.studentunity.logic.UnverifiedUserService;
+import csed.swe.studentunity.logic.VerificationCodeService;
+import csed.swe.studentunity.logic.user.UserService;
+import csed.swe.studentunity.model.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,32 +16,124 @@ class RegistrationServiceTest {
     private RegistrationService underTest;
     @Autowired
     private UserService userService;
-    private final RegistrationRequest registrationRequest = new RegistrationRequest(
-            "Adel", "Elsaid", "registrationTest@alexu.edu.eg", "25420", 11111111
-    );
+    @Autowired
+    private VerificationCodeService verificationCodeService;
 
+    @Autowired
+    private UnverifiedUserService unverifiedUserService;
+
+    private final RegistrationRequest registrationRequest = new RegistrationRequest(
+            "Adel", "Elsaid", "mam2542001@gmail.com", "25420", 19016250
+    );
 
     @Test
     void itShouldAddUser() {
         // when
-        String response = underTest.addUser(registrationRequest);
+        RegistrationResponses response = underTest.addUser(registrationRequest);
 
         // then
-        String expected = "User registered successfully";
+        RegistrationResponses expected = RegistrationResponses.SUCCESSFUL_REGISTRATION;
         assertThat(response).isEqualTo(expected);
+
+        // clean up
+        unverifiedUserService.deleteUnverifiedUser(unverifiedUserService.getUnverifiedUser(registrationRequest.getEmail()).get().getId());
     }
 
     @Test
     void itShouldFindUserExisted() {
+        // given
+        User user = new User(registrationRequest.getEmail(), registrationRequest.getStudentId(), registrationRequest.getFirstName(),
+                registrationRequest.getLastName(), registrationRequest.getPassword(), "student");
+
         // when
-        String response = underTest.addUser(registrationRequest);
+        userService.addUser(user);
+        RegistrationResponses response = underTest.addUser(registrationRequest);
 
         // then
-        String expected = "User is already exist";
+        RegistrationResponses expected = RegistrationResponses.USER_ALREADY_EXISTS;
         assertThat(response).isEqualTo(expected);
 
-        userService.deleteUser(userService.getUser("registrationTest@alexu.edu.eg").orElseThrow().getId());
+        // clean up
+        userService.deleteUser(userService.getUser(registrationRequest.getEmail()).orElseThrow().getId());
     }
 
+    @Test
+    void itShouldFindUserNeedsVerification() {
+        // given
+        UnverifiedUser unverifiedUser = new UnverifiedUser(registrationRequest.getEmail(), registrationRequest.getStudentId(), registrationRequest.getFirstName(),
+                registrationRequest.getLastName(), registrationRequest.getPassword(), "student");
 
+        // when
+        unverifiedUserService.addUnverifiedUser(unverifiedUser);
+        RegistrationResponses response = underTest.addUser(registrationRequest);
+
+        // then
+        RegistrationResponses expected = RegistrationResponses.USER_NEEDS_VERIFICATION;
+        assertThat(response).isEqualTo(expected);
+
+        // clean up
+        unverifiedUserService.deleteUnverifiedUser(unverifiedUserService.getUnverifiedUser(registrationRequest.getEmail()).orElseThrow().getId());
+    }
+
+    @Test
+    void itShouldMakeSuccessfulVerification() {
+        // given
+        UnverifiedUser unverifiedUser = new UnverifiedUser(registrationRequest.getEmail(), registrationRequest.getStudentId(), registrationRequest.getFirstName(),
+                registrationRequest.getLastName(), registrationRequest.getPassword(), "student");
+
+        // when
+        unverifiedUserService.addUnverifiedUser(unverifiedUser);
+        String code = verificationCodeService.addVerificationCode(unverifiedUser.getEmail());
+        VerificationRequest verificationRequest = new VerificationRequest(unverifiedUser.getEmail(), code);
+        RegistrationResponses response = underTest.verifyUser(verificationRequest);
+
+        // then
+        RegistrationResponses expected = RegistrationResponses.SUCCESSFUL_VERIFICATION;
+        assertThat(response).isEqualTo(expected);
+
+        // clean up
+        userService.deleteUser(userService.getUser(registrationRequest.getEmail()).orElseThrow().getId());
+    }
+
+    @Test
+    void itShouldMakeFailedVerification() {
+        // given
+        UnverifiedUser unverifiedUser = new UnverifiedUser(registrationRequest.getEmail(), registrationRequest.getStudentId(), registrationRequest.getFirstName(),
+                registrationRequest.getLastName(), registrationRequest.getPassword(), "student");
+
+        // when
+        unverifiedUserService.addUnverifiedUser(unverifiedUser);
+        VerificationRequest verificationRequest = new VerificationRequest(unverifiedUser.getEmail(), "code");
+        RegistrationResponses response = underTest.verifyUser(verificationRequest);
+
+        // then
+        RegistrationResponses expected = RegistrationResponses.FAILED_VERIFICATION;
+        assertThat(response).isEqualTo(expected);
+
+        // clean up
+        unverifiedUserService.deleteUnverifiedUser(unverifiedUserService.getUnverifiedUser(registrationRequest.getEmail()).orElseThrow().getId());
+        verificationCodeService.deleteVerificationCode(registrationRequest.getEmail());
+    }
+
+    @Test
+    void itShouldMakeFailedVerification2() {
+        // given
+        UnverifiedUser unverifiedUser = new UnverifiedUser(registrationRequest.getEmail(), registrationRequest.getStudentId(), registrationRequest.getFirstName(),
+                registrationRequest.getLastName(), registrationRequest.getPassword(), "student");
+
+        // when
+        unverifiedUserService.addUnverifiedUser(unverifiedUser);
+        String code = verificationCodeService.addVerificationCode(unverifiedUser.getEmail());
+        VerificationRequest verificationRequest = new VerificationRequest(registrationRequest.getEmail(), "wrong code");
+        RegistrationResponses response = underTest.verifyUser(verificationRequest);
+
+        // then
+        RegistrationResponses expected = RegistrationResponses.FAILED_VERIFICATION;
+        assertThat(response).isEqualTo(expected);
+
+        // clean up
+        unverifiedUserService.deleteUnverifiedUser(unverifiedUserService.getUnverifiedUser(registrationRequest.getEmail()).orElseThrow().getId());
+        verificationCodeService.deleteVerificationCode(registrationRequest.getEmail());
+
+    }
 }

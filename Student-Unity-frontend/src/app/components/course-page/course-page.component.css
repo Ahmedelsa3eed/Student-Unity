@@ -1,0 +1,9 @@
+.materia-categorty {
+    background-color: #f3f4f6;
+    border-radius: 4%;
+}
+
+.materia-categorty:hover {
+    cursor: pointer;
+    color: #0d6efd;
+}

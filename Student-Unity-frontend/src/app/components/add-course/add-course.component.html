@@ -1,0 +1,100 @@
+<div class="container sign-up-page">
+    <form [formGroup]="registerForm" (ngSubmit)="(registerSubmitted)" class="border p-2 rounded-3">
+        <div class="row g-3">
+            <div class="col text-center p-2 mb-3 bg-light">
+                <span class="fs-3"> Register</span>
+            </div>
+        </div>
+        <!--Input Name-->
+        <div class="row">
+            <div class="col mb-3">
+                <label for="courseName" class="form-label">Course Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Course Name"
+                    id="courseName"
+                    formControlName="courseName"
+                />
+                <div
+                    class="formtext text-danger"
+                    *ngIf="courseName.errors?.['required'] && (courseName.touched || courseName.dirty)"
+                >
+                    course Name is Required.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="courseName.errors?.['pattern'] && (courseName.touched || courseName.dirty)"
+                >
+                    Name should only conatain latin letters and numbers.
+                </div>
+            </div>
+            <!--Input Code-->
+            <div class="col mb-3">
+                <label for="courseCode" class="form-label">Course Code</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Course Code"
+                    id="courseCode"
+                    formControlName="courseCode"
+                />
+                <div
+                    class="formtext text-danger"
+                    *ngIf="courseCode.errors?.['required'] && (courseCode.touched || courseCode.dirty)"
+                >
+                    course Code is Required.
+                </div>
+                <div
+                    class="formtext text-danger"
+                    *ngIf="courseCode.errors?.['pattern'] && (courseCode.touched || courseCode.dirty)"
+                >
+                    Name should only conatain latin letters and numbers.
+                </div>
+            </div>
+        </div>
+        <!--Input status-->
+        <div class="form-check form-switch">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                formControlName="status"
+            />
+            <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
+        </div>
+        <!--Input term-->
+        <div class="row">
+            <div class="col mb-3">
+                <label for="term" class="form-label">Term</label>
+                <input type="number" class="form-control" placeholder="1" id="term" formControlName="term" />
+                <div class="formtext text-danger" *ngIf="term.errors?.['required'] && (term.touched || term.dirty)">
+                    Term is required.
+                </div>
+            </div>
+        </div>
+        <!--submit-->
+        <div class="row">
+            <div class="col mb-3">
+                <div [hidden]="!postError" class="alert alert-danger text-center" role="alert">
+                    {{ postErrorMessage }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="d-grid">
+                    <button
+                        type="submit"
+                        [disabled]="registerForm.invalid"
+                        class="btn btn-primary"
+                        (click)="registerSubmitted()"
+                    >
+                        Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

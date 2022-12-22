@@ -3,31 +3,42 @@ name: Student Unity frontend workflow
 on:
   push:
     paths:
-      - 'Student-Unity-frontend/**'
-      - '.github/workflows/**'
+      - "Student-Unity-frontend/**"
+      - ".github/workflows/**"
     branches:
       - main
       - milestone*
 
   pull_request:
     paths:
-      - 'Student-Unity-frontend/**'
-      - '.github/workflows/**'
+      - "Student-Unity-frontend/**"
+      - ".github/workflows/**"
     types: [opened, synchronize, reopened]
-  
+
 jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-        
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        projectBaseDir: Student-Unity-frontend
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONTEND }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+          cache-dependency-path: Student-Unity-frontend/package-lock.json
+      - run: |
+          cd Student-Unity-frontend
+          npm ci
+          npm run prepare
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: Student-Unity-frontend
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONTEND }}
