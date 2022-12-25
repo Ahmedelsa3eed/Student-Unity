@@ -4,9 +4,11 @@
         <em class="bi bi-unity pe-none me-2"></em>
         <span class="fs-4">Student Unity</span>
     </a>
+    <!-- Logout -->
     <a href="/" class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none" (click)="logout()">
-        <span class="fs-4">logout</span>
+        <span class="fs-4">Logout</span>
     </a>
+    <!-- Add Task -->
     <button
         *ngIf="loggedInUser.role == 'admin'"
         class="btn btn-primary"
@@ -26,20 +28,28 @@
 
     <!-- Buttons -->
     <div class="parent">
+        <!-- All Courses -->
         <div [routerLink]="['/home/allCourses']" [routerLinkActive]="['active']" (click)="navigateTo('allCourses')">
-            <em class="bi bi-stack"></em>All Courses
+            <em class="bi bi-stack"></em>
+            All Courses
         </div>
+        <!-- My Courses -->
         <div [routerLink]="['/home/myCourses']" [routerLinkActive]="['active']" (click)="navigateTo('myCourses')">
-            <em class="bi bi-book"></em>My Courses
+            <em class="bi bi-book"></em>
+            My Courses
         </div>
         <div (click)="navigateTo('tasksPage')"><em class="bi bi-list-task"></em>Tasks</div>
         <div><em class="bi bi-megaphone pe-none me-2"></em>Announcements</div>
         <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
+        <!-- Accounts -->
         <div
             *ngIf="loggedInUser.role == 'admin'"
             [routerLink]="['/home/accountsPage']"
             [routerLinkActive]="['active']"
             (click)="navigateTo('accountsPage')"
-        ></div>
+        >
+            <em class="bi bi-person-circle pe-none me-2"></em>
+            Accounts
+        </div>
     </div>
 </div>
