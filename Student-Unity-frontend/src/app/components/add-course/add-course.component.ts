@@ -18,10 +18,10 @@ export class AddCourseComponent implements OnInit {
     postErrorMessage: string = '';
     course: Course = {} as Course;
     constructor(
-      private fb: FormBuilder,
-      private allCoursesService: AllCoursesService,
-      private router: Router,
-      private signInOutService: SignInOutService,
+        private fb: FormBuilder,
+        private allCoursesService: AllCoursesService,
+        private router: Router,
+        private signInOutService: SignInOutService
     ) {}
 
     ngOnInit(): void {
@@ -48,13 +48,12 @@ export class AddCourseComponent implements OnInit {
         this.allCoursesService.postCourseData(this.signInOutService.getSignedInUserSessionID(), this.course).subscribe({
             next: (res) => {
                 console.log(res);
-              this.router.navigate(['home/allCourses']);
+                this.router.navigate(['home/allCourses']);
             },
             error: (err) => this.httpError(err),
             complete: () => console.info('Course Submited'),
         });
-      this.router.navigate(['home/allCourses']);
-
+        this.router.navigate(['home/allCourses']);
     }
 
     // method to print the error message from the backend
