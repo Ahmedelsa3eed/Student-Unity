@@ -1,3 +1,4 @@
+import { AddAnnouncementComponent } from './components/add-announcement/add-announcement.component';
 import { AccountPageComponent } from './components/account-page/account-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,6 +11,7 @@ import { AllCoursesComponent } from './components/all-courses/all-courses.compon
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
 import { CoursePageComponent } from './components/course-page/course-page.component';
+import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
 
 import { AddTaskComponent } from './components/addtask/add-task.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
@@ -49,6 +51,14 @@ const routes: Routes = [
             {
                 path: 'addTask',
                 component: AddTaskComponent,
+            },
+            {
+                path: 'announcementPage',
+                component: AnnouncementPageComponent,
+            },
+            {
+                path: 'add-announcement',
+                component: AddAnnouncementComponent,
             },
         ],
     },

@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { AccountService } from 'src/app/services/account.service';
 import { User } from 'src/app/models/User';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
@@ -34,10 +31,6 @@ export class AllCoursesComponent implements OnInit {
         private allCoursesService: AllCoursesService
     ) {}
 
-    addCourse(): void {
-        this.router.navigate(['home/addCourse']);
-    }
-
     ngOnInit(): void {
         this.getSignedInUser();
         this.sub = this.allCoursesService.getAllCourses().subscribe({
@@ -48,6 +41,10 @@ export class AllCoursesComponent implements OnInit {
             },
             error: (err) => console.log(err),
         });
+    }
+
+    addCourse(): void {
+        this.router.navigate(['home/addCourse']);
     }
 
     get filterByStatus(): boolean {

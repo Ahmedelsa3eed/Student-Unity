@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SignUpData } from 'src/app/models/sign-up-data.model';
-import { ConfirmedValidator } from '../shared/match.validator';
 import { Course } from 'src/app/models/Course';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';

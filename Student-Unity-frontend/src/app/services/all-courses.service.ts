@@ -3,7 +3,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Course } from '../models/Course';
-import { FnParam } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
     providedIn: 'root',

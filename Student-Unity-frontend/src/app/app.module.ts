@@ -34,6 +34,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CoursePageComponent } from './components/course-page/course-page.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
+import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
+import { AnnouncementComponent } from './components/announcement/announcement.component';
+import { AddAnnouncementComponent } from './components/add-announcement/add-announcement.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +59,9 @@ import { VerficationComponent } from './components/verfication/verfication.compo
         TasksPageComponent,
         AddTaskComponent,
         VerficationComponent,
+        AnnouncementPageComponent,
+        AnnouncementComponent,
+        AddAnnouncementComponent,
     ],
     imports: [
         BrowserModule,
