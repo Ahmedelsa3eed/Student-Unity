@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,23 +13,29 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "announcement")
-public class Announcement {
+public class Announcement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "announcement_id", nullable = false)
     private UUID id;
 
-    @ManyToOne
+    // alter table announcement add foreign key(course_id) references course (course_id) on delete cascade
     @JoinColumn(name = "course_id")
-    private Course course;
+    private long courseId;
 
     @Column(columnDefinition = "Date")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date postedTime;
+    @JsonFormat(pattern="YYYY-MM-DD")
+    private Date postedDate;
 
     @Column(columnDefinition = "varchar(500)")
     private String body;
 
-    public Announcement
+    public Announcement() {}
+
+    public Announcement(long courseId, Date postedDate, String body) {
+        this.courseId = courseId;
+        this.postedDate = postedDate;
+        this.body = body;
+    }
 
 }

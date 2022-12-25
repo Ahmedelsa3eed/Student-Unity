@@ -13,7 +13,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AdminCheckInterceptor())
                 .addPathPatterns("/accounts/**")
-                .addPathPatterns("/tasks/**");
+                .addPathPatterns("/tasks/**")
+                .addPathPatterns("/announcement/add");
     }
 
 }
