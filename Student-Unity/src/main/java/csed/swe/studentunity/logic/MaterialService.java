@@ -73,4 +73,12 @@ public class MaterialService {
         return 404;
     }
 
+    public Object[] getCourseMaterialCategories(Long courseId) {
+        return new Object[]{materialCategoryRepo.getCourseMaterialCategories(courseId), 200};
+    }
+
+    public Object[] getMaterialCategoryContent(Long materialCategoryId) {
+        return new Object[]{materialRepo.getMaterialCategoryContent(materialCategoryId), 200};
+    }
+
 }

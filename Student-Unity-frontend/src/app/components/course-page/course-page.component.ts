@@ -20,6 +20,7 @@ export class CoursePageComponent implements OnInit {
     ) {}
 
     addCategoryLoading: boolean = false;
+    materialCategories: MaterialCategory[] = [];
     addMaterialResponse: string = '';
     addMaterialLoading: boolean = false;
     course: Course = new Course();
@@ -37,6 +38,14 @@ export class CoursePageComponent implements OnInit {
                 },
                 (error: HttpErrorResponse) => {
                     if (error.status == 404) alert('Course Not Found');
+                }
+            );
+            this.materialsService.getCourseMaterialCategories(courseId).subscribe(
+                (response) => {
+                    this.materialCategories = response;
+                },
+                (error: HttpErrorResponse) => {
+                    alert(error.message);
                 }
             );
         });
