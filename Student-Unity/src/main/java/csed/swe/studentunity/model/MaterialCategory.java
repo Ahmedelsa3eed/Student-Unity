@@ -1,52 +1,30 @@
 package csed.swe.studentunity.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 
+@Getter
+@Setter
 @Entity(name = "MaterialCategory")
-@Table(name = "material_category")
+@Table(name = "material_category", uniqueConstraints = {
+        @UniqueConstraint(name = "unique_material_category_name", columnNames = {"course_id", "material_category_name"})
+})
 public class MaterialCategory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, columnDefinition = "BIGINT")
+    @Column(name = "material_category_id", nullable = false, columnDefinition = "BIGINT")
     private Long id;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "course", nullable = false)
-    private Course course;
+    @Column(name = "course_id", nullable = false, columnDefinition = "BIGINT")
+    private Long courseId;
 
-    @Column(name = "name", nullable = false, unique = true, columnDefinition = "VARCHAR(100)")
+    @Column(name = "material_category_name", nullable = false, columnDefinition = "VARCHAR(100)")
     private String name;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 }
+
+// alter table material_category add foreign key(course_id) references course (course_id) on delete cascade

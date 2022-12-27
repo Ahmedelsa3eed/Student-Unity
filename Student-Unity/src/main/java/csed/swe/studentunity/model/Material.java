@@ -9,16 +9,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity(name = "Material")
-@Table(name = "material")
+@Table(name = "material", uniqueConstraints = {
+        @UniqueConstraint(name = "unique_material_title", columnNames = {"material_title", "material_category_id"})
+})
 public class Material implements Serializable {
-
-    public Material() {}
-
-    public Material(String title, String url, MaterialCategory materialCategory) {
-        this.title = title;
-        this.url = url;
-        this.materialCategory = materialCategory;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,8 +25,9 @@ public class Material implements Serializable {
     @Column(name = "material_url", nullable = false, columnDefinition = "VARCHAR(256)")
     private String url;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "material_category_id", nullable = false)
-    private MaterialCategory materialCategory;
+    @Column(name = "material_category_id", nullable = false, columnDefinition = "BIGINT")
+    private Long materialCategoryId;
 
 }
+
+// alter table material add foreign key(material_category_id) references material_category (material_category_id) on delete cascade

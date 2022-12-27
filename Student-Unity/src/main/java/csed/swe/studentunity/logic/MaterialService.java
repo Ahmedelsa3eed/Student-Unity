@@ -38,7 +38,7 @@ public class MaterialService {
             Material materialToEdit = record.get();
             materialToEdit.setTitle(material.getTitle());
             materialToEdit.setUrl(material.getUrl());
-            materialToEdit.setMaterialCategory(material.getMaterialCategory());
+            materialToEdit.setMaterialCategoryId(material.getMaterialCategoryId());
             try {
                 materialRepo.save(materialToEdit);
                 return 200;

@@ -42,12 +42,13 @@
 
             <div class="modal-body">
                 <input #addCategoryNameInput type="text" class="form-control" placeholder="Category Name" />
-                <div style="margin-left: 5px; margin-top: 10px">{{ addCategoryResponse }}</div>
-                <div *ngIf="addCategoryLoading" class="spinner-border text-primary" role="status"></div>
+                <div *ngIf="addCategoryLoading" class="spinner-border text-primary mt-3" role="status"></div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button id="openAddCategoryBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
                 <button type="submit" class="btn btn-primary" (click)="onAddCategory(addCategoryNameInput.value)">
                     Add
                 </button>
