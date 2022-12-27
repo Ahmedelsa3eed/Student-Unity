@@ -28,7 +28,7 @@ export class StudentTaskService {
                     return new HttpResponse<Task[]>({
                         body: data.body?.map((list) => {
                             // @ts-ignore
-                            return new Task(list[0], list[1], list[2], list[3], list[4], list[5]);
+                            return new Task(list[0], list[1], list[2], this.formatDate(list[3]), list[4], list[5]);
                         }),
                         headers: data.headers,
                     });
@@ -52,7 +52,7 @@ export class StudentTaskService {
                     return new HttpResponse<Task[]>({
                         body: data.body?.map((list) => {
                             // @ts-ignore
-                            return new Task(list[0], list[1], list[2], list[3], list[4], list[5]);
+                            return new Task(list[0], list[1], list[2], this.formatDate(list[3]), list[4], list[5]);
                         }),
                         headers: data.headers,
                     });
@@ -85,5 +85,10 @@ export class StudentTaskService {
                 responseType: 'json',
             }
         );
+    }
+
+    private formatDate(date: string): string {
+        let dateTime = date.split('T');
+        return dateTime[0] + ' ' + dateTime[1].slice(0, 5);
     }
 }

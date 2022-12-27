@@ -45,7 +45,12 @@
     display: inline-block;
 }
 
-.card-header em {
+#del-icon {
     position: absolute;
     right: 0;
+}
+
+#edit-icon {
+    position: absolute;
+    right: 30px;
 }
