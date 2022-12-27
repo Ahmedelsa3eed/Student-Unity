@@ -1,29 +1,30 @@
-<div class="form-row" style="margin-top: 50px; margin-left: 100px; margin-right: 100px">
-    <form [formGroup]="addTaskForm" (ngSubmit)="(addTask)" class="border p-2 rounded-3">
-        <mat-form-field appearance="fill">
-            <mat-label>Task title </mat-label>
-            <input matInput placeholder="Ex. sheet 4 AI" id="Title" formControlName="Title" />
-        </mat-form-field>
-
-        <h4>Related Course Name</h4>
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Select Course Name </mat-label>
-            <mat-select formControlName="Course" id="Course">
-                <mat-option *ngFor="let course of registeredCourses" [value]="course">
-                    {{ course.name }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div>
+<div class="container p-4">
+    <div class="form-row">
+        <form [formGroup]="addTaskForm" (ngSubmit)="(addTask)" class="border p-2 rounded-3">
             <mat-form-field appearance="fill">
-                <mat-label>Choose the dueDate</mat-label>
-                <input matInput type="datetime-local" formControlName="DueDate" id="DueDate" />
-                <mat-datepicker #picker></mat-datepicker>
+                <mat-label>Task title </mat-label>
+                <input matInput placeholder="Ex. sheet 4 AI" id="Title" formControlName="Title" />
             </mat-form-field>
-        </div>
-        <hr />
-        <button class="btn btn-primary" type="submit" [disabled]="addTaskForm.invalid" (click)="addTask()">
-            Add Task
-        </button>
-    </form>
+            <br />
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Select Course Name </mat-label>
+                <mat-select formControlName="Course" id="Course">
+                    <mat-option *ngFor="let course of registeredCourses" [value]="course">
+                        {{ course.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose the dueDate</mat-label>
+                    <input matInput type="datetime-local" formControlName="DueDate" id="DueDate" />
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <hr />
+            <button class="btn btn-primary" type="submit" [disabled]="addTaskForm.invalid" (click)="addTask()">
+                Add Task
+            </button>
+        </form>
+    </div>
 </div>

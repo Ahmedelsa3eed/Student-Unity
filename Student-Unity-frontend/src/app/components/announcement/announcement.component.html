@@ -1,0 +1,27 @@
+<div class="accordion-item">
+    <h2 class="accordion-header" [id]="'heading' + id">
+        <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapse' + id"
+            aria-expanded="false"
+            [attr.aria-controls]="'collapse' + id"
+        >
+            <strong>{{ announcemet.courseName }}</strong>
+        </button>
+    </h2>
+    <div
+        [id]="'collapse' + id"
+        class="accordion-collapse collapse"
+        [attr.aria-labelledby]="'heading' + id"
+        data-bs-parent="#announcementPage"
+    >
+        <div class="accordion-body" style="color: grey">
+            {{ announcemet.body }}
+        </div>
+        <div class="accordion-body">
+            {{ getDate() }}
+        </div>
+    </div>
+</div>

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../models/Course';
-import { BehaviorSubject, map } from 'rxjs';
+import { map } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
 import { SignInOutService } from '../../services/sign-in-out.service';
 import { Task } from '../../models/Task';
-import { Observable } from 'rxjs';
 import { AddTaskService } from '../../services/add-task.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -51,12 +50,11 @@ export class AddTaskComponent implements OnInit {
                     });
                 })
             )
-            .subscribe(
-                () => {},
-                (error: HttpErrorResponse) => {
-                    if (error.status == 404) alert('User Not Found');
-                }
-            );
+            .subscribe({
+                error: (err: HttpErrorResponse) => {
+                    if (err.status == 404) alert('User Not Found');
+                },
+            });
     }
 
     addTask() {

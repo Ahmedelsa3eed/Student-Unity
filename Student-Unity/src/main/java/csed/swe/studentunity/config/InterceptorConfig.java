@@ -14,7 +14,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new AdminCheckInterceptor())
                 .addPathPatterns("/accounts/**")
                 .addPathPatterns("/tasks/**")
-                .addPathPatterns("/materials/admin/**");
+                .addPathPatterns("/materials/admin/**")
+                .addPathPatterns("/announcement/add");
     }
 
 }
