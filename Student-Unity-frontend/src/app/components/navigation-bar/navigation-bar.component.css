@@ -55,20 +55,8 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.profile {
-    display: flex;
-    background-color: #f7f8fa;
-    padding: 10px;
-    width: 160px;
-    height: 160px;
-    font-size: xxx-large;
+.logout {
     margin: auto;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid #0d6efd;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    width: 65.5px;
+    margin-bottom: 35px;
 }
