@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
 import { Course } from 'src/app/models/Course';
+import { MaterialCategory } from 'src/app/models/MaterialCategory';
 import { CoursesService } from 'src/app/services/courses.service';
+import { MaterialsService } from 'src/app/services/materials.service';
 
 @Component({
     selector: 'app-course-page',
@@ -14,10 +15,10 @@ export class CoursePageComponent implements OnInit {
     constructor(
         private coursesService: CoursesService,
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private materialsService: MaterialsService
     ) {}
 
-    addCategoryResponse: string = '';
     addCategoryLoading: boolean = false;
     addMaterialResponse: string = '';
     addMaterialLoading: boolean = false;
@@ -41,7 +42,23 @@ export class CoursePageComponent implements OnInit {
         });
     }
 
-    onAddCategory(newCategoryName: string) {}
+    onAddCategory(newCategoryName: string) {
+        this.addCategoryLoading = true;
+        let materialCategory: MaterialCategory = new MaterialCategory();
+        materialCategory.name = newCategoryName;
+        materialCategory.courseId = this.course.id;
+        this.materialsService.addMaterialCategory(materialCategory).subscribe(
+            () => {
+                this.addCategoryLoading = false;
+                document.getElementById('openAddCategoryBtn')?.click();
+                window.location.reload();
+            },
+            (error: HttpErrorResponse) => {
+                this.addCategoryLoading = false;
+                alert('Something is wrong, the category may be already existed!');
+            }
+        );
+    }
 
     onAddMaterial(newCategoryName: string) {}
 }
