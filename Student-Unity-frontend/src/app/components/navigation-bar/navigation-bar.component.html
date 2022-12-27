@@ -32,10 +32,21 @@
     <hr />
 
     <!-- Profile -->
-    <div class="profile text-center">
+    <div class="text-center">
         <h4 *ngIf="loggedInUser != null">
             <strong>{{ loggedInUser.firstName }} {{ loggedInUser.lastName }}</strong>
         </h4>
+
+        <!-- Logout -->
+        <div class="logout">
+            <a
+                href="/"
+                class="d-flex align-items-center mb-1 mb-md-0 me-md-auto text-decoration-none"
+                (click)="logout()"
+            >
+                <span class="fs-5">logout</span>
+            </a>
+        </div>
     </div>
 
     <!-- Buttons -->
@@ -71,7 +82,4 @@
             Accounts
         </div>
     </div>
-
-    <!-- Logout -->
-    <button class="btn btn-primary" type="button" (click)="logout()">Logout</button>
 </div>
