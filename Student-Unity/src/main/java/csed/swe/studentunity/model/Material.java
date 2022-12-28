@@ -28,6 +28,15 @@ public class Material implements Serializable {
     @Column(name = "material_category_id", nullable = false, columnDefinition = "BIGINT")
     private Long materialCategoryId;
 
+    public Material() {}
+
+    public Material(Long id, String title, String url, Long materialCategoryId) {
+        this.id = id;
+        this.title = title;
+        this.url = url;
+        this.materialCategoryId = materialCategoryId;
+    }
+
 }
 
 // alter table material add foreign key(material_category_id) references material_category (material_category_id) on delete cascade

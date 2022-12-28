@@ -50,4 +50,16 @@ export class MaterialsService {
             params: { sessionId: this.signInOutService.getSignedInUserSessionID() },
         });
     }
+
+    getCourseMaterialCategories(courseId: number): Observable<any> {
+        return this.httpClient.get(environment.baseUrl + '/materials/getCourseMaterialCategories', {
+            params: { courseId: courseId },
+        });
+    }
+
+    getMaterialCategoryContent(materialCategoryId: number): Observable<any> {
+        return this.httpClient.get(environment.baseUrl + '/materials/getMaterialCategoryContent', {
+            params: { materialCategoryId: materialCategoryId },
+        });
+    }
 }

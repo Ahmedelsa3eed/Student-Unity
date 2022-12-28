@@ -15,7 +15,6 @@ export class CoursePageComponent implements OnInit {
     constructor(
         private coursesService: CoursesService,
         private activatedRoute: ActivatedRoute,
-        private router: Router,
         private materialsService: MaterialsService
     ) {}
 
