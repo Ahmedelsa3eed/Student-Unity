@@ -28,4 +28,14 @@ public class AnnouncementAPI {
         return new ResponseEntity<>(this.announcementService.getAnnouncements(sessionId), HttpStatus.OK);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<Iterable<Object>> getAnnouncementsByCourse(@RequestParam("sessionId") String sessionId, @RequestParam("courseId") Long courseId) {
+        return new ResponseEntity<>(this.announcementService.filterAnnouncementsByCourse(sessionId, courseId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteAnnouncement(@RequestParam("sessionId") String sessionId, @RequestParam("announcementId") Long announcementId) {
+        return new ResponseEntity<>(this.announcementService.deleteAnnouncement(sessionId, announcementId), HttpStatus.OK);
+    }
+
 }

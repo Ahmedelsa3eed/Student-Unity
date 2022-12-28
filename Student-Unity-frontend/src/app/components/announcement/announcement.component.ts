@@ -34,4 +34,5 @@ export class AnnouncementComponent implements OnInit {
         let uniqueId = randomLetter + Date.now();
         return uniqueId;
     }
+
 }
