@@ -35,7 +35,4 @@ export class AnnouncementComponent implements OnInit {
         return uniqueId;
     }
 
-  removeTask() {
-
-  }
 }
