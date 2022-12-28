@@ -1,12 +1,10 @@
 import { StudentTaskService } from './../../services/student-task.service';
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../models/Task';
-import { STATUS } from 'src/app/models/Status';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Course } from '../../models/Course';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CoursesService } from '../../services/courses.service';
-import { SignInOutService } from '../../services/sign-in-out.service';
 
 @Component({
     selector: 'app-tasks-page',
@@ -22,11 +20,7 @@ export class TasksPageComponent implements OnInit {
     public selectedCourseToDo: string = 'All';
     public selectedCourseDone: string = 'All';
 
-    constructor(
-        private studentTaskService: StudentTaskService,
-        private coursesService: CoursesService,
-        private signInOutService: SignInOutService
-    ) {}
+    constructor(private studentTaskService: StudentTaskService, private coursesService: CoursesService) {}
 
     ngOnInit(): void {
         this.getStudentTasks();
@@ -53,7 +47,7 @@ export class TasksPageComponent implements OnInit {
 
     public getSubscribedCourses() {
         this.coursesService
-            .getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID())
+            .getUserRegisteredCourse()
             .pipe(
                 map((list) => {
                     list.forEach((data: any) => {
@@ -75,8 +69,6 @@ export class TasksPageComponent implements OnInit {
     }
 
     public filterToDoTasks($event: any) {
-        console.log($event);
-
         if ($event == 'All') {
             this.getStudentTasks();
         } else {
@@ -97,7 +89,6 @@ export class TasksPageComponent implements OnInit {
     }
 
     public filterDoneTasks($event: any) {
-        console.log($event);
         if ($event == 'All') {
             this.getStudentTasks();
         } else {

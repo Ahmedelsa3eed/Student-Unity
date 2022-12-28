@@ -6,7 +6,6 @@ import { Course } from 'src/app/models/Course';
 import { HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs';
 import { CoursesService } from 'src/app/services/courses.service';
-import { SignInOutService } from 'src/app/services/sign-in-out.service';
 
 @Component({
     selector: 'app-add-announcement',
@@ -23,7 +22,6 @@ export class AddAnnouncementComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private coursesService: CoursesService,
-        private signInOutService: SignInOutService,
         private announcementService: AnnouncementService
     ) {}
 
@@ -41,7 +39,7 @@ export class AddAnnouncementComponent implements OnInit {
 
     private getCourses() {
         this.coursesService
-            .getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID())
+            .getUserRegisteredCourse()
             .pipe(
                 map((list) => {
                     list.forEach((data: any) => {

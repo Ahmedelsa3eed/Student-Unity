@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../models/Course';
 import { map } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
-import { SignInOutService } from '../../services/sign-in-out.service';
 import { Task } from '../../models/Task';
-import { AddTaskService } from '../../services/add-task.service';
+import { TaskService } from '../../services/task.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -21,23 +20,21 @@ export class AddTaskComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private coursesService: CoursesService,
-        private signInOutService: SignInOutService,
-        private addTaskService: AddTaskService
+        private addTaskService: TaskService
     ) {}
 
     ngOnInit(): void {
         this.addTaskForm = this.formBuilder.group({
-            Title: this.formBuilder.control('', [Validators.required]),
-            DueDate: this.formBuilder.control(''),
-            Course: this.formBuilder.control('', [Validators.required]),
-            Time: this.formBuilder.control(''),
+            Title: this.formBuilder.control(this.task.title, [Validators.required]),
+            DueDate: this.formBuilder.control(this.task.dueDate, [Validators.required]),
+            Course: this.formBuilder.control(this.task.course, [Validators.required]),
         });
         this.getCourses();
     }
 
     getCourses() {
         this.coursesService
-            .getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID())
+            .getUserRegisteredCourse()
             .pipe(
                 map((list) => {
                     list.forEach((data: any) => {
@@ -62,15 +59,13 @@ export class AddTaskComponent implements OnInit {
         this.task.dueDate = this.addTaskForm.value.DueDate;
         this.task.course = this.addTaskForm.value.Course;
         this.task.dueDate = this.task.dueDate?.concat(':00');
-        this.addTaskService.addTask(this.signInOutService.getSignedInUserSessionID(), this.task).subscribe(
-            (res) => {
+        this.addTaskService.addTask(this.task).subscribe({
+            next: (res) => {
                 if (res.status == 200) {
                     console.log('Task Added Successfully');
                 }
             },
-            (err) => {
-                console.log(err);
-            }
-        );
+            error: (err) => console.log(err),
+        });
     }
 }
