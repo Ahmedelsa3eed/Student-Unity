@@ -14,10 +14,8 @@
     </div>
 </div>
 
-<div class="row p-3 gap-2">
-    <div *ngFor="let materialCategory of materialCategories" class="col-3 p-3 materia-categorty">
-        {{ materialCategory.name }}
-    </div>
+<div>
+    <router-outlet></router-outlet>
 </div>
 
 <div class="p-3" style="position: fixed; bottom: 0; width: 100%">

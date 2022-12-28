@@ -1,6 +1,6 @@
 import { AddAnnouncementComponent } from './components/add-announcement/add-announcement.component';
 import { AccountPageComponent } from './components/account-page/account-page.component';
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -12,9 +12,11 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { TasksPageComponent } from './components/tasks-page/tasks-page.component';
 import { CoursePageComponent } from './components/course-page/course-page.component';
 import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
-
 import { AddTaskComponent } from './components/addtask/add-task.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
+import { MaterialPageComponent } from './components/material-page/material-page.component';
+import { MaterialCategoryPageComponent } from './components/material-category-page/material-category-page.component';
+
 const routes: Routes = [
     { path: 'sign-in', component: SignInComponent },
     { path: 'sign-up', component: SingUpComponent },
@@ -47,6 +49,16 @@ const routes: Routes = [
             {
                 path: 'course',
                 component: CoursePageComponent,
+                children: [
+                    {
+                        path: 'material',
+                        component: MaterialPageComponent,
+                    },
+                    {
+                        path: '**',
+                        component: MaterialCategoryPageComponent,
+                    },
+                ],
             },
             {
                 path: 'addTask',
