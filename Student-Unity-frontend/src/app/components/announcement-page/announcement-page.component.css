@@ -1,0 +1,9 @@
+.announcement-header {
+  background-color: #ffffff;
+  padding: 5px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+}
