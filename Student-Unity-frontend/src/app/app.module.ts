@@ -37,6 +37,7 @@ import { VerficationComponent } from './components/verfication/verfication.compo
 import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
 import { AnnouncementComponent } from './components/announcement/announcement.component';
 import { AddAnnouncementComponent } from './components/add-announcement/add-announcement.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import { AddAnnouncementComponent } from './components/add-announcement/add-anno
         AnnouncementPageComponent,
         AnnouncementComponent,
         AddAnnouncementComponent,
+        SettingsComponent,
     ],
     imports: [
         BrowserModule,

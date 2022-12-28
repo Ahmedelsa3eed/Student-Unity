@@ -15,6 +15,7 @@ import { AnnouncementPageComponent } from './components/announcement-page/announ
 
 import { AddTaskComponent } from './components/addtask/add-task.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
+import {SettingsComponent} from "./components/settings/settings.component";
 const routes: Routes = [
     { path: 'sign-in', component: SignInComponent },
     { path: 'sign-up', component: SingUpComponent },
@@ -60,6 +61,11 @@ const routes: Routes = [
                 path: 'add-announcement',
                 component: AddAnnouncementComponent,
             },
+            {
+                path: 'settings',
+                component: SettingsComponent,
+            }
+
         ],
     },
     { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
