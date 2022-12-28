@@ -33,11 +33,11 @@ export class AnnouncementService {
     }
 
     public filterAnnouncements(courseId: number): Observable<HttpResponse<Announcement[]>> {
-        return this.http.get<Announcement[]>(this.url + '/filter' , {
+        return this.http.get<Announcement[]>(this.url + '/filter', {
             observe: 'response',
             params: {
                 sessionId: this.userService.getSignedInUserSessionID(),
-                courseId: courseId
+                courseId: courseId,
             },
             responseType: 'json',
         });

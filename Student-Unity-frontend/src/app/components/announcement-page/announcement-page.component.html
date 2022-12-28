@@ -1,13 +1,13 @@
 <div class="container p-lg-5">
-  <select
-    (ngModelChange)="filterAnnouncement($event)"
-    [(ngModel)]="selectedCourseName"
-    class="form-select form-select-sm"
-    aria-label=".form-select-sm example"
-  >
-    <option value="All">All</option>
-    <option *ngFor="let c of registeredCourses" [ngValue]="c">{{ c.name }}</option>
-  </select>
+    <select
+        (ngModelChange)="filterAnnouncement($event)"
+        [(ngModel)]="selectedCourseName"
+        class="form-select form-select-sm"
+        aria-label=".form-select-sm example"
+    >
+        <option value="All">All</option>
+        <option *ngFor="let c of registeredCourses" [ngValue]="c">{{ c.name }}</option>
+    </select>
 </div>
 
 <div class="container p-4">

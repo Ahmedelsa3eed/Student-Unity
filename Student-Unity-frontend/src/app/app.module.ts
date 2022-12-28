@@ -37,6 +37,8 @@ import { VerficationComponent } from './components/verfication/verfication.compo
 import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
 import { AnnouncementComponent } from './components/announcement/announcement.component';
 import { AddAnnouncementComponent } from './components/add-announcement/add-announcement.component';
+import { MaterialPageComponent } from './components/material-page/material-page.component';
+import { MaterialCategoryPageComponent } from './components/material-category-page/material-category-page.component';
 
 @NgModule({
     declarations: [
@@ -62,6 +64,8 @@ import { AddAnnouncementComponent } from './components/add-announcement/add-anno
         AnnouncementPageComponent,
         AnnouncementComponent,
         AddAnnouncementComponent,
+        MaterialPageComponent,
+        MaterialCategoryPageComponent,
     ],
     imports: [
         BrowserModule,
