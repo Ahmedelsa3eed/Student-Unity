@@ -1,0 +1,9 @@
+<div class="row p-3 gap-2">
+    <div
+        *ngFor="let category of materialCategories"
+        class="col-3 p-3 materia-categorty"
+        (click)="onOpenCategory(category.id, category.name)"
+    >
+        {{ category.name }}
+    </div>
+</div>

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/materials")
 public class MaterialAPI {
@@ -45,6 +47,18 @@ public class MaterialAPI {
     @PutMapping("/admin/editMaterialCategory")
     public ResponseEntity<?> editMaterialCategory(@RequestBody MaterialCategory materialCategory) {
         return new ResponseEntity<>(HttpStatusCode.valueOf(materialService.editMaterialCategory(materialCategory)));
+    }
+
+    @GetMapping("/getCourseMaterialCategories")
+    public ResponseEntity<List<MaterialCategory>> getCourseMaterialCategories(@RequestParam Long courseId) {
+        Object[] result = materialService.getCourseMaterialCategories(courseId);
+        return new ResponseEntity<>((List<MaterialCategory>)result[0], HttpStatusCode.valueOf((int)result[1]));
+    }
+
+    @GetMapping("/getMaterialCategoryContent")
+    public ResponseEntity<List<Material>> getMaterialCategoryContent(@RequestParam Long materialCategoryId) {
+        Object[] result = materialService.getMaterialCategoryContent(materialCategoryId);
+        return new ResponseEntity<>((List<Material>)result[0], HttpStatusCode.valueOf((int)result[1]));
     }
 
 }

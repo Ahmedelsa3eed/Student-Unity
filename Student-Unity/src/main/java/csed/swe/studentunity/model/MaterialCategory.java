@@ -25,6 +25,14 @@ public class MaterialCategory implements Serializable {
     @Column(name = "material_category_name", nullable = false, columnDefinition = "VARCHAR(100)")
     private String name;
 
+    public MaterialCategory() {}
+
+    public MaterialCategory(Long id, Long courseId, String name) {
+        this.id = id;
+        this.courseId = courseId;
+        this.name = name;
+    }
+
 }
 
 // alter table material_category add foreign key(course_id) references course (course_id) on delete cascade
