@@ -31,4 +31,15 @@ export class AnnouncementService {
             responseType: 'json',
         });
     }
+
+    public filterAnnouncements(courseId: number): Observable<HttpResponse<Announcement[]>> {
+        return this.http.get<Announcement[]>(this.url + '/filter', {
+            observe: 'response',
+            params: {
+                sessionId: this.userService.getSignedInUserSessionID(),
+                courseId: courseId,
+            },
+            responseType: 'json',
+        });
+    }
 }

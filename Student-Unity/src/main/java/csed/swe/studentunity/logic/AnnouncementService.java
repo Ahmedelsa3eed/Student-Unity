@@ -35,4 +35,22 @@ public class AnnouncementService {
         return Collections.emptyList();
     }
 
+    public Iterable<Object> filterAnnouncementsByCourse(String sessionId, Long courseId) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
+        if (userId != null)
+            return this.announcementRepo.filterAnnouncements(userId, courseId)
+                    .orElse(Collections.emptyList());
+        return Collections.emptyList();
+    }
+
+    public Boolean deleteAnnouncement(String sessionId, Long announcementId) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
+        if (userId != null) {
+            this.announcementRepo.deleteById(announcementId);
+            return true;
+        }
+        return false;
+    }
 }
