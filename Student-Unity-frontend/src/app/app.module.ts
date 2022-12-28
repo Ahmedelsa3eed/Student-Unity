@@ -37,6 +37,7 @@ import { VerficationComponent } from './components/verfication/verfication.compo
 import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
 import { AnnouncementComponent } from './components/announcement/announcement.component';
 import { AddAnnouncementComponent } from './components/add-announcement/add-announcement.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { MaterialPageComponent } from './components/material-page/material-page.component';
 import { MaterialCategoryPageComponent } from './components/material-category-page/material-category-page.component';
 
@@ -64,6 +65,7 @@ import { MaterialCategoryPageComponent } from './components/material-category-pa
         AnnouncementPageComponent,
         AnnouncementComponent,
         AddAnnouncementComponent,
+        SettingsComponent,
         MaterialPageComponent,
         MaterialCategoryPageComponent,
     ],

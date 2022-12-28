@@ -70,7 +70,11 @@
             <em class="bi bi-megaphone pe-none me-2"></em>
             Announcements
         </div>
-        <div><em class="bi bi-gear pe-none me-2"></em>Settings</div>
+        <div [routerLink]="['/home/settings']" [routerLinkActive]="['active']" (click)="navigateTo('settings')">
+        <!-- Settings -->
+          <em class="bi bi-gear pe-none me-2"></em>Settings
+
+        </div>
         <!-- Accounts -->
         <div
             *ngIf="loggedInUser.role == 'admin'"
