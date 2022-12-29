@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { ChildActivationStart, Router } from '@angular/router';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { NotificationComponent } from '../notification/notification.component';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     selector: 'app-sign-in',
@@ -15,7 +17,7 @@ export class SignInComponent implements OnInit {
     loadings: boolean = false;
     forgetPasswordLoading: boolean = false;
 
-    constructor(private signInOutService: SignInOutService, private router: Router) {}
+    constructor(private signInOutService: SignInOutService, private router: Router, private notificationService:NotificationService) {}
 
     ngOnInit(): void {
         if (this.signInOutService.isSignedIn()) {

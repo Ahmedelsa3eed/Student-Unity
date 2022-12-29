@@ -17,6 +17,7 @@ import { VerficationComponent } from './components/verfication/verfication.compo
 import { SettingsComponent } from './components/settings/settings.component';
 import { MaterialPageComponent } from './components/material-page/material-page.component';
 import { MaterialCategoryPageComponent } from './components/material-category-page/material-category-page.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 const routes: Routes = [
     { path: 'sign-in', component: SignInComponent },

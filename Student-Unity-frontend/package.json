@@ -24,6 +24,7 @@
     "@angular/router": "~13.0.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
+    "firebase": "^9.15.0",
     "ng-otp-input": "^1.8.5",
     "ng2-bootstrap": "^0.53.0",
     "ngx-bootstrap": "^8.0.0",
