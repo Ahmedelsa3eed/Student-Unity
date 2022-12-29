@@ -53,6 +53,10 @@ public class User implements Serializable {
     @JsonBackReference
     private List<RegisteredCourse> registeredCourses = new ArrayList<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Notification notification;
+
     public User() {}
 
     public User(String email, Integer studentId, String firstName, String lastName, String password, String role) {
