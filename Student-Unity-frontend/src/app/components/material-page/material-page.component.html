@@ -1,8 +1,92 @@
 <div class="p-3 h5 border-bottom">{{ materialCategoryName }}</div>
 
-<div class="py-2 px-3 border-bottom">
-    <div class="h6">Lecture 6</div>
-    <a href="http://localhost:4200/home/course/material?courseId=2&materialCategoryId=102&materialCategoryName=lectures"
-        >http://localhost:4200/home/course/material?courseId=2&materialCategoryId=102&materialCategoryName=lectures</a
-    >
+<div *ngFor="let material of materials" class="py-2 px-3 border-bottom">
+    <div class="row">
+        <div class="col-10 h6">{{ material.title }}</div>
+        <i class="col-11 bi bi-x-lg icon text-danger" (click)="openDeleteMaterialModal(material.id)"></i>
+        <i
+            class="col-12 bi bi-pencil icon text-primary"
+            (click)="openEditMaterialModal(material.id, material.title, material.url)"
+        ></i>
+    </div>
+    <a href="{{ material.url }}" target="_blank">{{ material.url }}</a>
+</div>
+
+<button
+    id="openEditMaterialBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#editMaterialModal"
+></button>
+<div class="modal" id="editMaterialModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Material</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input
+                    #editMaterialTitleInput
+                    id="editMaterialTitleInput"
+                    type="text"
+                    class="form-control mb-3"
+                    placeholder="Material Title"
+                />
+                <input
+                    #editMaterialURLInput
+                    id="editMaterialURLInput"
+                    type="text"
+                    class="form-control"
+                    placeholder="Material URL"
+                />
+                <div *ngIf="editMaterialLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeEditMaterialBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="onEditMaterial(editMaterialTitleInput.value, editMaterialURLInput.value)"
+                >
+                    Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button
+    id="openDeleteMaterialBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#deleteMaterialModal"
+></button>
+<div class="modal" id="deleteMaterialModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Material</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div>Are you sure you want to delete that material?</div>
+                <div *ngIf="deleteMaterialLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" (click)="onDeleteMaterial()">Delete</button>
+                <button id="closeDeleteMaterialBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

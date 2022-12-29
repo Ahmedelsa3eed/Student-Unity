@@ -14,7 +14,7 @@ import { CoursePageComponent } from './components/course-page/course-page.compon
 import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
 import { AddTaskComponent } from './components/addtask/add-task.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
-import {SettingsComponent} from "./components/settings/settings.component";
+import { SettingsComponent } from './components/settings/settings.component';
 import { MaterialPageComponent } from './components/material-page/material-page.component';
 import { MaterialCategoryPageComponent } from './components/material-category-page/material-category-page.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -77,8 +77,7 @@ const routes: Routes = [
             {
                 path: 'settings',
                 component: SettingsComponent,
-            }
-
+            },
         ],
     },
     { path: '', redirectTo: 'sign-in', pathMatch: 'full' },

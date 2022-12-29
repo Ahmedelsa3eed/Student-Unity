@@ -6,7 +6,4 @@ export class UserName {
         this.firstName = '';
         this.lastName = '';
     }
-
-
-
 }
