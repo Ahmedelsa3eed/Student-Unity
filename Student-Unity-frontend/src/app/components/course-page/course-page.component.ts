@@ -84,7 +84,7 @@ export class CoursePageComponent implements OnInit {
             },
             (error: HttpErrorResponse) => {
                 this.addMaterialLoading = false;
-                alert('Something is wrong, the category may be already existed!');
+                alert('Something is wrong, the material title may be already existed!');
             }
         );
     }
