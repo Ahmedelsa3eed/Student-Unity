@@ -50,7 +50,7 @@ export class AnnouncementPageComponent implements OnInit {
 
     public getSubscribedCourses() {
         this.coursesService
-            .getUserRegisteredCourse(this.signInOutService.getSignedInUserSessionID())
+            .getUserRegisteredCourse()
             .pipe(
                 map((list) => {
                     list.forEach((data: any) => {

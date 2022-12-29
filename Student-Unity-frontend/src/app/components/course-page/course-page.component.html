@@ -42,7 +42,7 @@
             </div>
 
             <div class="modal-footer">
-                <button id="openAddCategoryBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                <button id="closeAddCategoryBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                     Close
                 </button>
                 <button type="submit" class="btn btn-primary" (click)="onAddCategory(addCategoryNameInput.value)">
@@ -63,22 +63,28 @@
 
             <div class="modal-body">
                 <input #addMaterialTitleInput type="text" class="form-control mb-3" placeholder="Material Title" />
-                <input #addMaterialLinkInput type="url" class="form-control my-3" placeholder="Material Link" />
-                <select class="form-select my-3" aria-label="Material Category">
-                    <option selected>Select Material Category</option>
-                    <option value="1">Lecture</option>
-                    <option value="2">Sheets</option>
-                    <option value="3">Labs</option>
-                    <option value="4">Sessions</option>
-                    <option value="5">References</option>
+                <input #addMaterialURLInput type="url" class="form-control my-3" placeholder="Material URL" />
+                <select #addMaterialCategoryInput class="form-select my-3" aria-label="Material Category">
+                    <option *ngFor="let category of materialCategories" value="{{ category.id }}">
+                        {{ category.name }}
+                    </option>
                 </select>
-                <div style="margin-left: 5px; margin-top: 10px">{{ addMaterialResponse }}</div>
                 <div *ngIf="addMaterialLoading" class="spinner-border text-primary" role="status"></div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" (click)="onAddMaterial(addCategoryNameInput.value)">
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="
+                        onAddMaterial(
+                            addMaterialTitleInput.value,
+                            addMaterialURLInput.value,
+                            addMaterialCategoryInput.value
+                        )
+                    "
+                >
                     Add
                 </button>
             </div>
