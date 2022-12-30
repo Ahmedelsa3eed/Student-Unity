@@ -22,6 +22,7 @@ export class AllCoursesComponent implements OnInit {
     private _filterByStatus: boolean = false;
     loggedInUser = new User();
     privilege: boolean = false;
+
     pageLoading: boolean = true;
 
     constructor(

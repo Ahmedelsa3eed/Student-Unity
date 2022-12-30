@@ -1,62 +1,66 @@
-<div *ngIf="pageLoading" class="spinner-border text-primary mt-3" role="status"></div>
-<div *ngIf="!pageLoading" class="all-courses p-4">
-    <div class="header text-center">All Courses</div>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div *ngIf="pageLoading" class="spinner-border text-primary mt-3" role="status"></div>
+    </div>
+    <div *ngIf="!pageLoading" class="all-courses p-4">
+        <div class="header text-center">All Courses</div>
 
-    <!-- Search bar -->
-    <div class="search-bar">
-        <div class="input-group mb-3">
-            <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="courseSearch"
-                placeholder="Course name or code"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-            />
-            <button
-                type="button"
-                *ngIf="!filterByStatus"
-                class="btn btn-primary"
-                (click)="filterByStatus = !filterByStatus"
-            >
-                Show Active Courses
-            </button>
-            <button
-                type="button"
-                *ngIf="filterByStatus"
-                class="btn btn-success"
-                (click)="filterByStatus = !filterByStatus"
-            >
-                Show All Courses
+        <!-- Search bar -->
+        <div class="search-bar">
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="courseSearch"
+                    placeholder="Course name or code"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                />
+                <button
+                    type="button"
+                    *ngIf="!filterByStatus"
+                    class="btn btn-primary"
+                    (click)="filterByStatus = !filterByStatus"
+                >
+                    Show Active Courses
+                </button>
+                <button
+                    type="button"
+                    *ngIf="filterByStatus"
+                    class="btn btn-success"
+                    (click)="filterByStatus = !filterByStatus"
+                >
+                    Show All Courses
+                </button>
+            </div>
+        </div>
+
+        <!-- add course -->
+        <div class="add-course" *ngIf="privilege" (click)="addCourse()">
+            <button type="button" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i>
             </button>
         </div>
-    </div>
 
-    <!-- add course -->
-    <div class="add-course" *ngIf="privilege" (click)="addCourse()">
-        <button type="button" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i>
-        </button>
-    </div>
-
-    <!-- Filtered result -->
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" *ngIf="showFilteredList">
-        <div class="card card-body col-md course" *ngFor="let course of filteredCourses">
-            <app-course-card [course]="course" [privilege]="privilege"> </app-course-card>
+        <!-- Filtered result -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" *ngIf="showFilteredList">
+            <div class="card card-body col-md course" *ngFor="let course of filteredCourses">
+                <app-course-card [course]="course" [privilege]="privilege"> </app-course-card>
+            </div>
         </div>
-    </div>
 
-    <div class="terms" *ngIf="!showFilteredList">
-        <!-- Courses -->
-        <div class="card card-body courses-holder container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col-md" *ngFor="let course of allCourses">
-                    <div class="card card-body course">
-                        <app-course-card
-                            [course]="course"
-                            [privilege]="privilege"
-                            [subscribed]="course.subscribed"
-                        ></app-course-card>
+        <div class="terms" *ngIf="!showFilteredList">
+            <!-- Courses -->
+            <div class="card card-body courses-holder container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col-md" *ngFor="let course of allCourses">
+                        <div class="card card-body course">
+                            <app-course-card
+                                [course]="course"
+                                [privilege]="privilege"
+                                [subscribed]="course.subscribed"
+                            ></app-course-card>
+                        </div>
                     </div>
                 </div>
             </div>
