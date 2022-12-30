@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialCategory } from 'src/app/models/MaterialCategory';
 import { MaterialsService } from 'src/app/services/materials.service';
+import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { CourseMaterialCategoriesService } from 'src/app/shared/course-material-categories.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class MaterialCategoryPageComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private materialsService: MaterialsService,
-        private courseMaterialCategoriesService: CourseMaterialCategoriesService
+        private courseMaterialCategoriesService: CourseMaterialCategoriesService,
+        private signInOutService: SignInOutService
     ) {}
 
     courseId: number = -1;
@@ -24,6 +26,7 @@ export class MaterialCategoryPageComponent implements OnInit {
     deleteCategoryLoading: boolean = false;
     categoryToEditId: number = -1;
     categoryToDeleteId: number = -1;
+    signedInUserRole: string = this.signInOutService.getSignedInUserRole();
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe((params) => {

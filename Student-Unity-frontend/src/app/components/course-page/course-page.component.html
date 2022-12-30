@@ -4,7 +4,7 @@
         <div class="text-secondary mb-1">{{ course.code }}</div>
         <a *ngIf="course.telegramLink != ''" href="{{ course.telegramLink }}">Telegram Link</a>
     </div>
-    <div class="vstack gap-2" style="width: fit-content">
+    <div *ngIf="signedInUserRole == 'admin'" class="vstack gap-2" style="width: fit-content">
         <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
             Add Category
         </button>
@@ -18,11 +18,11 @@
     <router-outlet></router-outlet>
 </div>
 
-<div class="p-3" style="position: fixed; bottom: 0; width: 100%">
+<div style="bottom: 0; width: 100%">
     <div class="border-top p-2">
         {{ course.timeTable }}
     </div>
-    <ul class="nav border-top">
+    <ul class="nav border-top pb-1">
         <li class="nav-item"><a href="#" class="nav-link px-2">Announcements</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2">Tasks</a></li>
     </ul>

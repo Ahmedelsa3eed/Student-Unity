@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Material } from 'src/app/models/Material';
 import { MaterialsService } from 'src/app/services/materials.service';
+import { SignInOutService } from 'src/app/services/sign-in-out.service';
 
 @Component({
     selector: 'app-material-page',
@@ -13,7 +14,8 @@ export class MaterialPageComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private materialsService: MaterialsService,
-        private router: Router
+        private router: Router,
+        private signInOutService: SignInOutService
     ) {}
 
     courseId: number = -1;
@@ -24,6 +26,7 @@ export class MaterialPageComponent implements OnInit {
     materialToEditId: number = -1;
     deleteMaterialLoading: boolean = false;
     editMaterialLoading: boolean = false;
+    signedInUserRole: string = this.signInOutService.getSignedInUserRole();
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe((params) => {

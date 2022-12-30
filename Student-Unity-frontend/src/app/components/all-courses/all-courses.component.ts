@@ -78,19 +78,9 @@ export class AllCoursesComponent implements OnInit {
         }
     }
     getSignedInUser() {
-        this.signInOutService.getSignedInUser().subscribe(
-            (res) => {
-                console.log(res);
-                if (res.body) {
-                    this.loggedInUser = res.body;
-                    if (this.loggedInUser.role === 'admin') this.privilege = true;
-                    console.log(this.privilege);
-                }
-            },
-            (err) => {
-                console.log(err);
-            }
-        );
+        this.loggedInUser = this.signInOutService.getSignedInUser();
+        if (this.loggedInUser.role === 'admin') this.privilege = true;
+        console.log(this.privilege);
     }
 
     filterCourses(): void {
