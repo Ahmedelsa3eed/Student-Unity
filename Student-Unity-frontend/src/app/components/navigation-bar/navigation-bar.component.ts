@@ -12,16 +12,20 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class NavigationBarComponent implements OnInit {
     loggedInUser = new User();
 
-    constructor(private router: Router, private signInOutService: SignInOutService, private notificationService:NotificationService) {}
+    constructor(
+        private router: Router,
+        private signInOutService: SignInOutService,
+        private notificationService: NotificationService
+    ) {}
     public isLoading: boolean = false;
     ngOnInit(): void {
         this.getSignedInUser();
         let askPermission = new NotificationComponent(this.notificationService);
         askPermission.requestPermission();
-        
+
         setInterval(() => {
             askPermission.listen();
-          }, 25);
+        }, 25);
     }
 
     navigateTo(child: string) {
@@ -34,18 +38,6 @@ export class NavigationBarComponent implements OnInit {
     }
 
     getSignedInUser() {
-        this.isLoading = true;
-        this.signInOutService.getSignedInUser().subscribe(
-            (res) => {
-                this.isLoading = false;
-                if (res.body) {
-                    this.loggedInUser = res.body;
-                }
-            },
-            (err) => {
-                this.isLoading = false;
-                console.log(err);
-            }
-        );
+        this.loggedInUser = this.signInOutService.getSignedInUser();
     }
 }

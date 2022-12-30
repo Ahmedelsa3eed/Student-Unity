@@ -4,8 +4,13 @@
             <div class="col-8 materia-categorty-title" (click)="onOpenCategory(category.id, category.name)">
                 {{ category.name }}
             </div>
-            <i class="col-11 bi bi-x-lg icon text-danger" (click)="openDeleteCategoryModal(category.id)"></i>
             <i
+                *ngIf="signedInUserRole == 'admin'"
+                class="col-11 bi bi-x-lg icon text-danger"
+                (click)="openDeleteCategoryModal(category.id)"
+            ></i>
+            <i
+                *ngIf="signedInUserRole == 'admin'"
                 class="col-12 bi bi-pencil icon text-primary"
                 (click)="openEditCategoryModal(category.id, category.name)"
             ></i>

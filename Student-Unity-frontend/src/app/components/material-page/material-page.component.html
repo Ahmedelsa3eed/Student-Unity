@@ -1,10 +1,15 @@
-<div class="p-3 h5 border-bottom">{{ materialCategoryName }}</div>
+<div class="p-3 h5">{{ materialCategoryName }}</div>
 
-<div *ngFor="let material of materials" class="py-2 px-3 border-bottom">
+<div *ngFor="let material of materials" class="py-2 px-3 border-top">
     <div class="row">
         <div class="col-10 h6">{{ material.title }}</div>
-        <i class="col-11 bi bi-x-lg icon text-danger" (click)="openDeleteMaterialModal(material.id)"></i>
         <i
+            *ngIf="signedInUserRole == 'admin'"
+            class="col-11 bi bi-x-lg icon text-danger"
+            (click)="openDeleteMaterialModal(material.id)"
+        ></i>
+        <i
+            *ngIf="signedInUserRole == 'admin'"
             class="col-12 bi bi-pencil icon text-primary"
             (click)="openEditMaterialModal(material.id, material.title, material.url)"
         ></i>

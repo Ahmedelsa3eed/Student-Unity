@@ -6,6 +6,7 @@ import { Material } from 'src/app/models/Material';
 import { MaterialCategory } from 'src/app/models/MaterialCategory';
 import { CoursesService } from 'src/app/services/courses.service';
 import { MaterialsService } from 'src/app/services/materials.service';
+import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { CourseMaterialCategoriesService } from 'src/app/shared/course-material-categories.service';
 
 @Component({
@@ -18,13 +19,15 @@ export class CoursePageComponent implements OnInit {
         private coursesService: CoursesService,
         private activatedRoute: ActivatedRoute,
         private materialsService: MaterialsService,
-        private courseMaterialCategoriesService: CourseMaterialCategoriesService
+        private courseMaterialCategoriesService: CourseMaterialCategoriesService,
+        private signInOutService: SignInOutService
     ) {}
 
     addCategoryLoading: boolean = false;
     addMaterialLoading: boolean = false;
     course: Course = new Course();
     materialCategories: MaterialCategory[] = [];
+    signedInUserRole: string = this.signInOutService.getSignedInUserRole();
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe((params) => {

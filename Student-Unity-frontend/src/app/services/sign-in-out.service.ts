@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
@@ -49,22 +49,41 @@ export class SignInOutService {
     }
 
     // This function should be called when the user sign In for the first time, or when he edits his information.
-    public fillSignedInUserInfo(rememberMe: boolean, sessionId: string): void {
-        /* call the backend to get the rest of the signedInUser info using his sessionId */
-        let expirationDate = 0;
-        if (rememberMe) expirationDate = 400;
-        this.cookieService.set('sessionId', sessionId, expirationDate, '/', '', true, 'Strict');
+    public fillSignedInUserInfo(sessionId: string): Observable<HttpResponse<User>> {
+        return this.httpClient.get<User>(environment.baseUrl + '/logIn/getUser', {
+            params: { sessionID: sessionId },
+            observe: 'response',
+            responseType: 'json',
+        });
+    }
+
+    public getSignedInUserFirstName(): string {
+        return this.cookieService.get('firstName');
+    }
+
+    public getSignedInUserLastName(): string {
+        return this.cookieService.get('lastName');
+    }
+
+    public getSignedInUserEmail(): string {
+        return this.cookieService.get('email');
+    }
+
+    public getSignedInUserRole(): string {
+        return this.cookieService.get('role');
     }
 
     public getSignedInUserSessionID(): string {
         return this.cookieService.get('sessionId');
     }
 
-    public getSignedInUser(): Observable<HttpResponse<User>> {
-        return this.httpClient.get<User>(environment.baseUrl + '/logIn/getUser', {
-            params: { sessionID: this.cookieService.get('sessionId') },
-            observe: 'response',
-            responseType: 'json',
-        });
+    public getSignedInUser(): User {
+        let user: User = new User();
+        user.firstName = this.getSignedInUserFirstName();
+        user.lastName = this.getSignedInUserLastName();
+        user.email = this.getSignedInUserEmail();
+        user.role = this.getSignedInUserRole();
+        user.sessionID = this.getSignedInUserSessionID();
+        return user;
     }
 }

@@ -47,10 +47,7 @@ export class TaskComponent implements OnInit {
     }
 
     private getSignedInUser() {
-        this.signInOutService.getSignedInUser().subscribe({
-            next: (res) => (this.loggedInUser = res.body!),
-            error: (err) => console.log(err),
-        });
+        this.loggedInUser = this.signInOutService.getSignedInUser();
     }
 
     public removeTask() {
