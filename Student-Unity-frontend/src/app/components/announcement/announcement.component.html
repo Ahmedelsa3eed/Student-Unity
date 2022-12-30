@@ -9,7 +9,7 @@
                 type="button"
                 class="btn btn-secondary btn-sm"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                [attr.data-bs-target]="'#modal' + announcemet.id"
             >
                 <i class="fas fa-pencil-alt"></i> Edit
             </button>
@@ -33,7 +33,13 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+    class="modal fade"
+    [id]="'modal' + announcemet.id"
+    tabindex="-1"
+    [attr.aria-labelledby]="'modalLabel' + announcemet.id"
+    aria-hidden="true"
+>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Header -->
