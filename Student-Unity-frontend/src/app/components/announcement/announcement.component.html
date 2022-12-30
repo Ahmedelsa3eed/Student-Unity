@@ -58,12 +58,16 @@
                 <hr />
                 <!-- Submit Form -->
                 <button
+                    *ngIf="!editingSpinner"
                     class="btn btn-primary"
                     type="submit"
                     [disabled]="editAnnouncementForm.invalid"
                     (click)="editAnnouncement()"
                 >
                     Edit Announcement
+                </button>
+                <button *ngIf="editingSpinner" class="btn btn-primary" type="button" disabled>
+                    <i class="spinner-border spinner-border-sm"></i> Editing...
                 </button>
             </form>
         </div>

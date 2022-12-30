@@ -19,6 +19,7 @@ export class AnnouncementComponent implements OnInit {
     @Output() removingAnnouncement = new EventEmitter<number>();
     registeredCourses: Course[] = [];
     removingSpinner: boolean = false;
+    editingSpinner: boolean = false;
     loggedInUserRole = this.signInOutService.getSignedInUserRole();
 
     constructor(
@@ -67,16 +68,17 @@ export class AnnouncementComponent implements OnInit {
     }
 
     editAnnouncement() {
-        this.announcementService
-            .editAnnouncement(this.announcemet.id, this.editAnnouncementForm.value)
-            .subscribe((res) => {
-                if (res == true) {
-                    this.removingSpinner = false;
-                } else {
-                    this.removingSpinner = false;
-                    console.log(res);
-                }
-            });
+        this.announcemet.body = this.editAnnouncementForm.value.body;
+        this.editingSpinner = true;
+        this.announcementService.editAnnouncement(this.announcemet).subscribe((res) => {
+            if (res == true) {
+                this.editingSpinner = false;
+                console.log(res);
+            } else {
+                this.editingSpinner = false;
+                console.log(res);
+            }
+        });
     }
 
     private getCourses() {
