@@ -53,11 +53,10 @@ export class AnnouncementService {
         });
     }
 
-    editAnnouncement(id: number, value: any) {
-        return this.http.put(this.url + '/update', value, {
+    editAnnouncement(newAnnouncement: Announcement) {
+        return this.http.put(this.url + '/edit', newAnnouncement, {
             params: {
                 sessionId: this.userService.getSignedInUserSessionID(),
-                announcementId: id,
             },
             responseType: 'json',
         });
