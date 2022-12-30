@@ -4,6 +4,7 @@ import { SignInOutService } from '../../services/sign-in-out.service';
 import { User } from '../../models/User';
 import { NotificationComponent } from '../notification/notification.component';
 import { NotificationService } from 'src/app/services/notification.service';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
     selector: 'app-navigation-bar',
     templateUrl: './navigation-bar.component.html',
@@ -33,7 +34,15 @@ export class NavigationBarComponent implements OnInit {
     }
 
     logout() {
-        this.signInOutService.signOut();
-        this.router.navigateByUrl('sign-in');
+        this.signInOutService.signOut().subscribe(
+            (res) => {
+                this.router.navigateByUrl('sign-in');
+                this.signInOutService.deleteCookies();
+            },
+            (err) => {
+                console.error(err);
+            },
+            () => {}
+        );
     }
 }

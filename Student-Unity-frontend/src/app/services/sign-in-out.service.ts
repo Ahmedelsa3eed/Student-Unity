@@ -22,14 +22,15 @@ export class SignInOutService {
         });
     }
 
-    public signOut(): void {
-        this.httpClient
-            .put(
-                environment.baseUrl + '/logout/logout',
-                {},
-                { params: { sessionID: this.cookieService.get('sessionId') } }
-            )
-            .subscribe();
+    public signOut(): Observable<any> {
+        this.cookieService.deleteAll();
+        return this.httpClient.put(
+            environment.baseUrl + '/logout/logout',
+            {},
+            { params: { sessionID: this.cookieService.get('sessionId') } }
+        );
+    }
+    public deleteCookies(): void {
         this.cookieService.deleteAll();
     }
 
