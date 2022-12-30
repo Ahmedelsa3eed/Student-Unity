@@ -21,6 +21,7 @@ export class TaskService {
     }
 
     public editTask(task: Task): Observable<HttpResponse<any>> {
+        console.log(task);
         let sessionId = this.signInOutService.getSignedInUserSessionID();
         return this.http.put<any>(`${environment.baseUrl}/tasks/editTask`, task, {
             observe: 'response',

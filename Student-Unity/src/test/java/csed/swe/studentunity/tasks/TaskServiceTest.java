@@ -80,12 +80,12 @@ class TaskServiceTest {
     void itShouldEditTask() {
         Task mockTask = Mockito.mock(Task.class);
 
-        assertTrue(this.taskService.editTask(mockTask));
+        assertNotNull(this.taskService.editTask(mockTask));
     }
 
     @Test
     void itShouldNotEditNullTask() {
-        assertFalse(this.taskService.editTask(null));
+        assertNull(this.taskService.editTask(null));
     }
 
     @Test
