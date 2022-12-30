@@ -32,7 +32,7 @@ export class AddCourseComponent implements OnInit {
             courseCode: this.fb.control(null, [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
             status: this.fb.control(false, [Validators.required]),
             term: this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(9)]),
-            telegramLink: this.fb.control(null),
+            telegramLink: this.fb.control(null, [Validators.pattern('https://t.me/([A-Za-z0-9-/_%^&$#@!]*)')]),
             timeTable: this.fb.control(null),
         });
     }
@@ -64,11 +64,11 @@ export class AddCourseComponent implements OnInit {
                                             this.router.navigate(['/home/allCourses']);
                                         },
                                         error: (err) => this.httpError(err),
-                                        complete: () => console.info('Course Submited'),
+                                        complete: () => console.info('Course Submitted'),
                                     });
                             },
                             error: (err) => this.httpError(err),
-                            complete: () => console.info('Course Submited'),
+                            complete: () => console.info('Course Submitted'),
                         });
                 } else {
                     this.submitLoading = false;
@@ -76,7 +76,7 @@ export class AddCourseComponent implements OnInit {
                 }
             },
             error: (err) => this.httpError(err),
-            complete: () => console.info('Course Submited'),
+            complete: () => console.info('Course Submitted'),
         });
     }
 
