@@ -2,10 +2,10 @@
     <form [formGroup]="addCourseForm" (ngSubmit)="(registerSubmitted)" class="border p-2 rounded-3">
         <div class="row g-3">
             <div class="col text-center p-2 mb-3 bg-light">
-                <span class="fs-3"> Add/Edit Course</span>
+                <span class="fs-3"> Add Course</span>
             </div>
         </div>
-        <!--Input Name-->
+        <!--Input Course Name-->
         <div class="row">
             <div class="col mb-3">
                 <label for="courseName" class="form-label">Course Name</label>
@@ -29,7 +29,7 @@
                     Name should only conatain latin letters and numbers.
                 </div>
             </div>
-            <!--Input Code-->
+            <!--Input Course Code-->
             <div class="col mb-3">
                 <label for="courseCode" class="form-label">Course Code</label>
                 <input
@@ -83,16 +83,10 @@
                 <input
                     type="text"
                     class="form-control"
-                    placeholder="Course Name"
+                    placeholder="Telegram Link"
                     id="telegramLink"
                     formControlName="telegramLink"
                 />
-                <div
-                    class="formtext text-danger"
-                    *ngIf="telegramLink.errors?.['required'] && (telegramLink.touched || telegramLink.dirty)"
-                >
-                    Telegram Link is Required.
-                </div>
                 <div
                     class="formtext text-danger"
                     *ngIf="telegramLink.errors?.['pattern'] && (telegramLink.touched || telegramLink.dirty)"
@@ -111,38 +105,34 @@
                     />
                     <div
                         class="formtext text-danger"
-                        *ngIf="timeTable.errors?.['required'] && (timeTable.touched || timeTable.dirty)"
-                    >
-                        Time Table is Required.
-                    </div>
-                    <div
-                        class="formtext text-danger"
                         *ngIf="timeTable.errors?.['pattern'] && (timeTable.touched || timeTable.dirty)"
                     >
                         Link should be a valid telegram link.
                     </div>
                 </div>
             </div>
-            <!--submit-->
-            <div class="row">
-                <div class="col mb-3">
-                    <div [hidden]="!postError" class="alert alert-danger text-center" role="alert">
-                        {{ postErrorMessage }}
-                    </div>
+        </div>
+
+        <!--submit-->
+        <div class="row">
+            <div class="col mb-3">
+                <div [hidden]="!postError" class="alert alert-danger text-center" role="alert">
+                    {{ postErrorMessage }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 offset-3">
-                    <div class="d-grid">
-                        <button
-                            type="submit"
-                            [disabled]="addCourseForm.invalid"
-                            class="btn btn-primary"
-                            (click)="registerSubmitted()"
-                        >
-                            Register
-                        </button>
-                    </div>
+        </div>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="d-grid">
+                    <div *ngIf="submitLoading" class="spinner-border text-primary mt-3" role="status"></div>
+                    <button
+                        type="submit"
+                        [disabled]="addCourseForm.invalid"
+                        class="btn btn-primary"
+                        (click)="registerSubmitted()"
+                    >
+                        Register
+                    </button>
                 </div>
             </div>
         </div>

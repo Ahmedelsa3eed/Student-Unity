@@ -1,12 +1,10 @@
-import { ActiveCourse } from './active-course';
-
 export class Course {
     id: number;
     name: string;
     code: string;
     timeTable: string;
     telegramLink: string;
-    activeCourse: ActiveCourse;
+    activeCourse: [];
     notificationsToken: string;
     term: number;
     revisionSubscription: boolean;
@@ -17,9 +15,9 @@ export class Course {
         this.code = '';
         this.timeTable = '';
         this.telegramLink = '';
+        this.activeCourse = [];
         this.notificationsToken = '';
         this.revisionSubscription = true;
         this.term = 0;
-        this.activeCourse = {} as ActiveCourse;
     }
 }

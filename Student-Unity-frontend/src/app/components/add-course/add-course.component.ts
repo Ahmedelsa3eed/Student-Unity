@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
+import { ActiveCourse } from 'src/app/models/active-course';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 
@@ -11,10 +12,13 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
     styleUrls: ['./add-course.component.css'],
 })
 export class AddCourseComponent implements OnInit {
+    course: Course = {} as Course;
+    activeCourse: ActiveCourse = {} as ActiveCourse;
     addCourseForm!: FormGroup;
     postError: boolean = false;
     postErrorMessage: string = '';
-    course: Course = {} as Course;
+    submitLoading: boolean = false;
+
     constructor(
         private fb: FormBuilder,
         private allCoursesService: AllCoursesService,
@@ -38,43 +42,51 @@ export class AddCourseComponent implements OnInit {
         this.addCourseForm.reset();
     }
 
-    // Method to register a new user
+    addFullCourse() {
+        this.allCoursesService.addCourse(this.signInOutService.getSignedInUserSessionID(), this.course).subscribe({
+            next: (res) => {
+                console.log(res);
+                if (this.addCourseForm.get('status')?.value) {
+                    this.allCoursesService
+                        .makeCourseActive(this.signInOutService.getSignedInUserSessionID(), this.course.code)
+                        .subscribe({
+                            next: (res) => {
+                                this.allCoursesService
+                                    .editActiveCourse(
+                                        this.signInOutService.getSignedInUserSessionID(),
+                                        this.course.code,
+                                        this.activeCourse
+                                    )
+                                    .subscribe({
+                                        next: (res) => {
+                                            console.log(res);
+                                            this.router.navigate(['/courses']);
+                                        },
+                                        error: (err) => this.httpError(err),
+                                        complete: () => console.info('Course Submited'),
+                                    });
+                            },
+                            error: (err) => this.httpError(err),
+                            complete: () => console.info('Course Submited'),
+                        });
+                }
+            },
+            error: (err) => this.httpError(err),
+            complete: () => console.info('Course Submited'),
+        });
+    }
+
+    // copy the values from the form, and add the course.
     registerSubmitted() {
+        this.submitLoading = true;
         this.course.name = this.addCourseForm.get('courseName')?.value;
         this.course.code = this.addCourseForm.get('courseCode')?.value;
         this.course.term = this.addCourseForm.get('term')?.value;
         this.course.telegramLink = this.addCourseForm.get('telegramLink')?.value;
         this.course.timeTable = this.addCourseForm.get('timeTable')?.value;
-
-        this.course.activeCourse.telegramLink = this.course.telegramLink;
-        this.course.activeCourse.timeTable = this.course.timeTable;
-        console.log('#####IMPORTANT####');
-        console.log(this.course.activeCourse);
-        // this.course.activeCourse[0] = this.course.telegramLink;
-        // this.course.activeCourse[1] = this.course.timeTable;
-
-        // console.log('#####IMPORTANT####');
-        // console.log(this.course);
-        this.allCoursesService.addCourse(this.signInOutService.getSignedInUserSessionID(), this.course).subscribe({
-            next: (res) => {
-                console.log(res);
-                // if (this.addCourseForm.get('status')?.value) {
-                //     this.allCoursesService
-                //         .makeCourseActive(this.signInOutService.getSignedInUserSessionID(), this.course.code)
-                //         .subscribe({
-                //             next: (res) => {
-                //                 console.log('#####IMPORTANT####');
-                //                 console.log(res);
-                //             },
-                //             error: (err) => this.httpError(err),
-                //             complete: () => console.info('Course Submited'),
-                //         });
-                // }
-            },
-            error: (err) => this.httpError(err),
-            complete: () => console.info('Course Submited'),
-        });
-        // If the course is active, make it active
+        this.activeCourse.telegramLink = this.addCourseForm.get('telegramLink')?.value;
+        this.activeCourse.timeTable = this.addCourseForm.get('timeTable')?.value;
+        this.addFullCourse();
     }
 
     // method to print the error message from the backend

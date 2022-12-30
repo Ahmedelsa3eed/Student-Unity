@@ -3,6 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Course } from '../models/Course';
+import { ActiveCourse } from '../models/active-course';
 
 @Injectable({
     providedIn: 'root',
@@ -56,5 +57,15 @@ export class AllCoursesService {
                 responseType: 'text',
             }
         );
+    }
+    editActiveCourse(sessionId: string, code: string, activeCourse: ActiveCourse): Observable<HttpResponse<string>> {
+        return this.httpClient.put(`${environment.baseUrl}/AllCourses/editActiveCourse`, activeCourse, {
+            params: {
+                sessionId: sessionId,
+                code: code,
+            },
+            observe: 'response',
+            responseType: 'text',
+        });
     }
 }
