@@ -7,15 +7,15 @@ import { Announcement } from './../app/models/Announcement';
 export const environment = {
     production: false,
     firebase: {
-        apiKey: "AIzaSyCi1YbjhedS--Q9_1TMc0vnLQ6LkkKa9ck",
-        authDomain: "student-unity-774ae.firebaseapp.com",
-        projectId: "student-unity-774ae",
-        storageBucket: "student-unity-774ae.appspot.com",
-        messagingSenderId: "958079856699",
-        appId: "1:958079856699:web:c169cfc9bdea71e24fac1e",
-        measurementId: "G-87M5B8HLLD",
-        vapidKey: "BFes-UDf4Mk6dRHczBPIqZOZWNF6qDRBuH3Wml4v4LWTvYj14lhVVFmdECcXGaIheTvIDkF40cAo40ttBVkTmfY"
-      },
+        apiKey: 'AIzaSyCi1YbjhedS--Q9_1TMc0vnLQ6LkkKa9ck',
+        authDomain: 'student-unity-774ae.firebaseapp.com',
+        projectId: 'student-unity-774ae',
+        storageBucket: 'student-unity-774ae.appspot.com',
+        messagingSenderId: '958079856699',
+        appId: '1:958079856699:web:c169cfc9bdea71e24fac1e',
+        measurementId: 'G-87M5B8HLLD',
+        vapidKey: 'BFes-UDf4Mk6dRHczBPIqZOZWNF6qDRBuH3Wml4v4LWTvYj14lhVVFmdECcXGaIheTvIDkF40cAo40ttBVkTmfY',
+    },
     baseUrl: 'http://localhost:8090',
     annouc: [
         {
