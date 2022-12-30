@@ -9,7 +9,7 @@
                 type="button"
                 class="btn btn-secondary btn-sm"
                 data-bs-toggle="modal"
-                [attr.data-bs-target]="'modal' + tagId"
+                [attr.data-bs-target]="'#modal' + announcemet.id"
             >
                 <i class="fas fa-pencil-alt"></i> Edit
             </button>
@@ -35,9 +35,9 @@
 <!-- Modal -->
 <div
     class="modal fade"
-    [id]="'modal' + tagId"
+    [id]="'modal' + announcemet.id"
     tabindex="-1"
-    [attr.aria-labelledby]="'modalLabel' + tagId"
+    [attr.aria-labelledby]="'modalLabel' + announcemet.id"
     aria-hidden="true"
 >
     <div class="modal-dialog modal-lg">
@@ -58,12 +58,16 @@
                 <hr />
                 <!-- Submit Form -->
                 <button
+                    *ngIf="!editingSpinner"
                     class="btn btn-primary"
                     type="submit"
                     [disabled]="editAnnouncementForm.invalid"
                     (click)="editAnnouncement()"
                 >
                     Edit Announcement
+                </button>
+                <button *ngIf="editingSpinner" class="btn btn-primary" type="button" disabled>
+                    <i class="spinner-border spinner-border-sm"></i> Editing...
                 </button>
             </form>
         </div>

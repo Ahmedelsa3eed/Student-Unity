@@ -60,7 +60,7 @@ public class AnnouncementService {
         ActiveUserService activeUserService = ActiveUserService.getInstance();
         Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
         if (userId != null) {
-            this.announcementRepo.save(announcement);
+            this.announcementRepo.editAnnouncement( announcement.getBody(),announcement.getId());
             return true;
         }
         return false;

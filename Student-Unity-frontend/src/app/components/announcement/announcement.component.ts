@@ -2,7 +2,7 @@ import { Announcement } from './../../models/Announcement';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AnnouncementService } from '../../services/announcement.service';
 import { SignInOutService } from '../../services/sign-in-out.service';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../models/Course';
 import { map } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -17,10 +17,9 @@ export class AnnouncementComponent implements OnInit {
     editAnnouncementForm!: FormGroup;
     @Input() announcemet: Announcement = new Announcement();
     @Output() removingAnnouncement = new EventEmitter<number>();
-    id: string = '';
-    public tagId?: number;
     registeredCourses: Course[] = [];
     removingSpinner: boolean = false;
+    editingSpinner: boolean = false;
     loggedInUserRole = this.signInOutService.getSignedInUserRole();
 
     constructor(
@@ -31,8 +30,6 @@ export class AnnouncementComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.id = this.generateIdTag();
-        this.tagId = this.announcemet.id;
         this.getCourses();
         this.editAnnouncementForm = this.fb.group({
             body: this.fb.control(this.announcemet.body, [Validators.required]),
@@ -56,12 +53,6 @@ export class AnnouncementComponent implements OnInit {
         return res;
     }
 
-    private generateIdTag(): string {
-        let randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-        let uniqueId = randomLetter + Date.now();
-        return uniqueId;
-    }
-
     public removeAnnouncement() {
         this.removingSpinner = true;
         this.announcementService.deleteAnnouncement(this.announcemet.id).subscribe((res) => {
@@ -77,16 +68,17 @@ export class AnnouncementComponent implements OnInit {
     }
 
     editAnnouncement() {
-        this.announcementService
-            .editAnnouncement(this.announcemet.id, this.editAnnouncementForm.value)
-            .subscribe((res) => {
-                if (res == true) {
-                    this.removingSpinner = false;
-                } else {
-                    this.removingSpinner = false;
-                    console.log(res);
-                }
-            });
+        this.announcemet.body = this.editAnnouncementForm.value.body;
+        this.editingSpinner = true;
+        this.announcementService.editAnnouncement(this.announcemet).subscribe((res) => {
+            if (res == true) {
+                this.editingSpinner = false;
+                console.log(res);
+            } else {
+                this.editingSpinner = false;
+                console.log(res);
+            }
+        });
     }
 
     private getCourses() {
