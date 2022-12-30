@@ -5,7 +5,7 @@
             <h5 class="card-title header-item">{{ task.title }}</h5>
             <!-- Edit button -->
             <div
-                *ngIf="loggedInUser.role == 'admin'"
+                *ngIf="userRole == 'admin'"
                 class="header-item"
                 id="edit-icon"
                 type="button"

@@ -10,8 +10,9 @@ import { NotificationService } from 'src/app/services/notification.service';
     styleUrls: ['./navigation-bar.component.css'],
 })
 export class NavigationBarComponent implements OnInit {
-    loggedInUser = new User();
-
+    loggedInUserRole = this.signInOutService.getSignedInUserRole();
+    loggedInUserFirstName = this.signInOutService.getSignedInUserFirstName();
+    loggedInUserLastName = this.signInOutService.getSignedInUserLastName();
     constructor(
         private router: Router,
         private signInOutService: SignInOutService,
@@ -19,7 +20,6 @@ export class NavigationBarComponent implements OnInit {
     ) {}
     public isLoading: boolean = false;
     ngOnInit(): void {
-        this.getSignedInUser();
         let askPermission = new NotificationComponent(this.notificationService);
         askPermission.requestPermission();
 
@@ -37,7 +37,4 @@ export class NavigationBarComponent implements OnInit {
         this.router.navigateByUrl('sign-in');
     }
 
-    getSignedInUser() {
-        this.loggedInUser = this.signInOutService.getSignedInUser();
-    }
 }
