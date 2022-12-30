@@ -37,9 +37,8 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body" [ngClass]="course.activeCourse === null ? 'blacked' : ''">
         <h5 class="card-title mb-3">{{ course.name }}</h5>
         <button type="button" class="btn btn-light" (click)="subscribeCourse()">Subscribe</button>
-           
     </div>
 </div>

@@ -47,8 +47,4 @@ export class CourseCardComponent implements OnInit {
             });
     }
     ngOnInit(): void {}
-
-    ngOnChanges(): void {
-        console.log(this.course);
-    }
 }

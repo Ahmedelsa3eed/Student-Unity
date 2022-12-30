@@ -11,7 +11,7 @@ import { SignInOutService } from 'src/app/services/sign-in-out.service';
     styleUrls: ['./add-course.component.css'],
 })
 export class AddCourseComponent implements OnInit {
-    registerForm!: FormGroup;
+    addCourseForm!: FormGroup;
     postError: boolean = false;
     postErrorMessage: string = '';
     course: Course = {} as Course;
@@ -23,40 +23,53 @@ export class AddCourseComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.registerForm = this.fb.group({
+        this.addCourseForm = this.fb.group({
             courseName: this.fb.control(null, [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
             courseCode: this.fb.control(null, [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
-            status: this.fb.control(false),
+            status: this.fb.control(false, [Validators.required]),
             term: this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(9)]),
+            telegramLink: this.fb.control(null),
+            timeTable: this.fb.control(null),
         });
     }
 
     // on destroy of component
     ngOnDestroy() {
-        this.registerForm.reset();
+        this.addCourseForm.reset();
     }
 
     // Method to register a new user
     registerSubmitted() {
-        this.course.name = this.registerForm.get('courseName')?.value;
-        this.course.code = this.registerForm.get('courseCode')?.value;
-        this.course.term = this.registerForm.get('term')?.value;
+        this.course.name = this.addCourseForm.get('courseName')?.value;
+        this.course.code = this.addCourseForm.get('courseCode')?.value;
+        this.course.term = this.addCourseForm.get('term')?.value;
+        this.course.telegramLink = this.addCourseForm.get('telegramLink')?.value;
+        this.course.timeTable = this.addCourseForm.get('timeTable')?.value;
 
-        this.allCoursesService.postCourseData(this.signInOutService.getSignedInUserSessionID(), this.course).subscribe({
+        this.course.activeCourse.telegramLink = this.course.telegramLink;
+        this.course.activeCourse.timeTable = this.course.timeTable;
+        console.log('#####IMPORTANT####');
+        console.log(this.course.activeCourse);
+        // this.course.activeCourse[0] = this.course.telegramLink;
+        // this.course.activeCourse[1] = this.course.timeTable;
+
+        // console.log('#####IMPORTANT####');
+        // console.log(this.course);
+        this.allCoursesService.addCourse(this.signInOutService.getSignedInUserSessionID(), this.course).subscribe({
             next: (res) => {
                 console.log(res);
-                if (this.registerForm.get('status')?.value) {
-                    this.allCoursesService
-                        .makeCourseActive(this.signInOutService.getSignedInUserSessionID(), this.course.code)
-                        .subscribe({
-                            next: (res) => {
-                                console.log('#####IMPORTANT####');
-                                console.log(res);
-                            },
-                            error: (err) => this.httpError(err),
-                            complete: () => console.info('Course Submited'),
-                        });
-                }
+                // if (this.addCourseForm.get('status')?.value) {
+                //     this.allCoursesService
+                //         .makeCourseActive(this.signInOutService.getSignedInUserSessionID(), this.course.code)
+                //         .subscribe({
+                //             next: (res) => {
+                //                 console.log('#####IMPORTANT####');
+                //                 console.log(res);
+                //             },
+                //             error: (err) => this.httpError(err),
+                //             complete: () => console.info('Course Submited'),
+                //         });
+                // }
             },
             error: (err) => this.httpError(err),
             complete: () => console.info('Course Submited'),
@@ -74,15 +87,21 @@ export class AddCourseComponent implements OnInit {
 
     // getters for the form controls for every field to get the error messages
     get courseName(): FormControl {
-        return this.registerForm.get('courseName') as FormControl;
+        return this.addCourseForm.get('courseName') as FormControl;
     }
     get courseCode(): FormControl {
-        return this.registerForm.get('courseCode') as FormControl;
+        return this.addCourseForm.get('courseCode') as FormControl;
     }
     get status(): FormControl {
-        return this.registerForm.get('status') as FormControl;
+        return this.addCourseForm.get('status') as FormControl;
     }
     get term(): FormControl {
-        return this.registerForm.get('term') as FormControl;
+        return this.addCourseForm.get('term') as FormControl;
+    }
+    get telegramLink(): FormControl {
+        return this.addCourseForm.get('telegramLink') as FormControl;
+    }
+    get timeTable(): FormControl {
+        return this.addCourseForm.get('timeTable') as FormControl;
     }
 }

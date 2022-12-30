@@ -18,7 +18,7 @@ export class AllCoursesService {
         return this.httpClient.get<any>(`${environment.baseUrl}/AllCourses/getAllActiveCourses`);
     }
 
-    postCourseData(sessionId: string, course: Course): Observable<HttpResponse<string>> {
+    addCourse(sessionId: string, course: Course): Observable<HttpResponse<string>> {
         console.log(course);
         console.log(`${environment.baseUrl}/AllCourses/addCourse`);
         return this.httpClient.post(`${environment.baseUrl}/AllCourses/addCourse`, course, {
