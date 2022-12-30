@@ -22,7 +22,7 @@ export class AllCoursesComponent implements OnInit {
     filteredCourses: Course[] = [];
     showFilteredList: boolean = false;
     private _filterByStatus: boolean = false;
-    loggedInUser = new User();
+    loggedInUserRole = this.signInOutService.getSignedInUserRole();
     privilege: boolean = false;
 
     constructor(
@@ -78,8 +78,7 @@ export class AllCoursesComponent implements OnInit {
         }
     }
     getSignedInUser() {
-        this.loggedInUser = this.signInOutService.getSignedInUser();
-        if (this.loggedInUser.role === 'admin') this.privilege = true;
+        if (this.loggedInUserRole === 'admin') this.privilege = true;
         console.log(this.privilege);
     }
 

@@ -23,7 +23,7 @@ export class TaskComponent implements OnInit {
     @Output() unMarkAsDoneEvent = new EventEmitter<Task>();
     editTaskForm!: FormGroup;
     registeredCourses: Course[] = [];
-    loggedInUser = new User();
+    userRole: string = this.signInOutService.getSignedInUserRole();
     showAlert: boolean = false;
     error: string = '';
 
@@ -38,16 +38,11 @@ export class TaskComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getSignedInUser();
         this.editTaskForm = this.formBuilder.group({
             Title: this.formBuilder.control(this.task.title, [Validators.required]),
             DueDate: this.formBuilder.control(this.task.dueDate, [Validators.required]),
             Course: this.formBuilder.control(this.task.course, [Validators.required]),
         });
-    }
-
-    private getSignedInUser() {
-        this.loggedInUser = this.signInOutService.getSignedInUser();
     }
 
     public removeTask() {

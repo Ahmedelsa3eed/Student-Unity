@@ -8,7 +8,7 @@
     <div class="buttons">
         <!-- Add Task -->
         <button
-            *ngIf="loggedInUser.role == 'admin'"
+            *ngIf="loggedInUserRole == 'admin'"
             class="btn btn-primary"
             type="button"
             style="margin-top: 50px; margin-right: 8px"
@@ -19,7 +19,7 @@
 
         <!-- Add Announcement -->
         <button
-            *ngIf="loggedInUser.role == 'admin'"
+            *ngIf="loggedInUserRole == 'admin'"
             class="btn btn-primary"
             type="button"
             style="margin-top: 50px"
@@ -33,8 +33,8 @@
 
     <!-- Profile -->
     <div class="text-center">
-        <h4 *ngIf="loggedInUser != null">
-            <strong>{{ loggedInUser.firstName }} {{ loggedInUser.lastName }}</strong>
+        <h4 *ngIf="loggedInUserRole != null">
+            <strong>{{ loggedInUserFirstName }} {{ loggedInUserLastName }}</strong>
         </h4>
 
         <!-- Logout -->
@@ -76,7 +76,7 @@
         </div>
         <!-- Accounts -->
         <div
-            *ngIf="loggedInUser.role == 'admin'"
+            *ngIf="loggedInUserRole == 'admin'"
             [routerLink]="['/home/accountsPage']"
             [routerLinkActive]="['active']"
             (click)="navigateTo('accountsPage')"
