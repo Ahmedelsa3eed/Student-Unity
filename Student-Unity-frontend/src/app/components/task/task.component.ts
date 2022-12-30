@@ -8,7 +8,6 @@ import { Course } from 'src/app/models/Course';
 import { CoursesService } from 'src/app/services/courses.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs';
-import { User } from 'src/app/models/User';
 
 @Component({
     selector: 'app-task',
@@ -26,6 +25,7 @@ export class TaskComponent implements OnInit {
     userRole: string = this.signInOutService.getSignedInUserRole();
     showAlert: boolean = false;
     error: string = '';
+    removeLoading: Boolean = false;
 
     constructor(
         private studentTaskService: StudentTaskService,
@@ -34,7 +34,7 @@ export class TaskComponent implements OnInit {
         private coursesService: CoursesService,
         private signInOutService: SignInOutService
     ) {
-        this.error = "You Can'n edit tasks!";
+        this.error = "You Can't edit tasks!";
     }
 
     ngOnInit(): void {
@@ -46,11 +46,21 @@ export class TaskComponent implements OnInit {
     }
 
     public removeTask() {
+        this.removeLoading = true;
         this.studentTaskService.removeTask(this.task.taskId).subscribe({
             next: (res) => {
-                if (res.status === 200)
+                if (res.status === 200) {
+                    this.removeLoading = false;
                     if (this.task.status === true) this.removingDoneTaskEvent.emit(this.task.taskId);
                     else this.removingToDoTaskEvent.emit(this.task.taskId);
+                }
+                if (this.task.status === true) this.removingDoneTaskEvent.emit(this.task.taskId);
+                else this.removingToDoTaskEvent.emit(this.task.taskId);
+            },
+            error: (err) => {
+                this.removeLoading = false;
+                this.showAlert = true;
+                console.log(err);
             },
         });
     }

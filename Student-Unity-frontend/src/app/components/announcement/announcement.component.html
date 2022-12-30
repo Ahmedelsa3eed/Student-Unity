@@ -4,9 +4,16 @@
             {{ announcemet.courseName }} - <small>{{ getDate() }}</small>
         </h2>
         <div class="btn-group float-right" role="group" aria-label="Announcement actions">
-            <button *ngIf="loggedInUserRole == 'admin'" type="button" class="btn btn-secondary btn-sm">
+            <button
+                *ngIf="loggedInUserRole == 'admin'"
+                type="button"
+                class="btn btn-secondary btn-sm"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#modal' + announcemet.id"
+            >
                 <i class="fas fa-pencil-alt"></i> Edit
             </button>
+
             <button
                 *ngIf="!removingSpinner && loggedInUserRole == 'admin'"
                 type="button"
@@ -22,5 +29,47 @@
     </div>
     <div class="card-body">
         <p class="card-text">{{ announcemet.body }}</p>
+    </div>
+</div>
+
+<!-- Modal -->
+<div
+    class="modal fade"
+    [id]="'modal' + announcemet.id"
+    tabindex="-1"
+    [attr.aria-labelledby]="'modalLabel' + announcemet.id"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Edit Announcement</h3>
+                <!-- close button -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Body -->
+            <form [formGroup]="editAnnouncementForm" (ngSubmit)="(editAnnouncement)" class="border p-2 rounded-3">
+                <br />
+                <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Body</mat-label>
+                    <textarea matInput cdkTextareaAutosize formControlName="body" placeholder="body"> </textarea>
+                </mat-form-field>
+                <hr />
+                <!-- Submit Form -->
+                <button
+                    *ngIf="!editingSpinner"
+                    class="btn btn-primary"
+                    type="submit"
+                    [disabled]="editAnnouncementForm.invalid"
+                    (click)="editAnnouncement()"
+                >
+                    Edit Announcement
+                </button>
+                <button *ngIf="editingSpinner" class="btn btn-primary" type="button" disabled>
+                    <i class="spinner-border spinner-border-sm"></i> Editing...
+                </button>
+            </form>
+        </div>
     </div>
 </div>
