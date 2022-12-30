@@ -20,7 +20,8 @@ export class CoursePageComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private materialsService: MaterialsService,
         private courseMaterialCategoriesService: CourseMaterialCategoriesService,
-        private signInOutService: SignInOutService
+        private signInOutService: SignInOutService,
+        private router: Router
     ) {}
 
     addCategoryLoading: boolean = false;
@@ -32,6 +33,18 @@ export class CoursePageComponent implements OnInit {
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe((params) => {
             let courseId = params['courseId'];
+            this.course.id = courseId;
+            this.coursesService.getCourseById(courseId).subscribe(
+                (response) => {
+                    this.course.code = response.code;
+                    this.course.name = response.name;
+                    this.course.telegramLink = response.activeCourse?.telegramLink;
+                    this.course.timeTable = response.activeCourse?.timeTable;
+                },
+                (error: HttpErrorResponse) => {
+                    if (error.status == 404) alert('Course Not Found');
+                }
+            );
             this.materialsService.getCourseMaterialCategories(courseId).subscribe(
                 (response) => {
                     this.materialCategories = response;
@@ -39,18 +52,6 @@ export class CoursePageComponent implements OnInit {
                 },
                 (error: HttpErrorResponse) => {
                     alert("Can't load the material categories!");
-                }
-            );
-            this.coursesService.getCourseById(courseId).subscribe(
-                (response) => {
-                    this.course.id = response.id;
-                    this.course.code = response.code;
-                    this.course.name = response.name;
-                    this.course.telegramLink = response.activeCourse.telegramLink;
-                    this.course.timeTable = response.activeCourse.timeTable;
-                },
-                (error: HttpErrorResponse) => {
-                    if (error.status == 404) alert('Course Not Found');
                 }
             );
         });
@@ -90,5 +91,19 @@ export class CoursePageComponent implements OnInit {
                 alert('Something is wrong, the material title may be already existed!');
             }
         );
+    }
+
+    openCourseAnnouncements(): void {
+        this.router.navigate(['announcementPage'], {
+            queryParams: { courseId: this.course.id },
+            relativeTo: this.activatedRoute.parent,
+        });
+    }
+
+    openCourseTasks(): void {
+        this.router.navigate(['tasksPage'], {
+            queryParams: { courseId: this.course.id },
+            relativeTo: this.activatedRoute.parent,
+        });
     }
 }

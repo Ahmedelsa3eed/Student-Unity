@@ -4,6 +4,7 @@
         <div class="task-header">
             <p class="lead">TO DO</p>
             <select
+                *ngIf="showFilterToDoSelector"
                 (ngModelChange)="filterToDoTasks($event)"
                 [(ngModel)]="selectedCourseToDo"
                 class="form-select form-select-sm"
@@ -27,6 +28,7 @@
         <div class="task-header">
             <p class="lead">DONE</p>
             <select
+                *ngIf="showFilterDoneSelector"
                 (ngModelChange)="filterDoneTasks($event)"
                 [(ngModel)]="selectedCourseDone"
                 class="form-select form-select-sm"

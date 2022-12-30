@@ -5,6 +5,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Course } from '../../models/Course';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CoursesService } from '../../services/courses.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-tasks-page',
@@ -19,12 +20,39 @@ export class TasksPageComponent implements OnInit {
     public registeredCourses: Course[] = [];
     public selectedCourseToDo: string = 'All';
     public selectedCourseDone: string = 'All';
+    showFilterToDoSelector: boolean = true;
+    showFilterDoneSelector: boolean = true;
 
-    constructor(private studentTaskService: StudentTaskService, private coursesService: CoursesService) {}
+    constructor(
+        private studentTaskService: StudentTaskService,
+        private coursesService: CoursesService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit(): void {
         this.getStudentTasks();
         this.getSubscribedCourses();
+        this.activatedRoute.queryParams.subscribe((params) => {
+            let courseId = params['courseId'];
+            if (courseId == undefined) return;
+            this.showFilterToDoSelector = false;
+            this.showFilterDoneSelector = false;
+            let course: Course = new Course();
+            this.coursesService.getCourseById(courseId).subscribe(
+                (response) => {
+                    course.id = response.id;
+                    course.code = response.code;
+                    course.name = response.name;
+                    course.telegramLink = response.activeCourse?.telegramLink;
+                    course.timeTable = response.activeCourse?.timeTable;
+                    this.filterToDoTasks(course);
+                    this.filterDoneTasks(course);
+                },
+                (error: HttpErrorResponse) => {
+                    if (error.status == 404) alert('Course Not Found');
+                }
+            );
+        });
     }
 
     public getStudentTasks() {

@@ -6,6 +6,7 @@ import { Course } from '../../models/Course';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CoursesService } from '../../services/courses.service';
 import { SignInOutService } from '../../services/sign-in-out.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-announcement-page',
@@ -16,16 +17,37 @@ export class AnnouncementPageComponent implements OnInit {
     announcementList: Announcement[] | null = [];
     registeredCourses: Course[] = [];
     selectedCourseName: string = 'All';
+    showFilterSelector: boolean = true;
 
     constructor(
         private announcementService: AnnouncementService,
         private coursesService: CoursesService,
-        private signInOutService: SignInOutService
+        private signInOutService: SignInOutService,
+        private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
         this.getAnnouncements();
         this.getSubscribedCourses();
+        this.activatedRoute.queryParams.subscribe((params) => {
+            let courseId = params['courseId'];
+            if (courseId == undefined) return;
+            this.showFilterSelector = false;
+            let course: Course = new Course();
+            this.coursesService.getCourseById(courseId).subscribe(
+                (response) => {
+                    course.id = response.id;
+                    course.code = response.code;
+                    course.name = response.name;
+                    course.telegramLink = response.activeCourse?.telegramLink;
+                    course.timeTable = response.activeCourse?.timeTable;
+                    this.filterAnnouncement(course);
+                },
+                (error: HttpErrorResponse) => {
+                    if (error.status == 404) alert('Course Not Found');
+                }
+            );
+        });
     }
 
     getAnnouncements() {
