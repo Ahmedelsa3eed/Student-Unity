@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -28,9 +28,10 @@ export class SettingsService {
     }
 
     changeId(userId: UserId): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + '/settings/changeId', userId, {
+
+      return this.httpClient.put(environment.baseUrl + '/settings/changeId',"", {
             responseType: 'json',
-            params: { sessionId: this.signInOutService.getSignedInUserSessionID() },
+            params: { sessionId: this.signInOutService.getSignedInUserSessionID(), userId: userId.studentId },
         });
     }
 }
