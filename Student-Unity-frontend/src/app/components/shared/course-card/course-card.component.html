@@ -1,6 +1,6 @@
 <div [ngClass]="course.activeCourse === null ? 'grayed bg-secondary' : 'bg-primary'" class="card text-white mb-3">
     <div class="card-header justify-content-space-between">
-        <p>{{ course.code }}</p>
+        <p (click)="openCoursePage(course.id)">{{ course.code }}</p>
         <button
             *ngIf="privilege"
             class="btn btn-danger"

@@ -6,6 +6,8 @@
 
 .card-header p {
     margin: 0;
+    cursor: pointer;
+    color: #ffffff;
 }
 
 .modal-title,

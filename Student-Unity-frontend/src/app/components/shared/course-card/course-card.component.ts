@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
 import { User } from 'src/app/models/User';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
@@ -21,7 +21,8 @@ export class CourseCardComponent implements OnInit {
     constructor(
         private allCoursesService: AllCoursesService,
         private signInOutService: SignInOutService,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {}
 
     // method to print the error message from the backend
@@ -53,6 +54,12 @@ export class CourseCardComponent implements OnInit {
                 error: (err) => this.router.navigate(['home/allCourses']),
                 complete: () => console.info('Course Submited'),
             });
+    }
+    openCoursePage(courseId: number) {
+        this.router.navigate(['course'], {
+            queryParams: { courseId: courseId },
+            relativeTo: this.activatedRoute.parent,
+        });
     }
     ngOnInit(): void {}
 }
