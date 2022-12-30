@@ -124,11 +124,12 @@
         <div class="row">
             <div class="col-6 offset-3">
                 <div class="d-grid">
-                    <div class="d-flex justify-content-center my-2">
-                        <div *ngIf="submitLoading" class="spinner-border text-primary mt-3" role="status"></div>
+                    <div *ngIf="submitLoading" class="d-flex justify-content-center my-2">
+                        <div class="spinner-border text-primary mt-3" role="status"></div>
                     </div>
                     <button
                         type="submit"
+                        *ngIf="!submitLoading"
                         [disabled]="addCourseForm.invalid"
                         class="btn btn-primary"
                         (click)="registerSubmitted()"

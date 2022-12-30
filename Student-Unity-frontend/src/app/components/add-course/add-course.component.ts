@@ -17,7 +17,7 @@ export class AddCourseComponent implements OnInit {
     addCourseForm!: FormGroup;
     postError: boolean = false;
     postErrorMessage: string = '';
-    submitLoading: boolean = true;
+    submitLoading: boolean = false;
 
     constructor(
         private fb: FormBuilder,
