@@ -5,7 +5,6 @@ import { map } from 'rxjs';
 import { Course } from '../../models/Course';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CoursesService } from '../../services/courses.service';
-import { SignInOutService } from '../../services/sign-in-out.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,11 +17,9 @@ export class AnnouncementPageComponent implements OnInit {
     registeredCourses: Course[] = [];
     selectedCourseName: string = 'All';
     showFilterSelector: boolean = true;
-
     constructor(
         private announcementService: AnnouncementService,
         private coursesService: CoursesService,
-        private signInOutService: SignInOutService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -120,13 +117,12 @@ export class AnnouncementPageComponent implements OnInit {
         }
     }
 
-  public removeAnnouncement($announcementId: any) {
-    console.log("remove announcement from the list");
-    this.announcementList?.forEach((announcement, index) => {
-      if (announcement.id == $announcementId) {
-        this.announcementList?.splice(index, 1);
-
-      }
-    });
-  }
+    public removeAnnouncement($announcementId: any) {
+        console.log('remove announcement from the list');
+        this.announcementList?.forEach((announcement, index) => {
+            if (announcement.id == $announcementId) {
+                this.announcementList?.splice(index, 1);
+            }
+        });
+    }
 }

@@ -1,7 +1,5 @@
-<div *ngIf="message;">
+<div *ngIf="message">
     <h1>{{ message.notification.title }}</h1>
     <h2>{{ message.notification.body }}</h2>
-  </div>
-  <div *ngIf="!message;">
-    No Message Arrived
-  </div>
+</div>
+<div *ngIf="!message">No Message Arrived</div>

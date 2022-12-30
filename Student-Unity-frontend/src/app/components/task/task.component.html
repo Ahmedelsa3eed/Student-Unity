@@ -10,14 +10,16 @@
                 id="edit-icon"
                 type="button"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                [attr.data-bs-target]="'#modal' + task.taskId"
                 (click)="prepareEditTaskForm()"
             >
                 <em class="bi bi-pencil-square fs-5" style="cursor: pointer"></em>
             </div>
             <!-- Remove button -->
             <div class="header-item" id="del-icon">
-                <em (click)="removeTask()" class="bi bi-trash3 fs-5" style="cursor: pointer"> </em>
+                <em *ngIf="!removeLoading" (click)="removeTask()" class="bi bi-trash3 fs-5" style="cursor: pointer">
+                </em>
+                <em *ngIf="removeLoading" class="spinner-grow spinner-grow-sm"></em>
             </div>
         </div>
         <div>
@@ -37,7 +39,13 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+    class="modal fade"
+    [id]="'modal' + task.taskId"
+    tabindex="-1"
+    [attr.aria-labelledby]="'modalLabel' + task.taskId"
+    aria-hidden="true"
+>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Header -->
