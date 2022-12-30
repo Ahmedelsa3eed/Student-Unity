@@ -1,7 +1,12 @@
 import { Announcement } from './../../models/Announcement';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AnnouncementService} from "../../services/announcement.service";
-import {SignInOutService} from "../../services/sign-in-out.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AnnouncementService } from '../../services/announcement.service';
+import { SignInOutService } from '../../services/sign-in-out.service';
+import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { Course } from '../../models/Course';
+import { map } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
     selector: 'app-announcement',
@@ -9,18 +14,31 @@ import {SignInOutService} from "../../services/sign-in-out.service";
     styleUrls: ['./announcement.component.css'],
 })
 export class AnnouncementComponent implements OnInit {
+    editAnnouncementForm!: FormGroup;
     @Input() announcemet: Announcement = new Announcement();
     @Output() removingAnnouncement = new EventEmitter<number>();
     id: string = '';
+    registeredCourses: Course[] = [];
     removingSpinner: boolean = false;
     loggedInUserRole = this.signInOutService.getSignedInUserRole();
 
-
-    constructor(private announcementService:AnnouncementService,
-                private signInOutService:SignInOutService) {}
+    constructor(
+        private announcementService: AnnouncementService,
+        private signInOutService: SignInOutService,
+        private fb: FormBuilder,
+        private coursesService: CoursesService
+    ) {}
 
     ngOnInit(): void {
         this.id = this.generateIdTag();
+        this.getCourses();
+        this.editAnnouncementForm = this.fb.group({
+            body: this.fb.control(this.announcemet.body, [Validators.required]),
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.removingAnnouncement.unsubscribe();
     }
 
     public getDate(): string {
@@ -42,21 +60,52 @@ export class AnnouncementComponent implements OnInit {
         return uniqueId;
     }
 
-    public removeAnnouncement(){
-      this.removingSpinner = true;
-        this.announcementService.deleteAnnouncement(this.announcemet.id).subscribe(
-            (res) => {
-              console.log(res);
-              if (res == true) {
+    public removeAnnouncement() {
+        this.removingSpinner = true;
+        this.announcementService.deleteAnnouncement(this.announcemet.id).subscribe((res) => {
+            console.log(res);
+            if (res == true) {
                 this.removingAnnouncement.emit(this.announcemet.id);
                 this.removingSpinner = false;
-              }else {
+            } else {
                 this.removingSpinner = false;
                 console.log(res);
-              }
             }
-        );
+        });
     }
 
+    editAnnouncement() {
+        this.announcementService
+            .editAnnouncement(this.announcemet.id, this.editAnnouncementForm.value)
+            .subscribe((res) => {
+                if (res == true) {
+                    this.removingSpinner = false;
+                } else {
+                    this.removingSpinner = false;
+                    console.log(res);
+                }
+            });
     }
 
+    private getCourses() {
+        this.coursesService
+            .getUserRegisteredCourse()
+            .pipe(
+                map((list) => {
+                    list.forEach((data: any) => {
+                        let course: Course = new Course();
+                        course.id = data[0];
+                        course.name = data[1];
+                        course.code = data[2];
+                        course.revisionSubscription = data[3];
+                        this.registeredCourses.push(course);
+                    });
+                })
+            )
+            .subscribe({
+                error: (err: HttpErrorResponse) => {
+                    if (err.status == 404) alert('User Not Found');
+                },
+            });
+    }
+}

@@ -44,10 +44,20 @@ export class AnnouncementService {
     }
 
     public deleteAnnouncement(announcementId: number): Observable<any> {
-      return this.http.delete(this.url + '/delete', {
+        return this.http.delete(this.url + '/delete', {
             params: {
                 sessionId: this.userService.getSignedInUserSessionID(),
                 announcementId: announcementId,
+            },
+            responseType: 'json',
+        });
+    }
+
+    editAnnouncement(id: number, value: any) {
+        return this.http.put(this.url + '/update', value, {
+            params: {
+                sessionId: this.userService.getSignedInUserSessionID(),
+                announcementId: id,
             },
             responseType: 'json',
         });

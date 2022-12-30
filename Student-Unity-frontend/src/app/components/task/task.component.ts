@@ -34,7 +34,7 @@ export class TaskComponent implements OnInit {
         private coursesService: CoursesService,
         private signInOutService: SignInOutService
     ) {
-        this.error = "You Can'n edit tasks!";
+        this.error = "You Can't edit tasks!";
     }
 
     ngOnInit(): void {
