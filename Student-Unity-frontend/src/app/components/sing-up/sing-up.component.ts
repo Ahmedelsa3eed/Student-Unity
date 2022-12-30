@@ -21,6 +21,8 @@ export class SingUpComponent implements OnInit, OnDestroy {
     postError: boolean = false;
     postErrorMessage: string = '';
     signUpdata: SignUpData = {} as SignUpData;
+
+    registerLoading: boolean = false;
     constructor(private fb: FormBuilder, private signUpService: SignUpService, private router: Router) {}
 
     ngOnInit(): void {
@@ -56,8 +58,14 @@ export class SingUpComponent implements OnInit, OnDestroy {
         this.registerForm.reset();
     }
 
+    // Go back to sign in
+    backToSignIn() {
+        this.router.navigate(['/signin']);
+    }
+
     // Method to register a new user
     registerSubmitted() {
+        this.registerLoading = true;
         this.signUpdata.firstName = this.registerForm.get('firstName')?.value;
         this.signUpdata.lastName = this.registerForm.get('lastName')?.value;
         this.signUpdata.email = this.registerForm.get('email')?.value;
