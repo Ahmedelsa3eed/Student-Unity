@@ -120,13 +120,12 @@ export class AnnouncementPageComponent implements OnInit {
         }
     }
 
-  public removeAnnouncement($announcementId: any) {
-    console.log("remove announcement from the list");
-    this.announcementList?.forEach((announcement, index) => {
-      if (announcement.id == $announcementId) {
-        this.announcementList?.splice(index, 1);
-
-      }
-    });
-  }
+    public removeAnnouncement($announcementId: any) {
+        console.log('remove announcement from the list');
+        this.announcementList?.forEach((announcement, index) => {
+            if (announcement.id == $announcementId) {
+                this.announcementList?.splice(index, 1);
+            }
+        });
+    }
 }

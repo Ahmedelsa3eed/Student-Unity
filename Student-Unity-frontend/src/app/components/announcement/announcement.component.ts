@@ -1,7 +1,7 @@
 import { Announcement } from './../../models/Announcement';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AnnouncementService} from "../../services/announcement.service";
-import {SignInOutService} from "../../services/sign-in-out.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AnnouncementService } from '../../services/announcement.service';
+import { SignInOutService } from '../../services/sign-in-out.service';
 
 @Component({
     selector: 'app-announcement',
@@ -15,9 +15,7 @@ export class AnnouncementComponent implements OnInit {
     removingSpinner: boolean = false;
     loggedInUserRole = this.signInOutService.getSignedInUserRole();
 
-
-    constructor(private announcementService:AnnouncementService,
-                private signInOutService:SignInOutService) {}
+    constructor(private announcementService: AnnouncementService, private signInOutService: SignInOutService) {}
 
     ngOnInit(): void {
         this.id = this.generateIdTag();
@@ -42,21 +40,17 @@ export class AnnouncementComponent implements OnInit {
         return uniqueId;
     }
 
-    public removeAnnouncement(){
-      this.removingSpinner = true;
-        this.announcementService.deleteAnnouncement(this.announcemet.id).subscribe(
-            (res) => {
-              console.log(res);
-              if (res == true) {
+    public removeAnnouncement() {
+        this.removingSpinner = true;
+        this.announcementService.deleteAnnouncement(this.announcemet.id).subscribe((res) => {
+            console.log(res);
+            if (res == true) {
                 this.removingAnnouncement.emit(this.announcemet.id);
                 this.removingSpinner = false;
-              }else {
+            } else {
                 this.removingSpinner = false;
                 console.log(res);
-              }
             }
-        );
+        });
     }
-
-    }
-
+}
