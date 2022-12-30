@@ -2,7 +2,7 @@ import { Announcement } from './../../models/Announcement';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AnnouncementService } from '../../services/announcement.service';
 import { SignInOutService } from '../../services/sign-in-out.service';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../models/Course';
 import { map } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -17,8 +17,6 @@ export class AnnouncementComponent implements OnInit {
     editAnnouncementForm!: FormGroup;
     @Input() announcemet: Announcement = new Announcement();
     @Output() removingAnnouncement = new EventEmitter<number>();
-    id: string = '';
-    public tagId?: number;
     registeredCourses: Course[] = [];
     removingSpinner: boolean = false;
     loggedInUserRole = this.signInOutService.getSignedInUserRole();
@@ -31,8 +29,6 @@ export class AnnouncementComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.id = this.generateIdTag();
-        this.tagId = this.announcemet.id;
         this.getCourses();
         this.editAnnouncementForm = this.fb.group({
             body: this.fb.control(this.announcemet.body, [Validators.required]),
@@ -54,12 +50,6 @@ export class AnnouncementComponent implements OnInit {
 
         let res = [year, month, day].join('-');
         return res;
-    }
-
-    private generateIdTag(): string {
-        let randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-        let uniqueId = randomLetter + Date.now();
-        return uniqueId;
     }
 
     public removeAnnouncement() {

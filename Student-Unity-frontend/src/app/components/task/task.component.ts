@@ -8,7 +8,6 @@ import { Course } from 'src/app/models/Course';
 import { CoursesService } from 'src/app/services/courses.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs';
-import { User } from 'src/app/models/User';
 
 @Component({
     selector: 'app-task',
