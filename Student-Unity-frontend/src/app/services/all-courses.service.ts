@@ -13,6 +13,11 @@ export class AllCoursesService {
     getAllCourses(): Observable<Course[]> {
         return this.httpClient.get<any>(`${environment.baseUrl}/AllCourses/getAllCourses`);
     }
+
+    getAllActiveCourses(): Observable<Course[]> {
+        return this.httpClient.get<any>(`${environment.baseUrl}/AllCourses/getAllActiveCourses`);
+    }
+
     postCourseData(sessionId: string, course: Course): Observable<HttpResponse<string>> {
         console.log(course);
         console.log(`${environment.baseUrl}/AllCourses/addCourse`);
@@ -37,5 +42,19 @@ export class AllCoursesService {
 
     registerCourse(sessionId: string, courseId: number): Observable<any> {
         return this.httpClient.put(`${environment.baseUrl}/AllCourses/registerCourse/${sessionId}/${courseId}`, {});
+    }
+    makeCourseActive(sessionId: string, code: string): Observable<HttpResponse<string>> {
+        return this.httpClient.put(
+            `${environment.baseUrl}/AllCourses/makeCourseActive`,
+            {},
+            {
+                params: {
+                    sessionId: sessionId,
+                    code: code,
+                },
+                observe: 'response',
+                responseType: 'text',
+            }
+        );
     }
 }

@@ -26,7 +26,7 @@ export class AddCourseComponent implements OnInit {
         this.registerForm = this.fb.group({
             courseName: this.fb.control(null, [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
             courseCode: this.fb.control(null, [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
-            status: this.fb.control(null),
+            status: this.fb.control(false),
             term: this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(9)]),
         });
     }
@@ -40,18 +40,28 @@ export class AddCourseComponent implements OnInit {
     registerSubmitted() {
         this.course.name = this.registerForm.get('courseName')?.value;
         this.course.code = this.registerForm.get('courseCode')?.value;
-        this.course.status = this.registerForm.get('status')?.value;
         this.course.term = this.registerForm.get('term')?.value;
-        console.log(this.course);
+
         this.allCoursesService.postCourseData(this.signInOutService.getSignedInUserSessionID(), this.course).subscribe({
             next: (res) => {
                 console.log(res);
-                this.router.navigate(['home/allCourses']);
+                if (this.registerForm.get('status')?.value) {
+                    this.allCoursesService
+                        .makeCourseActive(this.signInOutService.getSignedInUserSessionID(), this.course.code)
+                        .subscribe({
+                            next: (res) => {
+                                console.log('#####IMPORTANT####');
+                                console.log(res);
+                            },
+                            error: (err) => this.httpError(err),
+                            complete: () => console.info('Course Submited'),
+                        });
+                }
             },
             error: (err) => this.httpError(err),
             complete: () => console.info('Course Submited'),
         });
-        this.router.navigate(['home/allCourses']);
+        // If the course is active, make it active
     }
 
     // method to print the error message from the backend

@@ -4,7 +4,7 @@ export class Course {
     code: string;
     timeTable: string;
     telegramLink: string;
-    status: boolean;
+    activeCourse: [];
     notificationsToken: string;
     term: number;
     revisionSubscription: boolean;
@@ -15,9 +15,9 @@ export class Course {
         this.code = '';
         this.timeTable = '';
         this.telegramLink = '';
-        this.status = false;
         this.notificationsToken = '';
         this.revisionSubscription = true;
         this.term = 0;
+        this.activeCourse = [];
     }
 }

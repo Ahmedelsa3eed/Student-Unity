@@ -93,7 +93,7 @@ export class AllCoursesComponent implements OnInit {
 
         // filter by status
         if (this._filterByStatus) {
-            this.filteredCourses = this.filteredCourses.filter((course: Course) => course.status === true);
+            this.filteredCourses = this.filteredCourses.filter((course: Course) => course.activeCourse !== null);
         }
         this.showFilteredList = this._filterByStatus || this._courseSearch.length > 0;
     }
