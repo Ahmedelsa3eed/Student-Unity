@@ -5,11 +5,13 @@ import csed.swe.studentunity.logic.user.ActiveUserService;
 import csed.swe.studentunity.model.Announcement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
 
 import java.util.Collections;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class AnnouncementService {
 
     private AnnouncementRepo announcementRepo;
@@ -49,6 +51,16 @@ public class AnnouncementService {
         Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
         if (userId != null) {
             this.announcementRepo.deleteById(announcementId);
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean editAnnouncement(String sessionId, Announcement announcement) {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        Long userId = activeUserService.getUserIdFromSessionId(UUID.fromString(sessionId));
+        if (userId != null) {
+            this.announcementRepo.save(announcement);
             return true;
         }
         return false;

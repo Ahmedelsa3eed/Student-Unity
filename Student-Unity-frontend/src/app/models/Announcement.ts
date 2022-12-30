@@ -5,6 +5,7 @@ export class Announcement {
     body: string;
     postedDate: string; // yyyy-mm-dd
     courseId: number;
+    id: number = 0;
 
     constructor() {
         this.courseName = '';

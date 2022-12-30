@@ -15,9 +15,9 @@ import java.util.UUID;
 @Table(name = "announcement")
 public class Announcement implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "announcement_id", nullable = false)
-    private UUID id;
+    private long id;
 
     // alter table announcement add foreign key(course_id) references course (course_id) on delete cascade
     @JoinColumn(name = "course_id")
