@@ -1,27 +1,15 @@
-<div class="accordion-item">
-    <h2 class="accordion-header" [id]="'heading' + id">
-        <button
-            class="accordion-button"
-            type="button"
-            data-bs-toggle="collapse"
-            [attr.data-bs-target]="'#collapse' + id"
-            aria-expanded="false"
-            [attr.aria-controls]="'collapse' + id"
-        >
-            <strong>{{ announcemet.courseName }}</strong>
-        </button>
-    </h2>
-    <div
-        [id]="'collapse' + id"
-        class="accordion-collapse collapse"
-        [attr.aria-labelledby]="'heading' + id"
-        data-bs-parent="#announcementPage"
-    >
-        <div class="accordion-body" style="color: grey">
-            {{ announcemet.body }}
-        </div>
-        <div class="accordion-body">
-            {{ getDate() }}
-        </div>
+<div class="card mb-3 shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <h2 class="card-title">{{announcemet.courseName}} -
+      <small>{{getDate()}}</small></h2>
+    <div class="btn-group float-right" role="group" aria-label="Announcement actions">
+      <button *ngIf="loggedInUserRole == 'admin'" type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+      <button *ngIf="!removingSpinner && loggedInUserRole == 'admin' " type="button" class="btn btn-danger btn-sm" (click)="removeAnnouncement()"><i class="fas fa-trash-alt" ></i> Remove</button>
+      <button *ngIf="removingSpinner" type="button" class="btn btn-danger btn-sm" disabled> <i class="spinner-border spinner-border-sm"></i> Removing...</button>
     </div>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{announcemet.body}}</p>
+  </div>
 </div>
+

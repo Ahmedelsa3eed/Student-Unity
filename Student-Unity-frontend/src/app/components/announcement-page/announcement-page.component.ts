@@ -38,6 +38,7 @@ export class AnnouncementPageComponent implements OnInit {
                         announcement.courseName = data[0];
                         announcement.body = data[1];
                         announcement.postedDate = data[2];
+                        announcement.id = data[3];
                         // @ts-ignore
                         this.announcementList.push(announcement);
                     });
@@ -96,4 +97,14 @@ export class AnnouncementPageComponent implements OnInit {
                 });
         }
     }
+
+  public removeAnnouncement($announcementId: any) {
+    console.log("remove announcement from the list");
+    this.announcementList?.forEach((announcement, index) => {
+      if (announcement.id == $announcementId) {
+        this.announcementList?.splice(index, 1);
+
+      }
+    });
+  }
 }
