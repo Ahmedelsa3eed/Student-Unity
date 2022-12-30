@@ -7,11 +7,12 @@
 
             <div class="sec-box mb-15 between-flex">
                 <div class="mb-15">
-                    <label class="fs-14 c-grey d-block mb-10" for="first">First Name</label>
+                    <label class="fs-14 c-grey d-block mb-10" for="firstName">First Name</label>
                     <input
                         class="form-control b-none border-ccc p-10 rad-6 d-block w-full"
                         type="text"
-                        id="first"
+                        #firstName
+                        id="firstName"
                         placeholder="First Name"
                         formControlName="firstName"
                     />
@@ -20,10 +21,11 @@
                 <div style="width: 15px"></div>
 
                 <div class="mb-15">
-                    <label class="fs-14 c-grey d-block mb-10" for="last">Last Name</label>
+                    <label class="fs-14 c-grey d-block mb-10" for="lastName">Last Name</label>
                     <input
                         class="form-control b-none border-ccc p-10 rad-6 d-block w-full"
-                        id="last"
+                        #lastName
+                        id="lastName"
                         type="text"
                         placeholder="Last Name"
                         formControlName="lastName"
@@ -31,17 +33,19 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" (click)="changeUserName()">Change</button>
+          <div id="nameResponse"></div>
         </div>
 
         <div class="p-20 bg-white rad-10">
             <h2 class="mt-0 mb-10">Academic Info</h2>
             <div class="mb-15">
-                <label class="fs-14 c-grey d-block mb-10" for="first">ID</label>
+                <label class="fs-14 c-grey d-block mb-10" for="studentId">ID</label>
                 <input
                     class="b-none border-ccc p-10 rad-6 d-block w-full"
                     type="number"
-                    id="student-id"
-                    placeholder="First Name"
+                    #studentId
+                    id="studentId"
+                    placeholder="Student ID"
                     formControlName="studentId"
                 />
             </div>
@@ -51,34 +55,37 @@
         <div class="p-20 bg-white rad-10">
             <h2 class="mt-0 mb-10">Security Info</h2>
             <div class="mb-15">
-                <label class="fs-14 c-grey d-block mb-10" for="current-password">Current Password</label>
+                <label class="fs-14 c-grey d-block mb-10" for="currentPassword">Current Password</label>
                 <input
                     class="b-none border-ccc p-10 rad-6 d-block w-full"
                     type="password"
-                    id="current-password"
-                    placeholder="First Name"
+                    #currentPassword
+                    id="currentPassword"
+                    placeholder="Password"
                     formControlName="currentPassword"
                 />
             </div>
 
             <div class="mb-15">
-                <label class="fs-14 c-grey d-block mb-10" for="new-password">New Password</label>
+                <label class="fs-14 c-grey d-block mb-10" for="newPassword">New Password</label>
                 <input
                     class="b-none border-ccc p-10 rad-6 d-block w-full"
                     type="password"
-                    id="new-password"
-                    placeholder="First Name"
+                    #newPassword
+                    id="newPassword"
+                    placeholder="new password"
                     formControlName="newPassword"
                 />
             </div>
 
             <div class="mb-15">
-                <label class="fs-14 c-grey d-block mb-10" for="confirm-new-password">Confirm Password</label>
+                <label class="fs-14 c-grey d-block mb-10" for="confirmNewPassword">Confirm Password</label>
                 <input
                     class="b-none border-ccc p-10 rad-6 d-block w-full"
                     type="password"
-                    id="confirm-new-password"
-                    placeholder="First Name"
+                    #confirmNewPassword
+                    id="confirmNewPassword"
+                    placeholder="confirm new password"
                     formControlName="confirmNewPassword"
                 />
             </div>
