@@ -1,5 +1,6 @@
 <div class="container p-lg-5">
     <select
+        *ngIf="showFilterSelector"
         (ngModelChange)="filterAnnouncement($event)"
         [(ngModel)]="selectedCourseName"
         class="form-select form-select-sm"
