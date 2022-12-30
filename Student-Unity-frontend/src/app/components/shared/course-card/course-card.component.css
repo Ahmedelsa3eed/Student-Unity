@@ -12,6 +12,10 @@
 .modal-body {
     color: #000;
 }
-.blacked {
-    background: #000;
+
+.grayed .card-header {
+    background-color: #2d3436;
+}
+.grayed .card-body {
+    background-color: #2d3436;
 }

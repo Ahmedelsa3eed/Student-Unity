@@ -1,4 +1,4 @@
-<div class="card text-white bg-primary mb-3" style="max-width: 18rem">
+<div [ngClass]="course.activeCourse === null ? 'grayed bg-secondary' : 'bg-primary'" class="card text-white mb-3">
     <div class="card-header justify-content-space-between">
         <p>{{ course.code }}</p>
         <button
@@ -36,9 +36,22 @@
             </div>
         </div>
     </div>
-    <div class="card-body" [ngClass]="course.activeCourse === null ? 'blacked' : ''">
+    <div class="card-body">
         <h5 class="card-title mb-3">{{ course.name }}</h5>
-        <button *ngIf="!subscribed" type="button" class="btn btn-light" (click)="subscribeCourse()">Subscribe</button>
-        <div *ngIf="subscribeLoading" class="spinner-border text-primary mt-3" role="status"></div>
+        <button
+            *ngIf="!subscribed && !subscribeLoading"
+            type="button"
+            [ngClass]="course.activeCourse === null ? 'btn-secondary' : 'btn-light'"
+            class="btn"
+            (click)="subscribeCourse()"
+        >
+            Subscribe
+        </button>
+        <div
+            *ngIf="subscribeLoading"
+            [ngClass]="course.activeCourse === null ? 'text-primary' : 'text-light'"
+            class="spinner-border mt-3"
+            role="status"
+        ></div>
     </div>
 </div>
