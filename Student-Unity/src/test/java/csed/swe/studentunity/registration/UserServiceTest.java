@@ -16,7 +16,7 @@ public class UserServiceTest {
     @Autowired
     private UserService underTest;
 
-    private final User user = new User("ahmed", 19016250, "ahmed", "elsaid", "12345", "student");
+    private final User user = new User("ahmed", 20202024, "ahmed", "elsaid", "12345", "student");
 
     @Test
     void itShouldAddUserSuccessfully() {
