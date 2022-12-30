@@ -18,6 +18,8 @@ export class AddAnnouncementComponent implements OnInit {
     registeredCourses: Course[] = [];
     errorFlag: boolean = false;
     errorMessage: string = '';
+    isLoading: boolean = false;
+    isAnnoucementAdded: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -26,6 +28,7 @@ export class AddAnnouncementComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.isAnnoucementAdded = false;
         this.addAnnouncementForm = this.fb.group({
             course: this.fb.control(null, Validators.required),
             body: this.fb.control(null, Validators.required),
@@ -60,10 +63,13 @@ export class AddAnnouncementComponent implements OnInit {
     }
 
     addAnnouncement(): void {
+        this.isLoading = true;
         this.prepareAnnouncementData();
         this.announcementService.addAnnouncement(this.announcement).subscribe({
             next: (res) => {
-                if (res.ok && res.body) {
+                if (res == true) {
+                    this.isLoading = false;
+                    this.isAnnoucementAdded = true;
                     this.addAnnouncementForm.reset();
                 }
             },
@@ -84,6 +90,7 @@ export class AddAnnouncementComponent implements OnInit {
 
     // show the resulting error message
     httpError(httpError: HttpErrorResponse) {
+        this.isLoading = false;
         console.error(httpError);
         this.errorFlag = true;
         this.errorMessage = httpError.name;
