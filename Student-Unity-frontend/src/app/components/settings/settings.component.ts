@@ -5,7 +5,7 @@ import { UserId } from '../../models/settings/UserId';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../../services/settings.service';
 import { ConfirmedValidator } from '../shared/match.validator';
-import {CookieService} from "ngx-cookie-service";
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-settings',
@@ -13,14 +13,15 @@ import {CookieService} from "ngx-cookie-service";
     styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent implements OnInit {
-
     nameForm!: FormGroup;
     passwordForm!: FormGroup;
     idForm!: FormGroup;
 
-
-
-    constructor(private fb: FormBuilder, private settingsService: SettingsService, private cookieService: CookieService) {}
+    constructor(
+        private fb: FormBuilder,
+        private settingsService: SettingsService,
+        private cookieService: CookieService
+    ) {}
 
     ngOnInit(): void {
         this.nameForm = this.fb.group({
@@ -53,26 +54,34 @@ export class SettingsComponent implements OnInit {
         console.log(document.getElementById('firstName')?.getAttribute('value'));
 
         this.settingsService.changeName(userName).subscribe((response) => {
-            if (response == "SUCCESSFUL_CHANGE_NAME") {
+            if (response == 'SUCCESSFUL_CHANGE_NAME') {
                 // print success message
-              let expirationDate = "0";
-              expirationDate = this.cookieService.get("expires");
+                let expirationDate = '0';
+                expirationDate = this.cookieService.get('expires');
 
-              this.cookieService.set(
-                'firstName',
-                userName.firstName,
-                new Date(expirationDate),
-                '/',
-                '',
-                true,
-                'Strict'
-              );
-              this.cookieService.set('lastName', userName.lastName, new Date(expirationDate), '/', '', true, 'Strict');
-              alert('Name changed successfully');
-              window.location.reload();
+                this.cookieService.set(
+                    'firstName',
+                    userName.firstName,
+                    new Date(expirationDate),
+                    '/',
+                    '',
+                    true,
+                    'Strict'
+                );
+                this.cookieService.set(
+                    'lastName',
+                    userName.lastName,
+                    new Date(expirationDate),
+                    '/',
+                    '',
+                    true,
+                    'Strict'
+                );
+                alert('Name changed successfully');
+                window.location.reload();
             } else {
                 // print response message
-              alert('Name change failed');
+                alert('Name change failed');
             }
         });
     }
@@ -84,10 +93,9 @@ export class SettingsComponent implements OnInit {
         console.log(userId);
 
         this.settingsService.changeId(userId).subscribe((response) => {
-            if (response == "SUCCESSFUL_CHANGE_ID") {
+            if (response == 'SUCCESSFUL_CHANGE_ID') {
                 // print success message
                 alert('ID changed successfully');
-
             } else {
                 // print response message
                 alert('ID change failed');
@@ -97,27 +105,31 @@ export class SettingsComponent implements OnInit {
 
     changeUserPassword() {
         let userPassword = new UserPassword();
-      // @ts-ignore
-      userPassword.currentPassword = document.getElementById('currentPassword')?.value;
         // @ts-ignore
-      userPassword.newPassword = document.getElementById('newPassword')?.value;
+        userPassword.currentPassword = document.getElementById('currentPassword')?.value;
         // @ts-ignore
-      userPassword.confirmPassword = document.getElementById('confirmNewPassword')?.value;
-      console.log(userPassword);
-      if(userPassword.currentPassword != null && userPassword.newPassword != null && userPassword.confirmPassword != null
-      && userPassword.confirmPassword == userPassword.newPassword){
-        this.settingsService.changePassword(userPassword).subscribe((response) => {
-          console.log(response);
-          if (response == "SUCCESSFUL_CHANGE_PASSWORD") {
-            // print success message
-            alert('Password changed successfully');
-          } else {
-            // print response message
-            alert('Password change failed');
-          }
-        });
-      } else {
-        alert('new password and confirm password do not match');
-      }
+        userPassword.newPassword = document.getElementById('newPassword')?.value;
+        // @ts-ignore
+        userPassword.confirmPassword = document.getElementById('confirmNewPassword')?.value;
+        console.log(userPassword);
+        if (
+            userPassword.currentPassword != null &&
+            userPassword.newPassword != null &&
+            userPassword.confirmPassword != null &&
+            userPassword.confirmPassword == userPassword.newPassword
+        ) {
+            this.settingsService.changePassword(userPassword).subscribe((response) => {
+                console.log(response);
+                if (response == 'SUCCESSFUL_CHANGE_PASSWORD') {
+                    // print success message
+                    alert('Password changed successfully');
+                } else {
+                    // print response message
+                    alert('Password change failed');
+                }
+            });
+        } else {
+            alert('new password and confirm password do not match');
+        }
     }
 }

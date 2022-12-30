@@ -18,6 +18,7 @@ export class AnnouncementComponent implements OnInit {
     @Input() announcemet: Announcement = new Announcement();
     @Output() removingAnnouncement = new EventEmitter<number>();
     id: string = '';
+    public tagId?: number;
     registeredCourses: Course[] = [];
     removingSpinner: boolean = false;
     loggedInUserRole = this.signInOutService.getSignedInUserRole();
@@ -31,6 +32,7 @@ export class AnnouncementComponent implements OnInit {
 
     ngOnInit(): void {
         this.id = this.generateIdTag();
+        this.tagId = this.announcemet.id;
         this.getCourses();
         this.editAnnouncementForm = this.fb.group({
             body: this.fb.control(this.announcemet.body, [Validators.required]),

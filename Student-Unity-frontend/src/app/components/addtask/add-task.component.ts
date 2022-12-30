@@ -16,6 +16,8 @@ export class AddTaskComponent implements OnInit {
     addTaskForm!: FormGroup;
     task = new Task();
     registeredCourses: Course[] = [];
+    addingTaskLoading: Boolean = false;
+    taskAdded: Boolean = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -24,6 +26,7 @@ export class AddTaskComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.taskAdded = false;
         this.addTaskForm = this.formBuilder.group({
             Title: this.formBuilder.control(this.task.title, [Validators.required]),
             DueDate: this.formBuilder.control(this.task.dueDate, [Validators.required]),
@@ -55,17 +58,19 @@ export class AddTaskComponent implements OnInit {
     }
 
     addTask() {
+        this.addingTaskLoading = true;
         this.task.title = this.addTaskForm.value.Title;
         this.task.dueDate = this.addTaskForm.value.DueDate;
         this.task.course = this.addTaskForm.value.Course;
         this.task.dueDate = this.task.dueDate?.concat(':00');
-        this.addTaskService.addTask(this.task).subscribe({
-            next: (res) => {
-                if (res.status == 200) {
-                    console.log('Task Added Successfully');
-                }
+        this.addTaskService.addTask(this.task).subscribe(
+            (response) => {
+                this.addingTaskLoading = false;
+                this.taskAdded = true;
             },
-            error: (err) => console.log(err),
-        });
+            (error: HttpErrorResponse) => {
+                this.addingTaskLoading = false;
+            }
+        );
     }
 }

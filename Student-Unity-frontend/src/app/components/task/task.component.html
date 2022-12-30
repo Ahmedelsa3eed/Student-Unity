@@ -17,7 +17,9 @@
             </div>
             <!-- Remove button -->
             <div class="header-item" id="del-icon">
-                <em (click)="removeTask()" class="bi bi-trash3 fs-5" style="cursor: pointer"> </em>
+                <em *ngIf="!removeLoading" (click)="removeTask()" class="bi bi-trash3 fs-5" style="cursor: pointer">
+                </em>
+                <em *ngIf="removeLoading" class="spinner-grow spinner-grow-sm"></em>
             </div>
         </div>
         <div>
