@@ -1,4 +1,5 @@
-<div class="all-courses p-4">
+<div *ngIf="pageLoading" class="spinner-border text-primary mt-3" role="status"></div>
+<div *ngIf="!pageLoading" class="all-courses p-4">
     <div class="header text-center">All Courses</div>
 
     <!-- Search bar -->
@@ -49,9 +50,13 @@
         <!-- Courses -->
         <div class="card card-body courses-holder container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col-md" *ngFor="let course of courses | async">
+                <div class="col-md" *ngFor="let course of allCourses">
                     <div class="card card-body course">
-                        <app-course-card [course]="course" [privilege]="privilege"></app-course-card>
+                        <app-course-card
+                            [course]="course"
+                            [privilege]="privilege"
+                            [subscribed]="course.subscribed"
+                        ></app-course-card>
                     </div>
                 </div>
             </div>

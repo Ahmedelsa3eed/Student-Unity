@@ -60,7 +60,8 @@ export class AddCourseComponent implements OnInit {
                                     .subscribe({
                                         next: (res) => {
                                             console.log(res);
-                                            this.router.navigate(['/courses']);
+                                            this.submitLoading = false;
+                                            this.router.navigate(['/home/allCourses']);
                                         },
                                         error: (err) => this.httpError(err),
                                         complete: () => console.info('Course Submited'),
@@ -69,6 +70,9 @@ export class AddCourseComponent implements OnInit {
                             error: (err) => this.httpError(err),
                             complete: () => console.info('Course Submited'),
                         });
+                } else {
+                    this.submitLoading = false;
+                    this.router.navigate(['/home/allCourses']);
                 }
             },
             error: (err) => this.httpError(err),
