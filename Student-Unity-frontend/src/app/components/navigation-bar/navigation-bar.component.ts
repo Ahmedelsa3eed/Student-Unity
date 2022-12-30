@@ -40,9 +40,13 @@ export class NavigationBarComponent implements OnInit {
                 this.signInOutService.deleteCookies();
             },
             (err) => {
-                console.error(err);
-            },
-            () => {}
+                this.httpError(err);
+            }
         );
+    }
+
+    httpError(httpError: any) {
+        console.error(httpError);
+        console.log(httpError.error);
     }
 }
