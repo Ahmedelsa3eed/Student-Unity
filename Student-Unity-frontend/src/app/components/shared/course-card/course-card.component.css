@@ -21,3 +21,9 @@
 .grayed .card-body {
     background-color: #2d3436;
 }
+.bi {
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-left: 100px;
+}

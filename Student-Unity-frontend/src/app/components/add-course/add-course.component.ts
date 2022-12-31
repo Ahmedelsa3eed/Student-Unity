@@ -18,24 +18,40 @@ export class AddCourseComponent implements OnInit {
     postError: boolean = false;
     postErrorMessage: string = '';
     submitLoading: boolean = false;
+    delete: boolean = false;
 
     constructor(
         private fb: FormBuilder,
         private allCoursesService: AllCoursesService,
         private router: Router,
         private signInOutService: SignInOutService
-    ) {}
-
-    ngOnInit(): void {
+    ) {
+        if (this.router.getCurrentNavigation()?.extras.queryParams !== undefined) {
+            this.delete = true;
+        }
         this.addCourseForm = this.fb.group({
-            courseName: this.fb.control(null, [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
-            courseCode: this.fb.control(null, [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]),
-            status: this.fb.control(false, [Validators.required]),
-            term: this.fb.control(null, [Validators.required, Validators.min(0), Validators.max(9)]),
-            telegramLink: this.fb.control(null),
-            timeTable: this.fb.control(null),
+            courseName: this.fb.control(this.router.getCurrentNavigation()?.extras.queryParams?.['courseName'], [
+                Validators.required,
+                Validators.pattern('[a-zA-Z0-9]*'),
+            ]),
+            courseCode: this.fb.control(this.router.getCurrentNavigation()?.extras.queryParams?.['courseCode'], [
+                Validators.required,
+                Validators.pattern('[a-zA-Z0-9]*'),
+            ]),
+            status: this.fb.control(this.router.getCurrentNavigation()?.extras.queryParams?.['status']),
+            term: this.fb.control(this.router.getCurrentNavigation()?.extras.queryParams?.['term'], [
+                Validators.required,
+                Validators.min(0),
+                Validators.max(9),
+            ]),
+            telegramLink: this.fb.control(this.router.getCurrentNavigation()?.extras.queryParams?.['telegramLink'], [
+                Validators.pattern('https://t.me/([A-Za-z0-9-/_%^&$#@!]*)'),
+            ]),
+            timeTable: this.fb.control(this.router.getCurrentNavigation()?.extras.queryParams?.['timeTable']),
         });
     }
+
+    ngOnInit(): void {}
 
     // on destroy of component
     ngOnDestroy() {
@@ -80,6 +96,19 @@ export class AddCourseComponent implements OnInit {
         });
     }
 
+    deleteBeforeAdd() {
+        this.allCoursesService
+            .deleteCourse(this.signInOutService.getSignedInUserSessionID(), this.course.code)
+            .subscribe({
+                next: (res) => {
+                    this.addFullCourse();
+                },
+                error: (err) => {
+                    this.httpError(err);
+                },
+            });
+    }
+
     // copy the values from the form, and add the course.
     registerSubmitted() {
         this.submitLoading = true;
@@ -90,11 +119,16 @@ export class AddCourseComponent implements OnInit {
         this.course.timeTable = this.addCourseForm.get('timeTable')?.value;
         this.activeCourse.telegramLink = this.addCourseForm.get('telegramLink')?.value;
         this.activeCourse.timeTable = this.addCourseForm.get('timeTable')?.value;
-        this.addFullCourse();
+        if (this.delete) {
+            this.deleteBeforeAdd();
+        } else {
+            this.addFullCourse();
+        }
     }
 
     // method to print the error message from the backend
     httpError(httpError: any) {
+        this.submitLoading = false;
         console.error(httpError);
         this.postError = true;
         this.postErrorMessage = httpError.error;

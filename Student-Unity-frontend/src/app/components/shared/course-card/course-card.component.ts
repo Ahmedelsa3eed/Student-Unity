@@ -4,6 +4,7 @@ import { Course } from 'src/app/models/Course';
 import { User } from 'src/app/models/User';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'app-course-card',
@@ -17,6 +18,9 @@ export class CourseCardComponent implements OnInit {
 
     deleteLoading: boolean = false;
     subscribeLoading: boolean = false;
+    postSubscribeError: boolean = false;
+    postDeleteError: boolean = false;
+    errorMessage: string = '';
 
     constructor(
         private allCoursesService: AllCoursesService,
@@ -29,18 +33,21 @@ export class CourseCardComponent implements OnInit {
 
     deleteCourse(): void {
         this.deleteLoading = true;
-        console.log(this.course.code);
         this.allCoursesService
             .deleteCourse(this.signInOutService.getSignedInUserSessionID(), this.course.code)
             .subscribe({
                 next: (res) => {
-                    console.log('testing here');
-                    console.log(res);
                     this.deleteLoading = false;
                     location.reload();
                 },
-                error: (err) => console.log(err),
-                complete: () => console.info('Course Submited'),
+                error: (err) => {
+                    this.deleteLoading = false;
+                    this.postDeleteError = true;
+                    this.errorMessage = err.error;
+                },
+                complete: () => {
+                    this.deleteLoading = false;
+                },
             });
     }
 
@@ -67,8 +74,15 @@ export class CourseCardComponent implements OnInit {
                     this.subscribeLoading = false;
                     this.subscribed = true;
                 },
-                error: (err) => this.router.navigate(['home/allCourses']),
-                complete: () => console.info('Course Submited'),
+                error: (err) => {
+                    this.subscribeLoading = false;
+                    this.postSubscribeError = true;
+                    this.errorMessage = err.error;
+                },
+                complete: () => {
+                    this.subscribeLoading = false;
+                    console.info('Course Submitted');
+                },
             });
     }
     openCoursePage(courseId: number) {
@@ -77,5 +91,6 @@ export class CourseCardComponent implements OnInit {
             relativeTo: this.activatedRoute.parent,
         });
     }
+
     ngOnInit(): void {}
 }

@@ -1,20 +1,17 @@
 <div [ngClass]="course.activeCourse === null ? 'grayed bg-secondary' : 'bg-primary'" class="card text-white mb-3">
     <div class="card-header justify-content-space-between">
         <p (click)="openCoursePage(course.id)">{{ course.code }}</p>
-        <div>
-            <button (click)="editCourse()">
-                <i class="bi bi-three-dots-vertical" style="font-size: 1.3rem; color: rgb(255, 255, 255)"></i>
-            </button>
-            <button
-                *ngIf="privilege"
-                class="btn btn-danger"
-                type="button"
-                data-bs-toggle="modal"
-                [attr.data-bs-target]="'#delete' + course.name | removeSpaces"
-            >
-                Delete
-            </button>
-        </div>
+
+        <i (click)="editCourse()" class="bi bi-three-dots-vertical"></i>
+        <button
+            *ngIf="privilege"
+            class="btn btn-danger"
+            type="button"
+            data-bs-toggle="modal"
+            [attr.data-bs-target]="'#delete' + course.name | removeSpaces"
+        >
+            Delete
+        </button>
         <!-- Modal -->
         <div
             class="modal fade"
@@ -50,6 +47,9 @@
                             </button>
                         </div>
                     </div>
+                    <div [hidden]="!postDeleteError" class="alert alert-danger text-center" role="alert">
+                        {{ errorMessage }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,5 +71,8 @@
             class="spinner-border mt-3"
             role="status"
         ></div>
+    </div>
+    <div [hidden]="!postSubscribeError" class="alert alert-danger text-center" role="alert">
+        {{ errorMessage }}
     </div>
 </div>
