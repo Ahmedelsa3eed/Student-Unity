@@ -31,10 +31,24 @@ public class TaskService {
     /**
      * @return the saved entity
      * */
-    public Boolean editTask(Task task) {
-        if (task == null) return false;
-        this.taskRepo.save(task);
-        return true;
+    public Task editTask(Task task) {
+        // get the task from the database
+        if (task == null) return null;
+        Task taskFromDB = this.taskRepo.findById(task.getTaskId()).orElse(null);
+        System.out.println("Task from db course id is "+ taskFromDB.getCourse().getId());
+        if (taskFromDB == null) return null;
+        // the task updated field is not the course id
+        if ( task.getCourse().getId() == taskFromDB.getCourse().getId() ){
+            this.taskRepo.save(task);
+        }else{
+            // the task updated field is the course id
+            // delete the task from the old course
+            this.taskRepo.delete(taskFromDB);
+            // add the task to the new course
+            this.addTask(task);
+        }
+
+        return task;
     }
 
     public Boolean deleteTaskById(Long taskId) {

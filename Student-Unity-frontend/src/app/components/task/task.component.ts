@@ -110,11 +110,34 @@ export class TaskComponent implements OnInit {
             });
     }
 
+    private fixDateBeforeSend(date: string | undefined): string {
+        let result = '';
+        // @ts-ignore
+        let dateParts = date.split(' ');
+        result = dateParts[0] + 'T' + dateParts[1];
+        return result;
+    }
     public editTask() {
-        console.log(this.task);
-        this.taskService.editTask(this.task).subscribe({
+        let editedTask = new Task();
+        editedTask.title = this.editTaskForm.value.Title;
+        editedTask.dueDate = this.editTaskForm.value.DueDate;
+        editedTask.course = this.editTaskForm.value.Course;
+        editedTask.taskId = this.task.taskId;
+        editedTask.status = this.task.status;
+        editedTask.dueDate = this.fixDateBeforeSend(editedTask.dueDate).substring(0, 16) + ':00';
+        console.log(editedTask);
+        this.taskService.editTask(editedTask).subscribe({
             next: (res) => {
-                if (res.status === 200) console.log('Task Edited successfully!');
+                console.log('Received Response');
+                console.log(res);
+                if (res.status == 200) {
+                    console.log('Task Edited successfully!');
+                    this.task = editedTask;
+                    //reload the page
+                    window.location.reload();
+                } else {
+                    console.log('Error Occurred');
+                }
             },
         });
     }

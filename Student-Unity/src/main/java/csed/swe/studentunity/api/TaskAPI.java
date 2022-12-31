@@ -22,8 +22,10 @@ public class TaskAPI {
     }
 
     @PutMapping("/editTask")
-    public ResponseEntity<Boolean> editTask(@RequestBody Task task) {
-        return new ResponseEntity<>(taskService.editTask(task), HttpStatus.OK);
+    public ResponseEntity<Task> editTask(@RequestBody Task task) {
+        Task editedTask = taskService.editTask(task);
+        if (editedTask == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(editedTask, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteTask")
