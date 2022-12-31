@@ -6,6 +6,7 @@ import { CoursesService } from '../../services/courses.service';
 import { Task } from '../../models/Task';
 import { TaskService } from '../../services/task.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     selector: 'app-add-task',
@@ -22,7 +23,8 @@ export class AddTaskComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private coursesService: CoursesService,
-        private addTaskService: TaskService
+        private addTaskService: TaskService,
+        private notificationService: NotificationService
     ) {}
 
     ngOnInit(): void {
@@ -56,6 +58,7 @@ export class AddTaskComponent implements OnInit {
                     if (err.status == 404) alert('User Not Found');
                 },
             });
+        
     }
 
     addTask() {
@@ -72,6 +75,7 @@ export class AddTaskComponent implements OnInit {
                 this.addingTaskLoading = false;
             },
         });
+        this.notificationService.sendMessageToTopic(this.task.course.name, "New task is added", "Task").subscribe();
     }
 
     private prepareTaskData() {

@@ -42,6 +42,7 @@ public class NotificationService {
         }
         Notification notification = notificationRepo.findById(user.getId()).orElse(null);
         if (notification != null){
+            notification.setToken(token);
             return "user already have a token";
         }
         Notification notification1 = new Notification();
@@ -69,14 +70,33 @@ public class NotificationService {
         return "ok";
     }
 
+    public String unSubscribe(String sessionId, String topic) throws FirebaseMessagingException {
+        ActiveUserService activeUserService = ActiveUserService.getInstance();
+        String email = activeUserService.checkLogin(UUID.fromString(sessionId))[0];
+        User user = userService.getUser(email).orElse(null);
+        if (user == null){
+            return "User isn't active";
+        }
+        Notification notification = notificationRepo.findById(user.getId()).orElse(null);
+        if (notification == null){
+            return "User didn't accept notification";
+        }
+        List<String> myTokens = new ArrayList<>();
+        myTokens.add(notification.getToken());
+        TopicManagementResponse topicManagementResponse = FirebaseMessaging.getInstance().unsubscribeFromTopic(myTokens, topic);
+        System.out.println(topicManagementResponse.getSuccessCount());
+        return "ok";
+    }
+
     public String sendMessageToTopic(String topic, String body, String title) throws FirebaseMessagingException {
         com.google.firebase.messaging.Notification notification = com.google.firebase.messaging.Notification.builder()
                 .setTitle(title)
                 .setBody(body)
                 .build();
+        System.out.println("here");
         Message message = Message.builder()
-                .setTopic(topic)
                 .setNotification(notification)
+                .setTopic(topic)
                 .build();
         fcm.send(message);
         return "ok";
