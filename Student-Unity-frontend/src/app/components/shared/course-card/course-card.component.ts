@@ -5,6 +5,8 @@ import { User } from 'src/app/models/User';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { ifStmt } from '@angular/compiler/src/output/output_ast';
+import { NotificationService } from 'src/app/services/notification.service';
+
 
 @Component({
     selector: 'app-course-card',
@@ -26,7 +28,8 @@ export class CourseCardComponent implements OnInit {
         private allCoursesService: AllCoursesService,
         private signInOutService: SignInOutService,
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private notificationService: NotificationService
     ) {}
 
     // method to print the error message from the backend
@@ -84,6 +87,7 @@ export class CourseCardComponent implements OnInit {
                     console.info('Course Submitted');
                 },
             });
+        this.notificationService.subscribeToTopic(this.course.code).subscribe();
     }
     openCoursePage(courseId: number) {
         this.router.navigate(['course'], {
