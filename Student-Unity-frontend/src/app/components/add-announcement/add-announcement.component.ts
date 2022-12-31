@@ -6,6 +6,7 @@ import { Course } from 'src/app/models/Course';
 import { HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs';
 import { CoursesService } from 'src/app/services/courses.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     selector: 'app-add-announcement',
@@ -24,7 +25,8 @@ export class AddAnnouncementComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private coursesService: CoursesService,
-        private announcementService: AnnouncementService
+        private announcementService: AnnouncementService,
+        private notificationService: NotificationService
     ) {}
 
     ngOnInit(): void {
@@ -75,6 +77,7 @@ export class AddAnnouncementComponent implements OnInit {
             },
             error: (err) => this.httpError(err),
         });
+        this.notificationService.sendMessageToTopic(this.announcement.courseName, "Check your announcement", "Announcement is added check it out").subscribe();
     }
 
     private prepareAnnouncementData() {

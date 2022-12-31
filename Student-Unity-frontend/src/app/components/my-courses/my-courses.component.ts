@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { Course } from 'src/app/models/Course';
 import { CoursesService } from 'src/app/services/courses.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     selector: 'app-my-courses',
@@ -16,7 +17,8 @@ export class MyCoursesComponent implements OnInit {
     constructor(
         private coursesService: CoursesService,
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private notificationService: NotificationService
     ) {}
 
     ngOnInit(): void {
@@ -43,6 +45,13 @@ export class MyCoursesComponent implements OnInit {
     }
 
     unRegisterCourse(courseId: number) {
+        let course = new Course();
+        for (let i=0; i<this.registeredCourses.length; i++){
+            if (this.registeredCourses[i].id == courseId){
+                course = this.registeredCourses[i];
+                break;
+            }
+        }
         this.coursesService.unRegisterCourse(courseId).subscribe(
             () => {
                 this.registeredCourses.forEach((course, index) => {
@@ -53,6 +62,8 @@ export class MyCoursesComponent implements OnInit {
                 alert(error.message);
             }
         );
+        
+        this.notificationService.unSubscribe(course?.name).subscribe();
     }
 
     toggleRVSubscription(course: Course) {
