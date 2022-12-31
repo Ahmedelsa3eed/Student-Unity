@@ -125,7 +125,7 @@
                     type="password"
                     class="form-control"
                     placeholder="Confirm Password"
-                    id="rPassword"
+                    id="confirmPassword"
                     formControlName="rPassword"
                 />
                 <div
@@ -159,6 +159,15 @@
                 >
                     Student ID is Required.
                 </div>
+            </div>
+        </div>
+        <!-- reCAPTCHA -->
+        <div id="recaptcha"></div>
+
+        <!--Check button-->
+        <div class="row">
+            <div class="col mb-3">
+                <button type="submit" (click)="checkValidity()" class="btn btn-primary">Check fields validity</button>
             </div>
         </div>
         <!--submit-->

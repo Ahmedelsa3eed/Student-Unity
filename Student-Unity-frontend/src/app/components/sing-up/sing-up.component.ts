@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 import { SignUpService } from 'src/app/services/sign-up.service';
 import { ConfirmedValidator } from 'src/app/components/shared/match.validator';
 import { SignUpData } from 'src/app/models/sign-up-data.model';
+
+declare var grecaptcha: any;
+declare var siteKey: any;
+
 @Component({
     templateUrl: './sing-up.component.html',
     styleUrls: ['./sing-up.component.css'],
@@ -21,9 +25,23 @@ export class SingUpComponent implements OnInit, OnDestroy {
     postError: boolean = false;
     postErrorMessage: string = '';
     signUpdata: SignUpData = {} as SignUpData;
+
+    checkValidity() {
+        this.registerForm.get('check')?.setValue(true);
+    }
+
     constructor(private fb: FormBuilder, private signUpService: SignUpService, private router: Router) {}
 
     ngOnInit(): void {
+        grecaptcha.ready(function () {
+            grecaptcha.render('recaptcha', {
+                sitekey: siteKey,
+                callback: function (response: string) {
+                    console.log(response);
+                },
+                theme: 'light',
+            });
+        });
         this.registerForm = this.fb.group(
             {
                 firstName: this.fb.control(null, [
@@ -44,6 +62,7 @@ export class SingUpComponent implements OnInit, OnDestroy {
                 ]),
                 rPassword: this.fb.control(null, [Validators.required, ConfirmedValidator('password', 'rPassword')]),
                 studentId: this.fb.control(null, [Validators.required]),
+                check: this.fb.control(null, [Validators.required]),
             },
             {
                 validators: ConfirmedValidator('password', 'rPassword'),
@@ -105,5 +124,8 @@ export class SingUpComponent implements OnInit, OnDestroy {
     }
     get StudentId(): FormControl {
         return this.registerForm.get('studentId') as FormControl;
+    }
+    get Check(): FormControl {
+        return this.registerForm.get('check') as FormControl;
     }
 }
