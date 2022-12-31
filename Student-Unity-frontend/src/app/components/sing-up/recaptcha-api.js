@@ -1,4 +1,4 @@
-/* PLEASE DO NOT COPY AND PASTE THIS CODE. */ (function () {
+(function () {
     var w = window,
         C = '___grecaptcha_cfg',
         cfg = (w[C] = w[C] || {}),
