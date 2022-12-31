@@ -21,6 +21,10 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Telegram Link </mat-label>
+                <input matInput id="TelegramLink" formControlName="TelegramLink" />
+            </mat-form-field>
             <hr />
             <button
                 *ngIf="!addingTaskLoading"
