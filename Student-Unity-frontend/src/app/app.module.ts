@@ -40,8 +40,8 @@ import { AddAnnouncementComponent } from './components/add-announcement/add-anno
 import { SettingsComponent } from './components/settings/settings.component';
 import { MaterialPageComponent } from './components/material-page/material-page.component';
 import { MaterialCategoryPageComponent } from './components/material-category-page/material-category-page.component';
-import { environment } from "../environments/environment";
-import { initializeApp } from "firebase/app";
+import { environment } from '../environments/environment';
+import { initializeApp } from 'firebase/app';
 import { NotificationComponent } from './components/notification/notification.component';
 initializeApp(environment.firebase);
 

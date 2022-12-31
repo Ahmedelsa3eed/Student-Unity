@@ -29,8 +29,8 @@ public class SettingsAPI {
 
 
     @PutMapping("/changeId")
-    public ResponseEntity<SettingsResponses> changeId(@RequestParam String sessionId, @RequestParam Integer studentId){
-        SettingsResponses settingsResponse = settingsService.changeId(studentId, sessionId);
+    public ResponseEntity<SettingsResponses> changeId(@RequestParam String sessionId, @RequestParam String userId){
+        SettingsResponses settingsResponse = settingsService.changeId(Integer.valueOf(userId), sessionId);
         return new ResponseEntity<>(settingsResponse, httpStatus(settingsResponse));
     }
 

@@ -21,8 +21,19 @@
             </div>
             <!-- Submit Form -->
             <button class="btn btn-primary" type="submit" [disabled]="addAnnouncementForm.invalid">
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
                 Add Announcement
             </button>
+
+            <!-- Feedback Alerts -->
+            <div *ngIf="isAnnoucementAdded" class="alert alert-success" role="alert">
+                The Announcement has been added successfully!
+            </div>
         </form>
     </div>
 </div>

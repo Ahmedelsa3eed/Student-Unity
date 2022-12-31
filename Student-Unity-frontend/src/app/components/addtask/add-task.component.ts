@@ -16,6 +16,8 @@ export class AddTaskComponent implements OnInit {
     addTaskForm!: FormGroup;
     task = new Task();
     registeredCourses: Course[] = [];
+    addingTaskLoading: Boolean = false;
+    taskAdded: Boolean = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -24,10 +26,12 @@ export class AddTaskComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.taskAdded = false;
         this.addTaskForm = this.formBuilder.group({
             Title: this.formBuilder.control(this.task.title, [Validators.required]),
             DueDate: this.formBuilder.control(this.task.dueDate, [Validators.required]),
             Course: this.formBuilder.control(this.task.course, [Validators.required]),
+            TelegramLink: this.formBuilder.control(this.task.telegramLink),
         });
         this.getCourses();
     }
@@ -55,17 +59,26 @@ export class AddTaskComponent implements OnInit {
     }
 
     addTask() {
+        this.addingTaskLoading = true;
+        this.prepareTaskData();
+        this.addTaskService.addTask(this.task).subscribe({
+            next: (res) => {
+                this.addingTaskLoading = false;
+                if (res.ok) {
+                    this.taskAdded = true;
+                }
+            },
+            error: (error: HttpErrorResponse) => {
+                this.addingTaskLoading = false;
+            },
+        });
+    }
+
+    private prepareTaskData() {
         this.task.title = this.addTaskForm.value.Title;
         this.task.dueDate = this.addTaskForm.value.DueDate;
         this.task.course = this.addTaskForm.value.Course;
+        this.task.telegramLink = this.addTaskForm.value.TelegramLink;
         this.task.dueDate = this.task.dueDate?.concat(':00');
-        this.addTaskService.addTask(this.task).subscribe({
-            next: (res) => {
-                if (res.status == 200) {
-                    console.log('Task Added Successfully');
-                }
-            },
-            error: (err) => console.log(err),
-        });
     }
 }

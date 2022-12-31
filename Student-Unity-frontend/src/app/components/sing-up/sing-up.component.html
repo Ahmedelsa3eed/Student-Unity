@@ -179,8 +179,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6 offset-3">
-                <div class="d-grid">
+            <div class="col-6 offset-3 d-flex justify-content-center">
+                <div *ngIf="registerLoading" class="spinner-border text-primary mb-3" role="status"></div>
+                <div *ngIf="!registerLoading" class="d-grid reg-buttons">
                     <button
                         type="submit"
                         [disabled]="registerForm.invalid"
@@ -189,6 +190,9 @@
                     >
                         Register
                     </button>
+                    <p class="pt-3">
+                        Already registered? <span class="text-primary" (click)="backToSignIn()">Sign in</span>
+                    </p>
                 </div>
             </div>
         </div>

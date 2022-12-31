@@ -13,8 +13,8 @@ export class AnnouncementService {
 
     constructor(private http: HttpClient, private userService: SignInOutService) {}
 
-    public addAnnouncement(announcement: Announcement): Observable<any> {
-        return this.http.post(this.url + '/add', announcement, {
+    public addAnnouncement(announcement: Announcement): Observable<boolean> {
+        return this.http.post<boolean>(this.url + '/add', announcement, {
             params: {
                 sessionId: this.userService.getSignedInUserSessionID(),
             },
@@ -38,6 +38,25 @@ export class AnnouncementService {
             params: {
                 sessionId: this.userService.getSignedInUserSessionID(),
                 courseId: courseId,
+            },
+            responseType: 'json',
+        });
+    }
+
+    public deleteAnnouncement(announcementId: number): Observable<any> {
+        return this.http.delete(this.url + '/delete', {
+            params: {
+                sessionId: this.userService.getSignedInUserSessionID(),
+                announcementId: announcementId,
+            },
+            responseType: 'json',
+        });
+    }
+
+    editAnnouncement(newAnnouncement: Announcement) {
+        return this.http.put(this.url + '/edit', newAnnouncement, {
+            params: {
+                sessionId: this.userService.getSignedInUserSessionID(),
             },
             responseType: 'json',
         });

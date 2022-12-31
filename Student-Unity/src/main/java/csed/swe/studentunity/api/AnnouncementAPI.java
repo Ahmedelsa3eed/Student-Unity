@@ -38,4 +38,9 @@ public class AnnouncementAPI {
         return new ResponseEntity<>(this.announcementService.deleteAnnouncement(sessionId, announcementId), HttpStatus.OK);
     }
 
+    @PutMapping("/edit")
+    public ResponseEntity<Boolean> editAnnouncement(@RequestParam("sessionId") String sessionId, @RequestBody Announcement announcement) {
+        return new ResponseEntity<>(this.announcementService.editAnnouncement(sessionId, announcement), HttpStatus.OK);
+    }
+
 }

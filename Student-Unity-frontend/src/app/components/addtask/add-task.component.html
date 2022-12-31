@@ -21,10 +21,26 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Telegram Link </mat-label>
+                <input matInput id="TelegramLink" formControlName="TelegramLink" />
+            </mat-form-field>
             <hr />
-            <button class="btn btn-primary" type="submit" [disabled]="addTaskForm.invalid" (click)="addTask()">
+            <button
+                *ngIf="!addingTaskLoading"
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="addTaskForm.invalid"
+                (click)="addTask()"
+            >
                 Add Task
             </button>
+            <button *ngIf="addingTaskLoading" class="btn btn-primary" type="submit" [disabled]="true">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Adding Task...
+            </button>
+            <!-- Task alert -->
+            <div *ngIf="taskAdded" class="alert alert-success" role="alert">The task has been added successfully!</div>
         </form>
     </div>
 </div>

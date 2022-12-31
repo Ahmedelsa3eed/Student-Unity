@@ -37,6 +37,11 @@ public class Material implements Serializable {
         this.materialCategoryId = materialCategoryId;
     }
 
+    public Material(String title, String url) {
+        this.title = title;
+        this.url = url;
+    }
+
 }
 
 // alter table material add foreign key(material_category_id) references material_category (material_category_id) on delete cascade

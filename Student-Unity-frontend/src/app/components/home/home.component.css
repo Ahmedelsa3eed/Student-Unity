@@ -2,5 +2,4 @@
     display: grid;
     grid-template-columns: 300px auto;
     background-color: #f7f8fa;
-    height: 100%;
 }
