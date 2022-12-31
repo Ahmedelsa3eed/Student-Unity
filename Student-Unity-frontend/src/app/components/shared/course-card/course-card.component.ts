@@ -29,18 +29,34 @@ export class CourseCardComponent implements OnInit {
 
     deleteCourse(): void {
         this.deleteLoading = true;
+        console.log(this.course.code);
         this.allCoursesService
             .deleteCourse(this.signInOutService.getSignedInUserSessionID(), this.course.code)
             .subscribe({
                 next: (res) => {
+                    console.log('testing here');
                     console.log(res);
                     this.deleteLoading = false;
                     location.reload();
                 },
-                error: (err) => this.router.navigate(['home/allCourses']),
+                error: (err) => console.log(err),
                 complete: () => console.info('Course Submited'),
             });
     }
+
+    editCourse(): void {
+        this.router.navigate(['home/addCourse'], {
+            queryParams: {
+                courseName: this.course.name,
+                courseCode: this.course.code,
+                status: this.course.activeCourse !== null,
+                term: this.course.term,
+                telegramLink: this.course.telegramLink,
+                timeTable: this.course.timeTable,
+            },
+        });
+    }
+
     subscribeCourse(): void {
         this.subscribeLoading = true;
         this.allCoursesService
