@@ -23,19 +23,29 @@ export class NotificationService {
     }
 
     subscribeToTopic(topic: string): Observable<any> {
+        
         let para = new HttpParams();
         para = para.append('sessionId', this.signInOutService.getSignedInUserSessionID());
         para = para.append('topic', topic);
-        let link = this.url + 'subscribeToTopic';
+        let link = this.url + '/subscribeToTopic';
         return this.httpClient.put<any>(link, para);
     }
 
     sendMessageToTopic(topic: string, body: string, title: string) {
+        
         let para = new HttpParams();
         para = para.append('title', title);
         para = para.append('topic', topic);
         para = para.append('body', body);
-        let link = this.url + 'sendMessageToTopic';
+        let link = this.url + '/sendMessageToTopic';
         return this.httpClient.post<any>(link, para);
+    }
+
+    unSubscribe(topic: string): Observable<any>{
+        let para = new HttpParams();
+        para = para.append('sessionId', this.signInOutService.getSignedInUserSessionID());
+        para = para.append('topic', topic);
+        let link = this.url + '/unSubscribe';
+        return this.httpClient.put<any>(link, para);
     }
 }

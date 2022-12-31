@@ -33,6 +33,7 @@ public class NotificationAPI {
 
     @PutMapping("/subscribeToTopic")
     public ResponseEntity<String> subscribeToTopic(@RequestParam String sessionId, @RequestParam String topic) {
+        System.out.println(topic);
         try{
             String res = notificationService.subscribeToTopic(sessionId, topic);
             if (res.equals("ok")){
@@ -48,9 +49,19 @@ public class NotificationAPI {
         }
     }
 
+    @PutMapping("/unSubscribe")
+    public ResponseEntity<String> unSubscribe(@RequestParam String sessionId, @RequestParam String topic)  {
+        try{
+            return new ResponseEntity<>(notificationService.unSubscribe(sessionId, topic), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Error", HttpStatus.EXPECTATION_FAILED);
+        }
+    }
     @PostMapping("/sendMessageToTopic")
     public ResponseEntity<String> sendMessageToTopic(@RequestParam String topic, @RequestParam String body, @RequestParam String title) throws FirebaseMessagingException {
         try {
+        System.out.println(topic);
             return new ResponseEntity<>(notificationService.sendMessageToTopic(topic, body, title), HttpStatus.OK);
         }
         catch (Exception e){
