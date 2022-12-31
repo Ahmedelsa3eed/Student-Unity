@@ -42,6 +42,7 @@ export class TaskComponent implements OnInit {
             Title: this.formBuilder.control(this.task.title, [Validators.required]),
             DueDate: this.formBuilder.control(this.task.dueDate, [Validators.required]),
             Course: this.formBuilder.control(this.task.course, [Validators.required]),
+            TelegramLink: this.formBuilder.control(this.task.telegramLink),
         });
     }
 
