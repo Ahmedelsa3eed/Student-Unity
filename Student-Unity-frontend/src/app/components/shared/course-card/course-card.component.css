@@ -6,9 +6,24 @@
 
 .card-header p {
     margin: 0;
+    cursor: pointer;
+    color: #ffffff;
 }
 
 .modal-title,
 .modal-body {
     color: #000;
+}
+
+.grayed .card-header {
+    background-color: #2d3436;
+}
+.grayed .card-body {
+    background-color: #2d3436;
+}
+.bi {
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-left: 100px;
 }

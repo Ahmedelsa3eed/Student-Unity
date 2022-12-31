@@ -4,20 +4,21 @@ export class Course {
     code: string;
     timeTable: string;
     telegramLink: string;
-    status: boolean;
+    activeCourse: [];
     notificationsToken: string;
     term: number;
     revisionSubscription: boolean;
-
+    subscribed: boolean;
     constructor() {
         this.id = 0;
         this.name = '';
         this.code = '';
         this.timeTable = '';
         this.telegramLink = '';
-        this.status = false;
+        this.activeCourse = [];
         this.notificationsToken = '';
         this.revisionSubscription = true;
         this.term = 0;
+        this.subscribed = false;
     }
 }

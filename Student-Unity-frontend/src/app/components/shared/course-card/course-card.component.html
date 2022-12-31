@@ -1,6 +1,8 @@
-<div class="card text-white bg-primary mb-3" style="max-width: 18rem">
+<div [ngClass]="course.activeCourse === null ? 'grayed bg-secondary' : 'bg-primary'" class="card text-white mb-3">
     <div class="card-header justify-content-space-between">
-        <p>{{ course.code }}</p>
+        <p (click)="openCoursePage(course.id)">{{ course.code }}</p>
+
+        <i (click)="editCourse()" class="bi bi-three-dots-vertical"></i>
         <button
             *ngIf="privilege"
             class="btn btn-danger"
@@ -8,10 +10,8 @@
             data-bs-toggle="modal"
             [attr.data-bs-target]="'#delete' + course.name | removeSpaces"
         >
-            <!-- <i class="bi bi-three-dots-vertical" style="font-size: 1.3rem; color: rgb(255, 255, 255);" ></i> -->
             Delete
         </button>
-
         <!-- Modal -->
         <div
             class="modal fade"
@@ -26,12 +26,29 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure?</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">Are you sure you want to delete {{ course.name }}?</div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" (click)="deleteCourse()" data-bs-dismiss="modal" class="btn btn-danger">
-                            Confirm
-                        </button>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        <div *ngIf="deleteLoading" class="d-flex justify-content-center" style="min-width: 80px">
+                            <div class="spinner-border text-primary" role="status"></div>
+                        </div>
+                        <div>
+                            <button
+                                type="button"
+                                *ngIf="!deleteLoading"
+                                (click)="deleteCourse()"
+                                class="btn btn-danger"
+                            >
+                                Confirm
+                            </button>
+                        </div>
+                    </div>
+                    <div [hidden]="!postDeleteError" class="alert alert-danger text-center" role="alert">
+                        {{ errorMessage }}
                     </div>
                 </div>
             </div>
@@ -39,7 +56,23 @@
     </div>
     <div class="card-body">
         <h5 class="card-title mb-3">{{ course.name }}</h5>
-        <button type="button" class="btn btn-light" (click)="subscribeCourse()">Subscribe</button>
-           
+        <button
+            *ngIf="!subscribed && !subscribeLoading"
+            type="button"
+            [ngClass]="course.activeCourse === null ? 'btn-secondary' : 'btn-light'"
+            class="btn"
+            (click)="subscribeCourse()"
+        >
+            Subscribe
+        </button>
+        <div
+            *ngIf="subscribeLoading"
+            [ngClass]="course.activeCourse === null ? 'text-primary' : 'text-light'"
+            class="spinner-border mt-3"
+            role="status"
+        ></div>
+    </div>
+    <div [hidden]="!postSubscribeError" class="alert alert-danger text-center" role="alert">
+        {{ errorMessage }}
     </div>
 </div>

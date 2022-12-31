@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { AllCoursesService } from 'src/app/services/all-courses.service';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { User } from 'src/app/models/User';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/Course';
-
+import { CoursesService } from 'src/app/services/courses.service';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'app-all-courses',
     templateUrl: './all-courses.component.html',
@@ -13,22 +14,22 @@ import { Course } from 'src/app/models/Course';
 })
 export class AllCoursesComponent implements OnInit {
     private _courseSearch: string = '';
-    private numberOfTerms: number = 10;
     sub!: Subscription;
-    courses?: Observable<Course[]>;
-    courses$ = new BehaviorSubject<Course[]>([]);
 
-    terms: Course[][] = [] as Course[][];
+    allCourses: Course[] = [];
     filteredCourses: Course[] = [];
     showFilteredList: boolean = false;
     private _filterByStatus: boolean = false;
     loggedInUserRole = this.signInOutService.getSignedInUserRole();
     privilege: boolean = false;
 
+    pageLoading: boolean = true;
+
     constructor(
         private router: Router,
         private signInOutService: SignInOutService,
-        private allCoursesService: AllCoursesService
+        private allCoursesService: AllCoursesService,
+        private coursesService: CoursesService
     ) {}
 
     ngOnInit(): void {
@@ -36,8 +37,27 @@ export class AllCoursesComponent implements OnInit {
         this.sub = this.allCoursesService.getAllCourses().subscribe({
             next: (courses) => {
                 console.log(courses);
-                this.courses$.next(courses);
-                this.courses = this.courses$.asObservable();
+                this.allCourses = courses;
+                this.coursesService
+                    .getUserRegisteredCourse()
+                    .pipe(
+                        map((list) => {
+                            list.forEach((data: any) => {
+                                this.allCourses.forEach((course) => {
+                                    if (course.id == data[0]) {
+                                        course.subscribed = true;
+                                    }
+                                });
+                            });
+                        })
+                    )
+                    .subscribe({
+                        next: () => {},
+                        error: (err) => console.log(err),
+                        complete: () => {
+                            this.pageLoading = false;
+                        },
+                    });
             },
             error: (err) => console.log(err),
         });
@@ -84,7 +104,7 @@ export class AllCoursesComponent implements OnInit {
 
     filterCourses(): void {
         // filter by course code or course name
-        this.filteredCourses = this.courses$.value.filter(
+        this.filteredCourses = this.allCourses.filter(
             (course: Course) =>
                 course.code.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase()) ||
                 course.name.toLocaleLowerCase().includes(this._courseSearch.toLocaleLowerCase())
@@ -92,7 +112,7 @@ export class AllCoursesComponent implements OnInit {
 
         // filter by status
         if (this._filterByStatus) {
-            this.filteredCourses = this.filteredCourses.filter((course: Course) => course.status === true);
+            this.filteredCourses = this.filteredCourses.filter((course: Course) => course.activeCourse !== null);
         }
         this.showFilteredList = this._filterByStatus || this._courseSearch.length > 0;
     }
