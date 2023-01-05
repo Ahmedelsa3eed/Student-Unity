@@ -34,6 +34,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CoursePageComponent } from './components/course-page/course-page.component';
 import { VerficationComponent } from './components/verfication/verfication.component';
+import { AnnouncementPageComponent } from './components/announcement-page/announcement-page.component';
+import { AnnouncementComponent } from './components/announcement/announcement.component';
+import { AddAnnouncementComponent } from './components/add-announcement/add-announcement.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { MaterialPageComponent } from './components/material-page/material-page.component';
+import { MaterialCategoryPageComponent } from './components/material-category-page/material-category-page.component';
+import { environment } from '../environments/environment';
+import { initializeApp } from 'firebase/app';
+import { NotificationComponent } from './components/notification/notification.component';
+initializeApp(environment.firebase);
 
 @NgModule({
     declarations: [
@@ -56,6 +66,13 @@ import { VerficationComponent } from './components/verfication/verfication.compo
         TasksPageComponent,
         AddTaskComponent,
         VerficationComponent,
+        AnnouncementPageComponent,
+        AnnouncementComponent,
+        AddAnnouncementComponent,
+        SettingsComponent,
+        MaterialPageComponent,
+        MaterialCategoryPageComponent,
+        NotificationComponent,
     ],
     imports: [
         BrowserModule,

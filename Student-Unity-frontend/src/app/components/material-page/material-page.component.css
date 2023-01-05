@@ -1,0 +1,10 @@
+.icon {
+    height: max-content;
+    width: max-content;
+    border-radius: 100%;
+}
+
+.icon:hover {
+    cursor: pointer;
+    background-color: gainsboro;
+}

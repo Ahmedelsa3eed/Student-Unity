@@ -18,7 +18,7 @@ public class VerificationCodeServiceTest {
     void itShouldAddVerificationCodeSuccessfully() {
 
         // given
-        String email = "mam2542001@gmail.com";
+        String email = "lol@gmail.com";
         // when
         underTest.addVerificationCode(email);
 
@@ -33,7 +33,7 @@ public class VerificationCodeServiceTest {
     @Test
     void itShouldDeleteVerificationCodeSuccessfuly() {
         // given
-        String email = "mam2542001@gmail.com";
+        String email = "lol@gmail.com";
         // when
         underTest.addVerificationCode(email);
 

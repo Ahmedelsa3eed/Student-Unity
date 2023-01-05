@@ -1,0 +1,24 @@
+<div class="container p-lg-5">
+    <select
+        *ngIf="showFilterSelector"
+        (ngModelChange)="filterAnnouncement($event)"
+        [(ngModel)]="selectedCourseName"
+        class="form-select form-select-sm"
+        aria-label=".form-select-sm example"
+    >
+        <option value="All">All</option>
+        <option *ngFor="let c of registeredCourses" [ngValue]="c">{{ c.name }}</option>
+    </select>
+</div>
+
+<div class="container p-4">
+    <div class="accordion" id="announcementPage">
+        <!-- Announcements -->
+        <app-announcement
+            *ngFor="let announcement of announcementList"
+            [announcemet]="announcement"
+            (removingAnnouncement)="removeAnnouncement($event)"
+        >
+        </app-announcement>
+    </div>
+</div>

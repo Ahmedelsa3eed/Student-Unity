@@ -3,6 +3,9 @@ import { NgForm } from '@angular/forms';
 import { SignInOutService } from 'src/app/services/sign-in-out.service';
 import { ChildActivationStart, Router } from '@angular/router';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { NotificationComponent } from '../notification/notification.component';
+import { NotificationService } from 'src/app/services/notification.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-sign-in',
@@ -15,7 +18,12 @@ export class SignInComponent implements OnInit {
     loadings: boolean = false;
     forgetPasswordLoading: boolean = false;
 
-    constructor(private signInOutService: SignInOutService, private router: Router) {}
+    constructor(
+        private signInOutService: SignInOutService,
+        private router: Router,
+        private notificationService: NotificationService,
+        private cookieService: CookieService
+    ) {}
 
     ngOnInit(): void {
         if (this.signInOutService.isSignedIn()) {
@@ -52,10 +60,34 @@ export class SignInComponent implements OnInit {
     }
 
     public handleSignInResponse(response: HttpResponse<any>, signInForm: NgForm) {
-        this.loadings = false;
         if (response.status == 200) {
-            this.signInOutService.fillSignedInUserInfo(signInForm.value.rememberMe, response.body);
-            this.router.navigate(['home']);
+            let expirationDate = 0;
+            if (signInForm.value.rememberMe) expirationDate = 400;
+            this.cookieService.set('sessionId', response.body, expirationDate, '/', '', true, 'Strict');
+            this.signInOutService.fillSignedInUserInfo(response.body).subscribe(
+                (res) => {
+                    if (res.body) {
+                        this.cookieService.set(
+                            'firstName',
+                            res.body.firstName,
+                            expirationDate,
+                            '/',
+                            '',
+                            true,
+                            'Strict'
+                        );
+                        this.cookieService.set('lastName', res.body.lastName, expirationDate, '/', '', true, 'Strict');
+                        this.cookieService.set('email', res.body.email, expirationDate, '/', '', true, 'Strict');
+                        this.cookieService.set('role', res.body.role, expirationDate, '/', '', true, 'Strict');
+                        this.loadings = false;
+                        this.router.navigate(['home']);
+                    }
+                },
+                (err) => {
+                    this.loadings = false;
+                    console.log(err);
+                }
+            );
         }
     }
 

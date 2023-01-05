@@ -1,0 +1,12 @@
+[
+    {
+        "courseName": "SWE",
+        "body": "swe body",
+        "date": "2022-12-25"
+    },
+    {
+        "courseName": "AI",
+        "body": "AI body",
+        "date": "2022-12-25"
+    }
+]

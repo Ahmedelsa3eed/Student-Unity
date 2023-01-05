@@ -1,6 +1,3 @@
-import { STATUS } from './Status';
-import { Course } from './Course';
-
 export class Task {
     taskId: number;
     title?: string;

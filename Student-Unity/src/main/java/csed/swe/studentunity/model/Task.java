@@ -25,7 +25,7 @@ public class Task implements Serializable {
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     private Course course;
 
-    @Column(columnDefinition = "Date")
+    @Column(columnDefinition = "DateTime")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date dueDate;
 

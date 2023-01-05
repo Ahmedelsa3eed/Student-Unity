@@ -1,0 +1,87 @@
+<div class="row p-3 gap-2">
+    <div *ngFor="let category of materialCategories" class="col-3 p-3 materia-categorty-container">
+        <div class="row">
+            <div class="col-8 materia-categorty-title" (click)="onOpenCategory(category.id, category.name)">
+                {{ category.name }}
+            </div>
+            <i
+                *ngIf="signedInUserRole == 'admin'"
+                class="col-11 bi bi-x-lg icon text-danger"
+                (click)="openDeleteCategoryModal(category.id)"
+            ></i>
+            <i
+                *ngIf="signedInUserRole == 'admin'"
+                class="col-12 bi bi-pencil icon text-primary"
+                (click)="openEditCategoryModal(category.id, category.name)"
+            ></i>
+        </div>
+    </div>
+</div>
+
+<button
+    id="openEditCategoryBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#editCategoryModal"
+></button>
+<div class="modal" id="editCategoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Category</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input
+                    #editCategoryNameInput
+                    id="editCategoryNameInput"
+                    type="text"
+                    class="form-control"
+                    placeholder="Category Name"
+                />
+                <div *ngIf="editCategoryLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="closeEditCategoryBtn" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" class="btn btn-primary" (click)="onEditCategory(editCategoryNameInput.value)">
+                    Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button
+    id="openDeleteCategoryBtn"
+    type="button"
+    class="btn btn-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#deleteCategoryModal"
+></button>
+<div class="modal" id="deleteCategoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Category</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div>Are you sure you want to delete that category and all of its content?</div>
+                <div *ngIf="deleteCategoryLoading" class="spinner-border text-primary mt-3" role="status"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" (click)="onDeleteCategory()">Delete</button>
+                <button id="closeDeleteCategoryBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

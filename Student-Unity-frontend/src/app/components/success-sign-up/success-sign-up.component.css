@@ -1,16 +1,16 @@
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .card {
-  min-width: 350px;
-  max-width: 450px
+    min-width: 350px;
+    max-width: 450px;
 }
 
 .card .card-head > i {
-  font-size: 10rem;
-  color: #198754;
+    font-size: 10rem;
+    color: #198754;
 }

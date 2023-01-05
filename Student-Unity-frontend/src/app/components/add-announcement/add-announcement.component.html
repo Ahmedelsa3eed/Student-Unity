@@ -1,0 +1,39 @@
+<div class="container p-4">
+    <div class="form-row">
+        <form [formGroup]="addAnnouncementForm" (ngSubmit)="addAnnouncement()" class="border p-2 rounded-3">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Select Course Name </mat-label>
+                <mat-select formControlName="course" id="course">
+                    <mat-option *ngFor="let course of registeredCourses" [value]="course">
+                        {{ course.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br />
+            <mat-form-field appearance="fill">
+                <mat-label>Body</mat-label>
+                <textarea matInput cdkTextareaAutosize formControlName="body" placeholder="body"> </textarea>
+            </mat-form-field>
+            <hr />
+            <!-- Error msg -->
+            <div [hidden]="!errorFlag" class="alert alert-danger text-center" role="alert">
+                {{ errorMessage }}
+            </div>
+            <!-- Submit Form -->
+            <button class="btn btn-primary" type="submit" [disabled]="addAnnouncementForm.invalid">
+                <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                ></span>
+                Add Announcement
+            </button>
+
+            <!-- Feedback Alerts -->
+            <div *ngIf="isAnnoucementAdded" class="alert alert-success" role="alert">
+                The Announcement has been added successfully!
+            </div>
+        </form>
+    </div>
+</div>

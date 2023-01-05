@@ -3,7 +3,24 @@
         <!-- Title -->
         <div class="card-header">
             <h5 class="card-title header-item">{{ task.title }}</h5>
-            <em (click)="removeTask()" class="bi bi-trash3 header-item" style="cursor: pointer"></em>
+            <!-- Edit button -->
+            <div
+                *ngIf="userRole == 'admin'"
+                class="header-item"
+                id="edit-icon"
+                type="button"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#modal' + task.taskId"
+                (click)="prepareEditTaskForm()"
+            >
+                <em class="bi bi-pencil-square fs-5" style="cursor: pointer"></em>
+            </div>
+            <!-- Remove button -->
+            <div class="header-item" id="del-icon">
+                <em *ngIf="!removeLoading" (click)="removeTask()" class="bi bi-trash3 fs-5" style="cursor: pointer">
+                </em>
+                <em *ngIf="removeLoading" class="spinner-grow spinner-grow-sm"></em>
+            </div>
         </div>
         <div>
             <h6 class="card-subtitle mb-2 text-muted">{{ task.courseCode }}</h6>
@@ -17,6 +34,71 @@
                 </a>
             </div>
             <div id="mark" (click)="trigerStatus()"><em class="bi bi-check2-square"></em></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div
+    class="modal fade"
+    [id]="'modal' + task.taskId"
+    tabindex="-1"
+    [attr.aria-labelledby]="'modalLabel' + task.taskId"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Edit task</h3>
+                <!-- close button -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="form-row">
+                    <form [formGroup]="editTaskForm" (ngSubmit)="(editTask)" class="border p-2 rounded-3">
+                        <!-- Title -->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Task title </mat-label>
+                            <input matInput placeholder="Ex. sheet 4 AI" id="Title" formControlName="Title" />
+                        </mat-form-field>
+                        <br />
+                        <!-- Course Name -->
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Select Course Name</mat-label>
+                            <mat-select formControlName="Course" id="Course" name="Course">
+                                <mat-option *ngFor="let course of registeredCourses" [value]="course">
+                                    {{ course.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <br />
+                        <!-- Due date -->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose the dueDate</mat-label>
+                            <input matInput type="datetime-local" formControlName="DueDate" id="DueDate" />
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <br />
+                        <!-- Telegram Link -->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Telegram Link </mat-label>
+                            <input matInput type="text" id="TelegramLink" formControlName="TelegramLink" />
+                        </mat-form-field>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- Save changes -->
+                <button type="button" class="btn btn-primary" [disabled]="editTaskForm.invalid" (click)="editTask()">
+                    Save changes
+                </button>
+            </div>
         </div>
     </div>
 </div>

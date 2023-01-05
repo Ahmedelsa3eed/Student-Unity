@@ -21,9 +21,33 @@ public class UserService {
         return userRepo.findUserByEmail(email);
     }
 
+    public Optional<User> getUser(Long id) {
+        return userRepo.findUserById(id);
+    }
+
+    public Optional<User> getUser(Integer studentId) {
+        return userRepo.findUserByStudentId(studentId);
+    }
     public void deleteUser(Long id){
         userRepo.deleteById(id);
     }
+
+    public void updateUserPassword(String password, Long id){
+        userRepo.updateUserPassword(password, id);
+    }
+
+    public void updateUserFirstName(String firstName, Long id){
+        userRepo.updateUserFirstName(firstName, id);
+    }
+
+    public void updateUserLastName(String lastName, Long id){
+        userRepo.updateUserLastName(lastName, id);
+    }
+
+    public void updateUserStudentId(Integer studentId, Long id){
+        userRepo.updateUserStudentId(studentId, id);
+    }
+
 
 
 }

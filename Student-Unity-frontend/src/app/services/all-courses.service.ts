@@ -3,43 +3,69 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Course } from '../models/Course';
-import { FnParam } from '@angular/compiler/src/output/output_ast';
+import { ActiveCourse } from '../models/active-course';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class AllCoursesService {
-  constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) {}
 
-  getAllCourses(): Observable<Course[]> {
-    return this.httpClient.get<any>(`${environment.baseUrl}/AllCourses/getAllCourses`);
-  }
-  postCourseData(sessionId: string, course: Course): Observable<HttpResponse<string>> {
-    console.log(course);
-    console.log(`${environment.baseUrl}/AllCourses/addCourse`);
-    return this.httpClient.post(`${environment.baseUrl}/AllCourses/addCourse`, course, {
-      params: {
-        sessionId: sessionId,
-      },
-      observe: 'response',
-      responseType: 'text',
-    });
-  }
-  deleteCourse(sessionId: string, code: string): Observable<HttpResponse<string>> {
-    return this.httpClient.delete(
-      `${environment.baseUrl}/AllCourses/removeCourse`,
-      {
-        params: {
-          sessionId: sessionId,
-          code: code,
-        },
-        observe: 'response',
-        responseType: 'text',
-      }
-    );
-  }
+    getAllCourses(): Observable<Course[]> {
+        return this.httpClient.get<any>(`${environment.baseUrl}/AllCourses/getAllCourses`);
+    }
 
-  registerCourse(sessionId: string, courseId: number): Observable<any> {
-    return this.httpClient.put(`${environment.baseUrl}/AllCourses/registerCourse/${sessionId}/${courseId}`,{});
-  }
+    getAllActiveCourses(): Observable<Course[]> {
+        return this.httpClient.get<any>(`${environment.baseUrl}/AllCourses/getAllActiveCourses`);
+    }
+
+    addCourse(sessionId: string, course: Course): Observable<HttpResponse<string>> {
+        console.log(course);
+        console.log(`${environment.baseUrl}/AllCourses/addCourse`);
+        return this.httpClient.post(`${environment.baseUrl}/AllCourses/addCourse`, course, {
+            params: {
+                sessionId: sessionId,
+            },
+            observe: 'response',
+            responseType: 'text',
+        });
+    }
+    deleteCourse(sessionId: string, code: string): Observable<HttpResponse<string>> {
+        return this.httpClient.delete(`${environment.baseUrl}/AllCourses/removeCourse`, {
+            params: {
+                sessionId: sessionId,
+                code: code,
+            },
+            observe: 'response',
+            responseType: 'text',
+        });
+    }
+
+    registerCourse(sessionId: string, courseId: number): Observable<any> {
+        return this.httpClient.put(`${environment.baseUrl}/AllCourses/registerCourse/${sessionId}/${courseId}`, {});
+    }
+    makeCourseActive(sessionId: string, code: string): Observable<HttpResponse<string>> {
+        return this.httpClient.put(
+            `${environment.baseUrl}/AllCourses/makeCourseActive`,
+            {},
+            {
+                params: {
+                    sessionId: sessionId,
+                    code: code,
+                },
+                observe: 'response',
+                responseType: 'text',
+            }
+        );
+    }
+    editActiveCourse(sessionId: string, code: string, activeCourse: ActiveCourse): Observable<HttpResponse<string>> {
+        return this.httpClient.put(`${environment.baseUrl}/AllCourses/editActiveCourse`, activeCourse, {
+            params: {
+                sessionId: sessionId,
+                code: code,
+            },
+            observe: 'response',
+            responseType: 'text',
+        });
+    }
 }
