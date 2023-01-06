@@ -61,7 +61,7 @@ functionalities not limited.
   - Organize Course Materials
 
 ## Project Structure
-The application is organized as leyared architecture: API layer, Logic layer, DAO or Repository layer.
+The application is organized as layered architecture: API layer, Logic layer, DAO or Repository layer.
 
 ## Usage
 You can run the application in development mode as follows:
@@ -70,6 +70,6 @@ You can run the application in development mode as follows:
       ng serve --open
        
 - Backend: run the backend server from your favorite IDE
-  - make sure that ``MySQL`` is installed already.
+  - make sure that ``MySQL`` is already installed.
   - edit ``username`` and ``password`` in **application.properties** file.
   
