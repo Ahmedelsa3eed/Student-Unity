@@ -5,6 +5,9 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+## Abstract
+The Student-Unity application aims to help students stay organized by combining various functionalities from different applications (such as Microsoft Teams, Google Classroom, etc.) into one app. The application's primary users are students and admins, and colleges and educational institutions can install the system to help their students. The technology stack used is Java, Spring Boot, JPA for the back-end, and Angular 13, Bootstrap for the front-end. The key distinctions of the application from other to-do apps are its automation, where it generates tasks automatically, and it offers various features such as course plans, deadlines, assignments, and revision systems. The app is organized into API, Logic, and DAO/Repository layers.
+
 ## Problem
 Students often feel overwhelmed by the amount of work they have to do. They find themselves
 missing deadlines Or sometimes forgetting to do some assignments. They are distracted
